@@ -455,7 +455,7 @@ CheatsObject.AddManyPotion = () => {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
 };
 CheatsObject.AddAllWeapon = () => {
-	Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T => KinkyDungeonInventoryAddWeapon(T.name));
+	Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T => KinkyDungeonInventoryAddWeapon(KinkyDungeonWeapons[T].name));
 };
 CheatsObject.AddAllOutfit = () => {
 	KinkyDungeonOutfitsBase.map(T => KinkyDungeonInventoryAddOutfit(T.name));
@@ -639,6 +639,13 @@ CheatsObject.WearCrystal = (lock) => {
 	;
 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
+// ShadowHand
+CheatsObject.WearShadowHand = (lock) => {
+	let r =
+		"ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet"
+	;
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+};
 CheatsObject.SaveLoad.GameSaveDataString = () => {
 	console.log(KinkyDungeonSaveGame(true));
 	return KinkyDungeonSaveGame(true);
@@ -735,7 +742,13 @@ CheatsObject.AddCheatChoice = () => {
 	// 您不再掉落钥匙和镐，可以用拘束住的手解锁自己，并且不需要手来使用物品/药水。
 	// Quick-Draw
 	// Switching weapons and spells does not take a turn.
-	"Slayer Conjurer Magician Psychic QuickDraw Vengeance".split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
+	// Slippery
+	// 顺滑
+	// Start with high Latex reputation, and all latex restraints are easier to escape from.
+	// 从较高的乳胶声誉开始，所有乳胶拘束都更容易摆脱。
+	// GroundedInReality "Grounded in Reality"
+	// "While at max mana, your attacks deal an additional 30% of their base damage as electric damage."
+	"Slayer Conjurer Magician Psychic QuickDraw Vengeance Slippery GroundedInReality".split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
 };
 CheatsObject.HardModeEnable = () => {
 	KinkyDungeonStatsChoice.set("hardMode", true);
