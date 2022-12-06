@@ -494,63 +494,63 @@ CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObje
 	);
 };
 // Slime
-CheatsObject.WearSlime = () => {
+CheatsObject.WearSlime = (lock) => {
 	let r =
 		"SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 狼女
-CheatsObject.WearWolf = () => {
+CheatsObject.WearWolf = (lock) => {
 	let r =
 		"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 黄色胶水
-CheatsObject.WearGlue = () => {
+CheatsObject.WearGlue = (lock) => {
 	let r =
 		"GlueLegs GlueFeet GlueBoots"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 连衣裙+紧身胸衣
-CheatsObject.WearDress = () => {
+CheatsObject.WearDress = (lock) => {
 	let r =
 		"DressCorset DressBra"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 水晶
-CheatsObject.WearCrystal = () => {
+CheatsObject.WearCrystal = (lock) => {
 	let r =
 		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 黄水晶
-CheatsObject.WearBandit = () => {
+CheatsObject.WearBandit = (lock) => {
 	let r =
 		"BanditLegCuffs BanditAnkleCuffs BanditArmCuffs"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 冰
-CheatsObject.WearIce = () => {
+CheatsObject.WearIce = (lock) => {
 	let r =
 		"IceArms IceLegs IceHarness IceGag"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 魔法
-CheatsObject.WearRibbon = () => {
+CheatsObject.WearRibbon = (lock) => {
 	let r =
 		"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 远古
-CheatsObject.WearEnchanted = () => {
+CheatsObject.WearEnchanted = (lock) => {
 	// EnchantedBelt 贞操带
 	// EnchantedBra 贞操胸罩
 	// BalletWedges undefined
@@ -564,49 +564,49 @@ CheatsObject.WearEnchanted = () => {
 	let r =
 		"EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // Kitty
-CheatsObject.WearKitty = () => {
+CheatsObject.WearKitty = (lock) => {
 	let r =
 		"KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // saber裙
-CheatsObject.WearMageArmor = () => {
+CheatsObject.WearMageArmor = (lock) => {
 	let r =
 		"MageArmor"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 祝福丝带
-CheatsObject.WearMysticDuct = () => {
+CheatsObject.WearMysticDuct = (lock) => {
 	let r =
 		"MysticDuctTapeHead MysticDuctTapeMouth MysticDuctTapeArmsMummy MysticDuctTapeLegsMummy MysticDuctTapeFeetMummy MysticDuctTapeBoots"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // 神圣
-CheatsObject.WearDivine = () => {
+CheatsObject.WearDivine = (lock) => {
 	let r =
 		"DivineCuffs DivineAnkleCuffs DivineMuzzle"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // Vibe
-CheatsObject.WearVibe = () => {
+CheatsObject.WearVibe = (lock) => {
 	let r =
 		"WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 // Crystal
-CheatsObject.WearCrystal = () => {
+CheatsObject.WearCrystal = (lock) => {
 	let r =
 		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
 	;
-	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
 CheatsObject.SaveLoad.GameSaveDataString = () => {
 	console.log(KinkyDungeonSaveGame(true));
