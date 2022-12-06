@@ -1,0 +1,684 @@
+﻿FFFFFFFFF=()=>{KinkyDungeonStatMana=KinkyDungeonStatManaMax ; KinkyDungeonStatWill=KinkyDungeonStatWillMax  ; KinkyDungeonStatStamina=KinkyDungeonStatStaminaMax ;}
+FFFFFFFFF=()=>{KinkyDungeonStatMana=0 ; KinkyDungeonStatWill=0  ; KinkyDungeonStatStamina=0 ;}
+
+TTT=setInterval(()=>{FFFFFFFFF()},1000) 
+
+KinkyDungeonChangeDistraction(10)
+
+KinkyDungeonSpellPoints=10000 
+
+clearInterval(TTT)
+
+
+KDGameData.AncientEnergyLevel=1
+
+
+KinkyDungeonChangeDistraction(11, true, 1)
+
+
+------------------
+
+function KinkyDungeonItemEvent(Item) {
+
+KinkyDungeonAddGold(10000000)
+KinkyDungeonLockpicks=1000 
+KinkyDungeonRedKeys=1000 
+KinkyDungeonBlueKeys=1000 
+
+
+KinkyDungeonAddGold(10000000) ;KinkyDungeonLockpicks=1000 ;KinkyDungeonRedKeys=1000 ;KinkyDungeonBlueKeys=1000 ;
+
+
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1000);
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1000);
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1000);
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionWill, 1000);
+
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1000);
+
+
+/**
+ * @type {Record<string, consumable>}
+ */
+
+let KinkyDungeonConsumables = {
+	"PotionMana" : {name: "PotionMana", potion: true, rarity: 0, shop: true, type: "restore", mp_instant: 5, mpool_instant: 0, mp_gradual: 0, scaleWithMaxMP: true, duration: 0, sfx: "PotionDrink"},
+	"ManaOrb" : {name: "ManaOrb", noHands: true, rarity: 2, shop: true, type: "restore", mp_instant: 0, mpool_instant: 20, mp_gradual: 0, scaleWithMaxMP: false, duration: 0, sfx: "Invis"},
+	"PotionWill" : {name: "PotionWill", potion: true, rarity: 0, shop: true, type: "restore", wp_instant: 2.5, wp_gradual: 0, scaleWithMaxWP: true, duration: 0, gagFloor: 0.5, sfx: "PotionDrink"},
+	"PotionStamina" : {name: "PotionStamina", potion: true, rarity: 1, shop: true, type: "restore", sp_instant: 5, sp_gradual: 25, scaleWithMaxSP: true, duration: 25, sfx: "PotionDrink"},
+	"PotionFrigid" : {name: "PotionFrigid", potion: true, rarity: 1, shop: true, type: "restore", ap_instant: -10, ap_gradual: -20, duration: 50, arousalRatio: 1.0, gagFloor: 0.5, sfx: "PotionDrink"},
+	"SmokeBomb" : {name: "SmokeBomb", noHands: true, rarity: 2, costMod: -1, shop: true, type: "spell", spell: "Shroud", sfx: "FireSpell"},
+	"PotionInvisibility" : {name: "PotionInvisibility", potion: true, rarity: 3, costMod: -1, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
+	"Ectoplasm" : {name: "Ectoplasm", noHands: true, rarity: 1, shop: false, type: "spell", spell: "LesserInvisibility", sfx: "Invis"},
+	"EarthRune" : {name: "EarthRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
+	"WaterRune" : {name: "WaterRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Waterrune", sfx: "HeavySwing"},
+	"Bola" : {name: "Bola", rarity: 0, costMod: -1, shop: false, useQuantity: 1, noConsumeOnUse: true, type: "targetspell", spell: "PlayerBola"},
+	"IceRune" : {name: "IceRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
+	"Bomb" : {name: "Bomb", rarity: 1, costMod: -1, shop: false, type: "spell", spell: "Bomb", sfx: "MagicSlash"},
+	"ElfCrystal" : {name: "ElfCrystal", noHands: true, rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
+	"EnchantedGrinder" : {name: "EnchantedGrinder", noHands: true, rarity: 4, shop: true, type: "spell", spell: "Cutting", sfx: "Laser"},
+	"MistressKey" : {name: "MistressKey", rarity: 8, costMod: -1, shop: false, type: "goldKey"},
+	"AncientPowerSource" : {name: "AncientPowerSource", noHands: true, rarity: 4, costMod: -1, shop: true, type: "charge", amount: 0.250},
+	"AncientPowerSourceSpent" : {name: "AncientPowerSourceSpent", noHands: true, rarity: 3, costMod: -1, shop: false, type: "recharge"},
+	"ScrollArms" : {name: "ScrollArms", noHands: true, rarity: 2, costMod: 1, shop: true, type: "buff", buff: "NoArmsComp", duration: 12, power: 1, aura: "#aaffaa", sfx: "FireSpell"},
+	"ScrollVerbal" : {name: "ScrollVerbal", noHands: true, rarity: 2, costMod: 1, shop: true, type: "buff", buff: "NoVerbalComp", duration: 12, power: 1, aura: "#aaaaff", sfx: "FireSpell"},
+	"ScrollLegs" : {name: "ScrollLegs", noHands: true, rarity: 2, costMod: 1, shop: true, type: "buff", buff: "NoLegsComp", duration: 12, power: 1, aura: "#ffaaaa", sfx: "FireSpell"},
+	"ScrollPurity" : {name: "ScrollPurity", noHands: true, rarity: 4, shop: true, type: "shrineRemove", shrine: "Vibes", sfx: "FireSpell"},
+};
+
+AncientPowerSource 能量水晶
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1000);
+MistressKey 远古钥匙
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1000);
+Ectoplasm 灵浆
+KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
+
+
+
+----------------------
+
+/**
+ * Your inventory contains items that are on you
+ * @type {Map<string, Map<string, item>>}
+ */
+let KinkyDungeonInventory = new Map();
+
+
+
+
+-----------------------
+
+function CharacterReset(CharacterID, CharacterAssetFamily, Type = CharacterType.ONLINE) {
+
+	// Prepares the character sheet
+	/** @type {Character} */
+	var NewCharacter = {
+
+
+KinkyDungeonPlayer
+
+KinkyDungeonPlayer.Appearance
+KinkyDungeonPlayer.Appearance.filter(T=>T.Difficulty&&T.Difficulty!=0)
+KinkyDungeonPlayer.Appearance.filter(T=>T.Difficulty&&T.Difficulty!=0).map(T=>T.Asset).map(T=>{return {Name:T.Name,Description:T.Description}}) 
+inspect(KinkyDungeonPlayer.Appearance.filter(T=>T.Difficulty&&T.Difficulty!=0).map(T=>T.Asset).map(T=>{return {Name:T.Name,Description:T.Description}})) 
+
+
+
+KinkyDungeonPlayer.BlockItems
+KinkyDungeonPlayer.HiddenItems
+KinkyDungeonPlayer.LimitedItems
+KinkyDungeonPlayer.BlackList
+KinkyDungeonPlayer.WhiteList
+
+
+
+------------------------------
+
+function KinkyDungeonUnlockRestraintsWithShrine(shrine) {
+	let count = 0;
+
+	for (let item of KinkyDungeonAllRestraint()) {
+		if (item.lock && KDRestraint(item).shrine && KDRestraint(item).shrine.includes(shrine) && KDLocks[item.lock] && !KDLocks[item.lock].shrineImmune) {
+
+			KinkyDungeonLock(item, "");
+			count++;
+		}
+	}
+
+	return count;
+}
+
+
+
+function KinkyDungeonUnlockRestraints() {
+	for (let item of KinkyDungeonAllRestraint()) {
+		if (item.lock) {
+			KinkyDungeonLock(item, "");
+		}
+	}
+}
+
+KinkyDungeonLock(item, "");
+
+/**
+ *
+ * @param {item} item
+ * @param {string} lock
+ */
+function KinkyDungeonLock(item, lock) {
+
+		item.lock = lock;
+		InventoryUnlock(KinkyDungeonPlayer,  KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Group);
+		if (!KinkyDungeonRestraintsLocked.includes( KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Group))
+			InventoryUnlock(Player, KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Group);
+
+
+
+/**
+* Unlocks an item and removes all related properties
+* @param {Character} C - The character on which the item must be unlocked
+* @param {Item|string} Item - The item from appearance to unlock
+*/
+function InventoryUnlock(C, Item) {
+	if (typeof Item === 'string') Item = InventoryGet(C, Item);
+	if (Item && Item.Property && Item.Property.Effect) {
+		ValidationDeleteLock(Item.Property, false);
+		CharacterRefresh(C);
+	}
+}
+
+
+--------------------------------------------
+
+
+/**
+ * It removes a restraint from the player
+ * @param {string} Group - The group of the item to remove.
+ * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
+ * @param {boolean} [Add] - If true, this is part of the process of adding another item and should not trigger infinite recursion
+ * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
+ * @param {boolean} [Shrine] - If the item is being removed from a shrine, this is true.
+ * @param {boolean} [UnLink] - If the item is being removed as part of an unlinking process
+ * @returns {boolean} true if the item was removed, false if it was not.
+ */
+function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) {
+
+
+------
+
+								// Calculate power of an attack vs protection
+								let protectRestraints = KinkyDungeonAllRestraint().filter((r) => {return KDRestraint(r).protection > 0;});
+								for (let r of protectRestraints) {
+									if (r && KDRestraint(r).protection && (!KDRestraint(r).protectionCursed || targetGroups[KDRestraint(r).Group])) {
+										protection += KDRestraint(r).protection;
+									}
+								}
+
+								let count = 0;
+								if (protection >= multiPower) {
+									for (let r of protectRestraints) {
+										if (count < multiPower) {
+											KinkyDungeonRemoveRestraint(KDRestraint(r).Group, true);
+------
+
+
+```
+
+KinkyDungeonAllRestraint()
+
+KinkyDungeonAllRestraint().map((r) => KDRestraint(r)).map(T=>KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true))
+
+KinkyDungeonAllRestraintDynamic()
+
+KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item)).map(T=>{ try{return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)}catch(e){} })
+
+KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item).name) 
+
+```
+
+
+```
+
+
+["SlimeBoots", "SlimeFeet", "SlimeLegs", "SlimeArms", "SlimeHands", "SlimeMouth", "SlimeHead"].map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+"SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+"SlimeWalkers".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+狼女
+"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) )
+
+"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfAnkleCuffs2 WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") )
+"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") )
+
+黄色胶水
+"GlueLegs GlueFeet GlueBoots".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+连衣裙+紧身胸衣
+"DressCorset DressBra".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+
+水晶
+"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+黄水晶
+"BanditLegCuffs BanditAnkleCuffs BanditArmCuffs".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) )
+
+冰
+"IceArms IceLegs IceHarness IceGag".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+魔法
+"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10)}catch(e){}} ) 
+
+远古
+"EnchantedBelt EnchantedBra BalletWedges EnchantedBlindfold EnchantedAnkleCuffs EnchantedAnkleCuffs2 EnchantedMuzzle EnchantedBallGag EnchantedArmbinder EnchantedMittens".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10)}catch(e){}} )
+"EnchantedBelt EnchantedBra BalletWedges EnchantedBlindfold EnchantedAnkleCuffs EnchantedMuzzle EnchantedBallGag EnchantedArmbinder EnchantedMittens".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10)}catch(e){}} )
+
+EnchantedBelt 贞操带
+EnchantedBra 贞操胸罩
+BalletWedges undefined 
+EnchantedBlindfold 眼罩
+EnchantedAnkleCuffs 脚铐
+EnchantedBallGag 口球
+EnchantedMuzzle 口套
+EnchantedMittens 手套
+EnchantedArmbinder 束手套
+EnchantedHeels 远古高跟鞋
+
+"EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10)}catch(e){}} )
+
+Ancient Heels
+远古高跟鞋
+You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it.
+你发现一双发光的高跟鞋，闪闪发光，旁边还有一个奇怪的水晶。
+A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 25 shadow damage on-hit with brief slow.
+一双高耸的高跟鞋，刻满了战斗魔法。充能后，它们会降低 2 级减速等级，并在击中时造成 25 点暗影伤害并带有短暂减速。
+
+
+
+
+CrystalLegCuffs 水晶足拷
+MaidVibe 女仆跳蛋
+NippleClamps 乳头按摩器
+SteelPlugF
+SteelPlugR 
+MaidCollar 女仆项圈
+WolfHarness 狼女训练束衣
+ControlHarness 狼女控制束衣
+MagicChainCrotch 下体链
+ObsidianCollar 黑曜石项圈
+DuctTapeLegsMummy
+MysticDuctTapeLegsMummy
+MikoCollar Fuuka项圈
+
+"MaidVibe NippleClamps SteelPlugF SteelPlugR EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels CrystalLegCuffs MaidCollar ObsidianCollar MikoCollar WolfHarness ControlHarness MagicChainCrotch".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")}catch(e){}} )
+
+
+
+
+"KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit"
+
+
+
+saber裙
+"MageArmor".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10)}catch(e){}} ) 
+
+祝福丝带
+"MysticDuctTapeHead MysticDuctTapeMouth MysticDuctTapeArmsMummy MysticDuctTapeLegsMummy MysticDuctTapeFeetMummy MysticDuctTapeBoots".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+神圣
+"DivineCuffs DivineAnkleCuffs DivineMuzzle".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10)}catch(e){}} ) 
+
+
+女仆项圈
+MaidCollar
+高科技电缆束衣
+CableHarness
+华丽贞操带
+TrapBelt2
+
+
+
+
+
+"WolfPanties NippleClamps PrisonVibe MaidVibe TrapVibe TrapPlug2 TrapPlug3 TrapPlug4".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10) ) 
+
+"WolfPanties NippleClamps MaidVibe TrapPlug2".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") ) 
+
+"WolfPanties NippleClamps TrapVibe TrapPlug2".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") )
+
+
+
+MagicBelt
+PrisonBelt
+PrisonBelt2
+EnchantedBelt
+MaidCBelt
+
+TrapBelt2
+
+EnchantedBra
+TrapBra2
+
+"EnchantedBelt EnchantedBra EnchantedHeels EnchantedBlindfold EnchantedAnkleCuffs".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") ) 
+
+"NippleClamps TrapVibe TrapPlug2".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") )
+
+TrapVibe
+MaidVibe
+WolfPanties
+NippleClamps
+PrisonVibe
+
+
+"NippleClamps SteelPlugF MaidVibe TrapBelt2 TrapBra2".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Purple") ) 
+
+
+Gold
+"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs".split(" ").map(T=> KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold") ) 
+
+
+
+
+
+other_restraints
+
+
+"EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR EnchantedBelt EnchantedBra ImproveEnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels EnchantedCrystalLegCuffs EnchantedMaidCollar EnchantedObsidianCollar EnchantedMikoCollar EnchantedWolfCollar EnchantedTrapHarness EnchantedWolfHarness EnchantedControlHarness EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")}catch(e){}} ) 
+
+
+
+KinkyDungeonAllRestraint()
+
+KinkyDungeonAllRestraint().map((r) => KDRestraint(r)).map(T=>KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true))
+
+KinkyDungeonAllRestraintDynamic()
+
+KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item)).map(T=>{ try{return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)}catch(e){} })
+
+KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item).name) 
+
+
+
+```
+
+
+
+
+
+
+--------------------
+
+
+KinkyDungeonItemEvent({name:"Heart"})
+
+
+
+
+
+--------------------
+
+KinkyDungeonSaveGame(true) 
+
+KinkyDungeonLoadGame("")
+
+
+
+-----------------------
+
+
+
+
+Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T=>KinkyDungeonGoddessRep[T]=50)
+
+
+
+JSON.stringify( KinkyDungeonFactionRelations.Player ) 
+
+"{\"Enemy\":-1,\"Jail\":-1,\"Prisoner\":0.1,\"KinkyConstruct\":-0.9500000000000001,\"Plant\":-0.9,\"Slime\":-1,\"Mold\":-1,\"Beast\":-0.6,\"Bountyhunter\":-0.32969999999999994,\"Bandit\":-0.7009,\"Alchemist\":-0.16719999999999993,\"Nevermere\":0.032500000000000064,\"Apprentice\":0.23872499999999983,\"Dressmaker\":-0.5472,\"Witch\":-0.8603000000000007,\"Elemental\":-0.5872,\"Dragon\":0.13340000000000002,\"Maidforce\":0.004400000000000022,\"Bast\":-0.625,\"Elf\":-0.26,\"Mushy\":-0.64,\"AncientRobot\":-0.45,\"Angel\":0.09975000000000002,\"Demon\":-0.247}" 
+
+
+Object.getOwnPropertyNames(KinkyDungeonFactionRelations.Player).map(T=>KinkyDungeonFactionRelations.Player[T]=1)
+"Bountyhunter Bandit Alchemist Nevermere Apprentice Dressmaker Witch Elemental Dragon Maidforce Bast Elf Mushy AncientRobot Angel Demon".split(" ").map(T=>KinkyDungeonFactionRelations.Player[T]=1)
+
+KinkyDungeonFactionRelations.Player.Slime =0
+KinkyDungeonFactionRelations.Player.Nevermere =0
+
+
+let KinkyDungeonFactionRelationsBase = {
+	"Player": {
+		Enemy: -1.0,
+		Jail: -1.0,
+		Prisoner: 0.1,
+
+		// Wild factions
+		KinkyConstruct: -0.9,
+		Plant: -0.9,
+		Slime: -1.0,
+		Mold: -1.0,
+		Beast: -0.6,
+
+		// Mainline factions
+		Bountyhunter: -0.35,
+		Bandit: -0.7,
+		Alchemist: -0.25,
+		Nevermere: -0.1,
+		Apprentice: 0.25,
+		Dressmaker: -0.45,
+		Witch: -0.8,
+		Elemental: -0.6,
+		Dragon: 0.1,
+		Maidforce: -0.05,
+		Bast: -0.6,
+		Elf: -0.26,
+		Mushy: -0.64,
+		AncientRobot: -0.45,
+
+		// Special factions
+		Angel: 0.1,
+		Demon: -0.25,
+	},
+
+
+
+
+
+
+
+--------------------------------------------------------------
+
+KinkyDungeonCategoryFilterconsumable,Consumable
+KinkyDungeonCategoryFilterrestraint,Equipped
+KinkyDungeonCategoryFilterweapon,Weapons
+KinkyDungeonCategoryFilteroutfit,Outfits
+KinkyDungeonCategoryFilterlooserestraint,Wearable
+KinkyDungeonCategoryFiltermisc,Miscellaneous
+
+
+
+KinkyDungeonWeapons
+KinkyDungeonFindWeapon("EnchKnife") 
+KinkyDungeonInventoryAddWeapon("EnchKnife") 
+
+
+KinkyDungeonOutfitsBase.map(T=>KinkyDungeonInventoryAddOutfit(T.name)) 
+
+Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T=>KinkyDungeonInventoryAddWeapon(T.name)) 
+
+
+KinkyDungeonAllLooseRestraint()
+
+KinkyDungeonChangeConsumable
+
+
+
+
+/**
+ * Your inventory contains items that are on you
+ * @type {Map<string, Map<string, item>>}
+ */
+let KinkyDungeonInventory = new Map();
+function KDInitInventory() {
+	KinkyDungeonInventory = new Map();
+	for (const c of [Consumable, Restraint, LooseRestraint, Weapon, Outfit]) {
+		KinkyDungeonInventory.set(c, new Map());
+	}
+}
+
+
+/**
+ * A shop where the seller sells items
+ * @returns {KinkyDialogue}
+ */
+function KDSaleShop(name, items, requireTags, requireSingleTag, chance, markup) {
+........
+					if (KinkyDungeonGetRestraintByName(item)) {
+						// Sell the player a restraint
+						let rest = KinkyDungeonGetRestraintByName(item);
+						let Rname = rest.inventoryAs || rest.name;
+						if (!KinkyDungeonInventoryGetLoose(Rname)) {
+							KinkyDungeonInventoryAdd({name: Rname, type: LooseRestraint, events:rest.events, quantity: 1});
+						} else {
+							if (!KinkyDungeonInventoryGetLoose(Rname).quantity) KinkyDungeonInventoryGetLoose(Rname).quantity = 0;
+							KinkyDungeonInventoryGetLoose(Rname).quantity += 1;
+						}
+					}
+
+
+KinkyDungeonRestraintsCache
+Array.from(KinkyDungeonRestraintsCache.values())
+
+
+Array.from(KinkyDungeonRestraintsCache.values()).map(T=>{ let Rname = T.inventoryAs || T.name; let n = KinkyDungeonInventoryGetLoose(Rname); if(n){if(!n.quantity){n.quantity=0};n.quantity+=1;}else{KinkyDungeonInventoryAdd({name: Rname, type: LooseRestraint, events:T.events, quantity: 1})} ; return Rname })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+/**
+ * @type {Record<string, KDPerk>}
+ */
+let KinkyDungeonStatsPresets = {
+
+
+
+	"Slayer": {category: "Magic", id: 34, cost: 3},
+	"Conjurer": {category: "Magic", id: 35, cost: 3},
+	"Magician": {category: "Magic", id: 36, cost: 3},
+
+
+
+KinkyDungeonStat34,"Slayer"
+KinkyDungeonStatDesc34,"You can cast Elemental spells without having the components, at twice the cost. Start w/ Firebolt."
+KinkyDungeonStat35,"Conjurer"
+KinkyDungeonStatDesc35,"You can cast Conjuration spells without having the components, at twice the cost. Start w/ Conjure Chain."
+KinkyDungeonStat36,"Magician"
+KinkyDungeonStatDesc36,"You can cast Illusion spells without having the components, at twice the cost. Start w/ Shadow Dagger."
+
+
+Slayer
+杀手
+You can cast Elemental spells without having the components, at twice the cost. Start w/ Firebolt.
+你可以以两倍魔力消耗为代价无视施法条件使用元素法术。开局获得技能 火焰弹。
+Conjurer
+咒术师
+You can cast Conjuration spells without having the components, at twice the cost. Start w/ Conjure Chain.
+你可以以两倍魔力消耗为代价无视施法条件使用咒术。开局获得技能 咒术。
+Magician
+魔术师
+You can cast Illusion spells without having the components, at twice the cost. Start w/ Shadow Dagger.
+你可以以两倍魔力消耗为代价无视施法条件使用幻术。开局获得技能 暗影匕首。
+
+
+function KinkyDungeonDrawPerkOrb() {
+
+	DrawButtonKDEx("accept", (bdata) => {
+		if (KDPerkConfirm) {
+			KDSendInput("perkorb", {shrine: "perk", perks: KDPerkOrbPerks, Amount: 1, x: KDOrbX, y: KDOrbY});
+			KinkyDungeonDrawState = "Game";
+		}
+
+
+
+/**
+ *
+ * @param {string} type
+ * @param {any} data
+ * @returns {string}
+ */
+function KDSendInput(type, data, frame, noUpdate) {
+
+	if (!noUpdate) {
+		KDGameData.OrigEnergyLevel = KDGameData.AncientEnergyLevel;
+		KDGameData.LastSP = KinkyDungeonStatStamina;
+		KDGameData.LastMP = KinkyDungeonStatMana;
+		KDGameData.LastAP = KinkyDungeonStatDistraction;
+		KDGameData.LastWP = KinkyDungeonStatWill;
+	}
+
+	KinkyDungeonInputQueue.push({type: type, data: data});
+	return KDProcessInputs(true);
+}
+
+/**
+ * Handles inputs once per frame
+ * @returns {string}
+ */
+function KDProcessInputs(ReturnResult) {
+	for (let i = 0; i < 3; i++) {
+		if (KinkyDungeonInputQueue.length > 0) {
+			let input = KinkyDungeonInputQueue.splice(0, 1)[0];
+			if (input) {
+				let res = KDProcessInput(input.type, input.data);
+				if (ReturnResult) return res;
+			}
+		}
+	}
+
+	return "";
+}
+
+
+/**
+ * @type {{type: string, data: any}[]}
+ */
+let KinkyDungeonInputQueue = [];
+
+/**
+ * @returns {string}
+ * Delegate to KDProcessInputs */
+function KDProcessInput(type, data) {
+
+
+		case "perkorb":
+			if (KinkyDungeonMapGet(data.x, data.y) == 'P') {
+				KDSendStatus('goddess', data.perks, 'takePerkOrb');
+
+				if (data.perks) {
+					for (let p of data.perks) {
+						KinkyDungeonStatsChoice.set(p, true);
+					}
+				}
+
+
+
+
+
+```
+
+
+"Slayer Conjurer Magician Psychic QuickDraw Vengeance".split(" ").map(T=> KinkyDungeonStatsChoice.set(T, true) )
+
+KinkyDungeonStatsChoice.set(p, true);
+
+
+
+Psychic
+
+
+
+KinkyDungeonStatMagicHands,"Magic Hands"
+KinkyDungeonStatDescMagicHands,"Enemies can add restraints underneath existing restraints."
+
+KinkyDungeonStatsChoice.set("MagicHands", true);
+
+
+```
+
+
+
+
