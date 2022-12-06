@@ -638,8 +638,54 @@ CheatsObject.FullAllRelations = () => {
 CheatsObject.FullAllGoddess = () => {
 	Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => KinkyDungeonGoddessRep[T] = 50);
 };
+CheatsObject.DebugSee.ShowAllChoice = (c) => {
+	return Array.from(KinkyDungeonStatsChoice.entries()).filter(T => T[1]);
+}
 CheatsObject.AddOneChoice = (c) => {
 	KinkyDungeonStatsChoice.set(c, true);
+}
+CheatsObject.AddCheatChoiceNegative = () => {
+	// Vengeance
+	// 复仇
+	// Defeating an enemy greatly distracts you.
+	// 击败敌人会极大地提高你的干扰值。
+	// Magic Hands
+	// Enemies can add restraints underneath existing restraints.
+	// Nowhere
+	// 草木皆兵
+	// Beds and furniture are often trapped.
+	// 床和木桶经常会是陷阱。
+	// CommonLatex "Latex Lovers"
+	// "All humanoids that can bind you also apply latex restraints."
+	// CommonWolf "Wolfgirl Lovers"
+	// "All humanoids that can bind you also apply wolfgirl restraints."
+	// CommonMaid "Maid Lovers"
+	// "All humanoids that can bind you also apply maid restraints."
+	// CommonDress "Dress Lovers"
+	// "All humanoids that can bind you also apply dress restraints."
+	// CommonKitty "Kitty Lovers"
+	// "All humanoids that can bind you also apply kitty restraints."
+	// CommonExp "Adv Latex Lovers"
+	// "All humanoids that can bind you also apply advanced latex restraints."
+	// CommonFuuka "Fuuka Fan Club"
+	// "All humanoids that can bind you also apply Fuuka's special restraints."
+	// KinkyPrison "Kinky Prisoner"
+	// "Guards never remove restraints you are already wearing, unless they are applying something tighter."
+
+	// BallGagLover "Ball Gag Lover"
+	// "Increase occurrence of ball gags, decrease occurrence of muzzles."
+	// MuzzleLover "Muzzle Lover"
+	// "Greatly increases the occurrence of muzzles."
+	// ArmbinderLover "Armbinder Lover"
+	// "More armbinders, less straitjackets."
+	// JacketLover "Jacket Lover"
+	// "More straitjackets, less armbinders."
+
+	(
+		"Vengeance MagicHands Nowhere " +
+		"CommonLatex CommonMaid CommonDress CommonKitty CommonExp CommonFuuka" +
+		"KinkyPrison"
+	).split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
 }
 CheatsObject.AddCheatChoice = () => {
 	// Slayer
@@ -654,10 +700,20 @@ CheatsObject.AddCheatChoice = () => {
 	// 魔术师
 	// You can cast Illusion spells without having the components, at twice the cost. Start w/ Shadow Dagger.
 	// 你可以以两倍魔力消耗为代价无视施法条件使用幻术。开局获得技能 暗影匕首。
-	// Magic Hands
-	// Enemies can add restraints underneath existing restraints.
-	"Slayer Conjurer Magician Psychic QuickDraw Vengeance MagicHands".split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
+	// Psychic
+	// 精神
+	// You no longer drop keys and picks, can unlock yourself with bound hands, and don't need hands for items/potions.
+	// 您不再掉落钥匙和镐，可以用拘束住的手解锁自己，并且不需要手来使用物品/药水。
+	// Quick-Draw
+	// Switching weapons and spells does not take a turn.
+	"Slayer Conjurer Magician Psychic QuickDraw Vengeance".split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
 };
+CheatsObject.HardModeEnable = () => {
+	KinkyDungeonStatsChoice.set("hardMode", true);
+}
+CheatsObject.HardModeDisable = () => {
+	KinkyDungeonStatsChoice.delete("hardMode");
+}
 
 console.log("=============================enchanted_restraints end=============================");
 
