@@ -238,7 +238,7 @@ console.log("=============================enchanted_restraints before copy patch
 	return T;
 }).map(T => {
 	return KinkyDungeonRestraints.push(T);
-})
+});
 
 KinkyDungeonRestraints.push((() => {
 	let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === "EnchantedBlindfold"));
@@ -267,7 +267,7 @@ let addTKeyF1 = (it, s1, s2 = undefined) => {
 	// addTextKey("Restraint" + it + "Desc", s1);
 	// addTextKey("Restraint" + it + "Desc2", s2 || s1);
 	KinkyDungeonAddRestraintText(it, s1, s1, s2 || s1);
-}
+};
 
 // function KDGetItemPreview(item) {
 // 	let ret = null;
@@ -676,10 +676,10 @@ CheatsObject.FullAllGoddess = () => {
 };
 CheatsObject.DebugSee.ShowAllChoice = () => {
 	return Array.from(KinkyDungeonStatsChoice.entries()).filter(T => T[1]);
-}
+};
 CheatsObject.AddOneChoice = (c) => {
 	KinkyDungeonStatsChoice.set(c, true);
-}
+};
 CheatsObject.AddCheatChoiceNegative = () => {
 	// Vengeance
 	// 复仇
@@ -722,7 +722,7 @@ CheatsObject.AddCheatChoiceNegative = () => {
 		"CommonLatex CommonMaid CommonDress CommonKitty CommonExp CommonFuuka" +
 		"KinkyPrison"
 	).split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
-}
+};
 CheatsObject.AddCheatChoice = () => {
 	// Slayer
 	// 杀手
@@ -752,10 +752,10 @@ CheatsObject.AddCheatChoice = () => {
 };
 CheatsObject.HardModeEnable = () => {
 	KinkyDungeonStatsChoice.set("hardMode", true);
-}
+};
 CheatsObject.HardModeDisable = () => {
 	KinkyDungeonStatsChoice.delete("hardMode");
-}
+};
 
 console.log("disable Data Trace");
 // disable Data Trace, to avoid cheats game data send to server
