@@ -405,6 +405,8 @@ window.KinkyDungeonMod_EnchantedRestraints.Cheats = {
 };
 // a temp ref to KinkyDungeonMod_EnchantedRestraints.Cheats for short code
 let CheatsObject = window.KinkyDungeonMod_EnchantedRestraints.Cheats;
+// fast ref
+window.Mod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints
 
 CheatsObject.FullStatOff = () => {
 	if (CheatsObject._InnerData.FullStatIntervalHandle) {
