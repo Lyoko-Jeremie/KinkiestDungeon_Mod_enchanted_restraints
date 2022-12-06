@@ -46,6 +46,14 @@ Mod_EnchantedRestraints.Cheats.SetAncientEnergy(/*AncientEnergy [option , 0.0~1.
 Mod_EnchantedRestraints.Cheats.AddManyKeys()
 // add all the Potion*1000
 Mod_EnchantedRestraints.Cheats.AddManyPotion()
+// add all the Weapon to Inventory
+Mod_EnchantedRestraints.Cheats.AddAllWeapon()
+// add all the Outfit to Inventory
+Mod_EnchantedRestraints.Cheats.AddAllOutfit()
+// add all the Consumables*1000 , keys are not Consumables
+Mod_EnchantedRestraints.Cheats.AddAllConsumables()
+// add all the Restraints to Inventory
+Mod_EnchantedRestraints.Cheats.AddAllRestraints()
 // Remove All first layer Restraint , maybe need exe many time to remove all Restraint
 Mod_EnchantedRestraints.Cheats.RemoveAllRestraint()
 // Remove All layer Restraint , it will remove Restraint link
@@ -86,6 +94,8 @@ Mod_EnchantedRestraints.Cheats.WearDivine(/*key name [option]*/)
 Mod_EnchantedRestraints.Cheats.WearVibe(/*key name [option]*/)
 // wear Restraints of Crystal
 Mod_EnchantedRestraints.Cheats.WearCrystal(/*key name [option]*/)
+// wear Restraints of ShadowHand
+Mod_EnchantedRestraints.Cheats.WearShadowHand(/*key name [option]*/)
 
 // make All Relations Full
 Mod_EnchantedRestraints.Cheats.FullAllRelations()
