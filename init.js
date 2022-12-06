@@ -480,7 +480,8 @@ CheatsObject.RemoveAllRestraintDynamic = () => {
 CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObject.LockList.Gold) => {
 	// lock can be Purple Red White Blue Gold
 	// Red White is normal key
-	// Blue need command to unlock
+	// Blue is magic key
+	// Purple need command to unlock
 	// Gold need the MistressKey to unlock
 	// MistressKey need the MistressKey to unlock
 	// GhostLock need the Ectoplasm to unlock
