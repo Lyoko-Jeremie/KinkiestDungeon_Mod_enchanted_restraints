@@ -360,7 +360,7 @@ window.KinkyDungeonMod_EnchantedRestraints = {};
 window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
 	// all the order are important , because some of those will link each other
 	// the thing change from origin
-	let r = "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR " +
+	let s = "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR " +
 		// origin Enchanted (except the ImproveEnchantedBlindfold)
 		"EnchantedBelt EnchantedBra ImproveEnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels " +
 		// Legs
@@ -370,15 +370,16 @@ window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
 		// Harness
 		"EnchantedTrapHarness EnchantedWolfHarness EnchantedControlHarness " +
 		// Legs
-		"EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs"
-			.split(" ").filter(T => !!T).map(T => {
-				try {
-					return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")
-				} catch (e) {
-					console.error(e);
-				}
-			}
-		);
+		"EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs";
+	console.log(s);
+	let r = s.split(" ").filter(T => !!T).map(T => {
+		try {
+			return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")
+		} catch (e) {
+			console.log(e);
+		}
+	});
+	console.log(r);
 	if (r.filter(T => !T).length > 0) {
 		console.log('KinkyDungeonMod_EnchantedRestraints.AddRestraint has some error');
 	} else {
@@ -507,7 +508,7 @@ CheatsObject.WearWolf = () => {
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // 黄色胶水
-CheatsObject.WearWolf = () => {
+CheatsObject.WearGlue = () => {
 	let r =
 		"GlueLegs GlueFeet GlueBoots"
 	;
@@ -535,21 +536,21 @@ CheatsObject.WearBandit = () => {
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // 冰
-CheatsObject.WearBandit = () => {
+CheatsObject.WearIce = () => {
 	let r =
 		"IceArms IceLegs IceHarness IceGag"
 	;
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // 魔法
-CheatsObject.WearBandit = () => {
+CheatsObject.WearRibbon = () => {
 	let r =
 		"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape"
 	;
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // 远古
-CheatsObject.WearBandit = () => {
+CheatsObject.WearEnchanted = () => {
 	// EnchantedBelt 贞操带
 	// EnchantedBra 贞操胸罩
 	// BalletWedges undefined
@@ -587,21 +588,21 @@ CheatsObject.WearMysticDuct = () => {
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // 神圣
-CheatsObject.WearMysticDuct = () => {
+CheatsObject.WearDivine = () => {
 	let r =
 		"DivineCuffs DivineAnkleCuffs DivineMuzzle"
 	;
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // Vibe
-CheatsObject.WearMysticDuct = () => {
+CheatsObject.WearVibe = () => {
 	let r =
 		"WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe"
 	;
 	CheatsObject._InnerFunction.WearRestraints(r, "Purple");
 };
 // Crystal
-CheatsObject.WearMysticDuct = () => {
+CheatsObject.WearCrystal = () => {
 	let r =
 		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
 	;
