@@ -454,6 +454,32 @@ CheatsObject.AddManyPotion = () => {
 	// 灵浆 use to unlock GhostLock
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
 };
+CheatsObject.AddAllWeapon = () => {
+	Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T => KinkyDungeonInventoryAddWeapon(T.name));
+};
+CheatsObject.AddAllOutfit = () => {
+	KinkyDungeonOutfitsBase.map(T => KinkyDungeonInventoryAddOutfit(T.name));
+};
+CheatsObject.AddAllConsumables = () => {
+	Object.getOwnPropertyNames(KinkyDungeonConsumables).map(T => {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
+	});
+};
+CheatsObject.AddAllRestraints = () => {
+	Array.from(KinkyDungeonRestraintsCache.values()).map(T => {
+		let Rname = T.inventoryAs || T.name;
+		let n = KinkyDungeonInventoryGetLoose(Rname);
+		if (n) {
+			if (!n.quantity) {
+				n.quantity = 0;
+			}
+			n.quantity += 1;
+		} else {
+			KinkyDungeonInventoryAdd({name: Rname, type: LooseRestraint, events: T.events, quantity: 1})
+		}
+		return Rname;
+	})
+};
 CheatsObject.DebugSee.ShowAllRestraint = () => {
 	console.log(KinkyDungeonAllRestraint());
 	return KinkyDungeonAllRestraint();
@@ -717,6 +743,10 @@ CheatsObject.HardModeEnable = () => {
 CheatsObject.HardModeDisable = () => {
 	KinkyDungeonStatsChoice.delete("hardMode");
 }
+
+console.log("disable Data Trace");
+// disable Data Trace, to avoid cheats game data send to server
+KDOptOut = true;
 
 console.log("=============================enchanted_restraints end=============================");
 
