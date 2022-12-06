@@ -448,6 +448,7 @@ CheatsObject.AddManyPotion = () => {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1000);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1000);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionWill, 1000);
+	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ManaOrb, 1000);
 	// 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1000);
 	// 灵浆 use to unlock GhostLock
@@ -640,7 +641,7 @@ CheatsObject.FullAllRelations = () => {
 CheatsObject.FullAllGoddess = () => {
 	Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => KinkyDungeonGoddessRep[T] = 50);
 };
-CheatsObject.DebugSee.ShowAllChoice = (c) => {
+CheatsObject.DebugSee.ShowAllChoice = () => {
 	return Array.from(KinkyDungeonStatsChoice.entries()).filter(T => T[1]);
 }
 CheatsObject.AddOneChoice = (c) => {
