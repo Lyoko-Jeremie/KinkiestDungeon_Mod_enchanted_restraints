@@ -638,6 +638,9 @@ CheatsObject.FullAllRelations = () => {
 CheatsObject.FullAllGoddess = () => {
 	Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => KinkyDungeonGoddessRep[T] = 50);
 };
+CheatsObject.AddOneChoice = (c) => {
+	KinkyDungeonStatsChoice.set(c, true);
+}
 CheatsObject.AddCheatChoice = () => {
 	// Slayer
 	// 杀手
