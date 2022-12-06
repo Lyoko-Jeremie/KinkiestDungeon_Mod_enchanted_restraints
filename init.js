@@ -413,6 +413,7 @@ CheatsObject.FullStatOff = () => {
 	}
 };
 CheatsObject.FullStatOn = () => {
+	CheatsObject.FullStatOff();
 	CheatsObject._InnerData.FullStatIntervalHandle = setInterval(() => {
 		CheatsObject._InnerFunction.FullStat();
 	}, 1000);
