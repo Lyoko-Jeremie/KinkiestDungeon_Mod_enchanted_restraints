@@ -359,6 +359,15 @@ Gold
 
 
 
+RopeSnakeHogtie
+MithrilRopeHogtie
+StrongMagicRopeHogtie
+
+StrongMagicRopeToe
+
+ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet
+
+
 
 
 other_restraints
