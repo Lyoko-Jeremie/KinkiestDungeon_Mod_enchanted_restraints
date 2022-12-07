@@ -312,12 +312,12 @@ addTKeyF1("EnchantedMikoCollar", "远古" + "Fuuka项圈");
 addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩");
 
 //
-addTextKey("Restraint" + "EnchantedHeels" + "Desc2",
-	"一双高耸的高跟鞋，刻满了战斗魔法。充能后，它们会降低 1 级减速等级，并在击中时造成 25 点暗影伤害并带有短暂减速。"
-);
-addTextKey("KinkyDungeonCategoryFilterlooserestraint",
-	"可穿戴物"
-);
+// addTextKey("Restraint" + "EnchantedHeels" + "Desc2",
+// 	"一双高耸的高跟鞋，刻满了战斗魔法。充能后，它们会降低 1 级减速等级，并在击中时造成 25 点暗影伤害并带有短暂减速。"
+// );
+// addTextKey("KinkyDungeonCategoryFilterlooserestraint",
+// 	"可穿戴物"
+// );
 
 
 // addTextKey("Restraint" + "EnchantedMaidVibe" + "Desc", "远古" + "女仆跳蛋");
