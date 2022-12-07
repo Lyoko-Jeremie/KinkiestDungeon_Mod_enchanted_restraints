@@ -527,135 +527,173 @@ CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObje
 		}
 	);
 };
-// Slime
-CheatsObject.WearSlime = (lock) => {
-	let r =
-		"SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// // Slime
+// CheatsObject.WearSlime = (lock) => {
+// 	let r =
+// 		"SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 狼女
+// CheatsObject.WearWolf = (lock) => {
+// 	let r =
+// 		"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 黄色胶水
+// CheatsObject.WearGlue = (lock) => {
+// 	let r =
+// 		"GlueLegs GlueFeet GlueBoots"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 连衣裙+紧身胸衣
+// CheatsObject.WearDress = (lock) => {
+// 	let r =
+// 		"DressCorset DressBra"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 水晶
+// CheatsObject.WearCrystal = (lock) => {
+// 	let r =
+// 		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 黄水晶
+// CheatsObject.WearBandit = (lock) => {
+// 	let r =
+// 		"BanditLegCuffs BanditAnkleCuffs BanditArmCuffs"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 冰
+// CheatsObject.WearIce = (lock) => {
+// 	let r =
+// 		"IceArms IceLegs IceHarness IceGag"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 魔法
+// CheatsObject.WearRibbon = (lock) => {
+// 	let r =
+// 		"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 远古
+// CheatsObject.WearEnchanted = (lock) => {
+// 	// EnchantedBelt 贞操带
+// 	// EnchantedBra 贞操胸罩
+// 	// BalletWedges undefined
+// 	// EnchantedBlindfold 眼罩
+// 	// EnchantedAnkleCuffs 脚铐
+// 	// EnchantedBallGag 口球
+// 	// EnchantedMuzzle 口套
+// 	// EnchantedMittens 手套
+// 	// EnchantedArmbinder 束手套
+// 	// EnchantedHeels 远古高跟鞋
+// 	let r =
+// 		"EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // Kitty
+// CheatsObject.WearKitty = (lock) => {
+// 	let r =
+// 		"KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // saber裙
+// CheatsObject.WearMageArmor = (lock) => {
+// 	let r =
+// 		"MageArmor"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 祝福丝带
+// CheatsObject.WearMysticDuct = (lock) => {
+// 	let r =
+// 		"MysticDuctTapeHead MysticDuctTapeMouth MysticDuctTapeArmsMummy MysticDuctTapeLegsMummy MysticDuctTapeFeetMummy MysticDuctTapeBoots"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // 神圣
+// CheatsObject.WearDivine = (lock) => {
+// 	let r =
+// 		"DivineCuffs DivineAnkleCuffs DivineMuzzle"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // Vibe
+// CheatsObject.WearVibe = (lock) => {
+// 	let r =
+// 		"WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // ShadowHand
+// CheatsObject.WearShadowHand = (lock) => {
+// 	let r =
+// 		"ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+// // VinePlant
+// CheatsObject.WearVinePlant = (lock) => {
+// 	let r =
+// 		"VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso"
+// 	;
+// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+// };
+CheatsObject._InnerData.WearsList = {
+	// VinePlant
+	VinePlant: "VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso",
+	// ShadowHand
+	ShadowHand: "ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet",
+	// Vibe
+	Vibe: "WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe",
+	// 神圣
+	Divine: "DivineCuffs DivineAnkleCuffs DivineMuzzle",
+	// 祝福丝带
+	MysticDuct: "MysticDuctTapeHead MysticDuctTapeMouth MysticDuctTapeArmsMummy MysticDuctTapeLegsMummy MysticDuctTapeFeetMummy MysticDuctTapeBoots",
+	// saber裙
+	Saber: "MageArmor",
+	MageArmor: "MageArmor",
+	// Kitty
+	Kitty: "KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit",
+	// 远古
+	Enchanted: "EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels",
+	// 魔法
+	Ribbon: "RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape",
+	// 冰
+	Ice: "IceArms IceLegs IceHarness IceGag",
+	// 黄水晶
+	BanditLeg: "BanditLegCuffs BanditAnkleCuffs BanditArmCuffs",
+	// 水晶
+	Crystal: "CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs",
+	// 连衣裙+紧身胸衣
+	Dress: "DressCorset DressBra",
+	// 黄色胶水
+	Glue: "GlueLegs GlueFeet GlueBoots",
+	// 狼女
+	Wolf: "WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties",
+	// Slime
+	Slime: "SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead",
+	// // AAAAA
+	// AAAAA: ,
 };
-// 狼女
-CheatsObject.WearWolf = (lock) => {
-	let r =
-		"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 黄色胶水
-CheatsObject.WearGlue = (lock) => {
-	let r =
-		"GlueLegs GlueFeet GlueBoots"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 连衣裙+紧身胸衣
-CheatsObject.WearDress = (lock) => {
-	let r =
-		"DressCorset DressBra"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 水晶
-CheatsObject.WearCrystal = (lock) => {
-	let r =
-		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 黄水晶
-CheatsObject.WearBandit = (lock) => {
-	let r =
-		"BanditLegCuffs BanditAnkleCuffs BanditArmCuffs"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 冰
-CheatsObject.WearIce = (lock) => {
-	let r =
-		"IceArms IceLegs IceHarness IceGag"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 魔法
-CheatsObject.WearRibbon = (lock) => {
-	let r =
-		"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 远古
-CheatsObject.WearEnchanted = (lock) => {
-	// EnchantedBelt 贞操带
-	// EnchantedBra 贞操胸罩
-	// BalletWedges undefined
-	// EnchantedBlindfold 眼罩
-	// EnchantedAnkleCuffs 脚铐
-	// EnchantedBallGag 口球
-	// EnchantedMuzzle 口套
-	// EnchantedMittens 手套
-	// EnchantedArmbinder 束手套
-	// EnchantedHeels 远古高跟鞋
-	let r =
-		"EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// Kitty
-CheatsObject.WearKitty = (lock) => {
-	let r =
-		"KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// saber裙
-CheatsObject.WearMageArmor = (lock) => {
-	let r =
-		"MageArmor"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 祝福丝带
-CheatsObject.WearMysticDuct = (lock) => {
-	let r =
-		"MysticDuctTapeHead MysticDuctTapeMouth MysticDuctTapeArmsMummy MysticDuctTapeLegsMummy MysticDuctTapeFeetMummy MysticDuctTapeBoots"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// 神圣
-CheatsObject.WearDivine = (lock) => {
-	let r =
-		"DivineCuffs DivineAnkleCuffs DivineMuzzle"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// Vibe
-CheatsObject.WearVibe = (lock) => {
-	let r =
-		"WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// Crystal
-CheatsObject.WearCrystal = (lock) => {
-	let r =
-		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// ShadowHand
-CheatsObject.WearShadowHand = (lock) => {
-	let r =
-		"ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
-// VinePlant
-CheatsObject.WearVinePlant = (lock) => {
-	let r =
-		"VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso"
-	;
-	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-};
+(() => {
+	Object.getOwnPropertyNames(CheatsObject._InnerData.WearsList).map(N => {
+		CheatsObject['Wear' + N.trim()] = (lock) => {
+			let r = CheatsObject._InnerData.WearsList[N];
+			CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+		};
+	});
+})();
 CheatsObject.SaveLoad.GameSaveDataString = () => {
 	console.log(KinkyDungeonSaveGame(true));
 	return KinkyDungeonSaveGame(true);
