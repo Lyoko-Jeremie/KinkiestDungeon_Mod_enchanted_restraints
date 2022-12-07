@@ -649,6 +649,13 @@ CheatsObject.WearShadowHand = (lock) => {
 	;
 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
 };
+// VinePlant
+CheatsObject.WearVinePlant = (lock) => {
+	let r =
+		"VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso"
+	;
+	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
+};
 CheatsObject.SaveLoad.GameSaveDataString = () => {
 	console.log(KinkyDungeonSaveGame(true));
 	return KinkyDungeonSaveGame(true);
