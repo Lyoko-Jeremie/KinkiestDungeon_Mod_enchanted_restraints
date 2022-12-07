@@ -208,10 +208,13 @@ KinkyDungeonRestraints.push(
 
 console.log("=============================enchanted_restraints before copy patch", structuredClone(KinkyDungeonRestraints));
 
+// KinkyDungeonRefreshRestraintsCache();
+
 "CrystalLegCuffs MaidCollar TrapHarness WolfHarness ControlHarness MagicChainCrotch MagicChainLegs ObsidianCollar MikoCollar WolfCollar SlimeLegs HardSlimeLegs".split(" ").filter(T => !!T).map(N => {
 	return (() => {
 		console.log('patching : ', N);
 		let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N));
+		// let T = structuredClone(KinkyDungeonRestraintsCache.get(N));
 		console.log('T : ', T);
 		T.name = "Enchanted" + N;
 		T.curse = "MistressKey";
