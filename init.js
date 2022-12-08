@@ -351,11 +351,16 @@ KinkyDungeonRefreshRestraintsCache();
  * @param it {string}
  * @param s1 {string}
  * @param s2 {string | undefined}
+ * @param sEnglish {string | undefined}
  */
-let addTKeyF1 = (it, s1, s2 = undefined) => {
+let addTKeyF1 = (it, s1, s2 = undefined, sEnglish = undefined) => {
 	// addTextKey("Restraint" + it + "Desc", s1);
 	// addTextKey("Restraint" + it + "Desc2", s2 || s1);
-	KinkyDungeonAddRestraintText(it, s1, s1, s2 || s1);
+	if (TranslationLanguage === "CN") {
+		KinkyDungeonAddRestraintText(it, s1, s1, s2 || s1);
+	} else if (sEnglish) {
+		KinkyDungeonAddRestraintText(it, sEnglish, sEnglish, sEnglish);
+	}
 };
 
 // function KDGetItemPreview(item) {
@@ -379,27 +384,27 @@ let addTKeyF1 = (it, s1, s2 = undefined) => {
 // 	return ret;
 // }
 
-addTKeyF1("EnchantedMaidVibe", "远古" + "女仆跳蛋");
-addTKeyF1("EnchantedMaidCBelt", "远古" + "女仆贞操带");
-addTKeyF1("EnchantedNippleClamps", "远古" + "乳头按摩器");
-addTKeyF1("EnchantedSteelPlugF", "远古" + "前不锈钢插件", "插在前面的" + "远古" + "不锈钢插件");
-addTKeyF1("EnchantedSteelPlugR", "远古" + "后不锈钢插件", "插在后面的" + "远古" + "不锈钢插件");
-addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷");
-addTKeyF1("EnchantedMaidCollar", "远古" + "女仆项圈");
-addTKeyF1("EnchantedTrapHarness", "远古" + "皮革束衣");
-addTKeyF1("EnchantedWolfPanties", "远古" + "狼女内裤");
-addTKeyF1("EnchantedWolfHarness", "远古" + "狼女训练束衣");
-addTKeyF1("EnchantedControlHarness", "远古" + "狼女控制束衣");
-addTKeyF1("EnchantedWolfCollar", "远古" + "狼女训练项圈");
-addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳");
-addTKeyF1("EnchantedMagicChainCrotch", "远古" + "下体链");
-addTKeyF1("EnchantedMagicChainLegs", "远古" + "腿链");
-addTKeyF1("EnchantedSlimeLegs", "远古" + "史莱姆腿");
-addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿");
-addTKeyF1("EnchantedObsidianCollar", "远古" + "黑曜石项圈");
-addTKeyF1("EnchantedMikoCollar", "远古" + "Fuuka项圈");
-addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩");
-addTKeyF1("EnchantedExpCollar", "远古" + "乳胶姿势项圈");
+addTKeyF1("EnchantedMaidVibe", "远古" + "女仆跳蛋", undefined, "Enchanted " + "Maid Egg");
+addTKeyF1("EnchantedMaidCBelt", "远古" + "女仆贞操带", undefined, "Enchanted " + "Maid Chastity Belt");
+addTKeyF1("EnchantedNippleClamps", "远古" + "乳头按摩器", undefined, "Enchanted " + "Nipple Massagers");
+addTKeyF1("EnchantedSteelPlugF", "远古" + "前不锈钢插件", "插在前面的" + "远古" + "不锈钢插件", "Enchanted " + "Steel Plug Front");
+addTKeyF1("EnchantedSteelPlugR", "远古" + "后不锈钢插件", "插在后面的" + "远古" + "不锈钢插件", "Enchanted " + "Steel Plug Back");
+addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷", undefined, "Enchanted " + "Crystal Leg Cuffs");
+addTKeyF1("EnchantedMaidCollar", "远古" + "女仆项圈", undefined, "Enchanted " + "Maid Collar");
+addTKeyF1("EnchantedTrapHarness", "远古" + "皮革束衣", undefined, "Enchanted " + "Trap Harness");
+addTKeyF1("EnchantedWolfPanties", "远古" + "狼女内裤", undefined, "Enchanted " + "Wolf Panties");
+addTKeyF1("EnchantedWolfHarness", "远古" + "狼女训练束衣", undefined, "Enchanted " + "Wolf Training Harness");
+addTKeyF1("EnchantedControlHarness", "远古" + "狼女控制束衣", undefined, "Enchanted " + "Wolf Control Harness");
+addTKeyF1("EnchantedWolfCollar", "远古" + "狼女训练项圈", undefined, "Enchanted " + "Wolf Collar");
+addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳", undefined, "Enchanted " + "Wolf Leash");
+addTKeyF1("EnchantedMagicChainCrotch", "远古" + "下体链", undefined, "Enchanted " + "Magic Chain Crotch");
+addTKeyF1("EnchantedMagicChainLegs", "远古" + "腿链", undefined, "Enchanted " + "Magic Chain Legs");
+addTKeyF1("EnchantedSlimeLegs", "远古" + "史莱姆腿", undefined, "Enchanted " + "Slime Legs");
+addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿", undefined, "Enchanted " + "Hard Slime Legs");
+addTKeyF1("EnchantedObsidianCollar", "远古" + "黑曜石项圈", undefined, "Enchanted " + "Obsidian Collar");
+addTKeyF1("EnchantedMikoCollar", "远古" + "Fuuka项圈", undefined, "Enchanted " + "Miko Collar");
+addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩", undefined, "Improve " + "Enchanted " + "Blindfold");
+addTKeyF1("EnchantedExpCollar", "远古" + "乳胶姿势项圈", undefined, "Enchanted " + "Latex Posture Collar");
 
 window.KinkyDungeonMod_EnchantedRestraints = {};
 window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
