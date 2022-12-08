@@ -243,7 +243,7 @@ console.log("=============================enchanted_restraints before copy patch
 
 // KinkyDungeonRefreshRestraintsCache();
 
-"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness MagicChainCrotch MagicChainLegs ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs".split(" ").filter(T => !!T).map(N => {
+"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness MagicChainCrotch MagicChainLegs ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar".split(" ").filter(T => !!T).map(N => {
 	return (() => {
 		console.log('patching : ', N);
 		let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N));
@@ -253,6 +253,7 @@ console.log("=============================enchanted_restraints before copy patch
 		T.curse = "MistressKey";
 		T.enchantedDrain = 0.00001;
 		T.enchanted = true;
+		T.removePrison = false;
 		T.escapeChance = {"Struggle": -100, "Cut": -100, "Remove": -100};
 		return T;
 	})();
@@ -398,6 +399,7 @@ addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿");
 addTKeyF1("EnchantedObsidianCollar", "远古" + "黑曜石项圈");
 addTKeyF1("EnchantedMikoCollar", "远古" + "Fuuka项圈");
 addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩");
+addTKeyF1("EnchantedExpCollar", "远古" + "乳胶姿势项圈");
 
 window.KinkyDungeonMod_EnchantedRestraints = {};
 window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
@@ -414,7 +416,9 @@ window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
 		"EnchantedTrapHarness EnchantedWolfHarness EnchantedControlHarness " +
 		// Legs
 		"EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs " +
-		"EnchantedWolfPanties EnchantedMaidCBelt EnchantedWolfLeash";
+		"EnchantedWolfPanties EnchantedMaidCBelt EnchantedExpCollar " +
+		// Leash must at the last
+		"EnchantedWolfLeash";
 	console.log(s);
 	let r = s.split(" ").filter(T => !!T).map(T => {
 		try {
@@ -559,6 +563,31 @@ CheatsObject.AllSpells = () => {
 		}
 	}
 };
+CheatsObject.AllHeart = () => {
+	for (let i = 0; i < 10; i++) {
+		KDSendInput("heart", {type: "AP"});
+		KDSendInput("heart", {type: "SP"});
+		KDSendInput("heart", {type: "MP"});
+		KDSendInput("heart", {type: "WP"});
+	}
+};
+// function KinkyDungeonHandleHeart() {
+// 	if (MouseIn(650, 700, 250, 60) && KinkyDungeonStatDistractionMax < KDMaxStat) {
+// 		KDSendInput("heart", {type: "AP"});
+// 		KinkyDungeonDrawState = "Game";
+// 	} else if (MouseIn(950, 700, 250, 60) && KinkyDungeonStatStaminaMax < KDMaxStat) {
+// 		KDSendInput("heart", {type: "SP"});
+// 		KinkyDungeonDrawState = "Game";
+// 	} else if (MouseIn(1250, 700, 250, 60) && KinkyDungeonStatManaMax < KDMaxStat) {
+// 		KDSendInput("heart", {type: "MP"});
+// 		KinkyDungeonDrawState = "Game";
+// 	} else if (MouseIn(1550, 700, 250, 60) && KinkyDungeonStatWillMax < KDMaxStat) {
+// 		KDSendInput("heart", {type: "WP"});
+// 		KinkyDungeonDrawState = "Game";
+// 	}
+//
+// 	return true;
+// }
 
 CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObject.LockList.Gold) => {
 	// lock can be Purple Red White Blue Gold
