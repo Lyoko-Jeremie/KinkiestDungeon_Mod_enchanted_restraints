@@ -766,10 +766,6 @@ CheatsObject.AddCheatChoice = (remove) => {
 	// 您不再掉落钥匙和镐，可以用拘束住的手解锁自己，并且不需要手来使用物品/药水。
 	// Quick-Draw
 	// Switching weapons and spells does not take a turn.
-	// Slippery
-	// 顺滑
-	// Start with high Latex reputation, and all latex restraints are easier to escape from.
-	// 从较高的乳胶声誉开始，所有乳胶拘束都更容易摆脱。
 	// GroundedInReality "Grounded in Reality"
 	// "While at max mana, your attacks deal an additional 30% of their base damage as electric damage."
 	// Strong
@@ -777,7 +773,7 @@ CheatsObject.AddCheatChoice = (remove) => {
 	// Boosts the Struggle option when escaping.
 	// 加快挣扎进程。
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Slayer Conjurer Magician Psychic QuickDraw Vengeance Slippery GroundedInReality Strong",
+		"Slayer Conjurer Magician Psychic QuickDraw Vengeance GroundedInReality Strong",
 		remove,
 	);
 };
@@ -790,6 +786,36 @@ CheatsObject.AddCheatChoiceMid = (remove) => {
 	// "Magic puts you in a clear state of mind. Casting spells successfully reduces your distraction."
 	CheatsObject._InnerFunction.AddCheatChoice(
 		"Clearheaded ArousingMagic DistractionCast",
+		remove,
+	);
+};
+CheatsObject.AddCheatChoiceEscape = (remove) => {
+	// Escapee
+	// 流亡者
+	// Start with high Leather reputation, and all leather restraints are easier to escape from.
+	// 从较高的皮革声誉开始，所有皮革束缚都更容易逃脱。
+	// Unchained
+	// 无拘无束
+	// Start with high Metal reputation, and all metal restraints are easier to escape from.
+	// 以更高的金属声望开始，所有金属束缚更容易逃脱。
+	// Damsel in Chains  [Damsel]
+	// 锁链中的少女
+	// Metal restraints are harder to escape from.
+	// 金属束缚更难逃脱。
+	// Escape Artist  [Artist]
+	// 逃脱大师
+	// Start with high Rope reputation, and all rope restraints are easier to escape from.
+	// 从较高的绳索声望开始，所有绳索拘束都更容易逃脱。
+	// Rope Bunny  [Bunny]
+	// 绳模
+	// Rope restraints are harder to escape from.
+	// 绳索束缚更难逃脱。
+	// Slippery
+	// 顺滑
+	// Start with high Latex reputation, and all latex restraints are easier to escape from.
+	// 从较高的乳胶声誉开始，所有乳胶拘束都更容易摆脱。
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Escapee Unchained Damsel Artist Bunny Slippery",
 		remove,
 	);
 };
