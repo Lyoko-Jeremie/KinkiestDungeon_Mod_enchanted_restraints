@@ -693,10 +693,17 @@ CheatsObject.FullAllGoddess = () => {
 CheatsObject.DebugSee.ShowAllChoice = () => {
 	return Array.from(KinkyDungeonStatsChoice.entries()).filter(T => T[1]);
 };
-CheatsObject.AddOneChoice = (c) => {
+CheatsObject._InnerFunction.AddOneCheatChoice = (c) => {
 	KinkyDungeonStatsChoice.set(c, true);
 };
-CheatsObject.AddCheatChoiceNegative = () => {
+CheatsObject._InnerFunction.AddCheatChoice = (s, remove) => {
+	if (remove) {
+		s.split(" ").filter(T => !!T).map(T => KinkyDungeonStatsChoice.delete(T));
+	} else {
+		s.split(" ").filter(T => !!T).map(T => KinkyDungeonStatsChoice.set(T, true));
+	}
+};
+CheatsObject.AddCheatChoiceNegative = (remove) => {
 	// Vengeance
 	// 复仇
 	// Defeating an enemy greatly distracts you.
@@ -733,13 +740,14 @@ CheatsObject.AddCheatChoiceNegative = () => {
 	// JacketLover "Jacket Lover"
 	// "More straitjackets, less armbinders."
 
-	(
+	CheatsObject._InnerFunction.AddCheatChoice(
 		"Vengeance MagicHands Nowhere " +
 		"CommonLatex CommonMaid CommonDress CommonKitty CommonExp CommonFuuka" +
-		"KinkyPrison"
-	).split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
+		"KinkyPrison",
+		remove,
+	);
 };
-CheatsObject.AddCheatChoice = () => {
+CheatsObject.AddCheatChoice = (remove) => {
 	// Slayer
 	// 杀手
 	// You can cast Elemental spells without having the components, at twice the cost. Start w/ Firebolt.
@@ -764,7 +772,26 @@ CheatsObject.AddCheatChoice = () => {
 	// 从较高的乳胶声誉开始，所有乳胶拘束都更容易摆脱。
 	// GroundedInReality "Grounded in Reality"
 	// "While at max mana, your attacks deal an additional 30% of their base damage as electric damage."
-	"Slayer Conjurer Magician Psychic QuickDraw Vengeance Slippery GroundedInReality".split(" ").map(T => KinkyDungeonStatsChoice.set(T, true));
+	// Strong
+	// 强健
+	// Boosts the Struggle option when escaping.
+	// 加快挣扎进程。
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Slayer Conjurer Magician Psychic QuickDraw Vengeance Slippery GroundedInReality Strong",
+		remove,
+	);
+};
+CheatsObject.AddCheatChoiceMid = (remove) => {
+	// DistractionCast "Mana Burst"
+	// "While at 100% distraction, you get -100% miscast chance but spending too much mana at once may cause you to go over the edge."
+	// ArousingMagic "Arousing Magic"
+	// "Your magic is powered by otherworldly distracting energies. Casting spells increases distraction based on the mana spent."
+	// Clearheaded "Clearheaded"
+	// "Magic puts you in a clear state of mind. Casting spells successfully reduces your distraction."
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Clearheaded ArousingMagic DistractionCast",
+		remove,
+	);
 };
 CheatsObject.HardModeEnable = () => {
 	KinkyDungeonStatsChoice.set("hardMode", true);
