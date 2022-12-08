@@ -550,6 +550,16 @@ CheatsObject.RemoveAllRestraintDynamic = () => {
 	});
 };
 
+CheatsObject.AllSpells = () => {
+	KinkyDungeonSpells = [];
+	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart);
+	for (let k of Object.keys(KinkyDungeonSpellList)) {
+		for (let sp of KinkyDungeonSpellList[k]) {
+			KinkyDungeonSpells.push(KinkyDungeonFindSpell(sp.name));
+		}
+	}
+};
+
 CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObject.LockList.Gold) => {
 	// lock can be Purple Red White Blue Gold
 	// Red White is normal key
