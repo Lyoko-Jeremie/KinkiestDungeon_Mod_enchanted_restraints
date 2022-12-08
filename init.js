@@ -243,6 +243,18 @@ console.log("=============================enchanted_restraints before copy patch
 	return KinkyDungeonRestraints.push(T);
 });
 
+// in-place patch
+"EnchantedBelt EnchantedBra".split(" ").filter(T => !!T).map(N => {
+	return (() => {
+		console.log('in-place patching : ', N);
+		let T = KinkyDungeonRestraints.find(restraint => restraint.name === N);
+		console.log('T : ', T);
+		T.chastitybra = false;
+		T.chastity = false;
+		return T;
+	})();
+});
+
 KinkyDungeonRestraints.push((() => {
 	let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === "EnchantedBlindfold"));
 	T.name = "ImproveEnchantedBlindfold";
@@ -310,54 +322,6 @@ addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿");
 addTKeyF1("EnchantedObsidianCollar", "远古" + "黑曜石项圈");
 addTKeyF1("EnchantedMikoCollar", "远古" + "Fuuka项圈");
 addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩");
-
-//
-// addTextKey("Restraint" + "EnchantedHeels" + "Desc2",
-// 	"一双高耸的高跟鞋，刻满了战斗魔法。充能后，它们会降低 1 级减速等级，并在击中时造成 25 点暗影伤害并带有短暂减速。"
-// );
-// addTextKey("KinkyDungeonCategoryFilterlooserestraint",
-// 	"可穿戴物"
-// );
-
-
-// addTextKey("Restraint" + "EnchantedMaidVibe" + "Desc", "远古" + "女仆跳蛋");
-// addTextKey("Restraint" + "EnchantedMaidVibe" + "Desc2", "远古" + "女仆跳蛋");
-// addTextKey("Restraint" + "EnchantedNippleClamps" + "Desc", "远古" + "乳头按摩器");
-// addTextKey("Restraint" + "EnchantedNippleClamps" + "Desc2", "远古" + "乳头按摩器");
-// addTextKey("Restraint" + "EnchantedSteelPlugF" + "Desc", "远古" + "前不锈钢插件");
-// addTextKey("Restraint" + "EnchantedSteelPlugF" + "Desc2", "插在前面的" + "远古" + "不锈钢插件");
-// addTextKey("Restraint" + "EnchantedSteelPlugR" + "Desc", "远古" + "后不锈钢插件");
-// addTextKey("Restraint" + "EnchantedSteelPlugR" + "Desc2", "插在后面的" + "远古" + "不锈钢插件");
-//
-// addTextKey("Restraint" + "EnchantedCrystalLegCuffs" + "Desc", "远古" + "水晶足拷");
-// addTextKey("Restraint" + "EnchantedCrystalLegCuffs" + "Desc2", "远古" + "水晶足拷");
-// addTextKey("Restraint" + "EnchantedMaidCollar" + "Desc", "远古" + "女仆项圈");
-// addTextKey("Restraint" + "EnchantedMaidCollar" + "Desc2", "远古" + "女仆项圈");
-// addTextKey("Restraint" + "EnchantedTrapHarness" + "Desc", "远古" + "皮革束衣");
-// addTextKey("Restraint" + "EnchantedTrapHarness" + "Desc2", "远古" + "皮革束衣");
-// addTextKey("Restraint" + "EnchantedWolfHarness" + "Desc", "远古" + "狼女训练束衣");
-// addTextKey("Restraint" + "EnchantedWolfHarness" + "Desc2", "远古" + "狼女训练束衣");
-// addTextKey("Restraint" + "EnchantedControlHarness" + "Desc", "远古" + "狼女控制束衣");
-// addTextKey("Restraint" + "EnchantedControlHarness" + "Desc2", "远古" + "狼女控制束衣");
-// addTextKey("Restraint" + "EnchantedWolfCollar" + "Desc", "远古" + "狼女训练项圈");
-// addTextKey("Restraint" + "EnchantedWolfCollar" + "Desc2", "远古" + "狼女训练项圈");
-// addTextKey("Restraint" + "EnchantedMagicChainCrotch" + "Desc", "远古" + "下体链");
-// addTextKey("Restraint" + "EnchantedMagicChainCrotch" + "Desc2", "远古" + "下体链");
-// addTextKey("Restraint" + "EnchantedMagicChainLegs" + "Desc", "远古" + "腿链");
-// addTextKey("Restraint" + "EnchantedMagicChainLegs" + "Desc2", "远古" + "腿链");
-// addTextKey("Restraint" + "EnchantedSlimeLegs" + "Desc", "远古" + "史莱姆腿");
-// addTextKey("Restraint" + "EnchantedSlimeLegs" + "Desc2", "远古" + "史莱姆腿");
-// addTextKey("Restraint" + "HardEnchantedSlimeLegs" + "Desc", "远古" + "硬化史莱姆腿");
-// addTextKey("Restraint" + "HardEnchantedSlimeLegs" + "Desc2", "远古" + "硬化史莱姆腿");
-// addTextKey("Restraint" + "EnchantedObsidianCollar" + "Desc", "远古" + "黑曜石项圈");
-// addTextKey("Restraint" + "EnchantedObsidianCollar" + "Desc2", "远古" + "黑曜石项圈");
-// addTextKey("Restraint" + "EnchantedMikoCollar" + "Desc", "远古" + "Fuuka项圈");
-// addTextKey("Restraint" + "EnchantedMikoCollar" + "Desc2", "远古" + "Fuuka项圈");
-//
-// addTextKey("Restraint" + "ImproveEnchantedBlindfold" + "Desc", "改良" + "远古" + "眼罩");
-// addTextKey("Restraint" + "ImproveEnchantedBlindfold" + "Desc2", "改良" + "远古" + "眼罩");
-
-// "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR EnchantedBelt EnchantedBra ImproveEnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels EnchantedCrystalLegCuffs EnchantedMaidCollar EnchantedObsidianCollar EnchantedMikoCollar EnchantedWolfCollar EnchantedTrapHarness EnchantedWolfHarness EnchantedControlHarness EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs".split(" ").map(T=> {try{return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")}catch(e){}} )
 
 window.KinkyDungeonMod_EnchantedRestraints = {};
 window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
