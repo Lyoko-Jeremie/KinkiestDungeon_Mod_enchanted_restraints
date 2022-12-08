@@ -3,6 +3,7 @@
 const edgeOnly = false;
 
 console.log("=============================enchanted_restraints begin=============================");
+console.time("enchanted_restraints load time");
 
 window.enchanted_restraints = {}
 window.enchanted_restraints.KinkyDungeonRestraints = structuredClone(KinkyDungeonRestraints);
@@ -30,34 +31,47 @@ KinkyDungeonRestraints.push(
 		vibeLocation: "ItemVulva",
 		allowRemote: true,
 		events: [
-			{trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
-			// {trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 2, time: 12, edgeOnly: true},
-			{trigger: "playerCast", type: "MagicallySensitive", power: 100, time: 100, edgeOnly: edgeOnly},
-			// {trigger: "struggle", type: "VibeOnStruggle", chance: 1.0, power: 2, time: 12, edgeOnly: true},
-			{trigger: "struggle", type: "VibeOnStruggle", power: 100, time: 100, edgeOnly: edgeOnly},
-			// {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 2, time: 12, edgeOnly: true},
-			{trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 100, time: 100, edgeOnly: edgeOnly},
-			{
-				trigger: "tick",
-				type: "PeriodicTeasing",
-				// type: "MagicallySensitive",
-				power: 10,
-				time: 100,
-				edgeOnly: edgeOnly,
-				// cooldown: {"normal": 1, "tease": 1},
-				cooldown: {"normal": 90, "tease": 20},
-				// chance: 1,
-				chance: 0.015,
-			},
+			// {trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
+			// // {trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 2, time: 12, edgeOnly: true},
+			// {trigger: "playerCast", type: "MagicallySensitive", power: 100, time: 100, edgeOnly: edgeOnly},
+			// // {trigger: "struggle", type: "VibeOnStruggle", chance: 1.0, power: 2, time: 12, edgeOnly: true},
+			// {trigger: "struggle", type: "VibeOnStruggle", power: 100, time: 100, edgeOnly: edgeOnly},
+			// // {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 2, time: 12, edgeOnly: true},
+			// {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 100, time: 100, edgeOnly: edgeOnly},
 			// {
 			// 	trigger: "tick",
 			// 	type: "PeriodicTeasing",
-			// 	power: 2,
-			// 	time: 1,
-			// 	edgeOnly: true,
+			// 	// type: "MagicallySensitive",
+			// 	power: 10,
+			// 	time: 100,
+			// 	edgeOnly: edgeOnly,
+			// 	// cooldown: {"normal": 1, "tease": 1},
 			// 	cooldown: {"normal": 90, "tease": 20},
-			// 	chance: 0.015
+			// 	// chance: 1,
+			// 	chance: 0.015,
 			// },
+			// // {
+			// // 	trigger: "tick",
+			// // 	type: "PeriodicTeasing",
+			// // 	power: 2,
+			// // 	time: 1,
+			// // 	edgeOnly: true,
+			// // 	cooldown: {"normal": 90, "tease": 20},
+			// // 	chance: 0.015
+			// // },
+			{trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
+			{trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 2, time: 12, edgeOnly: edgeOnly},
+			{trigger: "struggle", type: "VibeOnStruggle", chance: 1.0, power: 2, time: 12, edgeOnly: edgeOnly},
+			{trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 2, time: 12, edgeOnly: edgeOnly},
+			{
+				trigger: "tick",
+				type: "PeriodicTeasing",
+				power: 2,
+				time: 32,
+				edgeOnly: false,
+				cooldown: {"normal": 90, "tease": 20},
+				chance: 0.015
+			},
 		]
 	},
 );
@@ -92,29 +106,40 @@ KinkyDungeonRestraints.push(
 		linkedVibeTags: ["teaser", "piercings"],
 		allowRemote: true,
 		events: [
-			{trigger: "playerCast", type: "MagicallySensitive", power: 10, time: 100, edgeOnly: edgeOnly},
-			{trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 10, time: 100, edgeOnly: edgeOnly},
-			{
-				trigger: "tick",
-				type: "PeriodicTeasing",
-				// type: "MagicallySensitive",
-				power: 10,
-				time: 100,
-				edgeOnly: edgeOnly,
-				cooldown: {"normal": 80, "tease": 20},
-				chance: 0.02
-			},
-			// {trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 1, time: 24, edgeOnly: true},
-			// {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 1, time: 24, edgeOnly: true},
+			// {trigger: "playerCast", type: "MagicallySensitive", power: 10, time: 100, edgeOnly: edgeOnly},
+			// {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 10, time: 100, edgeOnly: edgeOnly},
 			// {
 			// 	trigger: "tick",
 			// 	type: "PeriodicTeasing",
-			// 	power: 1,
-			// 	time: 24,
-			// 	edgeOnly: true,
+			// 	// type: "MagicallySensitive",
+			// 	power: 10,
+			// 	time: 100,
+			// 	edgeOnly: edgeOnly,
 			// 	cooldown: {"normal": 80, "tease": 20},
 			// 	chance: 0.02
 			// },
+			// // {trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 1, time: 24, edgeOnly: true},
+			// // {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 1, time: 24, edgeOnly: true},
+			// // {
+			// // 	trigger: "tick",
+			// // 	type: "PeriodicTeasing",
+			// // 	power: 1,
+			// // 	time: 24,
+			// // 	edgeOnly: true,
+			// // 	cooldown: {"normal": 80, "tease": 20},
+			// // 	chance: 0.02
+			// // },
+			{trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 1, time: 24, edgeOnly: edgeOnly},
+			{trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 1, time: 24, edgeOnly: edgeOnly},
+			{
+				trigger: "tick",
+				type: "PeriodicTeasing",
+				power: 1,
+				time: 24,
+				edgeOnly: false,
+				cooldown: {"normal": 80, "tease": 20},
+				chance: 0.02
+			},
 		]
 	},
 );
@@ -141,6 +166,8 @@ KinkyDungeonRestraints.push(
 			"maidRestraintsLight": 1,
 			"roboAngry": 10,
 			"plugSpell": 1,
+			"maidVibeRestraints": 1000,
+			"maidVibeRestraintsLimited": 100,
 		},
 		playerTags: {"NoVibes": -1000},
 		minLevel: 0,
@@ -148,15 +175,17 @@ KinkyDungeonRestraints.push(
 		shrine: ["Plugs"],
 		events: [
 			{trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
-			{trigger: "playerCast", type: "MagicallySensitive", power: 10, time: 100, edgeOnly: edgeOnly},
+			{trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 10, time: 100, edgeOnly: edgeOnly},
 			{trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 10, time: 100, edgeOnly: edgeOnly},
 			{
 				trigger: "tick",
-				// type: "PeriodicTeasing",
-				type: "MagicallySensitive",
+				type: "PeriodicTeasing",
+				// type: "MagicallySensitive",
 				power: 10,
 				time: 100,
-				edgeOnly: true,
+				edgeOnly: false,
+				cooldown: {"normal": 80, "tease": 20},
+				chance: 0.02
 			},
 		],
 	},
@@ -184,6 +213,8 @@ KinkyDungeonRestraints.push(
 			"maidRestraintsLight": 1,
 			"roboAngry": 10,
 			"plugSpell": 1,
+			"maidVibeRestraints": 1000,
+			"maidVibeRestraintsLimited": 100,
 		},
 		playerTags: {"NoVibes": -1000},
 		minLevel: 0,
@@ -191,15 +222,17 @@ KinkyDungeonRestraints.push(
 		shrine: ["Plugs"],
 		events: [
 			{trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
-			{trigger: "playerCast", type: "MagicallySensitive", power: 10, time: 100, edgeOnly: edgeOnly},
+			{trigger: "playerCast", type: "MagicallySensitive", chance: 0.5, power: 10, time: 100, edgeOnly: edgeOnly},
 			{trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 10, time: 100, edgeOnly: edgeOnly},
 			{
 				trigger: "tick",
-				// type: "PeriodicTeasing",
-				type: "MagicallySensitive",
+				type: "PeriodicTeasing",
+				// type: "MagicallySensitive",
 				power: 10,
 				time: 100,
-				edgeOnly: edgeOnly,
+				edgeOnly: false,
+				cooldown: {"normal": 80, "tease": 20},
+				chance: 0.02
 			},
 		],
 	},
@@ -210,7 +243,7 @@ console.log("=============================enchanted_restraints before copy patch
 
 // KinkyDungeonRefreshRestraintsCache();
 
-"CrystalLegCuffs MaidCollar TrapHarness WolfHarness ControlHarness MagicChainCrotch MagicChainLegs ObsidianCollar MikoCollar WolfCollar SlimeLegs HardSlimeLegs".split(" ").filter(T => !!T).map(N => {
+"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness MagicChainCrotch MagicChainLegs ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs".split(" ").filter(T => !!T).map(N => {
 	return (() => {
 		console.log('patching : ', N);
 		let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N));
@@ -235,6 +268,46 @@ console.log("=============================enchanted_restraints before copy patch
 			break;
 		case ("Enchanted" + "MikoCollar"):
 			T.curse = "GhostLock";
+		case ("Enchanted" + "MaidCBelt"):
+			T.chastitybra = false;
+			T.chastity = false;
+		case ("Enchanted" + "WolfPanties"):
+			T.events = [
+				{
+					trigger: "remoteVibe",
+					type: "RemoteActivatedVibe",
+					power: 2,
+					time: 20,
+					edgeOnly: edgeOnly,
+				},
+				{
+					trigger: "tick",
+					type: "PeriodicTeasing",
+					power: 1,
+					time: 48,
+					edgeOnly: edgeOnly,
+					cooldown: {"normal": 50, "tease": 20},
+					chance: 0.02,
+				},
+				{
+					trigger: "tick",
+					type: "PeriodicDenial",
+					power: 2,
+					time: 42,
+					edgeOnly: edgeOnly,
+					cooldown: {"normal": 60, "tease": 20},
+					chance: 0.03,
+				},
+				{
+					trigger: "tick",
+					type: "PeriodicTeasing",
+					power: 3,
+					time: 14,
+					edgeOnly: false,
+					cooldown: {"normal": 80, "tease": 20},
+					chance: 0.01,
+				},
+			];
 		default:
 			break;
 	}
@@ -306,15 +379,18 @@ let addTKeyF1 = (it, s1, s2 = undefined) => {
 // }
 
 addTKeyF1("EnchantedMaidVibe", "远古" + "女仆跳蛋");
+addTKeyF1("EnchantedMaidCBelt", "远古" + "女仆贞操带");
 addTKeyF1("EnchantedNippleClamps", "远古" + "乳头按摩器");
 addTKeyF1("EnchantedSteelPlugF", "远古" + "前不锈钢插件", "插在前面的" + "远古" + "不锈钢插件");
 addTKeyF1("EnchantedSteelPlugR", "远古" + "后不锈钢插件", "插在后面的" + "远古" + "不锈钢插件");
 addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷");
 addTKeyF1("EnchantedMaidCollar", "远古" + "女仆项圈");
 addTKeyF1("EnchantedTrapHarness", "远古" + "皮革束衣");
+addTKeyF1("EnchantedWolfPanties", "远古" + "狼女内裤");
 addTKeyF1("EnchantedWolfHarness", "远古" + "狼女训练束衣");
 addTKeyF1("EnchantedControlHarness", "远古" + "狼女控制束衣");
 addTKeyF1("EnchantedWolfCollar", "远古" + "狼女训练项圈");
+addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳");
 addTKeyF1("EnchantedMagicChainCrotch", "远古" + "下体链");
 addTKeyF1("EnchantedMagicChainLegs", "远古" + "腿链");
 addTKeyF1("EnchantedSlimeLegs", "远古" + "史莱姆腿");
@@ -337,7 +413,8 @@ window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
 		// Harness
 		"EnchantedTrapHarness EnchantedWolfHarness EnchantedControlHarness " +
 		// Legs
-		"EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs";
+		"EnchantedMagicChainCrotch EnchantedMagicChainLegs EnchantedSlimeLegs " +
+		"EnchantedWolfPanties EnchantedMaidCBelt EnchantedWolfLeash";
 	console.log(s);
 	let r = s.split(" ").filter(T => !!T).map(T => {
 		try {
@@ -491,128 +568,6 @@ CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObje
 		}
 	);
 };
-// // Slime
-// CheatsObject.WearSlime = (lock) => {
-// 	let r =
-// 		"SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 狼女
-// CheatsObject.WearWolf = (lock) => {
-// 	let r =
-// 		"WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 黄色胶水
-// CheatsObject.WearGlue = (lock) => {
-// 	let r =
-// 		"GlueLegs GlueFeet GlueBoots"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 连衣裙+紧身胸衣
-// CheatsObject.WearDress = (lock) => {
-// 	let r =
-// 		"DressCorset DressBra"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 水晶
-// CheatsObject.WearCrystal = (lock) => {
-// 	let r =
-// 		"CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 黄水晶
-// CheatsObject.WearBandit = (lock) => {
-// 	let r =
-// 		"BanditLegCuffs BanditAnkleCuffs BanditArmCuffs"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 冰
-// CheatsObject.WearIce = (lock) => {
-// 	let r =
-// 		"IceArms IceLegs IceHarness IceGag"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 魔法
-// CheatsObject.WearRibbon = (lock) => {
-// 	let r =
-// 		"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 远古
-// CheatsObject.WearEnchanted = (lock) => {
-// 	// EnchantedBelt 贞操带
-// 	// EnchantedBra 贞操胸罩
-// 	// BalletWedges undefined
-// 	// EnchantedBlindfold 眼罩
-// 	// EnchantedAnkleCuffs 脚铐
-// 	// EnchantedBallGag 口球
-// 	// EnchantedMuzzle 口套
-// 	// EnchantedMittens 手套
-// 	// EnchantedArmbinder 束手套
-// 	// EnchantedHeels 远古高跟鞋
-// 	let r =
-// 		"EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // Kitty
-// CheatsObject.WearKitty = (lock) => {
-// 	let r =
-// 		"KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // saber裙
-// CheatsObject.WearMageArmor = (lock) => {
-// 	let r =
-// 		"MageArmor"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 祝福丝带
-// CheatsObject.WearMysticDuct = (lock) => {
-// 	let r =
-// 		"MysticDuctTapeHead MysticDuctTapeMouth MysticDuctTapeArmsMummy MysticDuctTapeLegsMummy MysticDuctTapeFeetMummy MysticDuctTapeBoots"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // 神圣
-// CheatsObject.WearDivine = (lock) => {
-// 	let r =
-// 		"DivineCuffs DivineAnkleCuffs DivineMuzzle"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // Vibe
-// CheatsObject.WearVibe = (lock) => {
-// 	let r =
-// 		"WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // ShadowHand
-// CheatsObject.WearShadowHand = (lock) => {
-// 	let r =
-// 		"ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
-// // VinePlant
-// CheatsObject.WearVinePlant = (lock) => {
-// 	let r =
-// 		"VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso"
-// 	;
-// 	CheatsObject._InnerFunction.WearRestraints(r, lock || CheatsObject.LockList.Purple);
-// };
 CheatsObject._InnerData.WearsList = {
 	// VinePlant
 	VinePlant: "VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso",
@@ -630,6 +585,16 @@ CheatsObject._InnerData.WearsList = {
 	// Kitty
 	Kitty: "KittyGag KittyMuzzle KittyBlindfold KittyPaws KittySuit MagicPetsuit KittyPetSuit",
 	// 远古
+	// EnchantedBelt 贞操带
+	// EnchantedBra 贞操胸罩
+	// BalletWedges undefined
+	// EnchantedBlindfold 眼罩
+	// EnchantedAnkleCuffs 脚铐
+	// EnchantedBallGag 口球
+	// EnchantedMuzzle 口套
+	// EnchantedMittens 手套
+	// EnchantedArmbinder 束手套
+	// EnchantedHeels 远古高跟鞋
 	Enchanted: "EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels",
 	// 魔法
 	Ribbon: "RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape",
@@ -773,5 +738,6 @@ console.log("disable Data Trace");
 // disable Data Trace, to avoid cheats game data send to server
 KDOptOut = true;
 
+console.timeEnd("enchanted_restraints load time");
 console.log("=============================enchanted_restraints end=============================");
 
