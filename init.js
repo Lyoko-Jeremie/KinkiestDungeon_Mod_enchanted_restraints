@@ -479,6 +479,54 @@ CheatsObject._InnerFunction.FullStat = () => {
 	KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 	// KDGameData.AncientEnergyLevel = 1.0;
 };
+CheatsObject.InvisibilityOff = () => {
+	if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
+		clearInterval(CheatsObject._InnerData.InvisibilityIntervalHandle);
+		CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
+	}
+	CheatsObject._InnerFunction.SetInvisibility(true);
+};
+CheatsObject.InvisibilityOn = () => {
+	CheatsObject.InvisibilityOff();
+	CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
+		CheatsObject._InnerFunction.SetInvisibility();
+	}, 1000);
+};
+CheatsObject._InnerFunction.SetInvisibility = (remove) => {
+	if (remove) {
+		delete KinkyDungeonPlayerBuffs["Invisibility"];
+		delete KinkyDungeonPlayerBuffs["Invisibility2"];
+		return;
+	}
+	let i1 = KinkyDungeonPlayerBuffs['Invisibility'];
+	let i2 = KinkyDungeonPlayerBuffs['Invisibility2'];
+	if (i1 && i2) {
+		i1.duration = 100;
+		i2.duration = 110;
+	} else {
+		let n1 = {
+			id: "Invisibility",
+			aura: "#888888",
+			type: "Sneak",
+			duration: 100,
+			power: 10.0,
+			player: true,
+			enemies: true,
+			tags: ["invisibility"]
+		};
+		let n2 = {
+			id: "Invisibility2",
+			type: "SlowDetection",
+			duration: 110,
+			power: 0.5,
+			player: true,
+			enemies: false,
+			tags: ["invisibility"]
+		};
+		KinkyDungeonPlayerBuffs["Invisibility"] = n1;
+		KinkyDungeonPlayerBuffs["Invisibility2"] = n2;
+	}
+};
 CheatsObject.AddDistraction = (n) => {
 	KinkyDungeonChangeDistraction(n || 10, true, 1);
 };
