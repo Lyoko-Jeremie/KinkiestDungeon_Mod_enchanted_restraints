@@ -490,7 +490,7 @@ CheatsObject.InvisibilityOn = () => {
 	CheatsObject.InvisibilityOff();
 	CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
 		CheatsObject._InnerFunction.SetInvisibility();
-	}, 1000);
+	}, 10000);
 };
 CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 	if (remove) {
