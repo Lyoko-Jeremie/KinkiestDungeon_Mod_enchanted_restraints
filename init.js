@@ -698,8 +698,12 @@ CheatsObject.FullAllGoddess = () => {
 CheatsObject.DebugSee.ShowAllChoice = () => {
 	return Array.from(KinkyDungeonStatsChoice.entries()).filter(T => T[1]);
 };
-CheatsObject._InnerFunction.AddOneCheatChoice = (c) => {
-	KinkyDungeonStatsChoice.set(c, true);
+CheatsObject._InnerFunction.AddOneCheatChoice = (c, remove) => {
+	if (remove) {
+		KinkyDungeonStatsChoice.delete(c);
+	} else {
+		KinkyDungeonStatsChoice.set(c, true);
+	}
 };
 CheatsObject._InnerFunction.AddCheatChoice = (s, remove) => {
 	if (remove) {
@@ -708,7 +712,7 @@ CheatsObject._InnerFunction.AddCheatChoice = (s, remove) => {
 		s.split(" ").filter(T => !!T).map(T => KinkyDungeonStatsChoice.set(T, true));
 	}
 };
-CheatsObject.AddCheatChoiceNegative = (remove) => {
+CheatsObject.AddCheatChoiceBadNegative = (remove) => {
 	// Vengeance
 	// 复仇
 	// Defeating an enemy greatly distracts you.
@@ -752,7 +756,7 @@ CheatsObject.AddCheatChoiceNegative = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoice = (remove) => {
+CheatsObject.AddCheatChoiceMidEscape = (remove) => {
 	// Slayer
 	// 杀手
 	// You can cast Elemental spells without having the components, at twice the cost. Start w/ Firebolt.
@@ -765,20 +769,34 @@ CheatsObject.AddCheatChoice = (remove) => {
 	// 魔术师
 	// You can cast Illusion spells without having the components, at twice the cost. Start w/ Shadow Dagger.
 	// 你可以以两倍魔力消耗为代价无视施法条件使用幻术。开局获得技能 暗影匕首。
-	// Psychic
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Slayer Conjurer Magician Vengeance GroundedInReality",
+		remove,
+	);
+};
+CheatsObject.AddCheatChoiceGoodEnhance = (remove) => {
+	// Psychic [Psychic]
 	// 精神
 	// You no longer drop keys and picks, can unlock yourself with bound hands, and don't need hands for items/potions.
 	// 您不再掉落钥匙和镐，可以用拘束住的手解锁自己，并且不需要手来使用物品/药水。
-	// Quick-Draw
+	// Quick-Draw [QuickDraw]
 	// Switching weapons and spells does not take a turn.
 	// GroundedInReality "Grounded in Reality"
 	// "While at max mana, your attacks deal an additional 30% of their base damage as electric damage."
-	// Strong
+	// Strong [Strong]
 	// 强健
 	// Boosts the Struggle option when escaping.
 	// 加快挣扎进程。
+	// Flexible [Flexible]
+	// 灵活的
+	// Slightly boosts the Remove/Unlock option, escaping is 1.5x as fast except picking, and your feet can use items/buckles.
+	// 略微加速了移除/解锁选项，除了撬锁之外，逃脱速度是 1.5 倍，并且你的脚可以使用物品/扣环。
+	// Locksmith [Locksmith]
+	// 锁匠
+	// You get a bonus to lockpicking, allowing you to pick some high-security locks previously impossible.
+	// 您可以获得撬锁奖励，允许您尝试开一些以前不可能的高安全性锁。
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Slayer Conjurer Magician Psychic QuickDraw Vengeance GroundedInReality Strong",
+		"Psychic QuickDraw Strong Flexible Locksmith",
 		remove,
 	);
 };
@@ -794,33 +812,63 @@ CheatsObject.AddCheatChoiceMid = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoiceEscape = (remove) => {
-	// Escapee
+CheatsObject.AddCheatChoiceGoodEscape = (remove) => {
+	// Escapee [Escapee]
 	// 流亡者
 	// Start with high Leather reputation, and all leather restraints are easier to escape from.
 	// 从较高的皮革声誉开始，所有皮革束缚都更容易逃脱。
-	// Unchained
+	// Unchained [Unchained]
 	// 无拘无束
 	// Start with high Metal reputation, and all metal restraints are easier to escape from.
 	// 以更高的金属声望开始，所有金属束缚更容易逃脱。
-	// Damsel in Chains  [Damsel]
-	// 锁链中的少女
-	// Metal restraints are harder to escape from.
-	// 金属束缚更难逃脱。
 	// Escape Artist  [Artist]
 	// 逃脱大师
 	// Start with high Rope reputation, and all rope restraints are easier to escape from.
 	// 从较高的绳索声望开始，所有绳索拘束都更容易逃脱。
+	// Slippery [Slippery]
+	// 顺滑
+	// Start with high Latex reputation, and all latex restraints are easier to escape from.
+	// 从较高的乳胶声誉开始，所有乳胶拘束都更容易摆脱。
+	// Fashionable [KeepOutfit]
+	// 时尚的
+	// When you are jailed, you keep your outfit.
+	// 当你入狱时，保留你的衣物。
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Escapee Unchained Artist Slippery KeepOutfit",
+		remove,
+	);
+};
+CheatsObject.AddCheatChoiceBadNoEscape = (remove) => {
+	// Damsel in Chains  [Damsel]
+	// 锁链中的少女
+	// Metal restraints are harder to escape from.
+	// 金属束缚更难逃脱。
 	// Rope Bunny  [Bunny]
 	// 绳模
 	// Rope restraints are harder to escape from.
 	// 绳索束缚更难逃脱。
-	// Slippery
-	// 顺滑
-	// Start with high Latex reputation, and all latex restraints are easier to escape from.
-	// 从较高的乳胶声誉开始，所有乳胶拘束都更容易摆脱。
+	// Latex Doll [Doll]
+	// 乳胶娃娃
+	// Latex restraints are harder to escape from.
+	// 乳胶拘束更难逃脱。
+	// Leather-Bound [Dragon]
+	// 皮革拘束
+	// Leather restraints are harder to escape from.
+	// 皮革拘束更难逃脱。
+	// Bondage Lover [BondageLover]
+	// 束缚爱好者
+	// Attempting to escape arouses you.
+	// 试图挣脱会提高你的干扰值。
+	// Bound Crusader [BoundCrusader]
+	// 束缚十字军
+	// Goddesses will expect you to wear their restraints as their champion.
+	// 女神会期望你作为她们的卫士时穿戴她们的拘束具。
+	// Undeniable [KeepOutfit]
+	// 不可否认的
+	// Born with an intense submissive desire, you cannot refuse bondage from dialogues.
+	// 你生来就有强烈的顺从欲望，无法在对话时拒绝束缚请求。
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Escapee Unchained Damsel Artist Bunny Slippery",
+		"Damsel Bunny Doll Dragon BondageLover BoundCrusader KeepOutfit",
 		remove,
 	);
 };
