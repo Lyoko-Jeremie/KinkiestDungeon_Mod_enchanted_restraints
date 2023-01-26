@@ -881,8 +881,10 @@ CheatsObject.AddCheatChoiceGoodEscape = (remove) => {
 	// 时尚的
 	// When you are jailed, you keep your outfit.
 	// 当你入狱时，保留你的衣物。
+	// Second Wind [SecondWind]
+	// "Gain 2 WP every time you remove a non-trivial restraint."
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Escapee Unchained Artist Slippery KeepOutfit",
+		"Escapee Unchained Artist Slippery KeepOutfit SecondWind",
 		remove,
 	);
 };
