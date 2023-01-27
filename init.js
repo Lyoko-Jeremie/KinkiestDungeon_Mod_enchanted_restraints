@@ -480,6 +480,7 @@ CheatsObject._InnerFunction.FullStat = () => {
 	// KDGameData.AncientEnergyLevel = 1.0;
 };
 CheatsObject.InvisibilityOff = () => {
+	// CheatsObject._InnerFunction.PatchInvisibility(true);
 	if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
 		clearInterval(CheatsObject._InnerData.InvisibilityIntervalHandle);
 		CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
@@ -488,10 +489,19 @@ CheatsObject.InvisibilityOff = () => {
 };
 CheatsObject.InvisibilityOn = () => {
 	CheatsObject.InvisibilityOff();
+	// CheatsObject._InnerFunction.PatchInvisibility();
 	CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
 		CheatsObject._InnerFunction.SetInvisibility();
 	}, 10000);
 };
+// CheatsObject._InnerFunction.PatchInvisibility = (recover) => {
+// 	const n = KinkyDungeonSpellList.Illusion.find(T => T.name === "Invisibility");
+// 	if (recover) {
+// 		n.manacost = 8;
+// 	} else {
+// 		n.manacost = 0;
+// 	}
+// };
 CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 	if (remove) {
 		delete KinkyDungeonPlayerBuffs["Invisibility"];
