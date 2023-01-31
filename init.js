@@ -444,6 +444,9 @@ window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = () => {
 window.KinkyDungeonMod_EnchantedRestraints.Cheats = {
 	_InnerData: {
 		FullStatIntervalHandle: undefined,
+		InvisibilityIntervalHandle: undefined,
+		MaxEmpowerIntervalHandle: undefined,
+		EnemySenseIntervalHandle: undefined,
 	},
 	_InnerFunction: {},
 	DebugSee: {},
@@ -488,10 +491,6 @@ CheatsObject._TickHook.removeHook = (id) => {
 window.KinkyDungeonUpdateJailKeys = CheatsObject._TickHook.HookFunctionCaller;
 
 CheatsObject.DisableFullState = () => {
-	// if (CheatsObject._InnerData.FullStatIntervalHandle) {
-	// 	clearInterval(CheatsObject._InnerData.FullStatIntervalHandle);
-	// 	CheatsObject._InnerData.FullStatIntervalHandle = undefined;
-	// }
 	if (CheatsObject._InnerData.FullStatIntervalHandle) {
 		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.FullStatIntervalHandle);
 		CheatsObject._InnerData.FullStatIntervalHandle = undefined;
@@ -499,9 +498,6 @@ CheatsObject.DisableFullState = () => {
 };
 CheatsObject.EnableFullState = () => {
 	CheatsObject.DisableFullState();
-	// CheatsObject._InnerData.FullStatIntervalHandle = setInterval(() => {
-	// 	CheatsObject._InnerFunction.FullStat();
-	// }, 1000);
 	CheatsObject._InnerData.FullStatIntervalHandle = CheatsObject._TickHook.addHook(() => {
 		CheatsObject._InnerFunction.FullStat();
 	});
@@ -512,39 +508,18 @@ CheatsObject._InnerFunction.FullStat = () => {
 	KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 	// KDGameData.AncientEnergyLevel = 1.0;
 };
-CheatsObject.DisableInvisibility = () => {
-	// CheatsObject._InnerFunction.PatchInvisibility(true);
-
-	// if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
-	// 	clearInterval(CheatsObject._InnerData.InvisibilityIntervalHandle);
-	// 	CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
-	// }
-	// CheatsObject._InnerFunction.SetInvisibility(true);
-
-	if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
-		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.InvisibilityIntervalHandle);
-		CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
+CheatsObject.DisableEnemySense = () => {
+	if (CheatsObject._InnerData.EnemySenseIntervalHandle) {
+		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.EnemySenseIntervalHandle);
+		CheatsObject._InnerData.EnemySenseIntervalHandle = undefined;
 	}
-	CheatsObject._InnerFunction.SetInvisibility(true);
 };
-CheatsObject.EnableInvisibility = () => {
-	CheatsObject.DisableInvisibility();
-	// CheatsObject._InnerFunction.PatchInvisibility();
-	// CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
-	// 	CheatsObject._InnerFunction.SetInvisibility();
-	// }, 1000);
-	CheatsObject._InnerData.InvisibilityIntervalHandle = CheatsObject._TickHook.addHook(() => {
-		CheatsObject._InnerFunction.SetInvisibility();
+CheatsObject.EnableEnemySense = () => {
+	CheatsObject.DisableFullState();
+	CheatsObject._InnerData.EnemySenseIntervalHandle = CheatsObject._TickHook.addHook(() => {
+		CheatsObject._InnerFunction.SetEnemySense();
 	});
 };
-// CheatsObject._InnerFunction.PatchInvisibility = (recover) => {
-// 	const n = KinkyDungeonSpellList.Illusion.find(T => T.name === "Invisibility");
-// 	if (recover) {
-// 		n.manacost = 8;
-// 	} else {
-// 		n.manacost = 0;
-// 	}
-// };
 CheatsObject._InnerFunction.SetEnemySense = (remove) => {
 	// KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 100});
 	const a = {
@@ -560,18 +535,18 @@ CheatsObject._InnerFunction.SetEnemySense = (remove) => {
 			power: 5,
 			duration: 1000,
 		},
-		TrueSightAccuracyBufftick: {
-			id: "TrueSightAccuracyBufftick",
-			type: "Accuracy",
-			duration: 1000,
-			power: 0.4,
-		},
-		TrueSightBlindnesscalcStats: {
-			id: "TrueSightBlindnesscalcStats",
-			type: "Blindness",
-			duration: 1000,
-			power: -1,
-		},
+		// TrueSightAccuracyBufftick: {
+		// 	id: "TrueSightAccuracyBufftick",
+		// 	type: "Accuracy",
+		// 	duration: 1000,
+		// 	power: 0.4,
+		// },
+		// TrueSightBlindnesscalcStats: {
+		// 	id: "TrueSightBlindnesscalcStats",
+		// 	type: "Blindness",
+		// 	duration: 1000,
+		// 	power: -1,
+		// },
 	};
 	const k = Object.getOwnPropertyNames(a);
 	if (remove) {
@@ -580,13 +555,35 @@ CheatsObject._InnerFunction.SetEnemySense = (remove) => {
 		k.forEach(T => {
 			const it = KinkyDungeonPlayerBuffs[T];
 			if (it) {
-				it.duration = 100;
+				it.duration = 1000;
 			} else {
 				KinkyDungeonPlayerBuffs[T] = a[T];
 			}
 		});
 	}
 };
+CheatsObject.DisableInvisibility = () => {
+	// CheatsObject._InnerFunction.PatchInvisibility(true);
+	if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
+		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.InvisibilityIntervalHandle);
+		CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
+	}
+	CheatsObject._InnerFunction.SetInvisibility(true);
+};
+CheatsObject.EnableInvisibility = () => {
+	CheatsObject.DisableInvisibility();
+	CheatsObject._InnerData.InvisibilityIntervalHandle = CheatsObject._TickHook.addHook(() => {
+		CheatsObject._InnerFunction.SetInvisibility();
+	});
+};
+// CheatsObject._InnerFunction.PatchInvisibility = (recover) => {
+// 	const n = KinkyDungeonSpellList.Illusion.find(T => T.name === "Invisibility");
+// 	if (recover) {
+// 		n.manacost = 8;
+// 	} else {
+// 		n.manacost = 0;
+// 	}
+// };
 CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 	if (remove) {
 		delete KinkyDungeonPlayerBuffs["Invisibility"];
@@ -620,6 +617,43 @@ CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 		};
 		KinkyDungeonPlayerBuffs["Invisibility"] = n1;
 		KinkyDungeonPlayerBuffs["Invisibility2"] = n2;
+	}
+};
+CheatsObject.DisableMaxEmpower = () => {
+	if (CheatsObject._InnerData.MaxEmpowerIntervalHandle) {
+		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.MaxEmpowerIntervalHandle);
+		CheatsObject._InnerData.MaxEmpowerIntervalHandle = undefined;
+	}
+	CheatsObject._InnerFunction.SetKDEmpower(true);
+};
+CheatsObject.EnableMaxEmpower = () => {
+	CheatsObject.DisableMaxEmpower();
+	CheatsObject._InnerData.MaxEmpowerIntervalHandle = CheatsObject._TickHook.addHook(() => {
+		CheatsObject._InnerFunction.SetKDEmpower();
+	});
+};
+CheatsObject._InnerFunction.SetKDEmpower = (remove) => {
+	// KDEmpower()
+	if (remove) {
+		delete KinkyDungeonPlayerBuffs["Empower"];
+		return;
+	}
+	let i1 = KinkyDungeonPlayerBuffs['Empower'];
+	if (i1) {
+		i1.duration = 1000;
+	} else {
+		// function KDEmpower(data, entity)
+		let n1 = {
+			id: "Empower",
+			aura: "#aaaaff",
+			type: "SpellEmpower",
+			maxCount: 1,
+			currentCount: 1,
+			power: 3,
+			duration: 1000,
+			tags: ["cast", "upcast"],
+		};
+		KinkyDungeonPlayerBuffs["Empower"] = n1;
 	}
 };
 CheatsObject.AddDistraction = (n) => {
