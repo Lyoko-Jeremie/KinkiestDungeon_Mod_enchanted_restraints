@@ -492,7 +492,7 @@ CheatsObject.InvisibilityOn = () => {
 	// CheatsObject._InnerFunction.PatchInvisibility();
 	CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
 		CheatsObject._InnerFunction.SetInvisibility();
-	}, 10000);
+	}, 1000);
 };
 // CheatsObject._InnerFunction.PatchInvisibility = (recover) => {
 // 	const n = KinkyDungeonSpellList.Illusion.find(T => T.name === "Invisibility");
@@ -502,6 +502,48 @@ CheatsObject.InvisibilityOn = () => {
 // 		n.manacost = 0;
 // 	}
 // };
+CheatsObject._InnerFunction.SetEnemySense = (remove) => {
+	// KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 100});
+	const a = {
+		EnemySense: {
+			id: "EnemySense",
+			type: "EnemySense",
+			duration: 1000,
+		},
+		Analyze: {
+			id: "Analyze",
+			aura: "#ff5555",
+			type: "MagicalSight",
+			power: 5,
+			duration: 1000,
+		},
+		TrueSightAccuracyBufftick: {
+			id: "TrueSightAccuracyBufftick",
+			type: "Accuracy",
+			duration: 1000,
+			power: 0.4,
+		},
+		TrueSightBlindnesscalcStats: {
+			id: "TrueSightBlindnesscalcStats",
+			type: "Blindness",
+			duration: 1000,
+			power: -1,
+		},
+	};
+	const k = Object.getOwnPropertyNames(a);
+	if (remove) {
+		k.forEach(T => delete KinkyDungeonPlayerBuffs[T]);
+	} else {
+		k.forEach(T => {
+			const it = KinkyDungeonPlayerBuffs[T];
+			if (it) {
+				it.duration = 100;
+			} else {
+				KinkyDungeonPlayerBuffs[T] = a[T];
+			}
+		});
+	}
+};
 CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 	if (remove) {
 		delete KinkyDungeonPlayerBuffs["Invisibility"];
@@ -511,14 +553,14 @@ CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 	let i1 = KinkyDungeonPlayerBuffs['Invisibility'];
 	let i2 = KinkyDungeonPlayerBuffs['Invisibility2'];
 	if (i1 && i2) {
-		i1.duration = 100;
-		i2.duration = 110;
+		i1.duration = 1000;
+		i2.duration = 1100;
 	} else {
 		let n1 = {
 			id: "Invisibility",
 			aura: "#888888",
 			type: "Sneak",
-			duration: 100,
+			duration: 1000,
 			power: 10.0,
 			player: true,
 			enemies: true,
@@ -527,7 +569,7 @@ CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 		let n2 = {
 			id: "Invisibility2",
 			type: "SlowDetection",
-			duration: 110,
+			duration: 1100,
 			power: 0.5,
 			player: true,
 			enemies: false,
