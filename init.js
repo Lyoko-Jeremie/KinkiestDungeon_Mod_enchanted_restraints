@@ -455,23 +455,56 @@ window.KinkyDungeonMod_EnchantedRestraints.Cheats = {
 		Gold: "Gold",
 	},
 	SaveLoad: {},
+	_TickHook: {
+		Hook_KinkyDungeonUpdateJailKeys: null,
+		Hook_Map: new Map(),
+		HookFunctionCaller: null,
+		idGenerator: 1,
+		addHook: null,
+		removeHook: null,
+	},
 };
 // a temp ref to KinkyDungeonMod_EnchantedRestraints.Cheats for short code
 let CheatsObject = window.KinkyDungeonMod_EnchantedRestraints.Cheats;
 // fast ref
-window.Mod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints
+window.Mod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 
-CheatsObject.FullStatOff = () => {
+// setup Cheat Hook
+CheatsObject._TickHook.Hook_KinkyDungeonUpdateJailKeys = window.KinkyDungeonUpdateJailKeys;
+CheatsObject._TickHook.HookFunctionCaller = (...arg) => {
+	CheatsObject._TickHook.Hook_KinkyDungeonUpdateJailKeys(...arg);
+	CheatsObject._TickHook.Hook_Map.forEach((v, k) => {
+		v();
+	});
+};
+CheatsObject._TickHook.addHook = (callback) => {
+	let id = ++CheatsObject._TickHook.idGenerator;
+	CheatsObject._TickHook.Hook_Map.set(id, callback);
+	return id;
+};
+CheatsObject._TickHook.removeHook = (id) => {
+	return CheatsObject._TickHook.Hook_Map.delete(id);
+};
+window.KinkyDungeonUpdateJailKeys = CheatsObject._TickHook.HookFunctionCaller;
+
+CheatsObject.DisableFullState = () => {
+	// if (CheatsObject._InnerData.FullStatIntervalHandle) {
+	// 	clearInterval(CheatsObject._InnerData.FullStatIntervalHandle);
+	// 	CheatsObject._InnerData.FullStatIntervalHandle = undefined;
+	// }
 	if (CheatsObject._InnerData.FullStatIntervalHandle) {
-		clearInterval(CheatsObject._InnerData.FullStatIntervalHandle);
+		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.FullStatIntervalHandle);
 		CheatsObject._InnerData.FullStatIntervalHandle = undefined;
 	}
 };
-CheatsObject.FullStatOn = () => {
-	CheatsObject.FullStatOff();
-	CheatsObject._InnerData.FullStatIntervalHandle = setInterval(() => {
+CheatsObject.EnableFullState = () => {
+	CheatsObject.DisableFullState();
+	// CheatsObject._InnerData.FullStatIntervalHandle = setInterval(() => {
+	// 	CheatsObject._InnerFunction.FullStat();
+	// }, 1000);
+	CheatsObject._InnerData.FullStatIntervalHandle = CheatsObject._TickHook.addHook(() => {
 		CheatsObject._InnerFunction.FullStat();
-	}, 1000);
+	});
 };
 CheatsObject._InnerFunction.FullStat = () => {
 	KinkyDungeonStatMana = KinkyDungeonStatManaMax;
@@ -479,20 +512,30 @@ CheatsObject._InnerFunction.FullStat = () => {
 	KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 	// KDGameData.AncientEnergyLevel = 1.0;
 };
-CheatsObject.InvisibilityOff = () => {
+CheatsObject.DisableInvisibility = () => {
 	// CheatsObject._InnerFunction.PatchInvisibility(true);
+
+	// if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
+	// 	clearInterval(CheatsObject._InnerData.InvisibilityIntervalHandle);
+	// 	CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
+	// }
+	// CheatsObject._InnerFunction.SetInvisibility(true);
+
 	if (CheatsObject._InnerData.InvisibilityIntervalHandle) {
-		clearInterval(CheatsObject._InnerData.InvisibilityIntervalHandle);
+		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.InvisibilityIntervalHandle);
 		CheatsObject._InnerData.InvisibilityIntervalHandle = undefined;
 	}
 	CheatsObject._InnerFunction.SetInvisibility(true);
 };
-CheatsObject.InvisibilityOn = () => {
-	CheatsObject.InvisibilityOff();
+CheatsObject.EnableInvisibility = () => {
+	CheatsObject.DisableInvisibility();
 	// CheatsObject._InnerFunction.PatchInvisibility();
-	CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
+	// CheatsObject._InnerData.InvisibilityIntervalHandle = setInterval(() => {
+	// 	CheatsObject._InnerFunction.SetInvisibility();
+	// }, 1000);
+	CheatsObject._InnerData.InvisibilityIntervalHandle = CheatsObject._TickHook.addHook(() => {
 		CheatsObject._InnerFunction.SetInvisibility();
-	}, 1000);
+	});
 };
 // CheatsObject._InnerFunction.PatchInvisibility = (recover) => {
 // 	const n = KinkyDungeonSpellList.Illusion.find(T => T.name === "Invisibility");
@@ -856,6 +899,12 @@ CheatsObject.AddCheatChoiceBadNegative = (remove) => {
 		remove,
 	);
 };
+CheatsObject.AddCheatChoiceNowhere = (remove) => {
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Nowhere",
+		remove,
+	);
+}
 CheatsObject.AddCheatChoiceMidEscape = (remove) => {
 	// Slayer
 	// 杀手
