@@ -532,6 +532,7 @@ CheatsObject.EnableFullState = () => {
 	CheatsObject._InnerData.FullStatIntervalHandle = CheatsObject._TickHook.addHook(() => {
 		CheatsObject._InnerFunction.FullStat();
 	});
+	CheatsObject._InnerFunction.FullStat();
 };
 CheatsObject._InnerFunction.FullStat = () => {
 	KinkyDungeonStatMana = KinkyDungeonStatManaMax;
@@ -546,7 +547,7 @@ CheatsObject.DisableEnemySense = () => {
 	}
 };
 CheatsObject.EnableEnemySense = () => {
-	CheatsObject.DisableFullState();
+	CheatsObject.DisableEnemySense();
 	CheatsObject._InnerData.EnemySenseIntervalHandle = CheatsObject._TickHook.addHook(() => {
 		CheatsObject._InnerFunction.SetEnemySense();
 	});
