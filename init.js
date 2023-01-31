@@ -490,6 +490,37 @@ CheatsObject._TickHook.removeHook = (id) => {
 };
 window.KinkyDungeonUpdateJailKeys = CheatsObject._TickHook.HookFunctionCaller;
 
+
+CheatsObject.BootstrapAllGood = () => {
+	CheatsObject.AddManyKeys();
+	CheatsObject.AddManyPotion();
+	CheatsObject.AddAllWeapon();
+	CheatsObject.AddAllOutfit();
+	CheatsObject.AddAllConsumables();
+	CheatsObject.AddAllRestraints();
+	CheatsObject.AllSpells();
+	CheatsObject.AllHeart();
+	CheatsObject.AddCheatChoiceGoodEscape();
+	CheatsObject.AddCheatChoiceGoodEnhance();
+	CheatsObject.AddCheatChoiceMidEscape();
+	CheatsObject.EnableAllCheats();
+};
+CheatsObject.BootstrapAllNegative = () => {
+	CheatsObject.AddCheatChoiceBadNegative();
+	CheatsObject.AddCheatChoiceBadNoEscape();
+};
+CheatsObject.EnableAllCheats = () => {
+	CheatsObject.EnableFullState();
+	CheatsObject.EnableEnemySense();
+	CheatsObject.EnableInvisibility();
+	CheatsObject.EnableMaxEmpower();
+};
+CheatsObject.DisableAllCheats = () => {
+	CheatsObject.DisableFullState();
+	CheatsObject.DisableEnemySense();
+	CheatsObject.DisableInvisibility();
+	CheatsObject.DisableMaxEmpower();
+};
 CheatsObject.DisableFullState = () => {
 	if (CheatsObject._InnerData.FullStatIntervalHandle) {
 		CheatsObject._TickHook.removeHook(CheatsObject._InnerData.FullStatIntervalHandle);
@@ -985,6 +1016,10 @@ CheatsObject.AddCheatChoiceBadNegative = (remove) => {
 	);
 };
 CheatsObject.AddCheatChoiceNowhere = (remove) => {
+	// Nowhere
+	// 草木皆兵
+	// Beds and furniture are often trapped.
+	// 床和木桶经常会是陷阱。
 	CheatsObject._InnerFunction.AddCheatChoice(
 		"Nowhere",
 		remove,
