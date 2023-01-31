@@ -522,7 +522,7 @@ CheatsObject.EnableEnemySense = () => {
 };
 CheatsObject._InnerFunction.SetEnemySense = (remove) => {
 	// KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 100});
-	const a = {
+	const buffObj = {
 		EnemySense: {
 			id: "EnemySense",
 			type: "EnemySense",
@@ -535,29 +535,45 @@ CheatsObject._InnerFunction.SetEnemySense = (remove) => {
 			power: 5,
 			duration: 1000,
 		},
-		// TrueSightAccuracyBufftick: {
-		// 	id: "TrueSightAccuracyBufftick",
-		// 	type: "Accuracy",
-		// 	duration: 1000,
-		// 	power: 0.4,
-		// },
-		// TrueSightBlindnesscalcStats: {
-		// 	id: "TrueSightBlindnesscalcStats",
-		// 	type: "Blindness",
-		// 	duration: 1000,
-		// 	power: -1,
-		// },
+		Light: {
+			id: "Light",
+			type: "Light",
+			duration: 1000,
+		},
 	};
-	const k = Object.getOwnPropertyNames(a);
+	CheatsObject._InnerFunction.SetBuff(buffObj, remove);
+};
+CheatsObject._InnerFunction.SetBuff = (buffObj, remove) => {
+	// KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 100});
+	// const buffObj = {
+	// 	EnemySense: {
+	// 		id: "EnemySense",
+	// 		type: "EnemySense",
+	// 		duration: 1000,
+	// 	},
+	// 	Analyze: {
+	// 		id: "Analyze",
+	// 		aura: "#ff5555",
+	// 		type: "MagicalSight",
+	// 		power: 5,
+	// 		duration: 1000,
+	// 	},
+	// 	Light: {
+	// 		id: "Light",
+	// 		type: "Light",
+	// 		duration: 1000,
+	// 	},
+	// };
+	const k = Object.getOwnPropertyNames(buffObj);
 	if (remove) {
 		k.forEach(T => delete KinkyDungeonPlayerBuffs[T]);
 	} else {
 		k.forEach(T => {
 			const it = KinkyDungeonPlayerBuffs[T];
 			if (it) {
-				it.duration = 1000;
+				it.duration = buffObj[T].duration || 1000;
 			} else {
-				KinkyDungeonPlayerBuffs[T] = a[T];
+				KinkyDungeonPlayerBuffs[T] = buffObj[T];
 			}
 		});
 	}
@@ -585,18 +601,41 @@ CheatsObject.EnableInvisibility = () => {
 // 	}
 // };
 CheatsObject._InnerFunction.SetInvisibility = (remove) => {
-	if (remove) {
-		delete KinkyDungeonPlayerBuffs["Invisibility"];
-		delete KinkyDungeonPlayerBuffs["Invisibility2"];
-		return;
-	}
-	let i1 = KinkyDungeonPlayerBuffs['Invisibility'];
-	let i2 = KinkyDungeonPlayerBuffs['Invisibility2'];
-	if (i1 && i2) {
-		i1.duration = 1000;
-		i2.duration = 1100;
-	} else {
-		let n1 = {
+	// if (remove) {
+	// 	delete KinkyDungeonPlayerBuffs["Invisibility"];
+	// 	delete KinkyDungeonPlayerBuffs["Invisibility2"];
+	// 	return;
+	// }
+	// let i1 = KinkyDungeonPlayerBuffs['Invisibility'];
+	// let i2 = KinkyDungeonPlayerBuffs['Invisibility2'];
+	// if (i1 && i2) {
+	// 	i1.duration = 1000;
+	// 	i2.duration = 1100;
+	// } else {
+	// 	let n1 = {
+	// 		id: "Invisibility",
+	// 		aura: "#888888",
+	// 		type: "Sneak",
+	// 		duration: 1000,
+	// 		power: 10.0,
+	// 		player: true,
+	// 		enemies: true,
+	// 		tags: ["invisibility"]
+	// 	};
+	// 	let n2 = {
+	// 		id: "Invisibility2",
+	// 		type: "SlowDetection",
+	// 		duration: 1100,
+	// 		power: 0.5,
+	// 		player: true,
+	// 		enemies: false,
+	// 		tags: ["invisibility"]
+	// 	};
+	// 	KinkyDungeonPlayerBuffs["Invisibility"] = n1;
+	// 	KinkyDungeonPlayerBuffs["Invisibility2"] = n2;
+	// }
+	const buffObj = {
+		Invisibility: {
 			id: "Invisibility",
 			aura: "#888888",
 			type: "Sneak",
@@ -605,8 +644,8 @@ CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 			player: true,
 			enemies: true,
 			tags: ["invisibility"]
-		};
-		let n2 = {
+		},
+		Invisibility2: {
 			id: "Invisibility2",
 			type: "SlowDetection",
 			duration: 1100,
@@ -614,10 +653,9 @@ CheatsObject._InnerFunction.SetInvisibility = (remove) => {
 			player: true,
 			enemies: false,
 			tags: ["invisibility"]
-		};
-		KinkyDungeonPlayerBuffs["Invisibility"] = n1;
-		KinkyDungeonPlayerBuffs["Invisibility2"] = n2;
-	}
+		}
+	};
+	CheatsObject._InnerFunction.SetBuff(buffObj, remove);
 };
 CheatsObject.DisableMaxEmpower = () => {
 	if (CheatsObject._InnerData.MaxEmpowerIntervalHandle) {
@@ -634,16 +672,29 @@ CheatsObject.EnableMaxEmpower = () => {
 };
 CheatsObject._InnerFunction.SetKDEmpower = (remove) => {
 	// KDEmpower()
-	if (remove) {
-		delete KinkyDungeonPlayerBuffs["Empower"];
-		return;
-	}
-	let i1 = KinkyDungeonPlayerBuffs['Empower'];
-	if (i1) {
-		i1.duration = 1000;
-	} else {
-		// function KDEmpower(data, entity)
-		let n1 = {
+	// if (remove) {
+	// 	delete KinkyDungeonPlayerBuffs["Empower"];
+	// 	return;
+	// }
+	// let i1 = KinkyDungeonPlayerBuffs['Empower'];
+	// if (i1) {
+	// 	i1.duration = 1000;
+	// } else {
+	// 	// function KDEmpower(data, entity)
+	// 	let n1 = {
+	// 		id: "Empower",
+	// 		aura: "#aaaaff",
+	// 		type: "SpellEmpower",
+	// 		maxCount: 1,
+	// 		currentCount: 1,
+	// 		power: 3,
+	// 		duration: 1000,
+	// 		tags: ["cast", "upcast"],
+	// 	};
+	// 	KinkyDungeonPlayerBuffs["Empower"] = n1;
+	// }
+	let buffObj = {
+		Empower: {
 			id: "Empower",
 			aura: "#aaaaff",
 			type: "SpellEmpower",
@@ -652,9 +703,9 @@ CheatsObject._InnerFunction.SetKDEmpower = (remove) => {
 			power: 3,
 			duration: 1000,
 			tags: ["cast", "upcast"],
-		};
-		KinkyDungeonPlayerBuffs["Empower"] = n1;
-	}
+		}
+	};
+	CheatsObject._InnerFunction.SetBuff(buffObj, remove);
 };
 CheatsObject.AddDistraction = (n) => {
 	KinkyDungeonChangeDistraction(n || 10, true, 1);
