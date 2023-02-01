@@ -500,14 +500,14 @@ CheatsObject.BootstrapAllGood = () => {
 	CheatsObject.AddAllRestraints();
 	CheatsObject.AllSpells();
 	CheatsObject.AllHeart();
-	CheatsObject.AddCheatChoiceGoodEscape();
-	CheatsObject.AddCheatChoiceGoodEnhance();
-	CheatsObject.AddCheatChoiceMidEscape();
+	CheatsObject.ChoiceAddCheatChoiceGoodEscape();
+	CheatsObject.ChoiceAddCheatChoiceGoodEnhance();
+	CheatsObject.ChoiceAddCheatChoiceMidEscape();
 	CheatsObject.EnableAllCheats();
 };
 CheatsObject.BootstrapAllNegative = () => {
-	CheatsObject.AddCheatChoiceBadNegative();
-	CheatsObject.AddCheatChoiceBadNoEscape();
+	CheatsObject.ChoiceAddCheatChoiceBadNegative();
+	CheatsObject.ChoiceAddCheatChoiceBadNoEscape();
 };
 CheatsObject.EnableAllCheats = () => {
 	CheatsObject.EnableFullState();
