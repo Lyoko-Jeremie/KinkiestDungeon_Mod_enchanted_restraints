@@ -1014,10 +1014,18 @@ CheatsObject.ChoiceAddCheatChoiceBadNegative = (remove) => {
 	// JacketLover "Jacket Lover"
 	// "More straitjackets, less armbinders."
 
+	// 不可否认的	[Undeniable] [Undeniable]
+	// 你生来就有强烈的顺从欲望，无法在对话时拒绝束缚请求。
+	// I have... needs	[Needs] [Needs]
+	// Distraction builds up over time.
+	// 无法挣脱	[52] [NoWayOut]
+	// 敌人将始终使用最严格的束缚具并完全束缚您。
+	// 设备精良	[54] [TightRestraints]
+	// 限制在一定层数以后出现的拘束具和陷阱会更早的出现，并且敌人会堆叠更多的束缚。
 	CheatsObject._InnerFunction.AddCheatChoice(
 		"Vengeance MagicHands Nowhere " +
-		"CommonLatex CommonMaid CommonDress CommonKitty CommonExp CommonFuuka" +
-		"KinkyPrison",
+		"CommonLatex CommonMaid CommonDress CommonKitty CommonExp CommonFuuka CommonWolf CommonLeather" +
+		"KinkyPrison Undeniable Needs NoWayOut TightRestraints",
 		remove,
 	);
 };
