@@ -931,6 +931,9 @@ CheatsObject.SaveLoad.GameSaveDataString = () => {
 	console.log(KinkyDungeonSaveGame(true));
 	return KinkyDungeonSaveGame(true);
 };
+CheatsObject.SaveLoad.GameSaveNow = () => {
+	KinkyDungeonSaveGame(false);
+};
 CheatsObject.SaveLoad.CopyGameSaveDataStringToClipboard = () => {
 	navigator.clipboard.writeText(KinkyDungeonSaveGame(true)).then(T => {
 		console.log('CopyGameSaveDataStringToClipboard ok');
