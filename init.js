@@ -972,7 +972,7 @@ CheatsObject._InnerFunction.AddCheatChoice = (s, remove) => {
 		s.split(" ").filter(T => !!T).map(T => KinkyDungeonStatsChoice.set(T, true));
 	}
 };
-CheatsObject.AddCheatChoiceBadNegative = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceBadNegative = (remove) => {
 	// Vengeance
 	// 复仇
 	// Defeating an enemy greatly distracts you.
@@ -1016,7 +1016,7 @@ CheatsObject.AddCheatChoiceBadNegative = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoiceNowhere = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceNowhere = (remove) => {
 	// Nowhere
 	// 草木皆兵
 	// Beds and furniture are often trapped.
@@ -1026,7 +1026,7 @@ CheatsObject.AddCheatChoiceNowhere = (remove) => {
 		remove,
 	);
 }
-CheatsObject.AddCheatChoiceMidEscape = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceMidEscape = (remove) => {
 	// Slayer
 	// 杀手
 	// You can cast Elemental spells without having the components, at twice the cost. Start w/ Firebolt.
@@ -1044,7 +1044,7 @@ CheatsObject.AddCheatChoiceMidEscape = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoiceGoodEnhance = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceGoodEnhance = (remove) => {
 	// Psychic [Psychic]
 	// 精神
 	// You no longer drop keys and picks, can unlock yourself with bound hands, and don't need hands for items/potions.
@@ -1070,7 +1070,7 @@ CheatsObject.AddCheatChoiceGoodEnhance = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoiceMid = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceMid = (remove) => {
 	// DistractionCast "Mana Burst"
 	// "While at 100% distraction, you get -100% miscast chance but spending too much mana at once may cause you to go over the edge."
 	// ArousingMagic "Arousing Magic"
@@ -1082,7 +1082,7 @@ CheatsObject.AddCheatChoiceMid = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoiceGoodEscape = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceGoodEscape = (remove) => {
 	// Escapee [Escapee]
 	// 流亡者
 	// Start with high Leather reputation, and all leather restraints are easier to escape from.
@@ -1110,7 +1110,7 @@ CheatsObject.AddCheatChoiceGoodEscape = (remove) => {
 		remove,
 	);
 };
-CheatsObject.AddCheatChoiceBadNoEscape = (remove) => {
+CheatsObject.ChoiceAddCheatChoiceBadNoEscape = (remove) => {
 	// Damsel in Chains  [Damsel]
 	// 锁链中的少女
 	// Metal restraints are harder to escape from.
@@ -1143,6 +1143,36 @@ CheatsObject.AddCheatChoiceBadNoEscape = (remove) => {
 		"Damsel Bunny Doll Dragon BondageLover BoundCrusader KeepOutfit",
 		remove,
 	);
+};
+CheatsObject.ChoicePrintNowChoice = () => {
+	const l = Array.from(KinkyDungeonStatsChoice.keys());
+	let count = 0;
+	for (const s of l) {
+		if (KinkyDungeonStatsPresets[s]) {
+			const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
+			if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
+				console.log("" + count + "\t"
+					+ t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+					+ "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+			}
+			++count;
+		}
+	}
+};
+CheatsObject.ChoicePrintAllValidChoice = () => {
+	const l = Object.getOwnPropertyNames(KinkyDungeonStatsPresets);
+	let count = 0;
+	for (const s of l) {
+		if (KinkyDungeonStatsPresets[s]) {
+			const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
+			if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
+				console.log("" + count + "\t"
+					+ t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+					+ "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+			}
+			++count;
+		}
+	}
 };
 CheatsObject.HardModeEnable = () => {
 	KinkyDungeonStatsChoice.set("hardMode", true);
