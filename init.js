@@ -908,6 +908,8 @@ CheatsObject._InnerData.WearsList = {
 	BanditLeg: "BanditLegCuffs BanditAnkleCuffs BanditArmCuffs",
 	// 水晶
 	Crystal: "CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs",
+	// 龙鳞
+	Dragon: "DragonArmbinder DragonStraps DragonLegCuffs DragonAnkleCuffs DragonAnkleCuffs2 DragonBoots DragonBallGag DragonMuzzleGag DragonCollar",
 	// 连衣裙+紧身胸衣
 	Dress: "DressCorset DressBra",
 	// 黄色胶水
