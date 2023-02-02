@@ -992,6 +992,10 @@ CheatsObject.ChoiceAddCheatChoiceBadNegative = (remove) => {
 	// "All humanoids that can bind you also apply latex restraints."
 	// CommonWolf "Wolfgirl Lovers"
 	// "All humanoids that can bind you also apply wolfgirl restraints."
+	// Leather Lovers	[CommonLeather] [CommonLeather]
+	// All humanoids that can bind you also apply leather restraints.
+	// Wolfgirl Lovers	[CommonWolf] [CommonWolf]
+	// All humanoids that can bind you also apply wolfgirl restraints.
 	// CommonMaid "Maid Lovers"
 	// "All humanoids that can bind you also apply maid restraints."
 	// CommonDress "Dress Lovers"
@@ -1025,7 +1029,8 @@ CheatsObject.ChoiceAddCheatChoiceBadNegative = (remove) => {
 	CheatsObject._InnerFunction.AddCheatChoice(
 		"Vengeance MagicHands Nowhere " +
 		"CommonLatex CommonMaid CommonDress CommonKitty CommonExp CommonFuuka CommonWolf CommonLeather" +
-		"KinkyPrison Undeniable Needs NoWayOut TightRestraints",
+		"KinkyPrison Undeniable Needs NoWayOut TightRestraints" +
+		"Undeniable Needs NoWayOut TightRestraints",
 		remove,
 	);
 };
