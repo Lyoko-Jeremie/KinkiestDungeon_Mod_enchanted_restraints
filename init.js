@@ -1103,12 +1103,12 @@ CheatsObject.ChoiceAddCheatChoiceGoodEnhance = (remove) => {
 	);
 };
 CheatsObject.ChoiceAddCheatChoiceMid = (remove) => {
-	// DistractionCast "Mana Burst"
-	// "While at 100% distraction, you get -100% miscast chance but spending too much mana at once may cause you to go over the edge."
-	// ArousingMagic "Arousing Magic"
-	// "Your magic is powered by otherworldly distracting energies. Casting spells increases distraction based on the mana spent."
-	// Clearheaded "Clearheaded"
-	// "Magic puts you in a clear state of mind. Casting spells successfully reduces your distraction."
+	// 法力冲击	[DistractionCast] [DistractionCast]
+	// 当干扰值为 100% ，施法失败几率 -100%，但一次消耗过多的法力值可能会导致高潮。
+	// 催化魔法	[ArousingMagic] [ArousingMagic]
+	// 你的魔法由超凡脱俗的催情能量驱动，施法时会根据消耗的法力增加干扰值。
+	// 冷静之术	[Clearheaded] [Clearheaded]
+	// 魔法可以让你头脑清醒，成功施法时可以减少干扰值。
 	CheatsObject._InnerFunction.AddCheatChoice(
 		"Clearheaded ArousingMagic DistractionCast",
 		remove,
@@ -1173,6 +1173,20 @@ CheatsObject.ChoiceAddCheatChoiceBadNoEscape = (remove) => {
 	// 你生来就有强烈的顺从欲望，无法在对话时拒绝束缚请求。
 	CheatsObject._InnerFunction.AddCheatChoice(
 		"Damsel Bunny Doll Dragon BondageLover BoundCrusader KeepOutfit",
+		remove,
+	);
+};
+CheatsObject.ChoiceAddCheatChoiceMap = (remove) => {
+	// 困难的门	[Doorknobs] [Doorknobs]
+	// 当你的手被束缚时，门更难打开。
+	// 宽敞之牢	[MapLarge] [MapLarge]
+	// 将每个方向的地图大小增加 1。
+	// 广阔之牢	[MapHuge] [MapHuge]
+	// 将每个方向的地图大小增加 2。
+	// 辽阔之牢	[MapGigantic] [MapGigantic]
+	// 将每个方向的地图大小增加 3。
+	CheatsObject._InnerFunction.AddCheatChoice(
+		"Doorknobs MapLarge MapHuge MapGigantic",
 		remove,
 	);
 };
