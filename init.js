@@ -8,6 +8,15 @@ console.time("enchanted_restraints load time");
 window.enchanted_restraints = {}
 window.enchanted_restraints.KinkyDungeonRestraints = structuredClone(KinkyDungeonRestraints);
 
+let addCurseStruggleString = (curse, itemName, text) => {
+	// function KinkyDungeonCurseStruggle(item, Curse) {
+	if (curse === "MistressKey") {
+		addTextKey("KinkyDungeonCurseStruggle" + curse + itemName, text);
+	} else {
+		addTextKey("KinkyDungeonCurseStruggle" + curse, text);
+	}
+}
+
 KinkyDungeonRestraints.push(
 	{
 		curse: "MistressKey",
@@ -75,6 +84,9 @@ KinkyDungeonRestraints.push(
 		]
 	},
 );
+
+// addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
+// 	"你拉扯着你的贞操带，但你连一根手指都插不进去，因为它太紧了……");
 
 KinkyDungeonRestraints.push(
 	{
@@ -1083,8 +1095,10 @@ CheatsObject.ChoiceAddCheatChoiceGoodEnhance = (remove) => {
 	// 锁匠
 	// You get a bonus to lockpicking, allowing you to pick some high-security locks previously impossible.
 	// 您可以获得撬锁奖励，允许您尝试开一些以前不可能的高安全性锁。
+	// 拘束之力	[40] [BoundPower]
+	// 你的伤害和闪避会根据佩戴的束缚数量增加，完全束缚时最多 +40%。
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Psychic QuickDraw Strong Flexible Locksmith",
+		"Psychic QuickDraw Strong Flexible Locksmith BoundPower",
 		remove,
 	);
 };
