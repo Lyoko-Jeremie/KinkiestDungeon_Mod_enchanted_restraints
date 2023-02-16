@@ -447,6 +447,12 @@ addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳", undefined, "Enc
 			"远古" + M[1] + N[1],
 			undefined,
 			"Enchanted " + M[2] + " " + N[2]);
+		// unlock failed notice
+		addTextKey(
+			`KinkyDungeonCurseStruggleMistressKey${"Enchanted" + M[0] + N[0]}`,
+			// TextGetKD(`KinkyDungeonCurseStruggleMistressKeyEnchantedBelt`),
+			TextGetKD(`KinkyDungeonCurseStruggleMistressKey`),
+		);
 	});
 });
 // addTKeyF1("EnchantedMagicChainCrotch", "远古" + "下体链", undefined, "Enchanted " + "Magic Chain Crotch");
