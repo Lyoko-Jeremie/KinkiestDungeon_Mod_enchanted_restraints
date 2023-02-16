@@ -513,17 +513,8 @@ CheatsObject.BootstrapSpellChoicesTable = () => {
 CheatsObject.BootstrapAllGood = () => {
 	CheatsObject.AddManyKeys();
 	CheatsObject.AddManyGold();
-	CheatsObject.AddManyPotion();
-	CheatsObject.AddAllWeapon();
-	CheatsObject.AddAllOutfit();
-	CheatsObject.AddAllConsumables();
-	CheatsObject.AddAllRestraints();
-	CheatsObject.AllSpells();
-	CheatsObject.AllHeart();
-	CheatsObject.ChoiceAddCheatChoiceGoodEscape();
-	CheatsObject.ChoiceAddCheatChoiceGoodEnhance();
-	CheatsObject.ChoiceAddCheatChoiceMidEscape();
-	CheatsObject.EnableAllCheats();
+
+	CheatsObject.BootstrapSimpleGood();
 };
 CheatsObject.BootstrapSimpleGood = () => {
 	// CheatsObject.AddManyKeys();
