@@ -505,6 +505,22 @@ CheatsObject._TickHook.removeHook = (id) => {
 
 CheatsObject.BootstrapAllGood = () => {
 	CheatsObject.AddManyKeys();
+	CheatsObject.AddManyGold();
+	CheatsObject.AddManyPotion();
+	CheatsObject.AddAllWeapon();
+	CheatsObject.AddAllOutfit();
+	CheatsObject.AddAllConsumables();
+	CheatsObject.AddAllRestraints();
+	CheatsObject.AllSpells();
+	CheatsObject.AllHeart();
+	CheatsObject.ChoiceAddCheatChoiceGoodEscape();
+	CheatsObject.ChoiceAddCheatChoiceGoodEnhance();
+	CheatsObject.ChoiceAddCheatChoiceMidEscape();
+	CheatsObject.EnableAllCheats();
+};
+CheatsObject.BootstrapSimpleGood = () => {
+	// CheatsObject.AddManyKeys();
+	// CheatsObject.AddManyGold();
 	CheatsObject.AddManyPotion();
 	CheatsObject.AddAllWeapon();
 	CheatsObject.AddAllOutfit();
@@ -761,12 +777,18 @@ CheatsObject.SetAncientEnergy = (f) => {
 	KDGameData.AncientEnergyLevel = f || 1.0
 };
 CheatsObject.AddManyKeys = () => {
-	KinkyDungeonAddGold(10000000);
 	KinkyDungeonLockpicks = 1000;
 	KinkyDungeonRedKeys = 1000;
 	KinkyDungeonBlueKeys = 1000;
 	// 远古钥匙 use to unlock MistressKey Gold
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1000);
+	// 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
+	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1000);
+	// 灵浆 use to unlock GhostLock
+	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
+};
+CheatsObject.AddManyGold = () => {
+	KinkyDungeonAddGold(10000000);
 };
 CheatsObject.AddManyPotion = () => {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1000);
@@ -774,10 +796,6 @@ CheatsObject.AddManyPotion = () => {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1000);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionWill, 1000);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ManaOrb, 1000);
-	// 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
-	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1000);
-	// 灵浆 use to unlock GhostLock
-	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
 };
 CheatsObject.AddAllWeapon = () => {
 	Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T => KinkyDungeonInventoryAddWeapon(KinkyDungeonWeapons[T].name));
@@ -786,6 +804,10 @@ CheatsObject.AddAllOutfit = () => {
 	KinkyDungeonOutfitsBase.map(T => KinkyDungeonInventoryAddOutfit(T.name));
 };
 CheatsObject.AddAllConsumables = () => {
+	const ignoreList = (
+		"MistressKey AncientPowerSource Ectoplasm " +
+		"PotionMana PotionStamina PotionFrigid PotionWill ManaOrb"
+	).split(" ").filter(T => !!T);
 	Object.getOwnPropertyNames(KinkyDungeonConsumables).map(T => {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
 	});
