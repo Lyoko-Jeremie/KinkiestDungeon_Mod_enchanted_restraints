@@ -255,7 +255,13 @@ console.log("=============================enchanted_restraints before copy patch
 
 // KinkyDungeonRefreshRestraintsCache();
 
-"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness MagicChainCrotch MagicChainLegs ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar".split(" ").filter(T => !!T).map(N => {
+(
+	"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
+	"MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
+	"ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
+	"GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
+	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar"
+).split(" ").filter(T => !!T).map(N => {
 	return (() => {
 		console.log('patching : ', N);
 		let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N));
@@ -374,6 +380,20 @@ let addTKeyF1 = (it, s1, s2 = undefined, sEnglish = undefined) => {
 		KinkyDungeonAddRestraintText(it, sEnglish, sEnglish, sEnglish);
 	}
 };
+let addTKeyF2 = (oldName, name, displayName, flavorText = undefined, sEnglish = undefined) => {
+	// from KinkyDungeonDupeRestraintText
+	const oldKey = `Restraint${oldName}`;
+	const baseKey = `Restraint${name}`;
+
+	addTextKey(baseKey, displayName);
+	addTextKey(`${baseKey}Desc`, TextGetKD(`${oldKey}Desc`));
+	addTextKey(`${baseKey}Desc2`, TextGetKD(`${oldKey}Desc2`));
+	// if (TranslationLanguage === "CN") {
+	// 	KinkyDungeonAddRestraintText(name, displayName, flavorText, flavorText || displayName);
+	// } else if (sEnglish) {
+	// 	KinkyDungeonAddRestraintText(name, sEnglish, sEnglish, sEnglish);
+	// }
+};
 
 // function KDGetItemPreview(item) {
 // 	let ret = null;
@@ -409,8 +429,29 @@ addTKeyF1("EnchantedWolfHarness", "远古" + "狼女训练束衣", undefined, "E
 addTKeyF1("EnchantedControlHarness", "远古" + "狼女控制束衣", undefined, "Enchanted " + "Wolf Control Harness");
 addTKeyF1("EnchantedWolfCollar", "远古" + "狼女训练项圈", undefined, "Enchanted " + "Wolf Collar");
 addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳", undefined, "Enchanted " + "Wolf Leash");
+
+[
+	["ChainArms", "臂链", "Chains (Arms)"],
+	["ChainLegs", "腿链", "Chains (Legs)"],
+	["ChainFeet", "踝链", "Chains (Fee)"],
+	["ChainCrotch", "下体链", "Chains (Crotch)"],
+].map(N => {
+	[
+		["Magic", "魔法", "Magic"],
+		["Shadow", "暗影", "Shadow"],
+		["Ghost", "灵界", "Ghost"],
+	].map(M => {
+		addTKeyF2(
+			M[0] + N[0],
+			"Enchanted" + M[0] + N[0],
+			"远古" + M[1] + N[1],
+			undefined,
+			"Enchanted " + M[2] + " " + N[2]);
+	});
+});
 addTKeyF1("EnchantedMagicChainCrotch", "远古" + "下体链", undefined, "Enchanted " + "Magic Chain Crotch");
 addTKeyF1("EnchantedMagicChainLegs", "远古" + "腿链", undefined, "Enchanted " + "Magic Chain Legs");
+
 addTKeyF1("EnchantedSlimeLegs", "远古" + "史莱姆腿", undefined, "Enchanted " + "Slime Legs");
 addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿", undefined, "Enchanted " + "Hard Slime Legs");
 addTKeyF1("EnchantedObsidianCollar", "远古" + "黑曜石项圈", undefined, "Enchanted " + "Obsidian Collar");
