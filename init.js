@@ -1101,7 +1101,7 @@ CheatsObject.ChoiceAddCheatChoiceMidEscape = (remove) => {
 	// You can cast Illusion spells without having the components, at twice the cost. Start w/ Shadow Dagger.
 	// 你可以以两倍魔力消耗为代价无视施法条件使用幻术。开局获得技能 暗影匕首。
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Slayer Conjurer Magician Vengeance GroundedInReality",
+		"Slayer Conjurer Magician",
 		remove,
 	);
 };
