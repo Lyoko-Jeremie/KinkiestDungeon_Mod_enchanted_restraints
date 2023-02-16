@@ -503,6 +503,12 @@ CheatsObject._TickHook.removeHook = (id) => {
 };
 
 
+CheatsObject.BootstrapSpellChoicesTable = () => {
+	KinkyDungeonSpellChoices =
+		JSON.parse("[98,47,null,null,null,null,null,0,121,123,109,134,110,54,155,173,174,175,165,null,170]");
+	KinkyDungeonSpellChoicesToggle =
+		JSON.parse("[true,true,null,null,null,null,null,true,true,true,true,true,true,true,true,true,true,true,true,null,true]");
+};
 CheatsObject.BootstrapAllGood = () => {
 	CheatsObject.AddManyKeys();
 	CheatsObject.AddManyGold();
