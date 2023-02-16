@@ -804,12 +804,14 @@ CheatsObject.AddAllOutfit = () => {
 	KinkyDungeonOutfitsBase.map(T => KinkyDungeonInventoryAddOutfit(T.name));
 };
 CheatsObject.AddAllConsumables = () => {
-	const ignoreList = (
+	const ignoreSet = new Set((
 		"MistressKey AncientPowerSource Ectoplasm " +
 		"PotionMana PotionStamina PotionFrigid PotionWill ManaOrb"
-	).split(" ").filter(T => !!T);
+	).split(" ").filter(T => !!T));
 	Object.getOwnPropertyNames(KinkyDungeonConsumables).map(T => {
-		KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
+		if (!ignoreSet.has(T)) {
+			KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
+		}
 	});
 };
 CheatsObject.AddAllRestraints = () => {
