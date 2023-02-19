@@ -87,6 +87,8 @@ KinkyDungeonRestraints.push(
 
 // addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
 // 	"你拉扯着你的贞操带，但你连一根手指都插不进去，因为它太紧了……");
+// addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
+// 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
 
 KinkyDungeonRestraints.push(
 	{
@@ -255,12 +257,16 @@ console.log("=============================enchanted_restraints before copy patch
 
 // KinkyDungeonRefreshRestraintsCache();
 
+// addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
+// 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
+
 (
 	"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
 	"MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
 	"ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
 	"GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
-	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar"
+	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar" +
+	"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch"
 ).split(" ").filter(T => !!T).map(N => {
 	return (() => {
 		console.log('patching : ', N);
@@ -332,6 +338,9 @@ console.log("=============================enchanted_restraints before copy patch
 	}
 	return T;
 }).map(T => {
+	if (T.curse === "MistressKey") {
+		addCurseStruggleString(T.curse, T.name, "你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
+	}
 	return KinkyDungeonRestraints.push(T);
 });
 
@@ -982,7 +991,7 @@ CheatsObject._InnerData.WearsList = {
 	// EnchantedHeels 远古高跟鞋
 	Enchanted: "EnchantedBelt EnchantedBra EnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels",
 	// 魔法
-	Ribbon: "RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape DuctTape",
+	Ribbon: "RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch DuctTape",
 	// 冰
 	Ice: "IceArms IceLegs IceHarness IceGag",
 	// 黄水晶
@@ -1294,6 +1303,15 @@ CheatsObject.HardModeEnable = () => {
 };
 CheatsObject.HardModeDisable = () => {
 	KinkyDungeonStatsChoice.delete("hardMode");
+};
+
+CheatsObject.MapGet = () => {
+	const m = structuredClone(KinkyDungeonGrid);
+	return m.replaceAt("1", " ");
+};
+CheatsObject.MapRoiGet = () => {
+	const m = structuredClone(KinkyDungeonGrid);
+	return m.replaceAt(/[^\D\n]/g, " ");
 };
 
 console.log("disable Data Trace");
