@@ -265,7 +265,7 @@ console.log("=============================enchanted_restraints before copy patch
 	"MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
 	"ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
 	"GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
-	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar" +
+	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar " +
 	"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch"
 ).split(" ").filter(T => !!T).map(N => {
 	return (() => {
