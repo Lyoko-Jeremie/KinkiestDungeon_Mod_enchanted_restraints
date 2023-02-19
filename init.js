@@ -1307,11 +1307,13 @@ CheatsObject.HardModeDisable = () => {
 
 CheatsObject.MapGet = () => {
 	const m = structuredClone(KinkyDungeonGrid);
-	return m.replaceAt("1", " ");
+	m.replaceAll("1", " ");
+	return m;
 };
 CheatsObject.MapRoiGet = () => {
 	const m = structuredClone(KinkyDungeonGrid);
-	return m.replaceAt(/[^\D\n]/g, " ");
+	m.replaceAll(/[^\D\n]/g, " ");
+	return m;
 };
 
 console.log("disable Data Trace");
