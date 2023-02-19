@@ -1305,6 +1305,7 @@ CheatsObject.HardModeDisable = () => {
 	KinkyDungeonStatsChoice.delete("hardMode");
 };
 
+// function KDDrawMap(CamX, CamY, CamX_offset, CamY_offset, Debug) {
 CheatsObject.MapGet = () => {
 	const m = structuredClone(KinkyDungeonGrid);
 	return m.replaceAll("1", " ");
@@ -1313,7 +1314,79 @@ CheatsObject.MapRoiGet = () => {
 	const m = structuredClone(KinkyDungeonGrid);
 	return m.replaceAll(/[^\D\n]/g, " ");
 };
+CheatsObject.MapSsGet = () => {
+	const m = structuredClone(KinkyDungeonGrid);
+	return m.replaceAll(/[^Ss\n]/g, " ");
+};
+CheatsObject.MapKGet = () => {
+	let m = structuredClone(KinkyDungeonGrid);
+	m = m.replaceAll(/[^Ss\n]/g, " ");
+	m = m.split("\n");
+	let k = KDGameData.KeyringLocations;
+	k.forEach(K => {
+		let r = m[K.y].split("");
+		r[K.x] = "K";
+		m[K.y] = r.join("");
+	});
+	m = m.join("\n");
+	return m;
+};
+CheatsObject.MapKRoiGet = () => {
+	let m = structuredClone(KinkyDungeonGrid);
+	m = m.replaceAll(/[^\D\n]/g, " ");
+	m = m.split("\n");
+	let k = KDGameData.KeyringLocations;
+	k.forEach(K => {
+		let r = m[K.y].split("");
+		r[K.x] = "K";
+		m[K.y] = r.join("");
+	});
+	m = m.join("\n");
+	return m;
+};
+CheatsObject.MapKSsMGet = () => {
+	let m = structuredClone(KinkyDungeonGrid);
+	m = m.replaceAll("1", "░");
+	m = m.replaceAll(/[Ss]/g, "█");
+	m = m.split("\n");
+	let k = KDGameData.KeyringLocations;
+	k.forEach(K => {
+		let r = m[K.y].split("");
+		r[K.x] = "█";
+		m[K.y] = r.join("");
+	});
+	{
+		let r = m[KinkyDungeonPlayerEntity.y].split("");
+		r[KinkyDungeonPlayerEntity.x] = "◘";
+		m[KinkyDungeonPlayerEntity.y] = r.join("");
+	}
+	m = m.join("\n");
+	return m;
+};
+// KDGameData.KeyringLocations
+// KinkyDungeonTiles
+// KinkyDungeonTilesGet(RX + "," + RY)
 
+/*
+
+
+var m = structuredClone(KinkyDungeonGrid);
+m = m.replaceAll(/[^\D\n]/g, " ");
+
+var l = m.split("\n").map(T=>T.split(""));
+
+l.forEach((X,x)=>{
+  X.forEach((Y,y)=>{
+    KinkyDungeonTilesGet(x + "," + y)
+  })
+})
+
+KinkyDungeonTiles
+KinkyDungeonGrid
+KDGameData.KeyringLocations
+
+
+ */
 console.log("disable Data Trace");
 // disable Data Trace, to avoid cheats game data send to server
 KDOptOut = true;
