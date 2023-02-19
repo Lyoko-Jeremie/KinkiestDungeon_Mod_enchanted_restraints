@@ -1316,16 +1316,16 @@ CheatsObject.MapRoiGet = () => {
 };
 CheatsObject.MapSsGet = () => {
 	const m = structuredClone(KinkyDungeonGrid);
-	return m.replaceAll(/[^Ss\n]/g, " ");
+	return m.replaceAll(/[^SsH\n]/g, " ");
 };
 CheatsObject.MapKGet = () => {
 	let m = structuredClone(KinkyDungeonGrid);
-	m = m.replaceAll(/[^Ss\n]/g, " ");
+	m = m.replaceAll(/[^SsH\n]/g, "█");
 	m = m.split("\n");
 	let k = KDGameData.KeyringLocations;
 	k.forEach(K => {
 		let r = m[K.y].split("");
-		r[K.x] = "K";
+		r[K.x] = "▓";
 		m[K.y] = r.join("");
 	});
 	m = m.join("\n");
@@ -1333,12 +1333,12 @@ CheatsObject.MapKGet = () => {
 };
 CheatsObject.MapKRoiGet = () => {
 	let m = structuredClone(KinkyDungeonGrid);
-	m = m.replaceAll(/[^\D\n]/g, " ");
+	m = m.replaceAll(/[^\D\n]/g, "█");
 	m = m.split("\n");
 	let k = KDGameData.KeyringLocations;
 	k.forEach(K => {
 		let r = m[K.y].split("");
-		r[K.x] = "K";
+		r[K.x] = "▓";
 		m[K.y] = r.join("");
 	});
 	m = m.join("\n");
@@ -1347,12 +1347,12 @@ CheatsObject.MapKRoiGet = () => {
 CheatsObject.MapKSsMGet = () => {
 	let m = structuredClone(KinkyDungeonGrid);
 	m = m.replaceAll("1", "░");
-	m = m.replaceAll(/[Ss]/g, "█");
+	m = m.replaceAll(/[SsH]/g, "█");
 	m = m.split("\n");
 	let k = KDGameData.KeyringLocations;
 	k.forEach(K => {
 		let r = m[K.y].split("");
-		r[K.x] = "█";
+		r[K.x] = "▓";
 		m[K.y] = r.join("");
 	});
 	{
@@ -1363,9 +1363,38 @@ CheatsObject.MapKSsMGet = () => {
 	m = m.join("\n");
 	return m;
 };
+CheatsObject.MapKKSsMGet = () => {
+	let m = structuredClone(KinkyDungeonGrid);
+	m = m.replaceAll("1", "░");
+	m = m.replaceAll(/[SsH]/g, "█");
+	m = m.split("\n");
+	let k = KDGameData.KeyringLocations;
+	k.forEach(K => {
+		let r = m[K.y].split("");
+		r[K.x] = "▓";
+		m[K.y] = r.join("");
+	});
+	{
+		let r = m[KinkyDungeonPlayerEntity.y].split("");
+		r[KinkyDungeonPlayerEntity.x] = "◘";
+		m[KinkyDungeonPlayerEntity.y] = r.join("");
+	}
+	KinkyDungeonGroundItems.forEach(T => {
+		if (T.name === "Keyring") {
+			let r = m[T.y].split("");
+			r[T.x] = "▓";
+			m[T.y] = r.join("");
+		}
+	});
+	m = m.join("\n");
+	return m;
+};
+// let KDSprites = {
+// let KDOverlays = {
 // KDGameData.KeyringLocations
 // KinkyDungeonTiles
 // KinkyDungeonTilesGet(RX + "," + RY)
+// KinkyDungeonGroundItems.push({x:slot.x, y:slot.y, name: "Keyring"});
 
 /*
 
