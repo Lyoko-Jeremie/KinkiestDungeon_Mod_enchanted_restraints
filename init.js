@@ -439,13 +439,13 @@ addTKeyF1("EnchantedControlHarness", "远古" + "狼女控制束衣", undefined,
 addTKeyF1("EnchantedWolfCollar", "远古" + "狼女训练项圈", undefined, "Enchanted " + "Wolf Collar");
 addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳", undefined, "Enchanted " + "Wolf Leash");
 
-addTKeyF1("EnchantedRibbonArms", "远古" + "魔法丝带（手臂）", undefined, );
-addTKeyF1("EnchantedRibbonHands", "远古" + "魔术丝带（手套）", undefined, );
-addTKeyF1("EnchantedRibbonCrotch", "远古" + "魔术丝带（下体）", undefined, );
-addTKeyF1("EnchantedRibbonLegs", "远古" + "魔法丝带（腿）", undefined, );
-addTKeyF1("EnchantedRibbonFeet", "远古" + "魔法丝带（脚）", undefined, );
-addTKeyF1("EnchantedRibbonHarness", "远古" + "魔法丝带（束衣）", undefined, );
-addTKeyF1("EnchantedRibbonMouth", "远古" + "魔法丝带（堵嘴）", undefined, );
+addTKeyF1("EnchantedRibbonArms", "远古" + "魔法丝带（手臂）", undefined,);
+addTKeyF1("EnchantedRibbonHands", "远古" + "魔术丝带（手套）", undefined,);
+addTKeyF1("EnchantedRibbonCrotch", "远古" + "魔术丝带（下体）", undefined,);
+addTKeyF1("EnchantedRibbonLegs", "远古" + "魔法丝带（腿）", undefined,);
+addTKeyF1("EnchantedRibbonFeet", "远古" + "魔法丝带（脚）", undefined,);
+addTKeyF1("EnchantedRibbonHarness", "远古" + "魔法丝带（束衣）", undefined,);
+addTKeyF1("EnchantedRibbonMouth", "远古" + "魔法丝带（堵嘴）", undefined,);
 
 [
 	["ChainArms", "臂链", "Chains (Arms)"],
@@ -567,12 +567,21 @@ CheatsObject._TickHook.removeHook = (id) => {
 };
 
 
+const KinkyDungeonSpellsCacheMap = (new Map(KinkyDungeonSpells.map((T, i) => [T.name, [i, T]])));
 CheatsObject.BootstrapSpellChoicesTable = () => {
-	KinkyDungeonSpellChoices =
-		JSON.parse("[98,47,null,null,null,null,null,0,121,123,109,134,110,54,155,173,174,175,165,null,170]");
-	// todo use toggleSpell("toggleSpell",{i:123}) or KDSendInput("toggleSpell",{i:123}) or KinkyDungeonClickSpell
+	// const nameList = Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name)
+	// generate by
+	// JSON.stringify(Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name));
+	const nameList = JSON.parse(
+		'["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,null,"Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light",null,"FlameBlade"]'
+	);
+	KinkyDungeonSpellChoices = nameList.map(n => (KinkyDungeonSpellsCacheMap.get(n) || [undefined, undefined])[0]);
+	// generate by
+	// JSON.stringify(KinkyDungeonSpellChoicesToggle)
 	KinkyDungeonSpellChoicesToggle =
-		JSON.parse("[true,true,null,null,null,null,null,true,true,true,true,true,true,true,true,true,true,true,true,null,true]");
+		JSON.parse(
+			"[true,true,true,true,null,true,true,true,true,true,null,true,true,true,true,true,true,true,true,null,true]"
+		);
 };
 CheatsObject.BootstrapAllGood = () => {
 	CheatsObject.AddManyKeys();
