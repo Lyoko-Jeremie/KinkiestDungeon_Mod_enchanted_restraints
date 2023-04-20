@@ -266,7 +266,7 @@ console.log("=============================enchanted_restraints before copy patch
 	"ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
 	"GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
 	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar " +
-	"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch"
+	"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch RibbonHands RibbonMouth"
 ).split(" ").filter(T => !!T).map(N => {
 	return (() => {
 		console.log('patching : ', N);
@@ -438,6 +438,14 @@ addTKeyF1("EnchantedWolfHarness", "远古" + "狼女训练束衣", undefined, "E
 addTKeyF1("EnchantedControlHarness", "远古" + "狼女控制束衣", undefined, "Enchanted " + "Wolf Control Harness");
 addTKeyF1("EnchantedWolfCollar", "远古" + "狼女训练项圈", undefined, "Enchanted " + "Wolf Collar");
 addTKeyF1("EnchantedWolfLeash", "远古" + "狼女训练牵绳", undefined, "Enchanted " + "Wolf Leash");
+
+addTKeyF1("EnchantedRibbonArms", "远古" + "魔法丝带（手臂）", undefined, );
+addTKeyF1("EnchantedRibbonHands", "远古" + "魔术丝带（手套）", undefined, );
+addTKeyF1("EnchantedRibbonCrotch", "远古" + "魔术丝带（下体）", undefined, );
+addTKeyF1("EnchantedRibbonLegs", "远古" + "魔法丝带（腿）", undefined, );
+addTKeyF1("EnchantedRibbonFeet", "远古" + "魔法丝带（脚）", undefined, );
+addTKeyF1("EnchantedRibbonHarness", "远古" + "魔法丝带（束衣）", undefined, );
+addTKeyF1("EnchantedRibbonMouth", "远古" + "魔法丝带（堵嘴）", undefined, );
 
 [
 	["ChainArms", "臂链", "Chains (Arms)"],
