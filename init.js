@@ -523,6 +523,7 @@ window.KinkyDungeonMod_EnchantedRestraints.Cheats = {
 		InvisibilityIntervalHandle: undefined,
 		MaxEmpowerIntervalHandle: undefined,
 		EnemySenseIntervalHandle: undefined,
+		KinkyDungeonSpellsCacheMap: undefined,
 	},
 	_InnerFunction: {},
 	DebugSee: {},
@@ -567,15 +568,15 @@ CheatsObject._TickHook.removeHook = (id) => {
 };
 
 
-const KinkyDungeonSpellsCacheMap = (new Map(KinkyDungeonSpells.map((T, i) => [T.name, [i, T]])));
 CheatsObject.BootstrapSpellChoicesTable = () => {
+	CheatsObject._InnerData.KinkyDungeonSpellsCacheMap = (new Map(KinkyDungeonSpells.map((T, i) => [T.name, [i, T]])));
 	// const nameList = Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name)
 	// generate by
 	// JSON.stringify(Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name));
 	const nameList = JSON.parse(
 		'["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,null,"Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light",null,"FlameBlade"]'
 	);
-	KinkyDungeonSpellChoices = nameList.map(n => (KinkyDungeonSpellsCacheMap.get(n) || [undefined, undefined])[0]);
+	KinkyDungeonSpellChoices = nameList.map(n => (CheatsObject._InnerData.KinkyDungeonSpellsCacheMap.get(n) || [undefined, undefined])[0]);
 	// generate by
 	// JSON.stringify(KinkyDungeonSpellChoicesToggle)
 	KinkyDungeonSpellChoicesToggle =
