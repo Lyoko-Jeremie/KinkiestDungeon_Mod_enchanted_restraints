@@ -1026,6 +1026,8 @@ CheatsObject._InnerData.WearsList = {
 	Wolf: "WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties",
 	// Slime
 	Slime: "SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead",
+	// Vibration
+	Vibration: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
 	// // AAAAA
 	// AAAAA: ,
 };
