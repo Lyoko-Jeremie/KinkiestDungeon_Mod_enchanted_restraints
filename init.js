@@ -293,9 +293,11 @@ console.log("=============================enchanted_restraints before copy patch
 			break;
 		case ("Enchanted" + "MikoCollar"):
 			T.curse = "GhostLock";
+			break;
 		case ("Enchanted" + "MaidCBelt"):
 			T.chastitybra = false;
 			T.chastity = false;
+			break;
 		case ("Enchanted" + "WolfPanties"):
 			T.events = [
 				{
@@ -333,6 +335,7 @@ console.log("=============================enchanted_restraints before copy patch
 					chance: 0.01,
 				},
 			];
+			break;
 		default:
 			break;
 	}
