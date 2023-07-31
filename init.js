@@ -255,6 +255,37 @@ KinkyDungeonRestraints.push(
 
 console.log("=============================enchanted_restraints before copy patch", structuredClone(KinkyDungeonRestraints));
 
+/**
+ * @param newRestraintId {string}
+ * @param oldRestraintId {string}
+ * @param nameP {((old:string)=>string) | undefined}
+ * @param desc1P {((old:string)=>string) | undefined}
+ * @param desc2P {((old:string)=>string) | undefined}
+ */
+let DupeRestraintText = (newRestraintId, oldRestraintId, nameP = undefined, desc1P = undefined, desc2P = undefined) => {
+	const baseKey = `Restraint${newRestraintId}`;
+	const oldKey = `Restraint${oldRestraintId}`;
+
+	addTextKey(baseKey, nameP ? nameP(TextGetKD(oldKey)) : TextGetKD(oldKey));
+	addTextKey(`${baseKey}Desc`, desc1P ? desc1P(TextGetKD(`${oldKey}Desc`)) : TextGetKD(`${oldKey}Desc`));
+	addTextKey(`${baseKey}Desc2`, desc2P ? desc2P(TextGetKD(`${oldKey}Desc2`)) : TextGetKD(`${oldKey}Desc2`));
+}
+/**
+@param newRestraintId {string}
+ * @param oldRestraintId {string}
+ * @param nameP {((old:string)=>string) | undefined}
+ * @param desc1P {((old:string)=>string) | undefined}
+ * @param desc2P {((old:string)=>string) | undefined}
+ */
+let copyTKeyF = (newRestraintId, oldRestraintId, nameP = undefined, desc1P = undefined, desc2P = undefined) => {
+	DupeRestraintText(newRestraintId, oldRestraintId, nameP, desc1P, desc2P);
+	// if (TranslationLanguage === "CN") {
+	// 	DupeRestraintText(newRestraintId, oldRestraintId, nameP, desc1P, desc2P);
+	// } else if (sEnglish) {
+	// 	DupeRestraintText(newRestraintId, oldRestraintId, nameP, desc1P, desc2P);
+	// }
+};
+
 // KinkyDungeonRefreshRestraintsCache();
 
 // addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
@@ -265,7 +296,9 @@ console.log("=============================enchanted_restraints before copy patch
 	"MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
 	"ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
 	"GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
-	"ObsidianCollar MikoCollar WolfCollar WolfLeash SlimeLegs HardSlimeLegs ExpCollar " +
+	"ObsidianCollar MikoCollar WolfCollar WolfLeash ExpCollar " +
+	"SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead " +
+	"HardSlimeBoots HardSlimeFeet HardSlimeLegs HardSlimeArms HardSlimeHands HardSlimeMouth HardSlimeHead " +
 	"RibbonArms RibbonLegs RibbonFeet RibbonHarness RibbonCrotch RibbonHands RibbonMouth"
 ).split(" ").filter(T => !!T).map(N => {
 	return (() => {
@@ -283,14 +316,33 @@ console.log("=============================enchanted_restraints before copy patch
 	})();
 }).map(T => {
 	// add patch
+	if (T.name.startsWith(("Enchanted" + "Slime"))) {
+		copyTKeyF(T.name,
+			"Slime" + T.name.substring(("EnchantedSlime").length),
+			(n) => "远古" + n,
+			// undefined,
+			// "Enchanted " + "Slime Legs"
+		);
+		return T;
+	}
+	if (T.name.startsWith(("Enchanted" + "Hard" + "Slime"))) {
+		T.name = T.name.replace("EnchantedHardSlime", "HardEnchantedSlime");
+		copyTKeyF(T.name,
+			"HardSlime" + T.name.substring(("HardEnchantedSlime").length),
+			(n) => "远古" + n,
+			// undefined,
+			// "Enchanted " + "Hard Slime Legs"
+		);
+		return T;
+	}
 	switch (T.name) {
-		case ("Enchanted" + "SlimeLegs"):
-			// T.weight = -1000;
-			break;
-		case ("Enchanted" + "HardSlimeLegs"):
-			// T.weight = -1000;
-			T.name = "HardEnchantedSlimeLegs";
-			break;
+		// case ("Enchanted" + "SlimeLegs"):
+		// 	// T.weight = -1000;
+		// 	break;
+		// case ("Enchanted" + "HardSlimeLegs"):
+		// 	// T.weight = -1000;
+		// 	T.name = "HardEnchantedSlimeLegs";
+		// 	break;
 		case ("Enchanted" + "MikoCollar"):
 			T.curse = "GhostLock";
 			break;
@@ -342,8 +394,14 @@ console.log("=============================enchanted_restraints before copy patch
 	return T;
 }).map(T => {
 	if (T.curse === "MistressKey") {
+		// addTextKey(
+		// 	`KinkyDungeonCurseStruggleMistressKey${T.name}`,
+		// 	// TextGetKD(`KinkyDungeonCurseStruggleMistressKeyEnchantedBelt`),
+		// 	TextGetKD(`KinkyDungeonCurseStruggleMistressKey`),
+		// );
 		addCurseStruggleString(T.curse, T.name, "你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
 	}
+	console.log('P : ', T);
 	return KinkyDungeonRestraints.push(T);
 });
 
@@ -478,8 +536,8 @@ addTKeyF1("EnchantedRibbonMouth", "远古" + "魔法丝带（堵嘴）", undefin
 // addTKeyF1("EnchantedMagicChainCrotch", "远古" + "下体链", undefined, "Enchanted " + "Magic Chain Crotch");
 // addTKeyF1("EnchantedMagicChainLegs", "远古" + "腿链", undefined, "Enchanted " + "Magic Chain Legs");
 
-addTKeyF1("EnchantedSlimeLegs", "远古" + "史莱姆腿", undefined, "Enchanted " + "Slime Legs");
-addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿", undefined, "Enchanted " + "Hard Slime Legs");
+// addTKeyF1("EnchantedSlimeLegs", "远古" + "史莱姆腿", undefined, "Enchanted " + "Slime Legs");
+// addTKeyF1("HardEnchantedSlimeLegs", "远古" + "硬化史莱姆腿", undefined, "Enchanted " + "Hard Slime Legs");
 addTKeyF1("EnchantedObsidianCollar", "远古" + "黑曜石项圈", undefined, "Enchanted " + "Obsidian Collar");
 addTKeyF1("EnchantedMikoCollar", "远古" + "Fuuka项圈", undefined, "Enchanted " + "Miko Collar");
 addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩", undefined, "Improve " + "Enchanted " + "Blindfold");
@@ -987,14 +1045,24 @@ CheatsObject._InnerFunction.WearRestraints = (restraints = "", lock = CheatsObje
 	// MistressKey need the MistressKey to unlock
 	// GhostLock need the Ectoplasm to unlock
 	// 2 hidden lock MistressKey GhostLock only in the Restraint config
-	return restraints.split(" ").filter(T => !!T).map(T => {
+	const W = restraints.split(" ").filter(T => !!T).map(T => {
 			try {
-				return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, lock || CheatsObject.LockList.Gold)
+				const RR = KinkyDungeonGetRestraintByName(T);
+				console.log(RR.name);
+				return [RR, KinkyDungeonAddRestraint(RR, 10, false, lock || CheatsObject.LockList.Gold)]
 			} catch (e) {
 				console.error(e);
+				return [];
 			}
 		}
 	);
+	const objR = W.reduce((P, T, I, A) => [...P, T[0]], []);
+	console.log(W);
+	console.log(objR.map(T => TextGetKD(`Restraint${T.name}`)));
+
+	const r = W.reduce((P, T, I, A) => [...P, T[1]], []);
+	console.log(r);
+	return r;
 };
 CheatsObject._InnerData.WearsList = {
 	// VinePlant
@@ -1041,9 +1109,10 @@ CheatsObject._InnerData.WearsList = {
 	// 狼女
 	Wolf: "WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties",
 	// Slime
-	Slime: "SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead",
+	Slime: "SlimeBoots SlimeFeet SlimeHands SlimeLegs SlimeArms SlimeMouth SlimeHead",
+	SlimeEnchanted: "EnchantedSlimeBoots EnchantedSlimeFeet EnchantedSlimeHands EnchantedSlimeLegs EnchantedSlimeArms EnchantedSlimeMouth EnchantedSlimeHead",
 	// Vibration
-	Vibration: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
+	VibrationEnchanted: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
 	// // AAAAA
 	// AAAAA: ,
 };
