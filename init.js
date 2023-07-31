@@ -546,6 +546,17 @@ window.KinkyDungeonMod_EnchantedRestraints.Cheats = {
 		addHook: null,
 		removeHook: null,
 	},
+	_FunctionReplaceHook: {
+		// interface FunctionReplaceInfo{
+		// 		hookFunctionName:string,
+		// 		oldFunction:CallableFunction,
+		// 		replaceFunction:CallableFunction,
+		// 		callCount:number=0,
+		// 		maxCallCount:number=-1,
+		// }
+		// Map<HookFunctionName,FunctionReplaceInfo>
+		Hook_Point_Map: new Map(),
+	},
 };
 // a temp ref to KinkyDungeonMod_EnchantedRestraints.Cheats for short code
 let CheatsObject = window.KinkyDungeonMod_EnchantedRestraints.Cheats;
@@ -553,14 +564,16 @@ let CheatsObject = window.KinkyDungeonMod_EnchantedRestraints.Cheats;
 window.Mod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 
 // setup Cheat Hook
-CheatsObject._TickHook.Hook_HookedFunction_Point = window.KinkyDungeonUpdateJailKeys;
+// CheatsObject._TickHook.Hook_HookedFunction_Point = window.KinkyDungeonUpdateJailKeys;
+CheatsObject._TickHook.Hook_HookedFunction_Point = window.KDGetEnemyCache;
 CheatsObject._TickHook.Hook_HookFunctionCaller = (...arg) => {
 	CheatsObject._TickHook.Hook_HookedFunction_Point(...arg);
 	CheatsObject._TickHook.Hook_Map.forEach((v, k) => {
 		v();
 	});
 };
-window.KinkyDungeonUpdateJailKeys = CheatsObject._TickHook.Hook_HookFunctionCaller;
+// window.KinkyDungeonUpdateJailKeys = CheatsObject._TickHook.Hook_HookFunctionCaller;
+window.KDGetEnemyCache = CheatsObject._TickHook.Hook_HookFunctionCaller;
 CheatsObject._TickHook.addHook = (callback) => {
 	let id = ++CheatsObject._TickHook.idGenerator;
 	CheatsObject._TickHook.Hook_Map.set(id, callback);
