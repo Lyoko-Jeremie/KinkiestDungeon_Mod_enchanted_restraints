@@ -1184,6 +1184,10 @@ CheatsObject.ChoiceAddCheatChoiceGoodEnhance = (remove) => {
 	// Switching weapons and spells does not take a turn.
 	// GroundedInReality "Grounded in Reality"
 	// "While at max mana, your attacks deal an additional 30% of their base damage as electric damage."
+	// FranticStruggle [FranticStruggle]
+	// 疯狂挣扎
+	// Your struggling is 3 times as fast, but less efficient in terms of stamina.
+	// 你的挣扎速度变为原来的 3 倍，但提高挣扎时的体力消耗。
 	// Strong [Strong]
 	// 强健
 	// Boosts the Struggle option when escaping.
@@ -1198,8 +1202,23 @@ CheatsObject.ChoiceAddCheatChoiceGoodEnhance = (remove) => {
 	// 您可以获得撬锁奖励，允许您尝试开一些以前不可能的高安全性锁。
 	// 拘束之力	[40] [BoundPower]
 	// 你的伤害和闪避会根据佩戴的束缚数量增加，完全束缚时最多 +40%。
+	// 集中闪避	[18] [Dodge]
+	// While your miscast chance is 0%, you gain +40 Evasion.
+	// 施法失败率为 0% 时，闪避 +40。
+	// Brawler  [20] [Brawler]
+	// 格斗大师
+	// Unarmed attacks deal +10 damage.
+	// 徒手攻击额外造成10伤害。
+	// Graceful Walk  [53] [HeelWalker]
+	// 优雅步伐
+	// You don't lose stamina when walking with one slowing item, unless it binds your legs together.
+	// 带着一件减速物品走路时不会失去耐力，除非你的腿被绑在一起。
+	// Unstable Magic  [UnstableMagic]
+	// 混沌魔法
+	// Spells do up to 60% additional damage based on distraction or miscast chance, whichever is higher.
+	// 根据性奋值或施法失败的几率，法术最多可造成 60% 的额外伤害，以最高者为准。
 	CheatsObject._InnerFunction.AddCheatChoice(
-		"Psychic QuickDraw Strong Flexible Locksmith BoundPower",
+		"Psychic QuickDraw Strong FranticStruggle Flexible Locksmith BoundPower Dodge Brawler HeelWalker UnstableMagic",
 		remove,
 	);
 };
