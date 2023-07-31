@@ -1439,6 +1439,70 @@ KDGameData.KeyringLocations
 
 
  */
+
+
+// const KinkyDungeonMapParams = {
+// function KinkyDungeonGetMainPath(level, altType) {
+CheatsObject._InnerFunction.UninstallFunctionReplaceHook = (hookFName) => {
+	const n = CheatsObject._FunctionReplaceHook.Hook_Point_Map.get(hookFName);
+	if (n) {
+		// recover old function
+		window[hookFName] = n.oldFunction;
+		CheatsObject._FunctionReplaceHook.Hook_Point_Map.delete(hookFName);
+	}
+}
+CheatsObject._InnerFunction.InstallFunctionReplaceHookOnce = (hookFName, newFunction) => {
+	CheatsObject._InnerFunction.InstallFunctionReplaceHook(hookFName, newFunction, 1);
+}
+CheatsObject._InnerFunction.InstallFunctionReplaceHook = (hookFName, newFunction, maxCallCount = -1) => {
+	// uninstall old hook point
+	CheatsObject._InnerFunction.UninstallFunctionReplaceHook(hookFName);
+	// FunctionReplaceInfo
+	const functionReplaceInfo = {
+		hookFunctionName: hookFName,
+		oldFunction: window[hookFName],
+		replaceFunction: newFunction,
+		callCount: 0,
+		maxCallCount: maxCallCount,
+	};
+	// install hook point
+	CheatsObject._FunctionReplaceHook.Hook_Point_Map.set(hookFName, functionReplaceInfo);
+	window[hookFName] = (...arg) => {
+		console.log('FunctionReplaceHook called', hookFName);
+		// add count & call replace function
+		const n = CheatsObject._FunctionReplaceHook.Hook_Point_Map.get(hookFName);
+		const f = n.replaceFunction;
+		n.callCount = n.callCount + 1;
+		if (n.maxCallCount >= 0 && n.callCount >= n.maxCallCount) {
+			// uninstall hook , (for call once type hook)
+			CheatsObject._InnerFunction.UninstallFunctionReplaceHook(hookFName);
+		}
+		return f(...arg);
+	};
+};
+((() => {
+	const names = Object.keys(KinkyDungeonMapParams);
+	names.forEach(T => {
+		CheatsObject['ForceNextMapTypeOnce_' + T + '_' + KinkyDungeonMapParams[T].background] = () => {
+			CheatsObject._InnerFunction.InstallFunctionReplaceHookOnce(
+				'KinkyDungeonGetMainPath',
+				() => T,
+			);
+		};
+		CheatsObject['ForceNextMapType_' + T + '_' + KinkyDungeonMapParams[T].background] = () => {
+			CheatsObject._InnerFunction.InstallFunctionReplaceHook(
+				'KinkyDungeonGetMainPath',
+				() => T,
+			);
+		};
+	});
+})());
+
+// let chestType = KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] == "lib" ? "shelf" : "rubble";
+// KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
+// KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "shelf");
+// for (let i = 0; i < 10; i++) {KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "shelf");}
+
 console.log("disable Data Trace");
 // disable Data Trace, to avoid cheats game data send to server
 KDOptOut = true;
