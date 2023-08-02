@@ -138,6 +138,19 @@ declare global {
     ) => boolean;
 
     /**
+     * It removes a restraint from the player
+     * @param {string} Group - The group of the item to remove.
+     * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
+     * @param {boolean} [Add] - If true, this is part of the process of adding another item and should not trigger infinite recursion
+     * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
+     * @param {boolean} [Shrine] - If the item is being removed from a shrine, this is true.
+     * @param {boolean} [UnLink] - If the item is being removed as part of an unlinking process
+     * @param {entity} [Remover] - Who removes this
+     * @returns {boolean} true if the item was removed, false if it was not.
+     */
+    function KinkyDungeonRemoveRestraint(Group: string, Keep: boolean, Add?: boolean, NoEvent?: boolean, Shrine?: boolean, UnLink?: boolean, Remover?: entity): boolean;
+
+    /**
      *
      * @param {string} type
      * @param {any} data

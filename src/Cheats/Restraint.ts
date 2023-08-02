@@ -112,4 +112,19 @@ export class Restraint {
         }
     }
 
+
+    RemoveAllRestraint = () => {
+        return KinkyDungeonAllRestraint().map((r) => KDRestraint(r)).map(T =>
+            KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)
+        );
+    };
+    RemoveAllRestraintDynamic = () => {
+        return KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item)).map(T => {
+            try {
+                return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)
+            } catch (e) {
+            }
+        });
+    };
+
 }
