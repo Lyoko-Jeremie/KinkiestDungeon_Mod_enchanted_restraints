@@ -16,7 +16,7 @@ window.KinkyDungeonMod_EnchantedRestraints.Cheats = new Cheats();
 
 // RestraintsPatch
 EnchantedRestraintsPatch();
-window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = ApplyModRestraint();
+window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = ApplyModRestraint;
 
 
 console.log("disable Data Trace");

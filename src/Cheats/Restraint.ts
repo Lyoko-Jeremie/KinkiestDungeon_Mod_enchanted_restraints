@@ -68,9 +68,9 @@ export class Restraint {
         // 2 hidden lock MistressKey GhostLock only in the Restraint config
         const W = restraints.split(" ").filter(T => !!T).map(T => {
                 try {
-                    const RR = window.KinkyDungeonGetRestraintByName(T);
+                    const RR = KinkyDungeonGetRestraintByName(T);
                     console.log(RR.name);
-                    return [RR, window.KinkyDungeonAddRestraint(RR, 10, false, lock || LockList.Gold)]
+                    return [RR, KinkyDungeonAddRestraint(RR, 10, false, lock || LockList.Gold)]
                 } catch (e) {
                     console.error(e);
                     return [];
@@ -79,7 +79,7 @@ export class Restraint {
         );
         const objR = W.reduce((P, T, I, A) => [...P, T[0]], []);
         console.log(W);
-        console.log(objR.map(T => window.TextGetKD(`Restraint${T.name}`)));
+        console.log(objR.map(T => TextGetKD(`Restraint${T.name}`)));
 
         const r = W.reduce((P, T, I, A) => [...P, T[1]], []);
         console.log(r);
@@ -99,7 +99,7 @@ export class Restraint {
     OpenChestShelf(times: number = 50) {
         if (isSafeInteger(times) && times > 0) {
             for (let i = 0; i < times; i++) {
-                window.KinkyDungeonLoot(window.MiniGameKinkyDungeonLevel, window.KinkyDungeonMapIndex[window.MiniGameKinkyDungeonCheckpoint], "shelf");
+                KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "shelf");
             }
         }
     }
@@ -107,7 +107,7 @@ export class Restraint {
     OpenChestRubble(times: number = 50) {
         if (isSafeInteger(times) && times > 0) {
             for (let i = 0; i < times; i++) {
-                window.KinkyDungeonLoot(window.MiniGameKinkyDungeonLevel, window.KinkyDungeonMapIndex[window.MiniGameKinkyDungeonCheckpoint], "shelf");
+                KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "shelf");
             }
         }
     }

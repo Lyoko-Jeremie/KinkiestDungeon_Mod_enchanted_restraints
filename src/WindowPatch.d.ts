@@ -5,170 +5,171 @@ declare global {
         KinkyDungeonMod_EnchantedRestraints: any;
         Mod_EnchantedRestraints: any;
 
-        // =================================================
-        // from KK
-        MiniGameKinkyDungeonLevel: number;
-        KDOptOut: boolean;
-        TranslationLanguage: string;
-        KinkyDungeonGrid: string;
-        KinkyDungeonStatsChoice: Map<number | string, boolean>;
-        KinkyDungeonRestraints: restraint[];
-        KinkyDungeonRefreshRestraintsCache: () => void;
-        KinkyDungeonGetRestraintByName: (Text: string) => restraint;
-        KinkyDungeonLoadGame: (s: string) => boolean;
-        KinkyDungeonSaveGame: (ToString: boolean) => string;
-        TextGet: (Text: string) => string;
-        TextGetKD: (Text: string) => string;
-        KDRestraint: (item: Named) => restraint;
-        addTextKey: (Name: string, Text: string) => void;
-        KinkyDungeonAddGold: (n: number) => void;
-        KinkyDungeonAddRestraintText: (name, displayName, flavorText, functionText) => void;
-
-        /**
-         * @param {restraint} restraint
-         * @param {number} Tightness
-         * @param {boolean} [Bypass]
-         * @param {string} [Lock]
-         * @param {boolean} [Keep]
-         * @param {boolean} [Link]
-         * @param {boolean} [SwitchItems]
-         * @param {KinkyDungeonEvent[]} [events]
-         * @param {boolean} [Unlink]
-         * @param {string} [faction]
-         * @param {item} [dynamicLink]
-         * @param {string} [Curse] - Curse to apply
-         * @param {boolean} [autoMessage] - Whether or not to automatically dispatch messages
-         * @param {entity} [securityEnemy] - Whether or not to automatically dispatch messages
-         * @returns
-         */
-        KinkyDungeonAddRestraint: (
-            restraint: restraint,
-            Tightness: number,
-            Bypass: boolean,
-            Lock: string,
-            Keep?: boolean,
-            Link?: boolean,
-            SwitchItems?: boolean,
-            events?: KinkyDungeonEvent[],
-            faction?: string,
-            Unlink?: boolean,
-            dynamicLink?: item,
-            Curse?: boolean,
-            autoMessage = true,
-            securityEnemy: entity | undefined = undefined,
-        ) => any;
-
-        KinkyDungeonAllRestraint: () => item[];
-        KinkyDungeonAllRestraintDynamic: () => { item: item, host: item }[];
-        KinkyDungeonAllLooseRestraint: () => item[];
-
-        KDGameData: KDGameDataBase;
-        KinkyDungeonOutfitsBase: { name: string, dress: string, shop: boolean, rarity: number }[];
-        KinkyDungeonDresses: Record<string, KinkyDungeonDress>;
-        KinkyDungeonWeapons: Record<string, weapon>;
-        KinkyDungeonPlayerEntity: any;
-        KinkyDungeonGroundItems: any[];
-        MiniGameKinkyDungeonCheckpoint: string;
-        KinkyDungeonMapIndex: Record<string, string>;
-        KinkyDungeonRestraintsCache: Map<string, restraint>;
-        KinkyDungeonMapParams: Record<string, floorParams>;
-        KinkyDungeonStatsPresets: Record<string, KDPerk>;
-        KinkyDungeonConsumables: Record<string, consumable>;
-        KinkyDungeonGoddessRep: Record<string, number>;
-        KinkyDungeonRescued: Record<string, boolean>;
-        KinkyDungeonAid: Record<string, boolean>;
-
-        KinkyDungeonFactionRelationsBase: { [key: string]: { [key: string]: number } };
-        KinkyDungeonFactionRelations: { [key: string]: { [key: string]: number } };
-
-        KinkyDungeonSpellPoints: number;
-        KinkyDungeonGold: number;
-        KinkyDungeonLockpicks: number;
-        KinkyDungeonRedKeys: number;
-        KinkyDungeonBlueKeys: number;
-
-        KinkyDungeonSpellChoicesToggle: boolean[];
-        KinkyDungeonSpellChoices: number[];
-        KinkyDungeonSpells: spell[];
-        KinkyDungeonSpellsStart: spell[];
-        KinkyDungeonSpellList: Record<string, spell[]>;
-        KinkyDungeonFindSpell: (name: string, SearchEnemies?: boolean) => spell;
-
-        KinkyDungeonInventoryAddWeapon: (Name: string) => void;
-        KinkyDungeonInventoryAddLoose: (Name: string) => void;
-        KinkyDungeonInventoryAddOutfit: (Name: string) => void;
-
-        /**
-         *
-         * @param {consumable} consumable
-         * @param {number} Quantity
-         * @return {boolean}
-         */
-        KinkyDungeonChangeConsumable: (consumable: consumable, Quantity: number) => boolean;
-
-        // const Consumable = "consumable";
-        // const Restraint = "restraint";
-        // const LooseRestraint = "looserestraint";
-        // const Outfit = "outfit";
-        // const Accessory = "accessory";
-        // const Weapon = "weapon";
-        // const Misc = "misc";
-        Consumable: string;
-        Restraint: string;
-        LooseRestraint: string;
-        Outfit: string;
-        Accessory: string;
-        Weapon: string;
-        Misc: string;
-
-        KinkyDungeonChangeDistraction: (Amount: number, NoFloater: boolean, lowerPerc: number, minimum = 0) => void;
-
-        KinkyDungeonLoot: (
-            Level: number,
-            Index: string,
-            Type: string,   // keyof KinkyDungeonLootTable
-            roll?: boolean,
-            tile?: any,
-            returnOnly?: boolean,
-            noTrap?: boolean,
-            minWeight = 0.1,
-            minWeightFallback = true
-        ) => boolean;
-
-        /**
-         *
-         * @param {string} type
-         * @param {any} data
-         * @returns {string}
-         */
-        KDSendInput: (type: string, data: any, frame?: any, noUpdate?: boolean) => string;
-
-        KinkyDungeonInventoryAdd: (item: item) => void;
-        KinkyDungeonInventoryRemove: (item: item) => void;
-        KinkyDungeonInventoryGet: (Name: string) => item;
-        KinkyDungeonInventoryGetLoose: (Name: string) => item;
-        KinkyDungeonInventoryGetConsumable: (Name: string) => item;
-        KinkyDungeonInventoryGetWeapon: (Name: string) => item;
-        KinkyDungeonInventoryGetOutfit: (Name: string) => item;
-        KinkyDungeonAllConsumable: () => item;
-        KinkyDungeonAllOutfit: () => item;
-        KinkyDungeonAllWeapon: () => item;
-
-        KinkyDungeonGetItemID: () => number;
-        KinkyDungeonGetEnemyID: () => number;
-
-
-        KinkyDungeonStatMana: number;
-        KinkyDungeonStatManaMax: number;
-        KinkyDungeonStatWill: number;
-        KinkyDungeonStatWillMax: number;
-        KinkyDungeonStatStamina: number;
-        KinkyDungeonStatStaminaMax: number;
-        KinkyDungeonStatManaPool: number;
-        KinkyDungeonStatManaPoolMax: number;
-
-        KinkyDungeonPlayerBuffs: { [key: string]: any };
-
-        KDGetEnemyCache: () => void;
     }
+
+    // =================================================
+    // from KK
+    var MiniGameKinkyDungeonLevel: number;
+    var KDOptOut: boolean;
+    var TranslationLanguage: string;
+    var KinkyDungeonGrid: string;
+    var KinkyDungeonStatsChoice: Map<number | string, boolean>;
+    var KinkyDungeonRestraints: restraint[];
+    var KinkyDungeonRefreshRestraintsCache: () => void;
+    var KinkyDungeonGetRestraintByName: (Text: string) => restraint;
+    var KinkyDungeonLoadGame: (s: string) => boolean;
+    var KinkyDungeonSaveGame: (ToString: boolean) => string;
+    var TextGet: (Text: string) => string;
+    var TextGetKD: (Text: string) => string;
+    var KDRestraint: (item: Named) => restraint;
+    var addTextKey: (Name: string, Text: string) => void;
+    var KinkyDungeonAddGold: (n: number) => void;
+    var KinkyDungeonAddRestraintText: (name, displayName, flavorText, functionText) => void;
+
+    /**
+     * @param {restraint} restraint
+     * @param {number} Tightness
+     * @param {boolean} [Bypass]
+     * @param {string} [Lock]
+     * @param {boolean} [Keep]
+     * @param {boolean} [Link]
+     * @param {boolean} [SwitchItems]
+     * @param {KinkyDungeonEvent[]} [events]
+     * @param {boolean} [Unlink]
+     * @param {string} [faction]
+     * @param {item} [dynamicLink]
+     * @param {string} [Curse] - Curse to apply
+     * @param {boolean} [autoMessage] - Whether or not to automatically dispatch messages
+     * @param {entity} [securityEnemy] - Whether or not to automatically dispatch messages
+     * @returns
+     */
+    var KinkyDungeonAddRestraint: (
+        restraint: restraint,
+        Tightness: number,
+        Bypass: boolean,
+        Lock: string,
+        Keep?: boolean,
+        Link?: boolean,
+        SwitchItems?: boolean,
+        events?: KinkyDungeonEvent[],
+        faction?: string,
+        Unlink?: boolean,
+        dynamicLink?: item,
+        Curse?: boolean,
+        autoMessage = true,
+        securityEnemy: entity | undefined = undefined,
+    ) => any;
+
+    var KinkyDungeonAllRestraint: () => item[];
+    var KinkyDungeonAllRestraintDynamic: () => { item: item, host: item }[];
+    var KinkyDungeonAllLooseRestraint: () => item[];
+
+    var KDGameData: KDGameDataBase;
+    var KinkyDungeonOutfitsBase: { name: string, dress: string, shop: boolean, rarity: number }[];
+    var KinkyDungeonDresses: Record<string, KinkyDungeonDress>;
+    var KinkyDungeonWeapons: Record<string, weapon>;
+    var KinkyDungeonPlayerEntity: any;
+    var KinkyDungeonGroundItems: any[];
+    var MiniGameKinkyDungeonCheckpoint: string;
+    var KinkyDungeonMapIndex: Record<string, string>;
+    var KinkyDungeonRestraintsCache: Map<string, restraint>;
+    var KinkyDungeonMapParams: Record<string, floorParams>;
+    var KinkyDungeonStatsPresets: Record<string, KDPerk>;
+    var KinkyDungeonConsumables: Record<string, consumable>;
+    var KinkyDungeonGoddessRep: Record<string, number>;
+    var KinkyDungeonRescued: Record<string, boolean>;
+    var KinkyDungeonAid: Record<string, boolean>;
+
+    var KinkyDungeonFactionRelationsBase: { [key: string]: { [key: string]: number } };
+    var KinkyDungeonFactionRelations: { [key: string]: { [key: string]: number } };
+
+    var KinkyDungeonSpellPoints: number;
+    var KinkyDungeonGold: number;
+    var KinkyDungeonLockpicks: number;
+    var KinkyDungeonRedKeys: number;
+    var KinkyDungeonBlueKeys: number;
+
+    var KinkyDungeonSpellChoicesToggle: boolean[];
+    var KinkyDungeonSpellChoices: number[];
+    var KinkyDungeonSpells: spell[];
+    var KinkyDungeonSpellsStart: spell[];
+    var KinkyDungeonSpellList: Record<string, spell[]>;
+    var KinkyDungeonFindSpell: (name: string, SearchEnemies?: boolean) => spell;
+
+    var KinkyDungeonInventoryAddWeapon: (Name: string) => void;
+    var KinkyDungeonInventoryAddLoose: (Name: string) => void;
+    var KinkyDungeonInventoryAddOutfit: (Name: string) => void;
+
+    /**
+     *
+     * @param {consumable} consumable
+     * @param {number} Quantity
+     * @return {boolean}
+     */
+    var KinkyDungeonChangeConsumable: (consumable: consumable, Quantity: number) => boolean;
+
+    // const Consumable = "consumable";
+    // const Restraint = "restraint";
+    // const LooseRestraint = "looserestraint";
+    // const Outfit = "outfit";
+    // const Accessory = "accessory";
+    // const Weapon = "weapon";
+    // const Misc = "misc";
+    var Consumable: string;
+    var Restraint: string;
+    var LooseRestraint: string;
+    var Outfit: string;
+    var Accessory: string;
+    var Weapon: string;
+    var Misc: string;
+
+    var KinkyDungeonChangeDistraction: (Amount: number, NoFloater: boolean, lowerPerc: number, minimum = 0) => void;
+
+    var KinkyDungeonLoot: (
+        Level: number,
+        Index: string,
+        Type: string,   // keyof KinkyDungeonLootTable
+        roll?: boolean,
+        tile?: any,
+        returnOnly?: boolean,
+        noTrap?: boolean,
+        minWeight = 0.1,
+        minWeightFallback = true
+    ) => boolean;
+
+    /**
+     *
+     * @param {string} type
+     * @param {any} data
+     * @returns {string}
+     */
+    var KDSendInput: (type: string, data: any, frame?: any, noUpdate?: boolean) => string;
+
+    var KinkyDungeonInventoryAdd: (item: item) => void;
+    var KinkyDungeonInventoryRemove: (item: item) => void;
+    var KinkyDungeonInventoryGet: (Name: string) => item;
+    var KinkyDungeonInventoryGetLoose: (Name: string) => item;
+    var KinkyDungeonInventoryGetConsumable: (Name: string) => item;
+    var KinkyDungeonInventoryGetWeapon: (Name: string) => item;
+    var KinkyDungeonInventoryGetOutfit: (Name: string) => item;
+    var KinkyDungeonAllConsumable: () => item;
+    var KinkyDungeonAllOutfit: () => item;
+    var KinkyDungeonAllWeapon: () => item;
+
+    var KinkyDungeonGetItemID: () => number;
+    var KinkyDungeonGetEnemyID: () => number;
+
+
+    var KinkyDungeonStatMana: number;
+    var KinkyDungeonStatManaMax: number;
+    var KinkyDungeonStatWill: number;
+    var KinkyDungeonStatWillMax: number;
+    var KinkyDungeonStatStamina: number;
+    var KinkyDungeonStatStaminaMax: number;
+    var KinkyDungeonStatManaPool: number;
+    var KinkyDungeonStatManaPoolMax: number;
+
+    var KinkyDungeonPlayerBuffs: { [key: string]: any };
+
+    var KDGetEnemyCache: () => void;
 }

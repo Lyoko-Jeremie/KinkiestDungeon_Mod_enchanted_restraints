@@ -17,11 +17,11 @@ const addCurseStruggleString = (curse: string, itemName: string, text?: string) 
     // unlock failed notice
     // function KinkyDungeonCurseStruggle(item, Curse) {
     if (curse === "MistressKey") {
-        const newText = text || window.TextGetKD(`KinkyDungeonCurseStruggleMistressKey`);
-        window.addTextKey("KinkyDungeonCurseStruggle" + curse + itemName, newText);
+        const newText = text || TextGetKD(`KinkyDungeonCurseStruggleMistressKey`);
+        addTextKey("KinkyDungeonCurseStruggle" + curse + itemName, newText);
     } else {
         if (text) {
-            window.addTextKey("KinkyDungeonCurseStruggle" + curse, text);
+            addTextKey("KinkyDungeonCurseStruggle" + curse, text);
         } else {
             console.error('addCurseStruggleString invalid', itemName, curse);
         }
@@ -41,9 +41,9 @@ const DupeRestraintText = (newRestraintId: string, oldRestraintId: string, nameP
     const baseKey = `Restraint${newRestraintId}`;
     const oldKey = `Restraint${oldRestraintId}`;
 
-    window.addTextKey(baseKey, nameP ? nameP(window.TextGetKD(oldKey)) : window.TextGetKD(oldKey));
-    window.addTextKey(`${baseKey}Desc`, desc1P ? desc1P(window.TextGetKD(`${oldKey}Desc`)) : window.TextGetKD(`${oldKey}Desc`));
-    window.addTextKey(`${baseKey}Desc2`, desc2P ? desc2P(window.TextGetKD(`${oldKey}Desc2`)) : window.TextGetKD(`${oldKey}Desc2`));
+    addTextKey(baseKey, nameP ? nameP(TextGetKD(oldKey)) : TextGetKD(oldKey));
+    addTextKey(`${baseKey}Desc`, desc1P ? desc1P(TextGetKD(`${oldKey}Desc`)) : TextGetKD(`${oldKey}Desc`));
+    addTextKey(`${baseKey}Desc2`, desc2P ? desc2P(TextGetKD(`${oldKey}Desc2`)) : TextGetKD(`${oldKey}Desc2`));
 }
 /**
  * copy RestraintText from old to new , with optional name process function
@@ -72,10 +72,10 @@ const copyTKeyF = (newRestraintId: string, oldRestraintId: string, nameP?: (old:
 const addTKeyF1 = (it: string, s1: string, s2?: string, sEnglish?: string) => {
     // addTextKey("Restraint" + it + "Desc", s1);
     // addTextKey("Restraint" + it + "Desc2", s2 || s1);
-    if (window.TranslationLanguage === "CN") {
-        window.KinkyDungeonAddRestraintText(it, s1, s1, s2 || s1);
+    if (TranslationLanguage === "CN") {
+        KinkyDungeonAddRestraintText(it, s1, s1, s2 || s1);
     } else if (sEnglish) {
-        window.KinkyDungeonAddRestraintText(it, sEnglish, sEnglish, sEnglish);
+        KinkyDungeonAddRestraintText(it, sEnglish, sEnglish, sEnglish);
     }
 };
 const addTKeyF2 = (oldName: string, name: string, displayName: string, flavorText?: string, sEnglish?: string) => {
@@ -83,9 +83,9 @@ const addTKeyF2 = (oldName: string, name: string, displayName: string, flavorTex
     const oldKey = `Restraint${oldName}`;
     const baseKey = `Restraint${name}`;
 
-    window.addTextKey(baseKey, displayName);
-    window.addTextKey(`${baseKey}Desc`, window.TextGetKD(`${oldKey}Desc`));
-    window.addTextKey(`${baseKey}Desc2`, window.TextGetKD(`${oldKey}Desc2`));
+    addTextKey(baseKey, displayName);
+    addTextKey(`${baseKey}Desc`, TextGetKD(`${oldKey}Desc`));
+    addTextKey(`${baseKey}Desc2`, TextGetKD(`${oldKey}Desc2`));
     // if (TranslationLanguage === "CN") {
     // 	KinkyDungeonAddRestraintText(name, displayName, flavorText, flavorText || displayName);
     // } else if (sEnglish) {
@@ -123,9 +123,11 @@ export function EnchantedRestraintsPatch() {
     initFlag = true;
     // ======================================================
 
-    console.log("=============================enchanted_restraints before vibeStruggle patch", structuredClone(window.KinkyDungeonRestraints));
+    KinkyDungeonRefreshRestraintsCache();
 
-    window.KinkyDungeonRestraints.push(
+    console.log("=============================enchanted_restraints before vibeStruggle patch", structuredClone(KinkyDungeonRestraints));
+
+    KinkyDungeonRestraints.push(
         {
             curse: "MistressKey",
             enchantedDrain: 0.00001,
@@ -205,7 +207,7 @@ export function EnchantedRestraintsPatch() {
 // addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
 // 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
 
-    window.KinkyDungeonRestraints.push(
+    KinkyDungeonRestraints.push(
         {
             curse: "MistressKey",
             enchantedDrain: 0.00001,
@@ -280,7 +282,7 @@ export function EnchantedRestraintsPatch() {
         },
     );
 
-    window.KinkyDungeonRestraints.push(
+    KinkyDungeonRestraints.push(
         {
             curse: "MistressKey",
             enchantedDrain: 0.00001,
@@ -334,7 +336,7 @@ export function EnchantedRestraintsPatch() {
         },
     );
 
-    window.KinkyDungeonRestraints.push(
+    KinkyDungeonRestraints.push(
         {
             curse: "MistressKey",
             enchantedDrain: 0.00001,
@@ -388,7 +390,7 @@ export function EnchantedRestraintsPatch() {
         },
     );
 
-    console.log("=============================enchanted_restraints before copy patch", structuredClone(window.KinkyDungeonRestraints));
+    console.log("=============================enchanted_restraints before copy patch", structuredClone(KinkyDungeonRestraints));
 
     // KinkyDungeonRefreshRestraintsCache();
 
@@ -407,7 +409,7 @@ export function EnchantedRestraintsPatch() {
     ).split(" ").filter(T => !!T).map(N => {
         return (() => {
             console.log('patching : ', N);
-            let T = structuredClone(window.KinkyDungeonRestraints.find(restraint => restraint.name === N)!!);
+            let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N)!!);
             // let T = structuredClone(KinkyDungeonRestraintsCache.get(N));
             console.log('T : ', T);
             T.name = "Enchanted" + N;
@@ -506,14 +508,14 @@ export function EnchantedRestraintsPatch() {
             addCurseStruggleString(T.curse, T.name, "你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
         }
         console.log('P : ', T);
-        return window.KinkyDungeonRestraints.push(T);
+        return KinkyDungeonRestraints.push(T);
     });
 
     // in-place patch
     "EnchantedBelt EnchantedBra".split(" ").filter(T => !!T).map(N => {
         return (() => {
             console.log('in-place patching : ', N);
-            let T = window.KinkyDungeonRestraints.find(restraint => restraint.name === N)!!;
+            let T = KinkyDungeonRestraints.find(restraint => restraint.name === N)!!;
             console.log('T : ', T);
             T.chastitybra = false;
             T.chastity = false;
@@ -521,8 +523,8 @@ export function EnchantedRestraintsPatch() {
         })();
     });
 
-    window.KinkyDungeonRestraints.push((() => {
-        let T = structuredClone(window.KinkyDungeonRestraints.find(restraint => restraint.name === "EnchantedBlindfold")!!);
+    KinkyDungeonRestraints.push((() => {
+        let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === "EnchantedBlindfold")!!);
         T.name = "ImproveEnchantedBlindfold";
         T.blindfold = 1;
         if (T.curse === "MistressKey") {
@@ -535,12 +537,12 @@ export function EnchantedRestraintsPatch() {
     // KinkyDungeonRestraints.push(
     // );
 
-    console.log("=============================enchanted_restraints", window.KinkyDungeonRestraints);
+    console.log("=============================enchanted_restraints", KinkyDungeonRestraints);
 
     // KinkyDungeonRestraints.push(
     // );
 
-    window.KinkyDungeonRefreshRestraintsCache();
+    KinkyDungeonRefreshRestraintsCache();
 
     addTKeyF1("EnchantedMaidVibe", "远古" + "女仆跳蛋", undefined, "Enchanted " + "Maid Egg");
     addTKeyF1("EnchantedMaidCBelt", "远古" + "女仆贞操带", undefined, "Enchanted " + "Maid Chastity Belt");
@@ -582,10 +584,10 @@ export function EnchantedRestraintsPatch() {
                 undefined,
                 "Enchanted " + M[2] + " " + N[2]);
             // unlock failed notice
-            window.addTextKey(
+            addTextKey(
                 `KinkyDungeonCurseStruggleMistressKey${"Enchanted" + M[0] + N[0]}`,
                 // TextGetKD(`KinkyDungeonCurseStruggleMistressKeyEnchantedBelt`),
-                window.TextGetKD(`KinkyDungeonCurseStruggleMistressKey`),
+                TextGetKD(`KinkyDungeonCurseStruggleMistressKey`),
             );
         });
     });
@@ -599,7 +601,8 @@ export function EnchantedRestraintsPatch() {
     addTKeyF1("ImproveEnchantedBlindfold", "改良" + "远古" + "眼罩", undefined, "Improve " + "Enchanted " + "Blindfold");
     addTKeyF1("EnchantedExpCollar", "远古" + "乳胶姿势项圈", undefined, "Enchanted " + "Latex Posture Collar");
 
-    console.log("=============================enchanted_restraints EnchantedRestraintsPatch end", window.KinkyDungeonRestraints);
+    KinkyDungeonRefreshRestraintsCache();
+    console.log("=============================enchanted_restraints EnchantedRestraintsPatch end", KinkyDungeonRestraints);
 
 }
 
@@ -623,7 +626,7 @@ export function ApplyModRestraint() {
     console.log(s);
     let r = s.split(" ").filter(T => !!T).map(T => {
         try {
-            return window.KinkyDungeonAddRestraint(window.KinkyDungeonGetRestraintByName(T), 10, false, "Gold")
+            return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")
         } catch (e) {
             console.log(e);
         }

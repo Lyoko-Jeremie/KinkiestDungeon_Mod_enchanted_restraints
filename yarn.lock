@@ -909,6 +909,7 @@ __metadata:
     fork-ts-checker-webpack-plugin: ^8.0.0
     lodash: ^4.17.21
     ts-loader: ^9.4.4
+    ts-mixer: ^6.0.3
     tsconfig-paths-webpack-plugin: ^4.1.0
     typescript: ^5.1.6
     webpack: ^5.88.2
@@ -4893,6 +4894,13 @@ __metadata:
     typescript: "*"
     webpack: ^5.0.0
   checksum: 8e5e6b839b0edfa40d2156c880d88ccab58226894ea5978221bc48c7db3215e2e856bfd0093f148e925a2befc42d6c94cafa9a994a7da274541efaa916012b63
+  languageName: node
+  linkType: hard
+
+"ts-mixer@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "ts-mixer@npm:6.0.3"
+  checksum: 7fbaba0a413bf817835a6a23d46bccf4192dd4d7345b6bae9d594c88acffac35bf4995ef3cce753090c8abcdf2afd16dba8899365584a1f960ccc2a15bf2e2d6
   languageName: node
   linkType: hard
 

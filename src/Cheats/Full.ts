@@ -5,66 +5,66 @@ import {Choice} from "./Choice";
 class FullCheatsBase extends Choice {
 
     AddDistraction = (n?: number) => {
-        window.KinkyDungeonChangeDistraction(n || 10, true, 1);
+        KinkyDungeonChangeDistraction(n || 10, true, 1);
     };
     SetSpellPoints = (n?: number) => {
-        window.KinkyDungeonSpellPoints = n || 10000;
+        KinkyDungeonSpellPoints = n || 10000;
     };
     SetAncientEnergy = (f?: number) => {
-        window.KDGameData.AncientEnergyLevel = f || 1.0
+        KDGameData.AncientEnergyLevel = f || 1.0
     };
     AddManyKeys = () => {
-        window.KinkyDungeonLockpicks = 1000;
-        window.KinkyDungeonRedKeys = 1000;
-        window.KinkyDungeonBlueKeys = 1000;
+        KinkyDungeonLockpicks = 1000;
+        KinkyDungeonRedKeys = 1000;
+        KinkyDungeonBlueKeys = 1000;
         // 远古钥匙 use to unlock MistressKey Gold
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.MistressKey, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1000);
         // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.AncientPowerSource, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1000);
         // 灵浆 use to unlock GhostLock
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.Ectoplasm, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
     };
     AddManyGold = () => {
-        window.KinkyDungeonAddGold(10000000);
+        KinkyDungeonAddGold(10000000);
     };
     AddManyPotion = () => {
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.PotionMana, 1000);
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.PotionStamina, 1000);
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.PotionFrigid, 1000);
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.PotionWill, 1000);
-        window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables.ManaOrb, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionWill, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ManaOrb, 1000);
     };
     AddAllWeapon = () => {
-        Object.getOwnPropertyNames(window.KinkyDungeonWeapons).map(T => window.KinkyDungeonInventoryAddWeapon(window.KinkyDungeonWeapons[T].name));
+        Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T => KinkyDungeonInventoryAddWeapon(KinkyDungeonWeapons[T].name));
     };
     AddAllOutfit = () => {
-        window.KinkyDungeonOutfitsBase.map(T => window.KinkyDungeonInventoryAddOutfit(T.name));
+        KinkyDungeonOutfitsBase.map(T => KinkyDungeonInventoryAddOutfit(T.name));
     };
     AddAllConsumables = () => {
         const ignoreSet = new Set((
             "MistressKey AncientPowerSource Ectoplasm " +
             "PotionMana PotionStamina PotionFrigid PotionWill ManaOrb"
         ).split(" ").filter(T => !!T));
-        Object.getOwnPropertyNames(window.KinkyDungeonConsumables).map(T => {
+        Object.getOwnPropertyNames(KinkyDungeonConsumables).map(T => {
             if (!ignoreSet.has(T)) {
-                window.KinkyDungeonChangeConsumable(window.KinkyDungeonConsumables[T], 1000);
+                KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
             }
         });
     };
     AddAllRestraints = () => {
-        Array.from(window.KinkyDungeonRestraintsCache.values()).map(T => {
+        Array.from(KinkyDungeonRestraintsCache.values()).map(T => {
             let Rname = T.inventoryAs || T.name;
-            let n = window.KinkyDungeonInventoryGetLoose(Rname);
+            let n = KinkyDungeonInventoryGetLoose(Rname);
             if (n) {
                 if (!n.quantity) {
                     n.quantity = 0;
                 }
                 n.quantity += 1;
             } else {
-                window.KinkyDungeonInventoryAdd({
-                    id: window.KinkyDungeonGetItemID(),
+                KinkyDungeonInventoryAdd({
+                    id: KinkyDungeonGetItemID(),
                     name: Rname,
-                    type: window.LooseRestraint,
+                    type: LooseRestraint,
                     events: T.events,
                     quantity: 1,
                 })
@@ -74,20 +74,20 @@ class FullCheatsBase extends Choice {
     };
 
     AllSpells = () => {
-        window.KinkyDungeonSpells = [];
-        Object.assign(window.KinkyDungeonSpells, window.KinkyDungeonSpellsStart);
-        for (let k of Object.keys(window.KinkyDungeonSpellList)) {
-            for (let sp of window.KinkyDungeonSpellList[k]) {
-                window.KinkyDungeonSpells.push(window.KinkyDungeonFindSpell(sp.name));
+        KinkyDungeonSpells = [];
+        Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart);
+        for (let k of Object.keys(KinkyDungeonSpellList)) {
+            for (let sp of KinkyDungeonSpellList[k]) {
+                KinkyDungeonSpells.push(KinkyDungeonFindSpell(sp.name));
             }
         }
     };
     AllHeart = () => {
         for (let i = 0; i < 10; i++) {
-            window.KDSendInput("heart", {type: "AP"});
-            window.KDSendInput("heart", {type: "SP"});
-            window.KDSendInput("heart", {type: "MP"});
-            window.KDSendInput("heart", {type: "WP"});
+            KDSendInput("heart", {type: "AP"});
+            KDSendInput("heart", {type: "SP"});
+            KDSendInput("heart", {type: "MP"});
+            KDSendInput("heart", {type: "WP"});
         }
     };
 // function KinkyDungeonHandleHeart() {
@@ -108,12 +108,12 @@ class FullCheatsBase extends Choice {
 // 	return true;
 // }
     FullAllRelations = () => {
-        Object.getOwnPropertyNames(window.KinkyDungeonFactionRelations.Player).map(T => {
-            window.KinkyDungeonFactionRelations.Player[T] = 1;
+        Object.getOwnPropertyNames(KinkyDungeonFactionRelations.Player).map(T => {
+            KinkyDungeonFactionRelations.Player[T] = 1;
         });
     };
     FullAllGoddess = () => {
-        Object.getOwnPropertyNames(window.KinkyDungeonGoddessRep).map(T => window.KinkyDungeonGoddessRep[T] = 50);
+        Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => KinkyDungeonGoddessRep[T] = 50);
     };
 }
 
@@ -145,10 +145,10 @@ class CheatsHook extends FullCheatsBase {
         this._FullStat();
     };
     _FullStat = () => {
-        window.KinkyDungeonStatMana = window.KinkyDungeonStatManaMax;
-        window.KinkyDungeonStatWill = window.KinkyDungeonStatWillMax;
-        window.KinkyDungeonStatStamina = window.KinkyDungeonStatStaminaMax;
-        window.KinkyDungeonStatManaPool = window.KinkyDungeonStatManaPoolMax;
+        KinkyDungeonStatMana = KinkyDungeonStatManaMax;
+        KinkyDungeonStatWill = KinkyDungeonStatWillMax;
+        KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
+        KinkyDungeonStatManaPool = KinkyDungeonStatManaPoolMax;
         // KDGameData.AncientEnergyLevel = 1.0;
     };
 
@@ -211,14 +211,14 @@ class CheatsHook extends FullCheatsBase {
         // };
         const k = Object.getOwnPropertyNames(buffObj);
         if (remove) {
-            k.forEach(T => delete window.KinkyDungeonPlayerBuffs[T]);
+            k.forEach(T => delete KinkyDungeonPlayerBuffs[T]);
         } else {
             k.forEach(T => {
-                const it = window.KinkyDungeonPlayerBuffs[T];
+                const it = KinkyDungeonPlayerBuffs[T];
                 if (it) {
                     it.duration = buffObj[T].duration || 1000;
                 } else {
-                    window.KinkyDungeonPlayerBuffs[T] = buffObj[T];
+                    KinkyDungeonPlayerBuffs[T] = buffObj[T];
                 }
             });
         }
@@ -361,19 +361,19 @@ class Bootstrap extends CheatsHook {
 
 
     BootstrapSpellChoicesTable = () => {
-        this.KinkyDungeonSpellsCacheMap = (new Map(window.KinkyDungeonSpells.map((T, i) => [T.name, [i, T]])));
+        this.KinkyDungeonSpellsCacheMap = (new Map(KinkyDungeonSpells.map((T, i) => [T.name, [i, T]])));
         // const nameList = Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name)
         // generate by
         // JSON.stringify(Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name));
         const nameList: string[] = JSON.parse(
             '["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,null,"Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light",null,"FlameBlade"]'
         );
-        window.KinkyDungeonSpellChoices = nameList
+        KinkyDungeonSpellChoices = nameList
             .map(n => (this.KinkyDungeonSpellsCacheMap!.get(n) || [undefined, undefined])[0])
             .filter(T => isSafeInteger(T)) as number[];
         // generate by
         // JSON.stringify(KinkyDungeonSpellChoicesToggle)
-        window.KinkyDungeonSpellChoicesToggle =
+        KinkyDungeonSpellChoicesToggle =
             JSON.parse(
                 "[true,true,true,true,null,true,true,true,true,true,null,true,true,true,true,true,true,true,true,null,true]"
             );

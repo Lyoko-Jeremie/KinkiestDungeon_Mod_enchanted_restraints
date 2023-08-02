@@ -5,14 +5,16 @@ export class TickHook {
 
     constructor() {
         // setup Cheat Hook
-        // this.Hook_HookedFunction_Point = window.KinkyDungeonUpdateJailKeys;
+        // this.Hook_HookedFunction_Point = KinkyDungeonUpdateJailKeys;
         this.Hook_HookedFunction_Point = window.KDGetEnemyCache;
-        // window.KinkyDungeonUpdateJailKeys = this.Hook_HookFunctionCaller;
-        window.KDGetEnemyCache = this.Hook_HookFunctionCaller;
+        // KinkyDungeonUpdateJailKeys = this.Hook_HookFunctionCaller;
+        window.KDGetEnemyCache = this.Hook_HookFunctionCaller.bind(this);
+        // console.log('TickHook Hook_HookedFunction_Point', this.Hook_HookedFunction_Point);
     }
 
     Hook_HookFunctionCaller(...arg: any[]) {
-        this.Hook_HookedFunction_Point(...arg);
+        // console.log('TickHook Hook_HookedFunction_Point Hook_HookFunctionCaller', this.Hook_HookedFunction_Point);
+        this.Hook_HookedFunction_Point.bind(window)(...arg);
         this.Hook_Map.forEach((v, k) => {
             v();
         });

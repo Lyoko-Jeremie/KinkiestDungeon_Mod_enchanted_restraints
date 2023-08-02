@@ -2,16 +2,16 @@ export class Choice {
 
     _AddOneCheatChoice = (c: string, remove?: boolean) => {
         if (remove) {
-            window.KinkyDungeonStatsChoice.delete(c);
+            KinkyDungeonStatsChoice.delete(c);
         } else {
-            window.KinkyDungeonStatsChoice.set(c, true);
+            KinkyDungeonStatsChoice.set(c, true);
         }
     };
     _AddCheatChoice = (s: string, remove?: boolean) => {
         if (remove) {
-            s.split(" ").filter(T => !!T).map(T => window.KinkyDungeonStatsChoice.delete(T));
+            s.split(" ").filter(T => !!T).map(T => KinkyDungeonStatsChoice.delete(T));
         } else {
-            s.split(" ").filter(T => !!T).map(T => window.KinkyDungeonStatsChoice.set(T, true));
+            s.split(" ").filter(T => !!T).map(T => KinkyDungeonStatsChoice.set(T, true));
         }
     };
     ChoiceAddCheatChoiceBadNegative = (remove?: boolean) => {
@@ -235,30 +235,30 @@ export class Choice {
         );
     };
     ChoicePrintNowChoice = () => {
-        const l = Array.from(window.KinkyDungeonStatsChoice.keys());
+        const l = Array.from(KinkyDungeonStatsChoice.keys());
         let count = 0;
         for (const s of l) {
-            if (window.KinkyDungeonStatsPresets[s]) {
-                const t = window.TextGet("KinkyDungeonStat" + window.KinkyDungeonStatsPresets[s].id);
-                if (t !== ("KinkyDungeonStat" + window.KinkyDungeonStatsPresets[s].id)) {
+            if (KinkyDungeonStatsPresets[s]) {
+                const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
+                if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
                     console.log("" + count + "\t"
-                        + t + "\t[" + window.KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
-                        + "\n\t" + window.TextGet("KinkyDungeonStatDesc" + window.KinkyDungeonStatsPresets[s].id));
+                        + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                        + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
                 }
                 ++count;
             }
         }
     };
     ChoicePrintAllValidChoice = () => {
-        const l = Object.getOwnPropertyNames(window.KinkyDungeonStatsPresets);
+        const l = Object.getOwnPropertyNames(KinkyDungeonStatsPresets);
         let count = 0;
         for (const s of l) {
-            if (window.KinkyDungeonStatsPresets[s]) {
-                const t = window.TextGet("KinkyDungeonStat" + window.KinkyDungeonStatsPresets[s].id);
-                if (t !== ("KinkyDungeonStat" + window.KinkyDungeonStatsPresets[s].id)) {
+            if (KinkyDungeonStatsPresets[s]) {
+                const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
+                if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
                     console.log("" + count + "\t"
-                        + t + "\t[" + window.KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
-                        + "\n\t" + window.TextGet("KinkyDungeonStatDesc" + window.KinkyDungeonStatsPresets[s].id));
+                        + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                        + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
                 }
                 ++count;
             }

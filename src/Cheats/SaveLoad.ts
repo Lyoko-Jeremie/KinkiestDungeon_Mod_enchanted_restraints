@@ -1,16 +1,16 @@
 
 export class SaveLoad {
     GameSaveDataString() {
-        console.log(window.KinkyDungeonSaveGame(true));
-        return window.KinkyDungeonSaveGame(true);
+        console.log(KinkyDungeonSaveGame(true));
+        return KinkyDungeonSaveGame(true);
     }
 
     GameSaveNow() {
-        window.KinkyDungeonSaveGame(false);
+        KinkyDungeonSaveGame(false);
     }
 
     CopyGameSaveDataStringToClipboard() {
-        navigator.clipboard.writeText(window.KinkyDungeonSaveGame(true)).then(T => {
+        navigator.clipboard.writeText(KinkyDungeonSaveGame(true)).then(T => {
             console.log('CopyGameSaveDataStringToClipboard ok');
         }).catch(E => {
             console.error(E);
@@ -18,12 +18,12 @@ export class SaveLoad {
     }
 
     LoadGameSaveString(s: string) {
-        window.KinkyDungeonLoadGame(s);
+        KinkyDungeonLoadGame(s);
     }
 
     LoadGameSaveStringFromClipboard() {
         navigator.clipboard.readText().then(s => {
-            window.KinkyDungeonLoadGame(s);
+            KinkyDungeonLoadGame(s);
             console.log('CopyGameSaveDataStringToClipboard ok');
         }).catch(E => {
             console.error(E);
