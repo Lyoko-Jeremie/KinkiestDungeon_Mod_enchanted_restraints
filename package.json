@@ -1,0 +1,24 @@
+{
+  "name": "KinkiestDungeon_enchanted_restraints",
+  "packageManager": "yarn@3.4.1",
+  "author": "jeremie",
+  "scripts": {
+    "watch": "webpack -c webpack.config.js --watch",
+    "build:dev": "webpack -c webpack.config.js --mode=development",
+    "build:prod": "webpack -c webpack.config.js --mode=production --node-env=production"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.196",
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "lodash": "^4.17.21",
+    "ts-loader": "^9.4.4",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "zip-webpack-plugin": "^4.0.1"
+  },
+  "devDependencies": {
+    "@webpack-cli/generators": "^3.0.7",
+    "webpack-cli": "^5.1.4"
+  }
+}
