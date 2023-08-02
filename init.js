@@ -8,14 +8,24 @@ console.time("enchanted_restraints load time");
 window.enchanted_restraints = {}
 window.enchanted_restraints.KinkyDungeonRestraints = structuredClone(KinkyDungeonRestraints);
 
+/**
+ * set a lock unlock failed notice for item
+ * @param curse {string} lock type, often is "MistressKey"
+ * @param itemName {string}
+ * @param text {string | undefined} the notice string . if undefined, use the default KinkyDungeonCurseStruggleMistressKey
+ */
 let addCurseStruggleString = (curse, itemName, text = undefined) => {
 	// unlock failed notice
 	// function KinkyDungeonCurseStruggle(item, Curse) {
-	const newText = text || TextGetKD(`KinkyDungeonCurseStruggleMistressKey`);
 	if (curse === "MistressKey") {
+		const newText = text || TextGetKD(`KinkyDungeonCurseStruggleMistressKey`);
 		addTextKey("KinkyDungeonCurseStruggle" + curse + itemName, newText);
 	} else {
-		addTextKey("KinkyDungeonCurseStruggle" + curse, newText);
+		if (text) {
+			addTextKey("KinkyDungeonCurseStruggle" + curse, text);
+		} else {
+			console.error('addCurseStruggleString invalid', itemName, curse);
+		}
 	}
 }
 
@@ -258,11 +268,12 @@ KinkyDungeonRestraints.push(
 console.log("=============================enchanted_restraints before copy patch", structuredClone(KinkyDungeonRestraints));
 
 /**
+ * copy RestraintText from old to new , with optional name process function
  * @param newRestraintId {string}
  * @param oldRestraintId {string}
- * @param nameP {((old:string)=>string) | undefined}
- * @param desc1P {((old:string)=>string) | undefined}
- * @param desc2P {((old:string)=>string) | undefined}
+ * @param nameP {((old:string)=>string) | undefined} name process function
+ * @param desc1P {((old:string)=>string) | undefined} desc1 process function
+ * @param desc2P {((old:string)=>string) | undefined} desc2 process function
  */
 let DupeRestraintText = (newRestraintId, oldRestraintId, nameP = undefined, desc1P = undefined, desc2P = undefined) => {
 	const baseKey = `Restraint${newRestraintId}`;
@@ -273,11 +284,12 @@ let DupeRestraintText = (newRestraintId, oldRestraintId, nameP = undefined, desc
 	addTextKey(`${baseKey}Desc2`, desc2P ? desc2P(TextGetKD(`${oldKey}Desc2`)) : TextGetKD(`${oldKey}Desc2`));
 }
 /**
-@param newRestraintId {string}
+ * copy RestraintText from old to new , with optional name process function
+ * @param newRestraintId {string}
  * @param oldRestraintId {string}
- * @param nameP {((old:string)=>string) | undefined}
- * @param desc1P {((old:string)=>string) | undefined}
- * @param desc2P {((old:string)=>string) | undefined}
+ * @param nameP {((old:string)=>string) | undefined} name process function
+ * @param desc1P {((old:string)=>string) | undefined} desc1 process function
+ * @param desc2P {((old:string)=>string) | undefined} desc2 process function
  */
 let copyTKeyF = (newRestraintId, oldRestraintId, nameP = undefined, desc1P = undefined, desc2P = undefined) => {
 	DupeRestraintText(newRestraintId, oldRestraintId, nameP, desc1P, desc2P);
