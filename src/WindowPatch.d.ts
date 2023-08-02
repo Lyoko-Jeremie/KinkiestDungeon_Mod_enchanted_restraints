@@ -90,7 +90,7 @@ declare global {
     var KinkyDungeonBlueKeys: number;
 
     var KinkyDungeonSpellChoicesToggle: boolean[];
-    var KinkyDungeonSpellChoices: number[];
+    var KinkyDungeonSpellChoices: (number | null | undefined)[];
     var KinkyDungeonSpells: spell[];
     var KinkyDungeonSpellsStart: spell[];
     var KinkyDungeonSpellList: Record<string, spell[]>;

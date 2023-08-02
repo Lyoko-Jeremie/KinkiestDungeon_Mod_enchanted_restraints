@@ -368,9 +368,7 @@ class Bootstrap extends CheatsHook {
         const nameList: string[] = JSON.parse(
             '["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,null,"Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light",null,"FlameBlade"]'
         );
-        KinkyDungeonSpellChoices = nameList
-            .map(n => (this.KinkyDungeonSpellsCacheMap!.get(n) || [undefined, undefined])[0])
-            .filter(T => isSafeInteger(T)) as number[];
+        KinkyDungeonSpellChoices = nameList.map(n => (this.KinkyDungeonSpellsCacheMap!.get(n) || [undefined, undefined])[0]);
         // generate by
         // JSON.stringify(KinkyDungeonSpellChoicesToggle)
         KinkyDungeonSpellChoicesToggle =
