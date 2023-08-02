@@ -46,12 +46,12 @@ export class MapGet {
         let mm = m.split("\n");
         let k = KDGameData.KeyringLocations;
         k.forEach(K => {
-            let r = m[K.y].split("");
+            let r = mm[K.y].split("");
             r[K.x] = "▓";
             mm[K.y] = r.join("");
         });
         {
-            let r = m[KinkyDungeonPlayerEntity.y].split("");
+            let r = mm[KinkyDungeonPlayerEntity.y].split("");
             r[KinkyDungeonPlayerEntity.x] = "◘";
             mm[KinkyDungeonPlayerEntity.y] = r.join("");
         }
@@ -68,18 +68,18 @@ export class MapGet {
         let mm = m.split("\n");
         let k = KDGameData.KeyringLocations;
         k.forEach(K => {
-            let r = m[K.y].split("");
+            let r = mm[K.y].split("");
             r[K.x] = "▓";
             mm[K.y] = r.join("");
         });
         {
-            let r = m[KinkyDungeonPlayerEntity.y].split("");
+            let r = mm[KinkyDungeonPlayerEntity.y].split("");
             r[KinkyDungeonPlayerEntity.x] = "◘";
             mm[KinkyDungeonPlayerEntity.y] = r.join("");
         }
         KinkyDungeonGroundItems.forEach(T => {
             if (T.name === "Keyring") {
-                let r = m[T.y].split("");
+                let r = mm[T.y].split("");
                 r[T.x] = "▓";
                 mm[T.y] = r.join("");
             }
