@@ -8,12 +8,14 @@ console.time("enchanted_restraints load time");
 window.enchanted_restraints = {}
 window.enchanted_restraints.KinkyDungeonRestraints = structuredClone(KinkyDungeonRestraints);
 
-let addCurseStruggleString = (curse, itemName, text) => {
+let addCurseStruggleString = (curse, itemName, text = undefined) => {
+	// unlock failed notice
 	// function KinkyDungeonCurseStruggle(item, Curse) {
+	const newText = text || TextGetKD(`KinkyDungeonCurseStruggleMistressKey`);
 	if (curse === "MistressKey") {
-		addTextKey("KinkyDungeonCurseStruggle" + curse + itemName, text);
+		addTextKey("KinkyDungeonCurseStruggle" + curse + itemName, newText);
 	} else {
-		addTextKey("KinkyDungeonCurseStruggle" + curse, text);
+		addTextKey("KinkyDungeonCurseStruggle" + curse, newText);
 	}
 }
 
@@ -421,6 +423,9 @@ KinkyDungeonRestraints.push((() => {
 	let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === "EnchantedBlindfold"));
 	T.name = "ImproveEnchantedBlindfold";
 	T.blindfold = 1;
+	if (T.curse === "MistressKey") {
+		addCurseStruggleString(T.curse, T.name, "你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
+	}
 	return T;
 })());
 // KinkyDungeonRestraints.push(
