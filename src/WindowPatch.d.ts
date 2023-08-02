@@ -7,6 +7,7 @@ declare global {
 
         // =================================================
         // from KK
+        MiniGameKinkyDungeonLevel: number;
         KDOptOut: boolean;
         TranslationLanguage: string;
         KinkyDungeonGrid: string;
@@ -67,6 +68,8 @@ declare global {
         KinkyDungeonWeapons: Record<string, weapon>;
         KinkyDungeonPlayerEntity: any;
         KinkyDungeonGroundItems: any[];
+        MiniGameKinkyDungeonCheckpoint: string;
+        KinkyDungeonMapIndex: Record<string, string>;
         KinkyDungeonRestraintsCache: Map<string, restraint>;
         KinkyDungeonMapParams: Record<string, floorParams>;
         KinkyDungeonStatsPresets: Record<string, KDPerk>;
@@ -120,6 +123,17 @@ declare global {
 
         KinkyDungeonChangeDistraction: (Amount: number, NoFloater: boolean, lowerPerc: number, minimum = 0) => void;
 
+        KinkyDungeonLoot: (
+            Level: number,
+            Index: string,
+            Type: string,   // keyof KinkyDungeonLootTable
+            roll?: boolean,
+            tile?: any,
+            returnOnly?: boolean,
+            noTrap?: boolean,
+            minWeight = 0.1,
+            minWeightFallback = true
+        ) => boolean;
 
         /**
          *

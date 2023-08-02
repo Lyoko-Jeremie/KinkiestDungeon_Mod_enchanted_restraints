@@ -9,9 +9,10 @@ import {_FunctionReplaceHook} from './_FunctionReplaceHook';
 import {MapGet} from "./Map";
 import {LockList} from "./LockList";
 import {FullCheats} from "./Full";
+import {Restraint} from "./Restraint";
 
 
-export class CheatsBase {
+export class CheatsBase extends Restraint {
 
     DebugSee = new DebugSee();
     SaveLoad = new SaveLoad();
@@ -20,7 +21,7 @@ export class CheatsBase {
 
     _FunctionReplaceHook = new _FunctionReplaceHook();
 
-    private installForceMap() {
+    protected installForceMap() {
         const names = Object.keys(window.KinkyDungeonMapParams);
         names.forEach(T => {
             (this as any)['ForceNextMapTypeOnce_' + T + '_' + window.KinkyDungeonMapParams[T].background] = () => {
@@ -39,6 +40,8 @@ export class CheatsBase {
     }
 
     constructor() {
+        super();
+        this.installRestraint();
         this.installForceMap();
     }
 }

@@ -58,9 +58,12 @@ export class MapGet {
         m = mm.join("\n");
         return m;
     };
-    MapKKSsMGet = () => {
+    MapKKSsMGet = (ignoreY?: boolean) => {
         let m = structuredClone(window.KinkyDungeonGrid);
         m = m.replaceAll("1", "░");
+        if (ignoreY) {
+            m = m.replaceAll("Y", " ");
+        }
         m = m.replaceAll(/[SsH]/g, "█");
         let mm = m.split("\n");
         let k = window.KDGameData.KeyringLocations;
@@ -90,5 +93,10 @@ export class MapGet {
 // KinkyDungeonTiles
 // KinkyDungeonTilesGet(RX + "," + RY)
 // KinkyDungeonGroundItems.push({x:slot.x, y:slot.y, name: "Keyring"});
+
+
+    ReplaceMapLibY() {
+        window.KinkyDungeonGrid = window.KinkyDungeonGrid.replaceAll("1", "Y");
+    }
 
 }
