@@ -397,6 +397,67 @@ export function EnchantedRestraintsPatch() {
     // addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
     // 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
 
+    // fix CN translation
+    addTextKey("KinkyDungeonCurseInfoGhostLock",
+        "锁被有还魂封印保护着。你需要25份灵魂物质来解除封印。");
+    addTextKey("KinkyDungeonCurseStruggleGhostLock",
+        "你的手指轻而易举地穿了过去。可惜你的身体穿不过去。");
+    addTextKey("KinkyDungeonCurseUnlockGhostLock",
+        "你注入了可怕的能量,破坏了封印!");
+
+    // GhostLock
+    (
+        "SlimeBoots SlimeFeet SlimeLegs SlimeArms SlimeHands SlimeMouth SlimeHead " +
+        "HardSlimeBoots HardSlimeFeet HardSlimeLegs HardSlimeArms HardSlimeHands HardSlimeMouth HardSlimeHead "
+    ).split(" ").filter(T => !!T).map(N => {
+        return (() => {
+            console.log('GhostLock patching : ', N);
+            let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N)!!);
+            // let T = structuredClone(KinkyDungeonRestraintsCache.get(N));
+            console.log('T : ', T);
+            T.name = "Ghost" + N;
+            T.curse = "GhostLock";
+            T.enchantedDrain = 0.00001;
+            T.enchanted = true;
+            T.removePrison = false;
+            T.escapeChance = {"Struggle": -100, "Cut": -100, "Remove": -100};
+            return T;
+        })();
+    }).map(T => {
+        // add patch
+        if (T.name.startsWith(("Ghost" + "Slime"))) {
+            copyTKeyF(T.name,
+                "Slime" + T.name.substring(("GhostSlime").length),
+                (n) => "灵浆" + n,
+                // undefined,
+                // "Enchanted " + "Slime Legs"
+            );
+            return T;
+        }
+        if (T.name.startsWith(("Ghost" + "Hard" + "Slime"))) {
+            T.name = T.name.replace("GhostHardSlime", "HardGhostSlime");
+            copyTKeyF(T.name,
+                "HardSlime" + T.name.substring(("GhostHardSlime").length),
+                (n) => "灵浆" + n,
+                // undefined,
+                // "Enchanted " + "Hard Slime Legs"
+            );
+            return T;
+        }
+        return T;
+    }).map(T => {
+        // if (T.curse === "GhostLock") {
+        //     // addTextKey(
+        //     // 	`KinkyDungeonCurseStruggleMistressKey${T.name}`,
+        //     // 	// TextGetKD(`KinkyDungeonCurseStruggleMistressKeyEnchantedBelt`),
+        //     // 	TextGetKD(`KinkyDungeonCurseStruggleMistressKey`),
+        //     // );
+        //     // addCurseStruggleString(T.curse, T.name, "你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
+        // }
+        console.log('P : ', T);
+        return KinkyDungeonRestraints.push(T);
+    });
+
     (
         "CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
         "MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
@@ -620,7 +681,8 @@ export function ApplyModRestraint() {
         "EnchantedTrapHarness EnchantedWolfHarness EnchantedControlHarness " +
         // Legs
         "EnchantedMagicChainCrotch EnchantedMagicChainLegs " +
-        "EnchantedSlimeBoots EnchantedSlimeFeet EnchantedSlimeHands EnchantedSlimeLegs EnchantedSlimeArms EnchantedSlimeMouth EnchantedSlimeHead " +
+        // "EnchantedSlimeBoots EnchantedSlimeFeet EnchantedSlimeHands EnchantedSlimeLegs EnchantedSlimeArms EnchantedSlimeMouth EnchantedSlimeHead " +
+        "GhostSlimeBoots GhostSlimeFeet GhostSlimeHands GhostSlimeLegs GhostSlimeArms GhostSlimeMouth GhostSlimeHead " +
         "EnchantedWolfPanties EnchantedMaidCBelt EnchantedExpCollar " +
         // Leash must at the last
         "EnchantedWolfLeash";
