@@ -18,17 +18,17 @@ export class TickHook {
         this.Hook_Map.forEach((v, k) => {
             v();
         });
-    };
+    }
 
     addHook(callback: CallableFunction) {
         let id = ++this.idGenerator;
         this.Hook_Map.set(id, callback);
         return id;
-    };
+    }
 
     removeHook(id: number) {
         return this.Hook_Map.delete(id);
-    };
+    }
 
 }
 

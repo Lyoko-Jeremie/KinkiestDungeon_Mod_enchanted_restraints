@@ -56,11 +56,18 @@ class HardMode {
     };
 }
 
-// @ts-ignore
+// https://github.com/tannerntannern/ts-mixer
 export class Cheats extends Mixin(CheatsBase, MapGet, HardMode, FullCheats) {
     // empty
 }
 
+
+// // https://github.com/michaelolof/typescript-mix
+// interface Cheats extends CheatsBase, MapGet, HardMode, FullCheats {
+// }
+// class Cheats{
+// }
+//
 // applyMixins(Cheats, [CheatsBase, MapGet, HardMode, FullCheats]);
 //
 // // https://www.typescriptlang.org/docs/handbook/mixins.html
