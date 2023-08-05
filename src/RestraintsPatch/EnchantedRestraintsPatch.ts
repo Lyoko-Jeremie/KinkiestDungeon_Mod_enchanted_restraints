@@ -9,8 +9,8 @@ export function setEdgeOnly(b: boolean) {
     }
 }
 
-function wrapperProxyEdgeOnly(obj: { [key: string]: any }) {
-    return new Proxy(obj, {
+function wrapperProxyEdgeOnly<OBJ extends { [key: string]: any }>(obj: OBJ): OBJ {
+    return new Proxy<OBJ>(obj, {
         get: (target: { [p: string]: any }, prop: string, receiver: any): any => {
             return prop === "edgeOnly" ? edgeOnly : target[prop];
         },
@@ -98,14 +98,14 @@ export function addEnchantedItems() {
                 break;
             case ("Enchanted" + "WolfPanties"):
                 T.events = [
-                    {
+                    wrapperProxyEdgeOnly({
                         trigger: "remoteVibe",
                         type: "RemoteActivatedVibe",
                         power: 2,
                         time: 20,
                         edgeOnly: edgeOnly,
-                    },
-                    {
+                    }),
+                    wrapperProxyEdgeOnly({
                         trigger: "tick",
                         type: "PeriodicTeasing",
                         power: 1,
@@ -113,8 +113,8 @@ export function addEnchantedItems() {
                         edgeOnly: edgeOnly,
                         cooldown: {"normal": 50, "tease": 20},
                         chance: 0.02,
-                    },
-                    {
+                    }),
+                    wrapperProxyEdgeOnly({
                         trigger: "tick",
                         type: "PeriodicDenial",
                         power: 2,
@@ -122,7 +122,7 @@ export function addEnchantedItems() {
                         edgeOnly: edgeOnly,
                         cooldown: {"normal": 60, "tease": 20},
                         chance: 0.03,
-                    },
+                    }),
                     {
                         trigger: "tick",
                         type: "PeriodicTeasing",
@@ -281,16 +281,29 @@ export function patchVibeStruggle() {
                 // // 	chance: 0.015
                 // // },
                 {trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
-                {
+                wrapperProxyEdgeOnly({
                     trigger: "playerCast",
                     type: "MagicallySensitive",
                     chance: 0.5,
                     power: 2,
                     time: 12,
                     edgeOnly: edgeOnly
-                },
-                {trigger: "struggle", type: "VibeOnStruggle", chance: 1.0, power: 2, time: 12, edgeOnly: edgeOnly},
-                {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 2, time: 12, edgeOnly: edgeOnly},
+                }),
+                wrapperProxyEdgeOnly({
+                    trigger: "struggle",
+                    type: "VibeOnStruggle",
+                    chance: 1.0,
+                    power: 2,
+                    time: 12,
+                    edgeOnly: edgeOnly
+                }),
+                wrapperProxyEdgeOnly({
+                    trigger: "remoteVibe",
+                    type: "RemoteActivatedVibe",
+                    power: 2,
+                    time: 12,
+                    edgeOnly: edgeOnly
+                }),
                 {
                     trigger: "tick",
                     type: "PeriodicTeasing",
@@ -362,15 +375,21 @@ export function patchVibeStruggle() {
                 // // 	cooldown: {"normal": 80, "tease": 20},
                 // // 	chance: 0.02
                 // // },
-                {
+                wrapperProxyEdgeOnly({
                     trigger: "playerCast",
                     type: "MagicallySensitive",
                     chance: 0.5,
                     power: 1,
                     time: 24,
                     edgeOnly: edgeOnly
-                },
-                {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 1, time: 24, edgeOnly: edgeOnly},
+                }),
+                wrapperProxyEdgeOnly({
+                    trigger: "remoteVibe",
+                    type: "RemoteActivatedVibe",
+                    power: 1,
+                    time: 24,
+                    edgeOnly: edgeOnly
+                }),
                 {
                     trigger: "tick",
                     type: "PeriodicTeasing",
@@ -415,15 +434,21 @@ export function patchVibeStruggle() {
             shrine: ["Plugs"],
             events: [
                 {trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
-                {
+                wrapperProxyEdgeOnly({
                     trigger: "playerCast",
                     type: "MagicallySensitive",
                     chance: 0.5,
                     power: 10,
                     time: 100,
                     edgeOnly: edgeOnly
-                },
-                {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 10, time: 100, edgeOnly: edgeOnly},
+                }),
+                wrapperProxyEdgeOnly({
+                    trigger: "remoteVibe",
+                    type: "RemoteActivatedVibe",
+                    power: 10,
+                    time: 100,
+                    edgeOnly: edgeOnly
+                }),
                 {
                     trigger: "tick",
                     type: "PeriodicTeasing",
@@ -469,15 +494,21 @@ export function patchVibeStruggle() {
             shrine: ["Plugs"],
             events: [
                 {trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
-                {
+                wrapperProxyEdgeOnly({
                     trigger: "playerCast",
                     type: "MagicallySensitive",
                     chance: 0.5,
                     power: 10,
                     time: 100,
                     edgeOnly: edgeOnly
-                },
-                {trigger: "remoteVibe", type: "RemoteActivatedVibe", power: 10, time: 100, edgeOnly: edgeOnly},
+                }),
+                wrapperProxyEdgeOnly({
+                    trigger: "remoteVibe",
+                    type: "RemoteActivatedVibe",
+                    power: 10,
+                    time: 100,
+                    edgeOnly: edgeOnly
+                }),
                 {
                     trigger: "tick",
                     type: "PeriodicTeasing",
