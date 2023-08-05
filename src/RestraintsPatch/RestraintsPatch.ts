@@ -26,11 +26,11 @@ export function EnchantedRestraintsPatch() {
 
     KinkyDungeonRefreshRestraintsCache();
 
-    console.log("=============================enchanted_restraints before vibeStruggle patch", structuredClone(KinkyDungeonRestraints));
+    console.log("=============================enchanted_restraints before vibeStruggle patch", KinkyDungeonRestraints.length);
 
     patchVibeStruggle();
 
-    console.log("=============================enchanted_restraints before copy patch", structuredClone(KinkyDungeonRestraints));
+    console.log("=============================enchanted_restraints before copy patch", KinkyDungeonRestraints.length);
 
     // KinkyDungeonRefreshRestraintsCache();
 
@@ -45,7 +45,7 @@ export function EnchantedRestraintsPatch() {
     // KinkyDungeonRestraints.push(
     // );
 
-    console.log("=============================enchanted_restraints", KinkyDungeonRestraints);
+    console.log("=============================enchanted_restraints", KinkyDungeonRestraints.length);
 
     // KinkyDungeonRestraints.push(
     // );
@@ -56,7 +56,7 @@ export function EnchantedRestraintsPatch() {
     addEnchantedTranslate();
 
     KinkyDungeonRefreshRestraintsCache();
-    console.log("=============================enchanted_restraints EnchantedRestraintsPatch end", KinkyDungeonRestraints);
+    console.log("=============================enchanted_restraints EnchantedRestraintsPatch end", KinkyDungeonRestraints.length);
 
 }
 
