@@ -11,8 +11,9 @@ export function setEdgeOnly(b: boolean) {
 
 function wrapperProxyEdgeOnly<OBJ extends { [key: string]: any }>(obj: OBJ): OBJ {
     return new Proxy<OBJ>(obj, {
-        get: (target: { [p: string]: any }, prop: string, receiver: any): any => {
-            return prop === "edgeOnly" ? edgeOnly : target[prop];
+        get: (target: { [p: string]: any }, prop: string, receiverThis: any): any => {
+            // return prop === "edgeOnly" ? edgeOnly : target[prop];
+            return prop === "edgeOnly" ? edgeOnly : Reflect.get(target, prop, receiverThis);
         },
     });
 }

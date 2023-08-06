@@ -1,4 +1,3 @@
-
 /**
  * set a lock unlock failed notice for item
  * @param curse {string} lock type, often is "MistressKey"
@@ -105,3 +104,7 @@ export const addTKeyF2 = (oldName: string, name: string, displayName: string, fl
 // 	//else if (item && item.name) ret.push({name: item.name, item: item, preview: ``});
 // 	return ret;
 // }
+
+export function frozenClone<T extends any>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
+}
