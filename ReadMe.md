@@ -6,7 +6,7 @@ this mod add some Enchanted Restraints to game for fun.
 ---
 ## how to use
 
-download the Zip file of the hole project, load it in main menu right bottom `Mod` menu, then start the game.
+download the ` enchanted_restraints.zip` Zip file from [release page](https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases), load it in main menu right bottom `Mod` menu, then start the game.
 
 all the function must call in the develop console, press F12 to open it
 
@@ -17,7 +17,11 @@ all the usage fun in the `Mod_EnchantedRestraints` or `KinkyDungeonMod_Enchanted
 
 example: 
 
-> Apply all the new Restraints in this Mod : `Mod_EnchantedRestraints.ApplyModRestraint()`
+> Apply Custom new Restraints in this Mod : `Mod_EnchantedRestraints.ApplyModRestraint()`
+
+> Bootstrap all base Cheat when new game start : `Mod_EnchantedRestraints.Cheats.BootstrapAllGood()`
+
+> Init a SpellChoice when new game start : `Mod_EnchantedRestraints.Cheats.BootstrapSpellChoicesTable()`
 
 > enable the FullStat Cheat : `Mod_EnchantedRestraints.Cheats.FullStatOn()`
 
