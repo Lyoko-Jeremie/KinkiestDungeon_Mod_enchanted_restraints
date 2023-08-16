@@ -32,5 +32,5 @@ jobs:
     - name: Upload Zip
       uses: actions/upload-artifact@v1
       with:
-        name: upload enchanted_restraints.zip
+        name: enchanted_restraints.zip
         path: dist/zip/enchanted_restraints.zip
