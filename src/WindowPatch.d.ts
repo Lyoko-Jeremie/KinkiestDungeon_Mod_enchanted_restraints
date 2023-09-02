@@ -1,9 +1,18 @@
 export {};
+import type {Cheats} from './Cheats/Cheats';
 
 declare global {
     interface Window {
-        KinkyDungeonMod_EnchantedRestraints: any;
-        Mod_EnchantedRestraints: any;
+        KinkyDungeonMod_EnchantedRestraints: {
+            Cheats: Cheats,
+            ApplyModRestraint: () => any[],
+            setEdgeOnly: (b: boolean) => void,
+        };
+        Mod_EnchantedRestraints: {
+            Cheats: Cheats,
+            ApplyModRestraint: () => any[],
+            setEdgeOnly: (b: boolean) => void,
+        };
 
     }
 
