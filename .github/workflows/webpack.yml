@@ -33,12 +33,12 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: enchanted_restraints.zip
-        path: dist/zip/enchanted_restraints.zip
+        path: ${{ github.workspace }}/dist/zip/enchanted_restraints.zip
 
     - name: Upload GreasemonkeyScript
       uses: actions/upload-artifact@v1
       with:
         name: GreasemonkeyScript.zip
         path: |
-          dist/GreasemonkeyScript.js
-          dist/GreasemonkeyScript.js.map
+          ${{ github.workspace }}/dist/GreasemonkeyScript.js
+          ${{ github.workspace }}/dist/GreasemonkeyScript.js.map
