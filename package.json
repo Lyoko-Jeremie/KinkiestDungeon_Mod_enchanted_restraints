@@ -7,7 +7,8 @@
     "build:dev": "webpack -c webpack.config.js --mode=development",
     "build:prod": "webpack -c webpack.config.js --mode=production --node-env=production",
     "=========": "",
-    "watch:gm": "webpack -c webpack.gm.config.js --watch"
+    "watch:gm": "webpack -c webpack.gm.config.js --watch",
+    "build:gm": "webpack -c webpack.gm.config.js"
   },
   "dependencies": {
     "@types/lodash": "^4.14.196",

@@ -26,11 +26,19 @@ jobs:
     - name: Build
       run: |
         yarn install
-        npx webpack
+        yarn run build:dev
+        yarn run build:gm
 
-    # upload artifact, game binary
-    - name: Upload Zip
+    - name: Upload Mod Zip
       uses: actions/upload-artifact@v1
       with:
         name: enchanted_restraints.zip
         path: dist/zip/enchanted_restraints.zip
+
+    - name: Upload GreasemonkeyScript
+      uses: actions/upload-artifact@v1
+      with:
+        name: GreasemonkeyScript.zip
+        path: |
+          dist/GreasemonkeyScript.js
+          dist/GreasemonkeyScript.js.map
