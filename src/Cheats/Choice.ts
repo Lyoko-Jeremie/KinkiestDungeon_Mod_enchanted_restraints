@@ -71,7 +71,7 @@ export class Choice {
             remove,
         );
     };
-    ChoiceAddCheatChoiceNowhere = (remove: boolean) => {
+    ChoiceAddCheatChoiceNowhere = (remove?: boolean) => {
         // Nowhere
         // 草木皆兵
         // Beds and furniture are often trapped.
@@ -146,7 +146,7 @@ export class Choice {
             remove,
         );
     };
-    ChoiceAddCheatChoiceMid = (remove: boolean) => {
+    ChoiceAddCheatChoiceMid = (remove?: boolean) => {
         // 法力冲击	[DistractionCast] [DistractionCast]
         // 当干扰值为 100% ，施法失败几率 -100%，但一次消耗过多的法力值可能会导致高潮。
         // 催化魔法	[ArousingMagic] [ArousingMagic]
@@ -220,7 +220,7 @@ export class Choice {
             remove,
         );
     };
-    ChoiceAddCheatChoiceMap = (remove: boolean) => {
+    ChoiceAddCheatChoiceMap = (remove?: boolean) => {
         // 困难的门	[Doorknobs] [Doorknobs]
         // 当你的手被束缚时，门更难打开。
         // 宽敞之牢	[MapLarge] [MapLarge]
@@ -237,10 +237,14 @@ export class Choice {
     ChoicePrintNowChoice = () => {
         const l = Array.from(KinkyDungeonStatsChoice.keys());
         let count = 0;
+        let sss = [];
         for (const s of l) {
             if (KinkyDungeonStatsPresets[s]) {
                 const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
                 if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
+                    sss.push("" + count + "\t"
+                        + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                        + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
                     console.log("" + count + "\t"
                         + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
                         + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
@@ -248,14 +252,19 @@ export class Choice {
                 ++count;
             }
         }
+        return sss.join('\n');
     };
     ChoicePrintAllValidChoice = () => {
         const l = Object.getOwnPropertyNames(KinkyDungeonStatsPresets);
         let count = 0;
+        let sss = [];
         for (const s of l) {
             if (KinkyDungeonStatsPresets[s]) {
                 const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
                 if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
+                    sss.push("" + count + "\t"
+                        + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                        + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
                     console.log("" + count + "\t"
                         + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
                         + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
@@ -263,5 +272,6 @@ export class Choice {
                 ++count;
             }
         }
+        return sss.join('\n');
     };
 }

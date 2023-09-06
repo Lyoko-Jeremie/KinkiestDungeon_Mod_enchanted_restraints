@@ -126,6 +126,10 @@ class FullCheatsBase extends Choice {
 class CheatsHook extends FullCheatsBase {
     _TickHook = new TickHook();
 
+    setupHook(windowPtr: Window) {
+        this._TickHook.setupHook(windowPtr);
+    }
+
     FullStatIntervalHandle?: number;
     InvisibilityIntervalHandle?: number;
     MaxEmpowerIntervalHandle?: number;

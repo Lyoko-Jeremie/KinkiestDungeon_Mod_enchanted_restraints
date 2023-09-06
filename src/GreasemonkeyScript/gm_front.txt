@@ -8,6 +8,8 @@
 // @grant               GM.setValue
 // @author              Jeremie
 // @run-at              document-idle
+// @grant               unsafeWindow
+// @sandbox             raw
 // ==/UserScript==
 //// @require            https://openuserjs.org/src/libs/sizzle/GM_config.js
 //// @run-at        document-start
