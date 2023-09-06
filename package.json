@@ -5,7 +5,9 @@
   "scripts": {
     "watch": "webpack -c webpack.config.js --watch",
     "build:dev": "webpack -c webpack.config.js --mode=development",
-    "build:prod": "webpack -c webpack.config.js --mode=production --node-env=production"
+    "build:prod": "webpack -c webpack.config.js --mode=production --node-env=production",
+    "=========": "",
+    "watch:gm": "webpack -c webpack.gm.config.js --watch"
   },
   "dependencies": {
     "@types/lodash": "^4.14.196",

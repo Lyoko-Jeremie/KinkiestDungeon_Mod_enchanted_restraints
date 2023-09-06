@@ -1,0 +1,13 @@
+// ==UserScript==
+// @name                KinkiestDungeon enchanted_restraints Mode
+// @namespace           jeremie.moe
+// @grant               GM_getValue
+// @grant               GM_setValue
+// @grant               GM.getValue
+// @grant               GM.setValue
+// @author              Jeremie
+// @run-at              document-idle
+// ==/UserScript==
+//// @require            https://openuserjs.org/src/libs/sizzle/GM_config.js
+//// @run-at        document-start
+
