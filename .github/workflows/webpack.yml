@@ -27,3 +27,10 @@ jobs:
       run: |
         yarn install
         npx webpack
+
+    # upload artifact, game binary
+    - name: Upload Zip
+      uses: actions/upload-artifact@v1
+      with:
+        name: enchanted_restraints.zip
+        path: dist/zip/enchanted_restraints.zip
