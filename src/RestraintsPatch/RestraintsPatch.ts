@@ -13,9 +13,6 @@ export {setEdgeOnly};
 
 let initFlag = false;
 
-console.log("=============================enchanted_restraints RestraintsPatch.js begin=============================");
-console.time("enchanted_restraints RestraintsPatch load time");
-
 
 export function EnchantedRestraintsPatch() {
     if (initFlag) {
@@ -23,6 +20,9 @@ export function EnchantedRestraintsPatch() {
         return;
     }
     initFlag = true;
+    console.log("=============================enchanted_restraints EnchantedRestraintsPatch() begin=============================");
+    console.time("enchanted_restraints EnchantedRestraintsPatch() time");
+
     // ======================================================
 
     KinkyDungeonRefreshRestraintsCache();
@@ -59,10 +59,10 @@ export function EnchantedRestraintsPatch() {
     KinkyDungeonRefreshRestraintsCache();
     console.log("=============================enchanted_restraints EnchantedRestraintsPatch end", KinkyDungeonRestraints);
 
+    console.timeEnd("enchanted_restraints EnchantedRestraintsPatch() time");
+    console.log("=============================enchanted_restraints EnchantedRestraintsPatch() end=============================");
 }
 
-console.timeEnd("enchanted_restraints RestraintsPatch load time");
-console.log("=============================enchanted_restraints RestraintsPatch.js end=============================");
 
 
 

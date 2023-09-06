@@ -7,11 +7,13 @@ declare global {
             Cheats: Cheats,
             ApplyModRestraint: () => any[],
             setEdgeOnly: (b: boolean) => void,
+            EnchantedRestraintsPatch: () => void,
         };
         Mod_EnchantedRestraints: {
             Cheats: Cheats,
             ApplyModRestraint: () => any[],
             setEdgeOnly: (b: boolean) => void,
+            EnchantedRestraintsPatch: () => void,
         };
 
     }
