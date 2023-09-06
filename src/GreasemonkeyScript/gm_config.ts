@@ -148,6 +148,38 @@ export class GM_configStruct<CustomTypes extends string = never> {
     /** Initialize GM_config */
     // tslint:disable-next-line:no-unnecessary-generics
     init<CustomTypes extends string>(options: InitOptions<CustomTypes>): void {
+
+
+        if (!this.isGM4) {
+            let promisify = <R>(old: (...args: any[]) => R) => {
+                return (...args: any[]) => {
+                    return new Promise((resolve, reject) => {
+                        try {
+                            resolve(old.apply(this, args));
+                        } catch (e) {
+                            reject(e);
+                        }
+                    });
+                };
+            };
+
+            let getValue = this.isGM ? GM_getValue
+                : <TValue>(name: string, defaultValue?: TValue) => {
+                    let s = localStorage.getItem(name);
+                    return s !== null ? s : defaultValue;
+                };
+            let setValue = this.isGM ? GM_setValue
+                : (name: string, value: any) => localStorage.setItem(name, value);
+            let log = typeof GM_log !== 'undefined' ? GM_log : console.log;
+
+            (GM as any).getValue = promisify(getValue);
+            (GM as any).setValue = promisify(setValue);
+            (GM as any).log = promisify(log);
+        }
+        this.getValue = GM.getValue;
+        this.setValue = GM.setValue;
+        this.log = GM.log;
+
         // Initialize instance variables
         if (typeof this.fields == "undefined") {
             this.fields = {};
@@ -319,33 +351,6 @@ export class GM_configStruct<CustomTypes extends string = never> {
             this.onInit && this.onInit.call(this);
         }
 
-
-        if (!this.isGM4) {
-            let promisify = <R>(old: (...args: any[]) => R) => {
-                return (...args: any[]) => {
-                    return new Promise((resolve, reject) => {
-                        try {
-                            resolve(old.apply(this, args));
-                        } catch (e) {
-                            reject(e);
-                        }
-                    });
-                };
-            };
-
-            let getValue = this.isGM ? GM_getValue
-                : <TValue>(name: string, defaultValue?: TValue) => {
-                    let s = localStorage.getItem(name);
-                    return s !== null ? s : defaultValue;
-                };
-            let setValue = this.isGM ? GM_setValue
-                : (name: string, value: any) => localStorage.setItem(name, value);
-            let log = typeof GM_log !== 'undefined' ? GM_log : console.log;
-
-            (GM as any).getValue = promisify(getValue);
-            (GM as any).setValue = promisify(setValue);
-            (GM as any).log = promisify(log);
-        }
     }
 
     /** Display the config panel */
@@ -638,8 +643,8 @@ export class GM_configStruct<CustomTypes extends string = never> {
      * <https://github.com/sizzlemctwizzle/GM_config/blob/43fd0fe4/gm_config.js#L444-L455>
      */
     static create(text: string): Text;
-    static create(tagName: string, eventListeners: { [key: string]: any }): HTMLElement;
-    static create(tagName: string, eventListeners: { [key: string]: any }, ...innerHTML: (string | HTMLElement)[]): HTMLElement;
+    static create(tagName: string, config: { [key: string]: any }): HTMLElement;
+    static create(tagName: string, config: { [key: string]: any }, ...innerHTML: (string | HTMLElement)[]): HTMLElement;
     static create(...args: any[]): any {
         let A: HTMLElement | Text;
         let B: { [key: string]: string };
@@ -657,7 +662,7 @@ export class GM_configStruct<CustomTypes extends string = never> {
                         b.toLowerCase()) != -1)
                         A.setAttribute(b, (B as any)[b]);
                     else
-                        (B as any)[b] = (B as any)[b];
+                        (A as any)[b] = (B as any)[b];
                 }
                 if (typeof args[2] == "string")
                     A.innerHTML = args[2];
@@ -908,19 +913,19 @@ export class GM_configField {
 
                 switch (type) {
                     case 'checkbox':
-                        (props as HTMLInputElement).checked = value as boolean;
+                        (props as any).checked = value as boolean;
                         break;
                     case 'button':
-                        (props as HTMLInputElement).size = field.size ? field.size : 25;
+                        (props as any).size = field.size ? field.size : 25;
                         if (field.script) field.click = field.script;
-                        if (field.click) (props as HTMLInputElement).onclick = field.click;
+                        if (field.click) (props as any).onclick = field.click;
                         break;
                     case 'hidden':
                         break;
                     default:
                         // type = text, int, or float
                         props.type = 'text';
-                        (props as HTMLInputElement).size = field.size ? field.size : 25;
+                        (props as any).size = field.size ? field.size : 25;
                 }
 
                 retNode.appendChild((this.node = create('input', props)));
