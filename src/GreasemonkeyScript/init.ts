@@ -13,10 +13,26 @@ import {EnchantedRestraintsPatch} from '../initMod';
                             'label': 'Name', // Appears next to field
                             'type': 'text', // Makes this setting a text field
                             'default': 'Sizzle McTwizzle' // Default value if user doesn't change it
-                        }
-                }
+                        },
+                    'install_EnchantedRestraintsPatch': {
+                        label: 'install EnchantedRestraintsPatch',
+                        type: 'button',
+                        click() {
+                            EnchantedRestraintsPatch();
+                        },
+                    },
+                },
         });
-    gmc.open();
+    window.addEventListener('keydown', (event) => {
+        console.log('keydown', event);
+        if (event.shiftKey && (event.key === 'Q' || event.key === 'q')) {
+            if (gmc.isOpen) {
+                gmc.close();
+            } else {
+                gmc.open();
+            }
+        }
+    });
 })().catch(E => {
     console.error(E);
 });

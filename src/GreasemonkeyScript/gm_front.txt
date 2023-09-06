@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name                KinkiestDungeon enchanted_restraints Mode
 // @namespace           jeremie.moe
+// @version             0.0.1
 // @grant               GM_getValue
 // @grant               GM_setValue
 // @grant               GM.getValue
