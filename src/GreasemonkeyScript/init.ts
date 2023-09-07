@@ -1,5 +1,7 @@
-import {GM_config} from './gm_config';
+import {GM_config} from '../GM_config_TS/gm_config';
 import {EnchantedRestraintsPatch} from '../initMod';
+// https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
+import inlineGMCss from './inlineText/GM.css?inlineText';
 
 unsafeWindow.KinkyDungeonMod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
@@ -12,8 +14,8 @@ unsafeWindow.KDOptOut = true;
     let gmc = new GM_config(
         {
             'id': 'MyConfig', // The id used for this instance of GM_config
-            'title': 'Script Settings', // Panel Title
-            css: '#MyConfig textarea{font-family: "Consolas",monospace !important;width:80%;min-height:20em;}',
+            'title': 'KinkiestDungeon enchanted_restraints Mod', // Panel Title
+            css: inlineGMCss,
             'fields': // Fields object
                 {
                     'Name': // This is the id of the field

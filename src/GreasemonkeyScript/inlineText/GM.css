@@ -1,0 +1,5 @@
+#MyConfig textarea {
+    font-family: "Consolas", monospace !important;
+    width: 80%;
+    min-height: 20em;
+}

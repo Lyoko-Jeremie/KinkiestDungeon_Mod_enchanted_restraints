@@ -32,11 +32,11 @@ jobs:
     - name: Upload Mod Zip
       uses: actions/upload-artifact@v1
       with:
-        name: enchanted_restraints.zip
+        name: enchanted_restraints
         path: ${{ github.workspace }}/dist/zip/enchanted_restraints.zip
 
     - name: Upload GreasemonkeyScript
       uses: actions/upload-artifact@v1
       with:
-        name: GreasemonkeyScript.zip
+        name: GreasemonkeyScript
         path: ${{ github.workspace }}/dist/GreasemonkeyScript.js

@@ -36,7 +36,8 @@
        "../KK.d.ts",
        "../WindowPatch.d.ts",
        "../libs/GM_config/types/index.d.ts",
-       "./Greasemonkey.d.ts"
+       "../GM_config_TS/Greasemonkey.d.ts",
+       "../inlineText/inlineText-asset-source.d.ts"
      ],                                      /* Specify type package names to be included without being referenced in a source file. */
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
