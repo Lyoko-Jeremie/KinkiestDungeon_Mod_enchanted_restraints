@@ -13,6 +13,9 @@ export {setEdgeOnly};
 
 let initFlag = false;
 
+export function isInit() {
+    return initFlag;
+}
 
 export function EnchantedRestraintsPatch() {
     if (initFlag) {

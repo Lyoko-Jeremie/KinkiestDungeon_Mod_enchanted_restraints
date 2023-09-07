@@ -906,6 +906,7 @@ __metadata:
   dependencies:
     "@types/lodash": ^4.14.196
     "@webpack-cli/generators": ^3.0.7
+    bootstrap: ^5.3.1
     fork-ts-checker-webpack-plugin: ^8.0.0
     lodash: ^4.17.21
     ts-loader: ^9.4.4
@@ -1189,6 +1190,15 @@ __metadata:
     inherits: ^2.0.4
     readable-stream: ^3.4.0
   checksum: 9e8521fa7e83aa9427c6f8ccdcba6e8167ef30cc9a22df26effcc5ab682ef91d2cbc23a239f945d099289e4bbcfae7a192e9c28c84c6202e710a0dfec3722662
+  languageName: node
+  linkType: hard
+
+"bootstrap@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "bootstrap@npm:5.3.1"
+  peerDependencies:
+    "@popperjs/core": ^2.11.8
+  checksum: f8176376aa6c6d8947d58a67f0c57fa0b6b7dcd087ff83454e0d727c07cf33e8107e56aa298045d652f84b53b24ac72457af73e41c5631c9ebdc1909039c5dac
   languageName: node
   linkType: hard
 

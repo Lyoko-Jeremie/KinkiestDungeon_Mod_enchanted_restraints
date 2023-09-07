@@ -1,7 +1,8 @@
-import {GM_config} from '../GM_config_TS/gm_config';
-import {EnchantedRestraintsPatch} from '../initMod';
+import {GM_config, BootstrapBtnType} from '../GM_config_TS/gm_config';
+import {EnchantedRestraintsPatch, isInit} from '../initMod';
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
+import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
 
 unsafeWindow.KinkyDungeonMod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
@@ -9,30 +10,59 @@ unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
 // @ts-ignore
 unsafeWindow.KDOptOut = true;
 
+// avoid same Math.random
+let rIdP = 0;
+
+// get a unique string as id
+function rId() {
+    return '' + (++rIdP) + Math.random();
+}
+
+const btnType: BootstrapBtnType = 'secondary';
+
 (async () => {
     // font-family: "Consolas",monospace;
     let gmc = new GM_config(
         {
+            xgmExtendInfo: {
+                xgmExtendMode: 'bootstrap',
+                bootstrap: {
+                    smallBtn: true,
+                },
+                buttonConfig: {
+                    noCancel: true,
+                    noSave: true,
+                    noReset: true,
+                },
+            },
             'id': 'MyConfig', // The id used for this instance of GM_config
             'title': 'KinkiestDungeon enchanted_restraints Mod', // Panel Title
-            css: inlineGMCss,
+            css: inlineGMCss + '\n' + inlineBootstrap,
             'fields': // Fields object
                 {
-                    'Name': // This is the id of the field
-                        {
-                            'label': 'Name', // Appears next to field
-                            'type': 'text', // Makes this setting a text field
-                            'default': 'Sizzle McTwizzle' // Default value if user doesn't change it
-                        },
+                    [rId()]: {
+                        section: GM_config.create('install EnchantedRestraints Mod'),
+                        type: 'br',
+                    },
                     'install_EnchantedRestraintsPatch': {
-                        label: 'install EnchantedRestraintsPatch',
+                        label: 'press to install EnchantedRestraintsPatch Mod',
                         type: 'button',
                         click() {
                             // @ts-ignore
                             unsafeWindow.KDOptOut = true;
                             EnchantedRestraintsPatch();
                             unsafeWindow.KinkyDungeonMod_EnchantedRestraints.Cheats.setupHook(unsafeWindow);
+                            gmc.fields['isInstalled'].settings.label = `isInstalled:${isInit()}`;
+                            gmc.fields['isInstalled'].reload();
                         },
+                    },
+                    'isInstalled': {
+                        label: `isInstalled:${isInit()}`,
+                        type: 'label',
+                    },
+                    [rId()]: {
+                        section: GM_config.create('ApplyModRestraint Section'),
+                        type: 'br',
                     },
                     'ApplyModRestraint': {
                         label: 'ApplyModRestraint',
@@ -40,6 +70,11 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
+                    },
+                    [rId()]: {
+                        section: GM_config.create('ApplyModRestraint Section'),
+                        type: 'br',
                     },
                     'RemoveAllRestraint': {
                         label: 'RemoveAllRestraint',
@@ -47,6 +82,7 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllRestraint();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'RemoveAllRestraintDynamic': {
                         label: 'RemoveAllRestraintDynamic',
@@ -54,6 +90,11 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllRestraintDynamic();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
+                    },
+                    [rId()]: {
+                        section: GM_config.create('Keys Section'),
+                        type: 'br',
                     },
                     'AddManyKeys': {
                         label: 'AddManyKeys',
@@ -61,6 +102,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyKeys();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddManyPotion': {
                         label: 'AddManyPotion',
@@ -68,6 +111,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyPotion();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddManyGold': {
                         label: 'AddManyGold',
@@ -75,6 +120,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyGold();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddDistraction': {
                         label: 'AddDistraction',
@@ -82,6 +129,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddDistraction();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddAllRestraints': {
                         label: 'AddAllRestraints',
@@ -89,6 +138,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllRestraints();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddAllOutfit': {
                         label: 'AddAllOutfit',
@@ -96,6 +147,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllOutfit();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddAllConsumables': {
                         label: 'AddAllConsumables',
@@ -103,6 +156,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllConsumables();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'AddAllWeapon': {
                         label: 'AddAllWeapon',
@@ -110,6 +165,12 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllWeapon();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
+                    },
+                    [rId()]: {
+                        section: GM_config.create('Bootstrap Section'),
+                        type: 'br',
                     },
                     'BootstrapAllGood': {
                         label: 'BootstrapAllGood',
@@ -117,6 +178,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapAllGood();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'BootstrapSpellChoicesTable': {
                         label: 'BootstrapSpellChoicesTable',
@@ -124,6 +187,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapSpellChoicesTable();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'BootstrapSimpleGood': {
                         label: 'BootstrapSimpleGood',
@@ -131,6 +196,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapSimpleGood();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'BootstrapAllNegative': {
                         label: 'BootstrapAllNegative',
@@ -138,6 +205,12 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapAllNegative();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
+                    },
+                    [rId()]: {
+                        section: GM_config.create('Enable Section'),
+                        type: 'br',
                     },
                     'EnableAllCheats': {
                         label: 'EnableAllCheats',
@@ -145,6 +218,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableAllCheats();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'DisableAllCheats': {
                         label: 'DisableAllCheats',
@@ -152,6 +227,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableAllCheats();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'EnableFullState': {
                         label: 'EnableFullState',
@@ -159,6 +236,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableFullState();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'DisableFullState': {
                         label: 'DisableFullState',
@@ -166,6 +245,12 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableFullState();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
+                    },
+                    [rId()]: {
+                        section: GM_config.create('Choice Section'),
+                        type: 'br',
                     },
                     'ChoiceAddCheatChoiceGoodEscape': {
                         label: 'ChoiceAddCheatChoiceGoodEscape',
@@ -173,6 +258,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEscape();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoiceAddCheatChoiceGoodEnhance': {
                         label: 'ChoiceAddCheatChoiceGoodEnhance',
@@ -180,6 +267,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEnhance();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoiceAddCheatChoiceMid': {
                         label: 'ChoiceAddCheatChoiceMid',
@@ -187,6 +276,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMid();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoiceAddCheatChoiceBadNegative': {
                         label: 'ChoiceAddCheatChoiceBadNegative',
@@ -194,6 +285,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNegative();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoiceAddCheatChoiceBadNoEscape': {
                         label: 'ChoiceAddCheatChoiceBadNoEscape',
@@ -201,6 +294,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNoEscape();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoiceAddCheatChoiceMap': {
                         label: 'ChoiceAddCheatChoiceMap',
@@ -208,6 +303,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMap();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoiceAddCheatChoiceNowhere': {
                         label: 'ChoiceAddCheatChoiceNowhere',
@@ -215,6 +312,8 @@ unsafeWindow.KDOptOut = true;
                         click() {
                             window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceNowhere();
                         },
+                        cssClassName: 'd-inline',
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoicePrintNowChoice': {
                         label: 'ChoicePrintNowChoice',
@@ -224,11 +323,16 @@ unsafeWindow.KDOptOut = true;
                                 window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintNowChoice();
                             gmc.fields['NowChoiceList'].reload();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'NowChoiceList': {
                         label: 'NowChoiceList',
                         type: 'textarea',
                         default: '',
+                    },
+                    [rId()]: {
+                        section: GM_config.create('ChoicePrint Section'),
+                        type: 'br',
                     },
                     'ChoicePrintAllValidChoice': {
                         label: 'ChoicePrintAllValidChoice',
@@ -238,11 +342,16 @@ unsafeWindow.KDOptOut = true;
                                 window.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoice();
                             gmc.fields['ChoicePrintAllValidChoiceList'].reload();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ChoicePrintAllValidChoiceList': {
                         label: 'ChoicePrintAllValidChoiceList',
                         type: 'textarea',
                         default: '',
+                    },
+                    [rId()]: {
+                        section: GM_config.create('DebugSee Section'),
+                        type: 'br',
                     },
                     'ShowAllRestraintDynamicName': {
                         label: 'ShowAllRestraintDynamicName',
@@ -253,11 +362,16 @@ unsafeWindow.KDOptOut = true;
                                     .join('\n');
                             gmc.fields['ShowAllRestraintDynamicNameList'].reload();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'ShowAllRestraintDynamicNameList': {
                         label: 'ShowAllRestraintDynamicNameList',
                         type: 'textarea',
                         default: '',
+                    },
+                    [rId()]: {
+                        section: GM_config.create('Map Section'),
+                        type: 'br',
                     },
                     'MapKKSsMGet': {
                         label: 'MapKKSsMGet',
@@ -267,6 +381,7 @@ unsafeWindow.KDOptOut = true;
                                 window.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKKSsMGet();
                             gmc.fields['MapKKSsMGetData'].reload();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'MapKKSsMGetData': {
                         label: 'MapKKSsMGetData',
@@ -281,6 +396,7 @@ unsafeWindow.KDOptOut = true;
                                 window.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKSsMGet();
                             gmc.fields['MapKSsMGetData'].reload();
                         },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
                     },
                     'MapKSsMGetData': {
                         label: 'MapKSsMGetData',
@@ -317,6 +433,22 @@ unsafeWindow.KDOptOut = true;
             }
         }
     });
+    if (true) {
+        const startBanner = document.createElement('div');
+        startBanner.id = 'startBanner';
+        startBanner.innerText = 'KinkiestDungeon enchanted_restraints Mod';
+        startBanner.style.cssText = 'position: fixed;right: 1px;top: 1px;' +
+            'font-size: 1em;z-index: 1001;user-select: none;' +
+            'border: gray dashed 2px;color: gray;padding: .25em;';
+        startBanner.addEventListener('click', () => {
+            if (gmc && gmc.isOpen) {
+                gmc.close();
+            } else {
+                gmc.open();
+            }
+        });
+        document.body.appendChild(startBanner);
+    }
 })().catch(E => {
     console.error(E);
 });

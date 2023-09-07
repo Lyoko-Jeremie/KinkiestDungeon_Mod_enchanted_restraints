@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.196",
+    "bootstrap": "^5.3.1",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
     "lodash": "^4.17.21",
     "ts-loader": "^9.4.4",
