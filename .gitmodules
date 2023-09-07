@@ -1,0 +1,4 @@
+[submodule "src/GM_config_TS"]
+	path = src/GM_config_TS
+	url = git@github.com:Lyoko-Jeremie/GM_config_TS.git
+	branch = master
