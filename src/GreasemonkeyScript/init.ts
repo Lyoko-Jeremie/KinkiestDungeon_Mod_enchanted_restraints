@@ -10,8 +10,7 @@ import {LockList} from "../Cheats/LockList";
 unsafeWindow.KinkyDungeonMod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
 
-// @ts-ignore
-unsafeWindow.KDOptOut = true;
+KDOptOut = true;
 
 // avoid same Math.random
 let rIdP = 0;
@@ -525,6 +524,7 @@ const btnType: BootstrapBtnType = 'secondary';
                                     gmc.close();
                                 } else {
                                     gmc = gmcCreator();
+                                    KDOptOut = true;
                                     gmc.open();
                                 }
                             }
@@ -541,6 +541,7 @@ const btnType: BootstrapBtnType = 'secondary';
                 gmc.close();
             } else {
                 gmc = gmcCreator();
+                KDOptOut = true;
                 gmc.open();
             }
         }
@@ -557,6 +558,7 @@ const btnType: BootstrapBtnType = 'secondary';
                 gmc.close();
             } else {
                 gmc = gmcCreator();
+                KDOptOut = true;
                 gmc.open();
             }
         });
