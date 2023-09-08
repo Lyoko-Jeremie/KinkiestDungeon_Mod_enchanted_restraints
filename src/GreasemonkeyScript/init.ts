@@ -1,8 +1,11 @@
-import {GM_config, BootstrapBtnType} from '../GM_config_TS/gm_config';
+import {GM_config, BootstrapBtnType, InitOptionsNoCustom} from '../GM_config_TS/gm_config';
 import {EnchantedRestraintsPatch, isInit} from '../initMod';
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
 import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
+import {WearsList} from "../Cheats/Restraint";
+import {assign} from "lodash";
+import {LockList} from "../Cheats/LockList";
 
 unsafeWindow.KinkyDungeonMod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
@@ -369,6 +372,67 @@ const btnType: BootstrapBtnType = 'secondary';
                         type: 'textarea',
                         default: '',
                     },
+                    'ShowAllRestraint': {
+                        label: 'ShowAllRestraint',
+                        type: 'button',
+                        click() {
+                            gmc.fields['ShowAllRestraintList'].value =
+                                JSON.stringify(
+                                    window.KinkyDungeonMod_EnchantedRestraints.Cheats.DebugSee.ShowAllRestraint(),
+                                    undefined,
+                                    2
+                                );
+                            gmc.fields['ShowAllRestraintList'].reload();
+                        },
+                        xgmExtendField: {bootstrap: {btnType: btnType}},
+                    },
+                    'ShowAllRestraintList': {
+                        label: 'ShowAllRestraintList',
+                        type: 'textarea',
+                        default: '',
+                    },
+                    [rId()]: {
+                        section: GM_config.create('WearRestraints Section'),
+                        type: 'br',
+                    },
+                    'LockSelect': {
+                        label: 'LockSelect',
+                        type: 'select',
+                        value: LockList.Purple,
+                        options: Object.values(LockList),
+                    },
+                    'FactionSelect': {
+                        label: 'FactionSelect',
+                        type: 'select',
+                        value: 'None',
+                        options: ['None'].concat(Object.keys(window.KinkyDungeonMod_EnchantedRestraints.Cheats.kinkyDungeonFactionColors)),
+                    },
+                    ...Object.keys(WearsList).reduce<InitOptionsNoCustom['fields']>((acc, WK) => {
+                        const o: InitOptionsNoCustom['fields'] = {};
+                        o['Wear' + WK] = {
+                            label: 'Wear' + WK,
+                            type: 'button',
+                            click() {
+                                const faction = gmc.fields['FactionSelect'].value;
+                                (window.KinkyDungeonMod_EnchantedRestraints.Cheats as any)['Wear' + WK](
+                                    gmc.fields['LockSelect'].value,
+                                    faction === 'None' ? undefined : faction,
+                                );
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: btnType}},
+                        };
+                        return assign<InitOptionsNoCustom['fields'], InitOptionsNoCustom['fields']>(acc, o);
+                    }, {} as InitOptionsNoCustom['fields']),
+                    // 'WearVinePlant': {
+                    //     label: 'WearVinePlant',
+                    //     type: 'button',
+                    //     click() {
+                    //         window.KinkyDungeonMod_EnchantedRestraints.Cheats.WearVinePlant();
+                    //     },
+                    //     cssClassName: 'd-inline',
+                    //     xgmExtendField: {bootstrap: {btnType: btnType}},
+                    // },
                     [rId()]: {
                         section: GM_config.create('Map Section'),
                         type: 'br',

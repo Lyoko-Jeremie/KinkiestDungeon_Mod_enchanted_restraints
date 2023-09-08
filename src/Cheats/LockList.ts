@@ -5,4 +5,5 @@ export enum LockList {
     White = "White",
     Blue = "Blue",
     Gold = "Gold",
+    None = "None",
 }

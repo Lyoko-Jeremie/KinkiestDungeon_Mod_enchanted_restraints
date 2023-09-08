@@ -1,7 +1,7 @@
 import {isSafeInteger} from 'lodash'
 import {LockList} from "./LockList";
 
-const WearsList: { [key: string]: string } = {
+export const WearsList: { [key: string]: string } = {
     // VinePlant
     VinePlant: "VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso",
     // ShadowHand
@@ -49,16 +49,40 @@ const WearsList: { [key: string]: string } = {
     Slime: "SlimeBoots SlimeFeet SlimeHands SlimeLegs SlimeArms SlimeMouth SlimeHead",
     SlimeEnchanted: "EnchantedSlimeBoots EnchantedSlimeFeet EnchantedSlimeHands EnchantedSlimeLegs EnchantedSlimeArms EnchantedSlimeMouth EnchantedSlimeHead",
     SlimeGhost: "GhostSlimeBoots GhostSlimeFeet GhostSlimeHands GhostSlimeLegs GhostSlimeArms GhostSlimeMouth GhostSlimeHead",
+    HardSlime: "HardSlimeBoots SlimeFeet HardSlimeHands HardSlimeLegs HardSlimeArms HardSlimeMouth HardSlimeHead",
+    HardEnchantedSlime: "HardEnchantedSlimeBoots HardEnchantedSlimeFeet HardEnchantedSlimeHands HardEnchantedSlimeLegs HardEnchantedSlimeArms HardEnchantedSlimeMouth HardEnchantedSlimeHead",
+    HardGhostSlime: "HardGhostSlimeBoots HardGhostSlimeFeet HardGhostSlimeHands HardGhostSlimeLegs HardGhostSlimeArms HardGhostSlimeMouth HardGhostSlimeHead",
     // Vibration
     VibrationEnchanted: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
     // // AAAAA
     // AAAAA: ,
 };
 
+// let KinkyDungeonFactionColors = {
+//     "Jail": ["#8A120C"],
+//     "Slime": ["#9B49BD", "#9B49BD"],
+//     "Latex": ["#9B49BD", "#9B49BD"],
+//     "Dressmaker": ["#6B48E0", "#F8BD01"],
+//     "Alchemist": ["#4c6885", "#7bef41"],
+//     "Elf": ["#63ab3f", "#F8BD01"],
+//     "Bountyhunter": ["#252525", "#bfbfbf"],
+//     "AncientRobot": ["#444444", "#4fa4b8"],
+//     "Dollsmith": ["#444444", "#b1062a", "#ff5277"],
+//     "Mushy": ["#bfbfbf", "#92c1e8"],
+//     "Apprentice": ["#686f99", "#ff5277"],
+//     "Witch": ["#222222", "#8359b3"],
+// };
+
+export type WearFunctionType = (lock?: LockList, faction?: (keyof (typeof KinkyDungeonFactionColors))) => number[];
+
 export class Restraint {
 
 
-    WearRestraints = (restraints = "", lock = LockList.Gold) => {
+    WearRestraints = (
+        restraints = "",
+        lock = LockList.Gold,
+        faction?: (keyof (typeof KinkyDungeonFactionColors))
+    ) => {
         // lock can be Purple Red White Blue Gold
         // Red White is normal key
         // Blue is magic key
@@ -73,7 +97,17 @@ export class Restraint {
                     try {
                         const RR = KinkyDungeonGetRestraintByName(T);
                         console.log(RR.name);
-                        return [RR, KinkyDungeonAddRestraint(RR, 10, false, lock || LockList.Gold)];
+                        return [RR, KinkyDungeonAddRestraint(
+                            RR,
+                            10,
+                            false,
+                            lock || LockList.Gold,
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            faction as string || undefined,
+                        )];
                     } catch (e) {
                         console.error(e);
                         return [];
@@ -94,36 +128,44 @@ export class Restraint {
 
     protected installRestraint() {
         Object.getOwnPropertyNames(WearsList).map(N => {
-            (this as any)['Wear' + N.trim()] = (lock: LockList) => {
+            (this as any)['Wear' + N.trim()] = (lock?: LockList, faction?: string) => {
+                console.log('Wear...()', lock, faction);
                 let r = WearsList[N];
-                return this.WearRestraints(r, lock || LockList.Purple);
+                let ll = lock || LockList.Purple;
+                return this.WearRestraints(r, ll === LockList.None ? undefined : ll, faction);
             };
         });
+        this.kinkyDungeonFactionColors = KinkyDungeonFactionColors;
     }
+
+    kinkyDungeonFactionColors!: { [key: string]: string[] };
 
     // ===================================
 
-    WearVinePlant !: (lock: LockList) => number[];
-    WearShadowHand !: (lock: LockList) => number[];
-    WearVibe !: (lock: LockList) => number[];
-    WearDivine !: (lock: LockList) => number[];
-    WearMysticDuct !: (lock: LockList) => number[];
-    WearSaber !: (lock: LockList) => number[];
-    WearMageArmor !: (lock: LockList) => number[];
-    WearKitty !: (lock: LockList) => number[];
-    WearEnchanted !: (lock: LockList) => number[];
-    WearRibbon !: (lock: LockList) => number[];
-    WearIce !: (lock: LockList) => number[];
-    WearBanditLeg !: (lock: LockList) => number[];
-    WearCrystal !: (lock: LockList) => number[];
-    WearDragon !: (lock: LockList) => number[];
-    WearDress !: (lock: LockList) => number[];
-    WearGlue !: (lock: LockList) => number[];
-    WearWolf !: (lock: LockList) => number[];
-    WearSlime !: (lock: LockList) => number[];
-    WearSlimeEnchanted !: (lock: LockList) => number[];
-    WearSlimeGhost !: (lock: LockList) => number[];
-    WearVibrationEnchanted !: (lock: LockList) => number[];
+    WearVinePlant !: WearFunctionType;
+    WearShadowHand !: WearFunctionType;
+    WearVibe !: WearFunctionType;
+    WearDivine !: WearFunctionType;
+    WearMysticDuct !: WearFunctionType;
+    WearSaber !: WearFunctionType;
+    WearMageArmor !: WearFunctionType;
+    WearKitty !: WearFunctionType;
+    WearEnchanted !: WearFunctionType;
+    WearRibbon !: WearFunctionType;
+    WearIce !: WearFunctionType;
+    WearBanditLeg !: WearFunctionType;
+    WearCrystal !: WearFunctionType;
+    WearDragon !: WearFunctionType;
+    WearDress !: WearFunctionType;
+    WearGlue !: WearFunctionType;
+    WearWolf !: WearFunctionType;
+    WearSlime !: WearFunctionType;
+    WearSlimeEnchanted !: WearFunctionType;
+    WearSlimeGhost !: WearFunctionType;
+    WearHardSlime !: WearFunctionType;
+    WearHardEnchantedSlime !: WearFunctionType;
+    WearHardGhostSlime !: WearFunctionType;
+    WearVibrationEnchanted !: WearFunctionType;
 
     // ===================================
 

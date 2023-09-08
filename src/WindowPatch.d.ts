@@ -196,4 +196,6 @@ declare global {
     var KinkyDungeonPlayerBuffs: { [key: string]: any };
 
     var KDGetEnemyCache: () => void;
+
+    var KinkyDungeonFactionColors: { [key: string]: string[] };
 }
