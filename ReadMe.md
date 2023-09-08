@@ -6,9 +6,20 @@ this mod add some Enchanted Restraints to game for fun.
 ---
 ## how to use
 
-download the ` enchanted_restraints.zip` Zip file from [release page](https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases), load it in main menu right bottom `Mod` menu, then start the game.
+### use the game's `MOD` way
+
+download the ` enchanted_restraints.zip` Zip file from [release page](https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases),  
+load it in main menu right bottom `Mod` menu, then start the game.
 
 all the function must call in the develop console, press F12 to open it
+
+### use the Tampermonkey Script with simple GUI
+
+download the `GreasemonkeyScript.js` Zip file from [release page](https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases),
+drag js file into a new tampermonkey Script , set the user include url to your game page,
+start the game, press `Alt+Q` to open GUI (or click right-top banner), then enjoy you game's life.
+
+
 
 ---
 ## mod function
