@@ -69,7 +69,7 @@ declare global {
         Curse?: boolean,
         autoMessage = true,
         securityEnemy: entity | undefined = undefined,
-    ) => any;
+    ) => number;
 
     var KinkyDungeonAllRestraint: () => item[];
     var KinkyDungeonAllRestraintDynamic: () => { item: item, host: item }[];

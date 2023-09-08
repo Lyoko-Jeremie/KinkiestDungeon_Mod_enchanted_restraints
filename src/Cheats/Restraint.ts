@@ -67,22 +67,27 @@ export class Restraint {
         // MistressKey need the MistressKey to unlock
         // GhostLock need the Ectoplasm to unlock
         // 2 hidden lock MistressKey GhostLock only in the Restraint config
-        const W = restraints.split(" ").filter(T => !!T).map(T => {
-                try {
-                    const RR = KinkyDungeonGetRestraintByName(T);
-                    console.log(RR.name);
-                    return [RR, KinkyDungeonAddRestraint(RR, 10, false, lock || LockList.Gold)]
-                } catch (e) {
-                    console.error(e);
-                    return [];
+        const W: [restraint, number][] = restraints.split(" ")
+            .filter(T => !!T)
+            .map<[] | [restraint, number]>(T => {
+                    try {
+                        const RR = KinkyDungeonGetRestraintByName(T);
+                        console.log(RR.name);
+                        return [RR, KinkyDungeonAddRestraint(RR, 10, false, lock || LockList.Gold)];
+                    } catch (e) {
+                        console.error(e);
+                        return [];
+                    }
                 }
-            }
-        );
-        const objR = W.reduce((P, T, I, A) => [...P, T[0]], []);
+            )
+            .filter<[restraint, number]>((NN): NN is [restraint, number] => {
+                return NN.length > 0;
+            });
+        const objR = W.reduce<restraint[]>((P, T, I, A) => [...P, T[0]], []);
         console.log(W);
         console.log(objR.map(T => TextGetKD(`Restraint${T.name}`)));
 
-        const r = W.reduce((P, T, I, A) => [...P, T[1]], []);
+        const r = W.reduce<number[]>((P, T, I, A) => [...P, T[1]], []);
         console.log(r);
         return r;
     };
@@ -91,10 +96,36 @@ export class Restraint {
         Object.getOwnPropertyNames(WearsList).map(N => {
             (this as any)['Wear' + N.trim()] = (lock: LockList) => {
                 let r = WearsList[N];
-                this.WearRestraints(r, lock || LockList.Purple);
+                return this.WearRestraints(r, lock || LockList.Purple);
             };
         });
     }
+
+    // ===================================
+
+    WearVinePlant !: (lock: LockList) => number[];
+    WearShadowHand !: (lock: LockList) => number[];
+    WearVibe !: (lock: LockList) => number[];
+    WearDivine !: (lock: LockList) => number[];
+    WearMysticDuct !: (lock: LockList) => number[];
+    WearSaber !: (lock: LockList) => number[];
+    WearMageArmor !: (lock: LockList) => number[];
+    WearKitty !: (lock: LockList) => number[];
+    WearEnchanted !: (lock: LockList) => number[];
+    WearRibbon !: (lock: LockList) => number[];
+    WearIce !: (lock: LockList) => number[];
+    WearBanditLeg !: (lock: LockList) => number[];
+    WearCrystal !: (lock: LockList) => number[];
+    WearDragon !: (lock: LockList) => number[];
+    WearDress !: (lock: LockList) => number[];
+    WearGlue !: (lock: LockList) => number[];
+    WearWolf !: (lock: LockList) => number[];
+    WearSlime !: (lock: LockList) => number[];
+    WearSlimeEnchanted !: (lock: LockList) => number[];
+    WearSlimeGhost !: (lock: LockList) => number[];
+    WearVibrationEnchanted !: (lock: LockList) => number[];
+
+    // ===================================
 
 
     OpenChestShelf(times: number = 50) {
