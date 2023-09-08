@@ -40,5 +40,5 @@ jobs:
     - name: Upload GreasemonkeyScript
       uses: actions/upload-artifact@v1
       with:
-        name: GreasemonkeyScript
-        path: ${{ github.workspace }}/dist/GreasemonkeyScript.user.js
+        name: GreasemonkeyScript_enchanted_restraints
+        path: ${{ github.workspace }}/dist/GreasemonkeyScript_enchanted_restraints.user.js

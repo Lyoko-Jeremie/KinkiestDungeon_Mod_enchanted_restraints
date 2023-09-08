@@ -20,7 +20,7 @@ const config = {
   entry: './src/GreasemonkeyScript/init.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'GreasemonkeyScript.user.js',
+    filename: 'GreasemonkeyScript_enchanted_restraints.user.js',
   },
   devtool: 'source-map',
   target: 'web',
