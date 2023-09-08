@@ -22,6 +22,7 @@ declare global {
     // from KK
     var MiniGameKinkyDungeonLevel: number;
     var KDOptOut: boolean;
+    var KDLoadingFinished: boolean;
     var TranslationLanguage: string;
     var KinkyDungeonGrid: string;
     var KinkyDungeonStatsChoice: Map<number | string, boolean>;

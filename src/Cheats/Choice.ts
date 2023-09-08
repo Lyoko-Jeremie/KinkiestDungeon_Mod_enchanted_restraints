@@ -274,4 +274,42 @@ export class Choice {
         }
         return sss.join('\n');
     };
+    ChoiceGetAllValidChoiceData = (): ChoiceGetAllValidChoiceDataReturnType => {
+        const cs = new Set(Array.from(KinkyDungeonStatsChoice.keys()));
+        const l = Object.getOwnPropertyNames(KinkyDungeonStatsPresets);
+        let count = 0;
+        let sss: ChoiceGetAllValidChoiceDataReturnType = [];
+        for (const s of l) {
+            if (KinkyDungeonStatsPresets[s]) {
+                const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
+                if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
+                    // sss.push("" + count + "\t"
+                    //     + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                    //     + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+                    sss.push({
+                        count: count,
+                        name: t,
+                        id: KinkyDungeonStatsPresets[s].id,
+                        keyName: s,
+                        desc: TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id),
+                        selected: cs.has(s),
+                    });
+                    // console.log("" + count + "\t"
+                    //     + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                    //     + "\n\t" + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+                }
+                ++count;
+            }
+        }
+        return sss;
+    };
 }
+
+type ChoiceGetAllValidChoiceDataReturnType = {
+    count: number,
+    name: string,
+    id: string | number,
+    keyName: string,
+    desc: string,
+    selected: boolean,
+}[];
