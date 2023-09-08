@@ -510,6 +510,26 @@ const btnType: BootstrapBtnType = 'secondary';
                             type: 'textarea',
                             default: '',
                         },
+                        [rId()]: {
+                            section: GM_config.create('HardMode Section'),
+                            type: 'br',
+                        },
+                        'HardModeEnable': {
+                            label: 'HardModeEnable',
+                            type: 'button',
+                            click() {
+                                window.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeEnable();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: btnType}},
+                        },
+                        'HardModeDisable': {
+                            label: 'HardModeDisable',
+                            type: 'button',
+                            click() {
+                                window.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeDisable();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: btnType}},
+                        },
                     },
                 events: {
                     save(values) {
