@@ -41,4 +41,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: GreasemonkeyScript
-        path: ${{ github.workspace }}/dist/GreasemonkeyScript.js
+        path: ${{ github.workspace }}/dist/GreasemonkeyScript.user.js
