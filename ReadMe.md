@@ -34,9 +34,9 @@ example:
 
 > Init a SpellChoice when new game start : `Mod_EnchantedRestraints.Cheats.BootstrapSpellChoicesTable()`
 
-> enable the FullStat Cheat : `Mod_EnchantedRestraints.Cheats.FullStatOn()`
+> enable the FullStat Cheat : `Mod_EnchantedRestraints.Cheats.EnableFullState()`
 
-> disable the FullStat Cheat : `Mod_EnchantedRestraints.Cheats.FullStatOff()`
+> disable the FullStat Cheat : `Mod_EnchantedRestraints.Cheats.DisableFullState()`
 
 ### follow is the api list:
 
@@ -48,9 +48,13 @@ Mod_EnchantedRestraints.ApplyModRestraint()
 // ===vvvvvvvv=== follow it cheats api list, and some function origin game not export ===vvvvvvvv===
 
 // enable the FullStat
-Mod_EnchantedRestraints.Cheats.FullStatOn()
+Mod_EnchantedRestraints.Cheats.EnableFullState()
 // disable the FullStat
-Mod_EnchantedRestraints.Cheats.FullStatOff()
+Mod_EnchantedRestraints.Cheats.DisableFullState()
+// EnableAllCheats
+Mod_EnchantedRestraints.Cheats.EnableAllCheats()
+// DisableAllCheats
+Mod_EnchantedRestraints.Cheats.DisableAllCheats()
 // Add some Distraction
 Mod_EnchantedRestraints.Cheats.AddDistraction(/*add offset [option = 10]*/)
 //
@@ -118,13 +122,19 @@ Mod_EnchantedRestraints.Cheats.FullAllRelations()
 Mod_EnchantedRestraints.Cheats.FullAllGoddess()
 
 // add a Choice
-Mod_EnchantedRestraints.Cheats.AddOneChoice(/*the choice key name*/)
+Mod_EnchantedRestraints.Cheats._AddOneCheatChoice(/*the choice key name*/)
 // add some good Choice
-Mod_EnchantedRestraints.Cheats.AddCheatChoice()
+Mod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEnhance()
+Mod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEscape()
 // add some bad Choice
-Mod_EnchantedRestraints.Cheats.AddCheatChoiceNegative()
+Mod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNegative()
+// add some Mid Choice
+Mod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMidEscape()
+Mod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMid()
+// add some Map Choice
+Mod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMap()
 // show all Choice now enabled
-Mod_EnchantedRestraints.Cheats.DebugSee.ShowAllChoice()
+Mod_EnchantedRestraints.Cheats.ChoicePrintNowChoice()
 // enable HardMode, 
 // the HardMode auto enable when bad Choice point - good Choice point > 10 in origin game
 Mod_EnchantedRestraints.Cheats.HardModeEnable()
