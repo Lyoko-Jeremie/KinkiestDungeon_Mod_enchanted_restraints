@@ -20,7 +20,7 @@ const config = {
   entry: './src/GreasemonkeyScript/init.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'GreasemonkeyScript.js',
+    filename: 'GreasemonkeyScript.user.js',
   },
   devtool: 'source-map',
   target: 'web',
