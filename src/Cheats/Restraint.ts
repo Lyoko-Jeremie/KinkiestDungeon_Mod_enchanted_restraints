@@ -139,18 +139,11 @@ class RestraintBase {
 
     kinkyDungeonFactionColors!: { [key: string]: string[] };
 
-    OpenChestShelf(times: number = 50) {
+    OpenChest(times: number = 10) {
+        let chestType = KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] == "lib" ? "shelf" : "rubble";
         if (isSafeInteger(times) && times > 0) {
             for (let i = 0; i < times; i++) {
-                KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "shelf");
-            }
-        }
-    }
-
-    OpenChestRubble(times: number = 50) {
-        if (isSafeInteger(times) && times > 0) {
-            for (let i = 0; i < times; i++) {
-                KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "shelf");
+                KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
             }
         }
     }

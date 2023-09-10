@@ -1,4 +1,4 @@
-import {GM_config, BootstrapBtnType, InitOptionsNoCustom, GM_configStruct} from '../GM_config_TS/gm_config';
+import {BootstrapBtnType, GM_config, GM_configStruct, InitOptionsNoCustom} from '../GM_config_TS/gm_config';
 import {EnchantedRestraintsPatch, isInit} from '../initMod';
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
@@ -477,6 +477,18 @@ const btnType: BootstrapBtnType = 'secondary';
                         //     cssClassName: 'd-inline',
                         //     xgmExtendField: {bootstrap: {btnType: btnType}},
                         // },
+                        [rId()]: {
+                            section: GM_config.create('OpenChest Section'),
+                            type: 'br',
+                        },
+                        'OpenChest': {
+                            label: 'OpenChest',
+                            type: 'button',
+                            click() {
+                                window.KinkyDungeonMod_EnchantedRestraints.Cheats.OpenChest();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: btnType}},
+                        },
                         [rId()]: {
                             section: GM_config.create('Map Section'),
                             type: 'br',
