@@ -19,7 +19,7 @@ function wearFunctions(words: string[]) {
 }
 
 // 使用装饰器为类添加函数
-@wearFunctions(['Hat', 'Shirt', 'Shoes'])
+// @wearFunctions(['Hat', 'Shirt', 'Shoes'])
 class Person {
     constructor(public name: string) {
     }
