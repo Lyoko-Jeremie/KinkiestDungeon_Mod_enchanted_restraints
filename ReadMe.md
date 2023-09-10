@@ -94,7 +94,7 @@ Mod_EnchantedRestraints.Cheats.WearDress(/*key name [option]*/)
 // wear Restraints of Crystal
 Mod_EnchantedRestraints.Cheats.WearCrystal(/*key name [option]*/)
 // wear Restraints of Bandit
-Mod_EnchantedRestraints.Cheats.WearBandit(/*key name [option]*/)
+Mod_EnchantedRestraints.Cheats.WearBanditLeg(/*key name [option]*/)
 // wear Restraints of Ice
 Mod_EnchantedRestraints.Cheats.WearIce(/*key name [option]*/)
 // wear Restraints of Ribbon
