@@ -58,29 +58,33 @@ export const WearsList = {
     // AAAAA: ,
 } as const; // 使用 as const 来获得一个 readonly tuple 类型
 
-// let KinkyDungeonFactionColors = {
-//     "Jail": ["#8A120C"],
-//     "Slime": ["#9B49BD", "#9B49BD"],
-//     "Latex": ["#9B49BD", "#9B49BD"],
-//     "Dressmaker": ["#6B48E0", "#F8BD01"],
-//     "Alchemist": ["#4c6885", "#7bef41"],
-//     "Elf": ["#63ab3f", "#F8BD01"],
-//     "Bountyhunter": ["#252525", "#bfbfbf"],
-//     "AncientRobot": ["#444444", "#4fa4b8"],
-//     "Dollsmith": ["#444444", "#b1062a", "#ff5277"],
-//     "Mushy": ["#bfbfbf", "#92c1e8"],
-//     "Apprentice": ["#686f99", "#ff5277"],
-//     "Witch": ["#222222", "#8359b3"],
-// };
 
-type WearsKeys = keyof typeof WearsList; // 从数组中得出元素类型 ('Hat' | 'Shirt' | 'Shoes')
-// const WearsKeysL = Array.from(WearsKeys);
+// same as KinkyDungeonFactionColors
+const KinkyDungeonFactionColors_ = {
+    "Jail": ["#8A120C"],
+    "Slime": ["#9B49BD", "#9B49BD"],
+    "Latex": ["#9B49BD", "#9B49BD"],
+    "Dressmaker": ["#6B48E0", "#F8BD01"],
+    "Alchemist": ["#4c6885", "#7bef41"],
+    "Elf": ["#63ab3f", "#F8BD01"],
+    "Bountyhunter": ["#252525", "#bfbfbf"],
+    "AncientRobot": ["#444444", "#4fa4b8"],
+    "Dollsmith": ["#444444", "#b1062a", "#ff5277"],
+    "Mushy": ["#bfbfbf", "#92c1e8"],
+    "Apprentice": ["#686f99", "#ff5277"],
+    "Witch": ["#222222", "#8359b3"],
+} as const;
 
-export type WearFunctionType = (lock?: LockList, faction?: (keyof (typeof KinkyDungeonFactionColors))) => number[];
+export type KinkyDungeonFactionColors_Keys = keyof typeof KinkyDungeonFactionColors_;
+
+export type WearsKeys = keyof typeof WearsList; // 从数组中得出元素类型 ('Hat' | 'Shirt' | 'Shoes')
+
+export type WearFunctionType = (lock?: LockList, faction?: KinkyDungeonFactionColors_Keys) => number[];
 
 type WearMethodsInterface = {
     [K in WearsKeys as `Wear${ /*Capitalize<K>*/ K}`]: WearFunctionType;
 };
+export type WearMethodsInterfaceKey = keyof WearMethodsInterface;
 
 class RestraintBase {
 

@@ -3,10 +3,11 @@ import {EnchantedRestraintsPatch, isInit} from '../initMod';
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
 import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
-import {WearsList} from "../Cheats/Restraint";
+import {KinkyDungeonFactionColors_Keys, Restraint, WearMethodsInterfaceKey, WearsList} from "../Cheats/Restraint";
 import {assign} from "lodash";
 import {LockList} from "../Cheats/LockList";
 
+// copy Mod ref from window to unsafeWindow
 unsafeWindow.KinkyDungeonMod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
 
@@ -457,11 +458,12 @@ const btnType: BootstrapBtnType = 'secondary';
                                 type: 'button',
                                 click() {
                                     const faction = gmc!.fields['FactionSelect'].value;
-                                    (window.KinkyDungeonMod_EnchantedRestraints.Cheats as any)['Wear' + WK](
-                                        gmc!.fields['LockSelect'].value,
-                                        faction === 'None' ? undefined : faction,
+                                    // (window.KinkyDungeonMod_EnchantedRestraints.Cheats as Restraint)[('Wear' + WK) as WearMethodsInterfaceKey];
+                                    (<Restraint>window.KinkyDungeonMod_EnchantedRestraints.Cheats)[<WearMethodsInterfaceKey>('Wear' + WK)](
+                                        gmc!.fields['LockSelect'].value as LockList,
+                                        faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
-                                    // window.KinkyDungeonMod_EnchantedRestraints.Cheats.WearSlimeEnchanted(LockList.Purple);
+                                    // (window.KinkyDungeonMod_EnchantedRestraints.Cheats as Restraint).WearCrystal(LockList.Purple);
                                 },
                                 cssClassName: 'd-inline',
                                 xgmExtendField: {bootstrap: {btnType: btnType}},
