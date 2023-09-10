@@ -1,7 +1,7 @@
 import {isSafeInteger} from 'lodash'
 import {LockList} from "./LockList";
 
-export const WearsList: { [key: string]: string } = {
+export const WearsList = {
     // VinePlant
     VinePlant: "VinePlantArms VinePlantFeet VinePlantLegs VinePlantTorso",
     // ShadowHand
@@ -56,7 +56,7 @@ export const WearsList: { [key: string]: string } = {
     VibrationEnchanted: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
     // // AAAAA
     // AAAAA: ,
-};
+} as const; // 使用 as const 来获得一个 readonly tuple 类型
 
 // let KinkyDungeonFactionColors = {
 //     "Jail": ["#8A120C"],
@@ -73,9 +73,16 @@ export const WearsList: { [key: string]: string } = {
 //     "Witch": ["#222222", "#8359b3"],
 // };
 
+type WearsKeys = keyof typeof WearsList; // 从数组中得出元素类型 ('Hat' | 'Shirt' | 'Shoes')
+// const WearsKeysL = Array.from(WearsKeys);
+
 export type WearFunctionType = (lock?: LockList, faction?: (keyof (typeof KinkyDungeonFactionColors))) => number[];
 
-export class Restraint {
+type WearMethodsInterface = {
+    [K in WearsKeys as `Wear${ /*Capitalize<K>*/ K}`]: WearFunctionType;
+};
+
+class RestraintBase {
 
 
     WearRestraints = (
@@ -127,48 +134,10 @@ export class Restraint {
     };
 
     protected installRestraint() {
-        Object.getOwnPropertyNames(WearsList).map(N => {
-            (this as any)['Wear' + N.trim()] = (lock?: LockList, faction?: string) => {
-                console.log('Wear...()', lock, faction);
-                let r = WearsList[N];
-                let ll = lock || LockList.Purple;
-                return this.WearRestraints(r, ll === LockList.None ? undefined : ll, faction);
-            };
-        });
         this.kinkyDungeonFactionColors = KinkyDungeonFactionColors;
     }
 
     kinkyDungeonFactionColors!: { [key: string]: string[] };
-
-    // ===================================
-
-    WearVinePlant !: WearFunctionType;
-    WearShadowHand !: WearFunctionType;
-    WearVibe !: WearFunctionType;
-    WearDivine !: WearFunctionType;
-    WearMysticDuct !: WearFunctionType;
-    WearSaber !: WearFunctionType;
-    WearMageArmor !: WearFunctionType;
-    WearKitty !: WearFunctionType;
-    WearEnchanted !: WearFunctionType;
-    WearRibbon !: WearFunctionType;
-    WearIce !: WearFunctionType;
-    WearBanditLeg !: WearFunctionType;
-    WearCrystal !: WearFunctionType;
-    WearDragon !: WearFunctionType;
-    WearDress !: WearFunctionType;
-    WearGlue !: WearFunctionType;
-    WearWolf !: WearFunctionType;
-    WearSlime !: WearFunctionType;
-    WearSlimeEnchanted !: WearFunctionType;
-    WearSlimeGhost !: WearFunctionType;
-    WearHardSlime !: WearFunctionType;
-    WearHardEnchantedSlime !: WearFunctionType;
-    WearHardGhostSlime !: WearFunctionType;
-    WearVibrationEnchanted !: WearFunctionType;
-
-    // ===================================
-
 
     OpenChestShelf(times: number = 50) {
         if (isSafeInteger(times) && times > 0) {
@@ -186,12 +155,12 @@ export class Restraint {
         }
     }
 
-
     RemoveAllRestraint = () => {
         return KinkyDungeonAllRestraint().map((r) => KDRestraint(r)).map(T =>
             KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)
         );
     };
+
     RemoveAllRestraintDynamic = () => {
         return KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item)).map(T => {
             try {
@@ -202,3 +171,31 @@ export class Restraint {
     };
 
 }
+
+type RestraintClassType = new () => RestraintBase & WearMethodsInterface;
+
+function RestraintFactory(): RestraintClassType {
+    class RestraintEx extends RestraintBase {
+        constructor() {
+            super();
+            Object.getOwnPropertyNames(WearsList).map((N) => {
+                (this as any)['Wear' + N/*.trim()*/] = (lock?: LockList, faction?: string) => {
+                    console.log('Wear...()', lock, faction);
+                    let r = WearsList[N as WearsKeys];
+                    let ll = lock || LockList.Purple;
+                    return this.WearRestraints(r, ll === LockList.None ? undefined : ll, faction);
+                };
+            });
+        }
+    }
+
+    return RestraintEx as unknown as RestraintClassType;
+}
+
+export class Restraint extends RestraintFactory() implements WearMethodsInterface {
+    // empty
+    // Restraint extends (extends RestraintBase implements WearMethodsInterface)
+}
+
+const a = new Restraint();
+

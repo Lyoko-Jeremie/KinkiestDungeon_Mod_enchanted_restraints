@@ -461,6 +461,7 @@ const btnType: BootstrapBtnType = 'secondary';
                                         gmc!.fields['LockSelect'].value,
                                         faction === 'None' ? undefined : faction,
                                     );
+                                    // window.KinkyDungeonMod_EnchantedRestraints.Cheats.WearSlimeEnchanted(LockList.Purple);
                                 },
                                 cssClassName: 'd-inline',
                                 xgmExtendField: {bootstrap: {btnType: btnType}},
