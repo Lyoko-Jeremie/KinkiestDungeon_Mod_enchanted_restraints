@@ -598,6 +598,7 @@ const btnType: BootstrapBtnType = 'secondary';
         document.body.appendChild(startBanner);
     }
     const waitKDLoadingFinished = () => {
+        //@ts-ignore
         if (!KDLoadingFinished) {
             setTimeout(waitKDLoadingFinished, 100);
             return;
