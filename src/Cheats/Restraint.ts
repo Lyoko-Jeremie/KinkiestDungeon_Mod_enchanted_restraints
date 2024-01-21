@@ -36,7 +36,7 @@ export const WearsList = {
     // 黄水晶
     BanditLeg: "BanditLegCuffs BanditAnkleCuffs BanditArmCuffs",
     // 水晶
-    Crystal: "CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs",
+    // Crystal: "CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs",
     // 龙鳞
     Dragon: "DragonArmbinder DragonStraps DragonLegCuffs DragonAnkleCuffs DragonAnkleCuffs2 DragonBoots DragonBallGag DragonMuzzleGag DragonCollar",
     // 连衣裙+紧身胸衣

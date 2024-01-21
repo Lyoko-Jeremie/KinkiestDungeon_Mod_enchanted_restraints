@@ -6,7 +6,7 @@ export function ApplyModRestraint() {
         // origin Enchanted (except the ImproveEnchantedBlindfold)
         "EnchantedBelt EnchantedBra ImproveEnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels " +
         // Legs
-        "EnchantedCrystalLegCuffs " +
+        "EnchantedBanditLegCuffs " +
         // Collar
         "EnchantedMaidCollar EnchantedObsidianCollar EnchantedMikoCollar EnchantedWolfCollar " +
         // Harness

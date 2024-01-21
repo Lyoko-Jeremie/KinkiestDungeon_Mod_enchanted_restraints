@@ -7,7 +7,8 @@ export function addEnchantedTranslate() {
     addTKeyF1("EnchantedNippleClamps", "远古" + "乳头按摩器", undefined, "Enchanted " + "Nipple Massagers");
     addTKeyF1("EnchantedSteelPlugF", "远古" + "不锈钢震动棒", undefined, "Enchanted " + "Steel Plug Front");
     addTKeyF1("EnchantedSteelPlugR", "远古" + "不锈钢震动肛塞", undefined, "Enchanted " + "Steel Plug Back");
-    addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷", undefined, "Enchanted " + "Crystal Leg Cuffs");
+    // addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷", undefined, "Enchanted " + "Crystal Leg Cuffs");
+    addTKeyF1("EnchantedBanditLegCuffs", "远古" + "黄水晶足拷", undefined, "Enchanted " + "Bandit Leg Cuffs");
     addTKeyF1("EnchantedMaidCollar", "远古" + "女仆项圈", undefined, "Enchanted " + "Maid Collar");
     addTKeyF1("EnchantedTrapHarness", "远古" + "皮革束衣", undefined, "Enchanted " + "Trap Harness");
     addTKeyF1("EnchantedWolfPanties", "远古" + "狼女内裤", undefined, "Enchanted " + "Wolf Panties");

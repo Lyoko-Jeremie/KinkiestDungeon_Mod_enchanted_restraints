@@ -39,7 +39,9 @@ export function addEnchantedItems() {
     // 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
 
     (
-        "CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
+        // "CrystalLegCuffs " +
+        "BanditLegCuffs BanditAnkleCuffs BanditArmCuffs " +
+        "MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
         "MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
         "ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
         "GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
@@ -50,7 +52,11 @@ export function addEnchantedItems() {
     ).split(" ").filter(T => !!T).map(N => {
         return (() => {
             console.log('patching : ', N);
-            let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N)!!);
+            let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N));
+            if (!T) {
+                console.error('patching : ', N, ' failed');
+                throw new Error('patching : ' + N + ' failed');
+            }
             // let T = structuredClone(KinkyDungeonRestraintsCache.get(N));
             console.log('T : ', T);
             T.name = "Enchanted" + N;

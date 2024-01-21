@@ -306,7 +306,8 @@ let copyTKeyF = (newRestraintId, oldRestraintId, nameP = undefined, desc1P = und
 // 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
 
 (
-	"CrystalLegCuffs MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
+  // "CrystalLegCuffs " +
+	"MaidCollar MaidCBelt TrapHarness WolfHarness WolfPanties ControlHarness " +
 	"MagicChainArms MagicChainLegs MagicChainFeet MagicChainCrotch " +
 	"ShadowChainArms ShadowChainLegs ShadowChainFeet ShadowChainCrotch " +
 	"GhostChainArms GhostChainLegs GhostChainFeet GhostChainCrotch " +
@@ -508,7 +509,7 @@ addTKeyF1("EnchantedMaidCBelt", "远古" + "女仆贞操带", undefined, "Enchan
 addTKeyF1("EnchantedNippleClamps", "远古" + "乳头按摩器", undefined, "Enchanted " + "Nipple Massagers");
 addTKeyF1("EnchantedSteelPlugF", "远古" + "前不锈钢插件", "插在前面的" + "远古" + "不锈钢插件", "Enchanted " + "Steel Plug Front");
 addTKeyF1("EnchantedSteelPlugR", "远古" + "后不锈钢插件", "插在后面的" + "远古" + "不锈钢插件", "Enchanted " + "Steel Plug Back");
-addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷", undefined, "Enchanted " + "Crystal Leg Cuffs");
+// addTKeyF1("EnchantedCrystalLegCuffs", "远古" + "水晶足拷", undefined, "Enchanted " + "Crystal Leg Cuffs");
 addTKeyF1("EnchantedMaidCollar", "远古" + "女仆项圈", undefined, "Enchanted " + "Maid Collar");
 addTKeyF1("EnchantedTrapHarness", "远古" + "皮革束衣", undefined, "Enchanted " + "Trap Harness");
 addTKeyF1("EnchantedWolfPanties", "远古" + "狼女内裤", undefined, "Enchanted " + "Wolf Panties");
@@ -1116,7 +1117,7 @@ CheatsObject._InnerData.WearsList = {
 	// 黄水晶
 	BanditLeg: "BanditLegCuffs BanditAnkleCuffs BanditArmCuffs",
 	// 水晶
-	Crystal: "CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs",
+	// Crystal: "CrystalLegCuffs CrystalAnkleCuffs CrystalArmCuffs",
 	// 龙鳞
 	Dragon: "DragonArmbinder DragonStraps DragonLegCuffs DragonAnkleCuffs DragonAnkleCuffs2 DragonBoots DragonBallGag DragonMuzzleGag DragonCollar",
 	// 连衣裙+紧身胸衣
