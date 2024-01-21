@@ -1,20 +1,40 @@
 export class MapGet {
 
+    getMapGrid() {
+        if (typeof KinkyDungeonGrid === "undefined") {
+            // new version 5.0
+            return KDMapData.Grid;
+        } else {
+            // old version
+            return KinkyDungeonGrid;
+        }
+    }
+
+    getMapGroundItems() {
+        if (typeof KinkyDungeonGroundItems === "undefined") {
+            // new version 5.0
+            return KDMapData.GroundItems as { x: number, y: number, name: string, amount?: number }[];
+        } else {
+            // old version
+            return KinkyDungeonGroundItems as { x: number, y: number, name: string, amount?: number }[];
+        }
+    }
+
 // function KDDrawMap(CamX, CamY, CamX_offset, CamY_offset, Debug) {
     MapGet = () => {
-        const m = structuredClone(KinkyDungeonGrid);
+        const m = structuredClone(this.getMapGrid());
         return m.replaceAll("1", " ");
     };
     MapRoiGet = () => {
-        const m = structuredClone(KinkyDungeonGrid);
+        const m = structuredClone(this.getMapGrid());
         return m.replaceAll(/[^\D\n]/g, " ");
     };
     MapSsGet = () => {
-        const m = structuredClone(KinkyDungeonGrid);
+        const m = structuredClone(this.getMapGrid());
         return m.replaceAll(/[^SsH\n]/g, " ");
     };
     MapKGet = () => {
-        let m = structuredClone(KinkyDungeonGrid);
+        let m = structuredClone(this.getMapGrid());
         m = m.replaceAll(/[^SsH\n]/g, "█");
         let mm = m.split("\n");
         let k = KDGameData.KeyringLocations;
@@ -27,7 +47,7 @@ export class MapGet {
         return m;
     };
     MapKRoiGet = () => {
-        let m = structuredClone(KinkyDungeonGrid);
+        let m = structuredClone(this.getMapGrid());
         m = m.replaceAll(/[^\D\n]/g, "█");
         let mm = m.split("\n");
         let k = KDGameData.KeyringLocations;
@@ -40,7 +60,7 @@ export class MapGet {
         return m;
     };
     MapKSsMGet = () => {
-        let m = structuredClone(KinkyDungeonGrid);
+        let m = structuredClone(this.getMapGrid());
         m = m.replaceAll("1", "░");
         m = m.replaceAll(/[SsH]/g, "█");
         let mm = m.split("\n");
@@ -59,7 +79,7 @@ export class MapGet {
         return m;
     };
     MapKKSsMGet = (ignoreY?: boolean) => {
-        let m = structuredClone(KinkyDungeonGrid);
+        let m = structuredClone(this.getMapGrid());
         m = m.replaceAll("1", "░");
         if (ignoreY) {
             m = m.replaceAll("Y", " ");
@@ -77,7 +97,7 @@ export class MapGet {
             r[KinkyDungeonPlayerEntity.x] = "◘";
             mm[KinkyDungeonPlayerEntity.y] = r.join("");
         }
-        KinkyDungeonGroundItems.forEach(T => {
+        this.getMapGroundItems().forEach(T => {
             if (T.name === "Keyring") {
                 let r = mm[T.y].split("");
                 r[T.x] = "▓";
@@ -96,7 +116,11 @@ export class MapGet {
 
 
     ReplaceMapLibY() {
-        KinkyDungeonGrid = KinkyDungeonGrid.replaceAll("1", "Y");
+        if (typeof KinkyDungeonGrid === "undefined") {
+            KDMapData.Grid = KDMapData.Grid.replaceAll("1", "Y");
+        } else {
+            KinkyDungeonGrid = KinkyDungeonGrid.replaceAll("1", "Y");
+        }
     }
 
 }

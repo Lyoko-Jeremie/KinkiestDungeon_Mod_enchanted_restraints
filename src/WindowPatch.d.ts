@@ -25,6 +25,7 @@ declare global {
     var KDLoadingFinished: boolean;
     var TranslationLanguage: string;
     var KinkyDungeonGrid: string;
+    var KDMapData: KDMapDataType;
     var KinkyDungeonStatsChoice: Map<number | string, boolean>;
     var KinkyDungeonRestraints: restraint[];
     var KinkyDungeonRefreshRestraintsCache: () => void;
