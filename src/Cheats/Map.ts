@@ -263,4 +263,79 @@ export class MapGet {
 
     }
 
+    // 开全图
+    MapOpenFull() {
+        KDMapData.FogGrid.fill(3);
+    }
+
+    MapOpenNone() {
+        KDMapData.FogGrid.fill(0);
+    }
+
+    // KDMapData.Tiles
+    // KinkyDungeonTilesSet(location, value)
+    // function KD_PasteTile
+    //
+
+    // KinkyDungeonTilesSet((x + xx) + "," + (y + yy), {
+    // Type: "Trap",
+    // Trap: "BedTrap",
+    // });
+    //    "BarrelTrap",
+
+    // "c" : (delta) => { // Unopened chest
+    // "L" : (delta) => { // Barrel
+    // let KDFurniture = {
+
+    SetAllBedAreTrap() {
+        let m = structuredClone(this.getMapGrid());
+        let mm = m.split("\n");
+        for (let y = 0; y < mm.length; y++) {
+            const mmm = mm[y];
+            for (let x = 0; x < mmm.length; x++) {
+                const c = mmm[x];
+                if (c === 'B') {
+                    KDMapData.Tiles[(x) + "," + (y)] = {
+                        Type: "Trap",
+                        Trap: "BedTrap",
+                    };
+                }
+            }
+        }
+    }
+
+    // function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, doorlocktrapchance, Floor, width, height) {
+    // if (hosttile == 'L' && KinkyDungeonStatsChoice.has("Nowhere") && KDRandom() < 0.25) {
+    //     let tile = KinkyDungeonTilesGet(X + "," + Y) ? KinkyDungeonTilesGet(X + "," + Y) : {};
+    //     KinkyDungeonTilesSet(X + "," + Y, Object.assign(tile, {
+    //         Type: "Trap",
+    //         Trap: tile.Furniture ? tile.Furniture + "Trap" : "BarrelTrap",
+    //     }));
+    // }
+
+    SetAllBarrelAreTrap() {
+        let m = structuredClone(this.getMapGrid());
+        let mm = m.split("\n");
+        for (let y = 0; y < mm.length; y++) {
+            const mmm = mm[y];
+            for (let x = 0; x < mmm.length; x++) {
+                const c = mmm[x];
+                if (c === 'L') {
+                    const tile = KDMapData.Tiles[(x) + "," + (y)];
+                    if (tile) {
+                        tile.Type = "Trap";
+                        tile.Trap = tile.Furniture ? tile.Furniture + "Trap" : "BarrelTrap";
+                    } else {
+                        KDMapData.Tiles[(x) + "," + (y)] = {
+                            Type: "Trap",
+                            Trap: "BarrelTrap",
+                        };
+                    }
+                }
+            }
+        }
+    }
+
+    // KinkyDungeonPlayerEntity
+
 }
