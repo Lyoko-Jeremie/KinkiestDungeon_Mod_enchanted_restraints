@@ -602,6 +602,46 @@ export class CreateGui {
                             default: '',
                         },
                         [thisRef.rId()]: {
+                            section: GM_config.create('Map Cheats Section'),
+                            type: 'br',
+                        },
+                        'MapOpenFull': {
+                            label: 'MapOpenFull',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenFull();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'MapOpenNone': {
+                            label: 'MapOpenNone',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenNone();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'SetAllBedAreTrap': {
+                            label: 'SetAllBedAreTrap',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAllBedAreTrap();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'SetAllBarrelAreTrap': {
+                            label: 'SetAllBarrelAreTrap',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAllBarrelAreTrap();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
                             section: GM_config.create('HardMode Section'),
                             type: 'br',
                         },
@@ -611,6 +651,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeEnable();
                             },
+                            cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'HardModeDisable': {
@@ -619,6 +660,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeDisable();
                             },
+                            cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                     },
