@@ -175,6 +175,14 @@ export class MapGet {
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 }
 
+                const tile = KDMapData.Tiles[(x) + "," + (y)];
+                if (tile) {
+                    if (tile.Type === "Trap") {
+                        ctx.fillStyle = "rgba(255,0,0,0.5)";
+                        ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                    }
+                }
+
                 if (c !== '░') {
 
                     // 设置文字样式
