@@ -179,12 +179,12 @@ export function addEnchantedItems() {
 export function addGhostSlime() {
 
     // fix GhostLock CN translation
-    addTextKey("KinkyDungeonCurseInfoGhostLock",
-        "锁被有还魂封印保护着。你需要25份灵魂物质来解除封印。");
-    addTextKey("KinkyDungeonCurseStruggleGhostLock",
-        "你的手指轻而易举地穿了过去。可惜你的身体穿不过去。");
-    addTextKey("KinkyDungeonCurseUnlockGhostLock",
-        "你注入了可怕的能量,破坏了封印!");
+    // addTextKey("KinkyDungeonCurseInfoGhostLock",
+    //     "锁被有还魂封印保护着。你需要25份灵魂物质来解除封印。");
+    // addTextKey("KinkyDungeonCurseStruggleGhostLock",
+    //     "你的手指轻而易举地穿了过去。可惜你的身体穿不过去。");
+    // addTextKey("KinkyDungeonCurseUnlockGhostLock",
+    //     "你注入了可怕的能量,破坏了封印!");
 
     // GhostLock
     (
