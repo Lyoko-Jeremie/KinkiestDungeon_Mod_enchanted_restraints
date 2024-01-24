@@ -357,7 +357,6 @@ class CheatsHook extends FullCheatsBase {
         this._SetBuff(buffObj, remove);
     };
 
-
 }
 
 class Bootstrap extends CheatsHook {
