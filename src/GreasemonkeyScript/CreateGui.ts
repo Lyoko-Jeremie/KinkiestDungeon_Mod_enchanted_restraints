@@ -560,6 +560,15 @@ export class CreateGui {
                                 thisRef.gmc!.fields['MapKKSsMGetData'].value =
                                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKKSsMGet();
                                 thisRef.gmc!.fields['MapKKSsMGetData'].reload();
+
+                                const c = document.createElement('canvas');
+                                const r =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(c);
+                                c.id = 'MapKKSsMGetDataCanvas';
+                                // add a canvas node after this node
+                                thisRef.gmc!.fields['MapKKSsMGetData'].node!.after(
+                                    c
+                                );
                             },
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
@@ -575,6 +584,15 @@ export class CreateGui {
                                 thisRef.gmc!.fields['MapKSsMGetData'].value =
                                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKSsMGet();
                                 thisRef.gmc!.fields['MapKSsMGetData'].reload();
+
+                                const c = document.createElement('canvas');
+                                const r =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(c);
+                                c.id = 'MapKSsMGetDataCanvas';
+                                // add a canvas node after this node
+                                thisRef.gmc!.fields['MapKSsMGetData'].node!.after(
+                                    c
+                                );
                             },
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
