@@ -14,9 +14,9 @@ export class TickHook {
         this.windowPtr = windowPtr;
         // setup Cheat Hook
         // this.Hook_HookedFunction_Point = KinkyDungeonUpdateJailKeys;
-        this.Hook_HookedFunction_Point = this.windowPtr.KDGetEnemyCache;
+        this.Hook_HookedFunction_Point = this.windowPtr.KinkyDungeonDrawGame;
         // KinkyDungeonUpdateJailKeys = this.Hook_HookFunctionCaller;
-        this.windowPtr.KDGetEnemyCache = this.Hook_HookFunctionCaller.bind(this);
+        this.windowPtr.KinkyDungeonDrawGame = this.Hook_HookFunctionCaller.bind(this);
         // console.log('TickHook Hook_HookedFunction_Point', this.Hook_HookedFunction_Point);
         if (!this.Hook_HookedFunction_Point) {
             console.error('TickHook setupHook() failed.');
