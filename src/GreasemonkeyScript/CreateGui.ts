@@ -641,6 +641,15 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'AllLibChestReset': {
+                            label: 'ResetAllLibChest',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllLibChestReset();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         [thisRef.rId()]: {
                             section: GM_config.create('HardMode Section'),
                             type: 'br',

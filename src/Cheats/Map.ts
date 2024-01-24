@@ -10,6 +10,24 @@ export class MapGet {
         }
     }
 
+    setMapGrid(mapString: string) {
+        if (typeof KinkyDungeonGrid === "undefined") {
+            // new version 5.0
+            KDMapData.Grid = mapString;
+        } else {
+            // old version
+            KinkyDungeonGrid = mapString;
+        }
+    }
+
+    get MapGrid() {
+        return this.getMapGrid();
+    }
+
+    set MapGrid(mapString: string) {
+        this.setMapGrid(mapString);
+    }
+
     getMapGroundItems() {
         if (typeof KinkyDungeonGroundItems === "undefined") {
             // new version 5.0
@@ -22,19 +40,19 @@ export class MapGet {
 
 // function KDDrawMap(CamX, CamY, CamX_offset, CamY_offset, Debug) {
     MapGet = () => {
-        const m = structuredClone(this.getMapGrid());
+        const m = structuredClone(this.MapGrid);
         return m.replaceAll("1", " ");
     };
     MapRoiGet = () => {
-        const m = structuredClone(this.getMapGrid());
+        const m = structuredClone(this.MapGrid);
         return m.replaceAll(/[^\D\n]/g, " ");
     };
     MapSsGet = () => {
-        const m = structuredClone(this.getMapGrid());
+        const m = structuredClone(this.MapGrid);
         return m.replaceAll(/[^SsH\n]/g, " ");
     };
     MapKGet = () => {
-        let m = structuredClone(this.getMapGrid());
+        let m = structuredClone(this.MapGrid);
         m = m.replaceAll(/[^SsH\n]/g, "█");
         let mm = m.split("\n");
         let k = KDGameData.KeyringLocations;
@@ -47,7 +65,7 @@ export class MapGet {
         return m;
     };
     MapKRoiGet = () => {
-        let m = structuredClone(this.getMapGrid());
+        let m = structuredClone(this.MapGrid);
         m = m.replaceAll(/[^\D\n]/g, "█");
         let mm = m.split("\n");
         let k = KDGameData.KeyringLocations;
@@ -60,7 +78,7 @@ export class MapGet {
         return m;
     };
     MapKSsMGet = () => {
-        let m = structuredClone(this.getMapGrid());
+        let m = structuredClone(this.MapGrid);
         m = m.replaceAll("1", "░");
         m = m.replaceAll(/[SsH]/g, "█");
         let mm = m.split("\n");
@@ -86,7 +104,7 @@ export class MapGet {
         return m;
     };
     MapKKSsMGet = (ignoreY?: boolean) => {
-        let m = structuredClone(this.getMapGrid());
+        let m = structuredClone(this.MapGrid);
         m = m.replaceAll("1", "░");
         if (ignoreY) {
             m = m.replaceAll("Y", " ");
@@ -296,7 +314,7 @@ export class MapGet {
     // let KDFurniture = {
 
     SetAllBedAreTrap() {
-        let m = structuredClone(this.getMapGrid());
+        let m = structuredClone(this.MapGrid);
         let mm = m.split("\n");
         for (let y = 0; y < mm.length; y++) {
             const mmm = mm[y];
@@ -322,7 +340,7 @@ export class MapGet {
     // }
 
     SetAllBarrelAreTrap() {
-        let m = structuredClone(this.getMapGrid());
+        let m = structuredClone(this.MapGrid);
         let mm = m.split("\n");
         for (let y = 0; y < mm.length; y++) {
             const mmm = mm[y];
@@ -345,5 +363,25 @@ export class MapGet {
     }
 
     // KinkyDungeonPlayerEntity
+
+    //
+    //	'Y': (moveX, moveY) => { // Open the chest
+    // 		let allowManip = KDAllowUseItems(true);
+    // 		if (allowManip) {
+    // 			let chestType = KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] == "lib" ? "shelf" : "rubble";
+    // 			KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
+    // 			if (KDToggles.Sound) AudioPlayInstantSoundKD(KinkyDungeonRootDirectory + "Audio/Coins.ogg");
+    // 			KinkyDungeonMapSet(moveX, moveY, 'X');
+    // 			KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
+    // 		} else {
+    // 			KinkyDungeonSendActionMessage(6, TextGet("KDCantTouchThat"), "#ff8800",1, false, true);
+    // 		}
+    // 		return true;
+    // 	},
+    //
+
+    AllLibChestReset() {
+        this.MapGrid = this.MapGrid.replaceAll('X', 'Y')
+    }
 
 }
