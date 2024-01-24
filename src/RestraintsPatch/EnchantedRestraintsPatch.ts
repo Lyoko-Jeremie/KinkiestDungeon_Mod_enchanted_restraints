@@ -77,8 +77,7 @@ export function addEnchantedItems() {
                 // "Enchanted " + "Slime Legs"
             );
             return T;
-        }
-        if (T.name.startsWith(("Enchanted" + "Hard" + "Slime"))) {
+        } else if (T.name.startsWith(("Enchanted" + "Hard" + "Slime"))) {
             T.name = T.name.replace("EnchantedHardSlime", "HardEnchantedSlime");
             copyTKeyF(T.name,
                 "HardSlime" + T.name.substring(("HardEnchantedSlime").length),
@@ -87,7 +86,15 @@ export function addEnchantedItems() {
                 // "Enchanted " + "Hard Slime Legs"
             );
             return T;
+        } else {
+            copyTKeyF(T.name,
+                T.name.substring(("Enchanted").length),
+                (n) => "远古" + n,
+                // undefined,
+                // "Enchanted " + "Slime Legs"
+            );
         }
+        // other patch
         switch (T.name) {
             // case ("Enchanted" + "SlimeLegs"):
             // 	// T.weight = -1000;
@@ -207,8 +214,7 @@ export function addGhostSlime() {
                 // "Enchanted " + "Slime Legs"
             );
             return T;
-        }
-        if (T.name.startsWith(("Ghost" + "Hard" + "Slime"))) {
+        } else if (T.name.startsWith(("Ghost" + "Hard" + "Slime"))) {
             T.name = T.name.replace("GhostHardSlime", "HardGhostSlime");
             copyTKeyF(T.name,
                 "HardSlime" + T.name.substring(("GhostHardSlime").length),
@@ -217,6 +223,13 @@ export function addGhostSlime() {
                 // "Enchanted " + "Hard Slime Legs"
             );
             return T;
+        } else {
+            copyTKeyF(T.name,
+                T.name.substring(("Ghost").length),
+                (n) => "灵浆" + n,
+                // undefined,
+                // "Enchanted " + "Slime Legs"
+            );
         }
         return T;
     }).map(T => {
