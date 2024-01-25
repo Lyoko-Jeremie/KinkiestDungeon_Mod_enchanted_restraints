@@ -1,8 +1,11 @@
-
 import './GreasemonkeyScript/CreateGui';
 import {CreateGui} from './GreasemonkeyScript/CreateGui';
 
-const gCreateGui: CreateGui = new CreateGui(window);
+if (!window.gEnchantedRestraintsCreateGui) {
+    window.gEnchantedRestraintsCreateGui = new CreateGui(window);
+} else {
+    console.log('gEnchantedRestraintsCreateGui already exists');
+}
 
 
 // import {EnchantedRestraintsPatch, isInit} from './initMod';

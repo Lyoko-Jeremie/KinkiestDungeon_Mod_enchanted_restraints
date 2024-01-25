@@ -15,8 +15,15 @@ declare global {
             setEdgeOnly: (b: boolean) => void,
             EnchantedRestraintsPatch: () => void,
         };
+        gEnchantedRestraintsCreateGui: CreateGui;
+        gEnchantedRestraintsModFilterBypass: ModFilterBypass;
 
     }
+
+    // =================================================
+    let KDAllModFiles: string[];
+    let KDModFiles: { [key: string]: ReturnType<URL.createObjectURL> };
+    let KinkyDungeonRootDirectory: string;
 
     // =================================================
     // from KK
@@ -200,4 +207,6 @@ declare global {
     var KDGetEnemyCache: () => void;
 
     var KinkyDungeonFactionColors: { [key: string]: string[] };
+
+    var KDLoadPerks: () => void;
 }

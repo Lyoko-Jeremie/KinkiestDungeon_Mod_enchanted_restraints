@@ -84,7 +84,7 @@ export class CreateGui {
         }
         this.initMod();
         this.do_install_EnchantedRestraintsPatch();
-        console.log('waitKDLoadingFinished ok');
+        console.log('[KinkiestDungeon enchanted_restraints Mod] waitKDLoadingFinished ok');
     };
     gmcCreator = () => {
         const thisRef = this;

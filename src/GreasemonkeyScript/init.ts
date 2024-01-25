@@ -5,4 +5,8 @@ unsafeWindow.Mod_EnchantedRestraints = window.Mod_EnchantedRestraints;
 import './CreateGui';
 import {CreateGui} from './CreateGui';
 
-const gCreateGui: CreateGui = new CreateGui(unsafeWindow);
+if (!window.gEnchantedRestraintsCreateGui) {
+    window.gEnchantedRestraintsCreateGui = new CreateGui(unsafeWindow);
+} else {
+    console.log('gEnchantedRestraintsCreateGui already exists');
+}

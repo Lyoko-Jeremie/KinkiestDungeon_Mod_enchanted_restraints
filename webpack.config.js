@@ -46,7 +46,9 @@ class RenameAndZipPlugin {
         if (filename.endsWith('.js')) {
           // 重命名逻辑
           const newFilename = filename.replace('.js', '.ks');
+          const newFilenameBypass = filename.replace('.js', '.ks.bypass');
           compilation.assets[newFilename] = compilation.assets[filename];
+          compilation.assets[newFilenameBypass] = compilation.assets[filename];
           delete compilation.assets[filename];
         }
       }
@@ -105,10 +107,13 @@ class RenameAndZipPlugin {
 
 
 const config = {
-  entry: './src/init.ts',
+  entry: {
+    enchanted_restraints: './src/init.ts',
+    ModFilterBypass: './src/ModFilterBypass.ts',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'enchanted_restraints.js',
+    filename: '[name].js',
   },
   devtool: 'source-map',
   target: 'web',
