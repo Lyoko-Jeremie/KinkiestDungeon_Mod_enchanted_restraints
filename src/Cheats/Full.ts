@@ -379,6 +379,30 @@ class Bootstrap extends CheatsHook {
                 "[true,true,true,true,null,true,true,true,true,true,null,true,true,true,true,true,true,true,true,null,true]"
             );
     };
+    RemoveAllKeyTools = () => {
+        KinkyDungeonLockpicks = 0;
+        KinkyDungeonRedKeys = 0;
+        KinkyDungeonBlueKeys = 0;
+        // 远古钥匙 use to unlock MistressKey Gold
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, -KinkyDungeonItemCount('MistressKey'));
+        // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, -KinkyDungeonItemCount('AncientPowerSource'));
+        // 灵浆 use to unlock GhostLock
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, -KinkyDungeonItemCount('Ectoplasm'));
+
+        KinkyDungeonAddGold(-KinkyDungeonGold);
+
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, -KinkyDungeonItemCount('PotionMana'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, -KinkyDungeonItemCount('PotionStamina'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, -KinkyDungeonItemCount('PotionFrigid'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionWill, -KinkyDungeonItemCount('PotionWill'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ManaOrb, -KinkyDungeonItemCount('ManaOrb'));
+    };
+    AddAllKeyTools = () => {
+        this.AddManyKeys();
+        this.AddManyPotion();
+        this.AddManyGold();
+    };
     BootstrapAllGood = () => {
         this.AddManyKeys();
         this.AddManyGold();

@@ -127,6 +127,7 @@ declare global {
      * @return {boolean}
      */
     var KinkyDungeonChangeConsumable: (consumable: consumable, Quantity: number) => boolean;
+    var KinkyDungeonItemCount: (consumableName: string) => boolean;
 
     // const Consumable = "consumable";
     // const Restraint = "restraint";
