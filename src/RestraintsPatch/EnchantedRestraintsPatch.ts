@@ -34,6 +34,105 @@ export function inPlacePatch() {
 
 }
 
+export function addEnchantedMaxVibeItems() {
+    (
+        "TrapPlug5 NippleClamps3 TrapVibeProto RearVibe1 WolfPanties"
+    ).split(" ").filter(T => !!T).map(N => {
+        return (() => {
+            console.log('patching : ', N);
+            let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === N));
+            if (!T) {
+                console.error('patching : ', N, ' failed');
+                throw new Error('patching : ' + N + ' failed');
+            }
+            // let T = structuredClone(KinkyDungeonRestraintsCache.get(N));
+            console.log('T : ', T);
+            T.name = "Enchanted" + N;
+            T.curse = "MistressKey";
+            T.enchantedDrain = 0.00001;
+            T.enchanted = true;
+            T.removePrison = false;
+            T.escapeChance = {"Struggle": -100, "Cut": -100, "Remove": -100};
+            return T;
+        })();
+    }).map(T => {
+        copyTKeyF(T.name,
+            T.name.substring(("Enchanted").length),
+            (n) => "远古" + n,
+            // undefined,
+            // "Enchanted " + "Slime Legs"
+        );
+        if (!T.events) {
+            T.events = [];
+        }
+        T.events = [
+            wrapperProxyEdgeOnly({
+                trigger: "remoteVibe",
+                type: "RemoteActivatedVibe",
+                power: 3,
+                time: 20,
+                edgeOnly: edgeOnly,
+            }),
+            wrapperProxyEdgeOnly({
+                trigger: "tick",
+                type: "PeriodicTeasing",
+                power: 1,
+                time: 48,
+                edgeOnly: edgeOnly,
+                cooldown: {"normal": 50, "tease": 20},
+                chance: 0.02,
+            }),
+            wrapperProxyEdgeOnly({
+                trigger: "tick",
+                type: "PeriodicDenial",
+                power: 2,
+                time: 42,
+                edgeOnly: edgeOnly,
+                cooldown: {"normal": 60, "tease": 20},
+                chance: 0.03,
+            }),
+            {
+                trigger: "tick",
+                type: "PeriodicTeasing",
+                power: 2,
+                time: 32,
+                edgeOnly: false,
+                cooldown: {"normal": 90, "tease": 20},
+                chance: 0.015
+            },
+            {trigger: "beforeStruggleCalc", type: "vibeStruggle", inheritLinked: true},
+            wrapperProxyEdgeOnly({
+                trigger: "playerCast",
+                type: "MagicallySensitive",
+                chance: 0.9,
+                power: 3,
+                time: 12,
+                edgeOnly: edgeOnly
+            }),
+            wrapperProxyEdgeOnly({
+                trigger: "struggle",
+                type: "VibeOnStruggle",
+                chance: 1.0,
+                power: 2,
+                time: 12,
+                edgeOnly: edgeOnly
+            }),
+        ].concat(T.events as any[]);
+        return T;
+    }).map(T => {
+        if (T.curse === "MistressKey") {
+            // addTextKey(
+            // 	`KinkyDungeonCurseStruggleMistressKey${T.name}`,
+            // 	// TextGetKD(`KinkyDungeonCurseStruggleMistressKeyEnchantedBelt`),
+            // 	TextGetKD(`KinkyDungeonCurseStruggleMistressKey`),
+            // );
+            addCurseStruggleString(T.curse, T.name, "你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
+        }
+        console.log('P : ', T);
+        return KinkyDungeonRestraints.push(T);
+    });
+}
+
 export function addEnchantedItems() {
     // addCurseStruggleString("MistressKey", "EnchantedMaidVibe",
     // 	"你徒劳地挣扎。没有钥匙孔，材料几乎牢不可破！");
@@ -542,6 +641,26 @@ export function patchVibeStruggle() {
             ],
         },
     );
+
+    const needPatchName = [
+        // 'EnchantedTrapPlug5',
+        // 'EnchantedNippleClamps3',
+        // 'EnchantedWolfPanties',
+        // 'EnchantedTrapVibeProto',
+        // 'EnchantedRearVibe1',
+        'EnchantedSteelPlugR',
+        'EnchantedSteelPlugF',
+        'EnchantedNippleClamps',
+        'EnchantedMaidVibe',
+    ];
+    for (const name of needPatchName) {
+        copyTKeyF(name,
+            name.substring(("Enchanted").length),
+            (n) => "远古" + n,
+            // undefined,
+            // "Enchanted " + "Slime Legs"
+        );
+    }
 
 }
 

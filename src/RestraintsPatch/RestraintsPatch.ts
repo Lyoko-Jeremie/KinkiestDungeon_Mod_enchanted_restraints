@@ -3,7 +3,7 @@ import {
     inPlacePatch,
     addEnchantedItems,
     addGhostSlime,
-    setEdgeOnly
+    setEdgeOnly, addEnchantedMaxVibeItems
 } from "./EnchantedRestraintsPatch";
 import {patchCnTranslate, addEnchantedTranslate} from "./PatchTranslate";
 import {frozenClone} from "./PatchUtils";
@@ -41,6 +41,7 @@ export function EnchantedRestraintsPatch() {
     addGhostSlime();
 
     addEnchantedItems();
+    addEnchantedMaxVibeItems();
 
     inPlacePatch();
 

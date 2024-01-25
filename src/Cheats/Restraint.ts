@@ -7,7 +7,12 @@ export const WearsList = {
     // ShadowHand
     ShadowHand: "ShadowHandMouth ShadowHandArms ShadowHandArmsHeavy ShadowHandLegs ShadowHandLegsHeavy ShadowHandCrotch ShadowHandFeet",
     // Vibe
-    Vibe: "WolfPanties NippleClamps SteelPlugF SteelPlugR MaidVibe",
+    Vibe: "WolfPanties NippleClamps3 SteelPlugF SteelPlugR MaidVibe",
+    TrapPlug: "TrapPlug TrapPlug2 TrapPlug3 TrapPlug4 TrapPlug5",
+    NippleClamps: "NippleClamps NippleClamps2 NippleClamps3",
+    TrapVibeProto: "TrapVibe TrapVibeProto",
+    MaxVibe: "TrapPlug5 NippleClamps3 WolfPanties TrapVibeProto RearVibe1",
+    EnchantedMaxVibe: "EnchantedTrapPlug5 EnchantedNippleClamps3 EnchantedWolfPanties EnchantedTrapVibeProto EnchantedRearVibe1",
     // 神圣
     Divine: "DivineCuffs DivineAnkleCuffs DivineMuzzle",
     // 祝福丝带
