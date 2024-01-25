@@ -214,6 +214,19 @@ export class MapGet {
 
                 }
 
+                const ent = KDMapData.Entities.find((T: { x: number, y: number }) => T.x === x && T.y === y);
+                if (ent) {
+
+                    ctx.fillStyle = 'rgb(255,202,204,0.75)'; // 文字颜色
+                    ctx.font = `${blockSize - 2}px Arial`; // 文字大小和字体
+                    ctx.textAlign = 'center'; // 文字在方块内居中
+                    ctx.textBaseline = 'middle'; // 文字基线设置为中间
+
+                    // draw a rect char
+                    ctx.fillText('▢', x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+
+                }
+
                 ++x;
             }
             ++y;
