@@ -298,6 +298,18 @@ export class MapGet {
         KDMapData.FogGrid.fill(0);
     }
 
+    protected SetMapTrap(callback: (x: number, y: number, n: string) => string | undefined) {
+        let m = structuredClone(this.MapGrid);
+        let mm = m.split("\n");
+        for (let y = 0; y < mm.length; y++) {
+            const mmm = mm[y];
+            for (let x = 0; x < mmm.length; x++) {
+                const c = mmm[x];
+                callback(x, y, c) || c;
+            }
+        }
+    }
+
     // KDMapData.Tiles
     // KinkyDungeonTilesSet(location, value)
     // function KD_PasteTile
@@ -314,20 +326,15 @@ export class MapGet {
     // let KDFurniture = {
 
     SetAllBedAreTrap() {
-        let m = structuredClone(this.MapGrid);
-        let mm = m.split("\n");
-        for (let y = 0; y < mm.length; y++) {
-            const mmm = mm[y];
-            for (let x = 0; x < mmm.length; x++) {
-                const c = mmm[x];
-                if (c === 'B') {
-                    KDMapData.Tiles[(x) + "," + (y)] = {
-                        Type: "Trap",
-                        Trap: "BedTrap",
-                    };
-                }
+        this.SetMapTrap((x, y, c) => {
+            if (c === 'B') {
+                KDMapData.Tiles[(x) + "," + (y)] = {
+                    Type: "Trap",
+                    Trap: "BedTrap",
+                };
             }
-        }
+            return c;
+        });
     }
 
     // function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, doorlocktrapchance, Floor, width, height) {
@@ -340,27 +347,109 @@ export class MapGet {
     // }
 
     SetAllBarrelAreTrap() {
-        let m = structuredClone(this.MapGrid);
-        let mm = m.split("\n");
-        for (let y = 0; y < mm.length; y++) {
-            const mmm = mm[y];
-            for (let x = 0; x < mmm.length; x++) {
-                const c = mmm[x];
-                if (c === 'L') {
-                    const tile = KDMapData.Tiles[(x) + "," + (y)];
-                    if (tile) {
-                        tile.Type = "Trap";
-                        tile.Trap = tile.Furniture ? tile.Furniture + "Trap" : "BarrelTrap";
-                    } else {
-                        KDMapData.Tiles[(x) + "," + (y)] = {
-                            Type: "Trap",
-                            Trap: "BarrelTrap",
-                        };
-                    }
+        this.SetMapTrap((x, y, c) => {
+            if (c === 'L') {
+                const tile = KDMapData.Tiles[(x) + "," + (y)];
+                const j = KDMapData.JailPoints.find((T: {
+                    x: number,
+                    y: number,
+                    type: string
+                }) => T.x === x && T.y === y);
+                // if (j && tile) {
+                //     // ignore it
+                //     return;
+                // }
+                if (tile) {
+                    tile.Type = "Trap";
+                    tile.Trap = tile.Furniture ? tile.Furniture + "Trap" : "BarrelTrap";
+                } else {
+                    KDMapData.Tiles[(x) + "," + (y)] = {
+                        Type: "Trap",
+                        Trap: "BarrelTrap",
+                    };
                 }
             }
-        }
+            return c;
+        });
     }
+
+    SetAll_L_AreDisplayStand() {
+        this.SetMapTrap((x, y, c) => {
+            if (c === 'L') {
+                const tile = KDMapData.Tiles[(x) + "," + (y)];
+                const j = KDMapData.JailPoints.find((T: {
+                    x: number,
+                    y: number,
+                    type: string
+                }) => T.x === x && T.y === y);
+                if (j) {
+                    j.type = "furniture";
+                } else {
+                    KDMapData.JailPoints.push({x: x, y: y, type: "furniture", radius: 1});
+                }
+                KDMapData.Tiles[(x) + "," + (y)] = {Type: "Trap", Furniture: "DisplayStand", Trap: "DisplayStandTrap"};
+            }
+            return c;
+        });
+    }
+
+    SetAll_L_AreCage() {
+        this.SetMapTrap((x, y, c) => {
+            if (c === 'L') {
+                const tile = KDMapData.Tiles[(x) + "," + (y)];
+                const j = KDMapData.JailPoints.find((T: {
+                    x: number,
+                    y: number,
+                    type: string
+                }) => T.x === x && T.y === y);
+                if (j) {
+                    j.type = "furniture";
+                } else {
+                    KDMapData.JailPoints.push({x: x, y: y, type: "furniture", radius: 1});
+                }
+                KDMapData.Tiles[(x) + "," + (y)] = {Type: "Trap", Furniture: "Cage", Trap: "CageTrap"};
+            }
+            return c;
+        });
+    }
+
+    // function KinkyDungeonMapSet(X, Y, SetTo, VisitedRooms)
+    // KDTrapTypes : Record<string, KDTrapType>
+    // let KDTileGen
+    // const KDOverlays = {
+    // KDMapData.JailPoints
+    // 	"L": (x, y, Fog, noReplace) => {
+    // 		if (KinkyDungeonTilesGet(x + "," + y)) {
+    // 			let furn = KinkyDungeonTilesGet(x + "," + y).Furniture ? KDFurniture[KinkyDungeonTilesGet(x + "," + y).Furniture] : "";
+    // 			if (furn) {
+    // 				return furn.sprite;
+    // 			}
+    // 		}
+    // 	},
+
+
+    // ResetAllTrap() {
+    //     let m = structuredClone(this.MapGrid);
+    //     let mm = m.split("\n");
+    //     for (let y = 0; y < mm.length; y++) {
+    //         const mmm = mm[y];
+    //         for (let x = 0; x < mmm.length; x++) {
+    //             const c = mmm[x];
+    //             if (c === 'L') {
+    //                 const tile = KDMapData.Tiles[(x) + "," + (y)];
+    //                 if (tile) {
+    //                     tile.Type = "Trap";
+    //                     tile.Trap = tile.Furniture ? tile.Furniture + "Trap" : "BarrelTrap";
+    //                 } else {
+    //                     KDMapData.Tiles[(x) + "," + (y)] = {
+    //                         Type: "Trap",
+    //                         Trap: "BarrelTrap",
+    //                     };
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     // KinkyDungeonPlayerEntity
 
