@@ -81,6 +81,16 @@ export class Choice {
             remove,
         );
     }
+    ChoiceAddCheatChoiceSuperMarket = (remove?: boolean) => {
+        // Supermarket
+        // 超市
+        // Commerce shrines can appear in levels and have slightly more items.
+        // 商业神殿各层均可出现，并拥有更多的物品。
+        this._AddCheatChoice(
+            "Supermarket",
+            remove,
+        );
+    }
     ChoiceAddCheatChoiceMidEscape = (remove?: boolean) => {
         // Slayer
         // 杀手
@@ -96,6 +106,42 @@ export class Choice {
         // 你可以以两倍魔力消耗为代价无视施法条件使用幻术。开局获得技能 暗影匕首。
         this._AddCheatChoice(
             "Slayer Conjurer Magician",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceGoodMid = (remove?: boolean) => {
+        // Unperturbed [Unperturbed]
+        // 冰洁
+        // You gain 82 grope resist.
+        // 自身抚摸抗性 +82 点。
+        // Stoic [Stoic]
+        // 忍耐
+        // You gain 82% tickle resist.
+        // 你获得 82% 挠痒抗性。
+        // Pain Tolerance [PainTolerance]
+        // 坚韧
+        // You gain 200 pain resist.
+        // 自身疼痛抗性 +200 点。
+        this._AddCheatChoice(
+            "Unperturbed Stoic PainTolerance",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceBadMid = (remove?: boolean) => {
+        // Masochist [Masochist]
+        // 受虐
+        // Pain is strongly arousing.
+        // 疼痛会使你强烈地性奋。
+        // Lascivious [Lascivious]
+        // 好色
+        // You take 50% more grope damage.
+        // 你受到的抚摸伤害增加 50%。
+        // Ticklish [Ticklish]
+        // 怕痒
+        // You take 50% more tickle damage.
+        // 你受到的挠痒伤害增加 50%。
+        this._AddCheatChoice(
+            "Masochist Lascivious Ticklish",
             remove,
         );
     };
