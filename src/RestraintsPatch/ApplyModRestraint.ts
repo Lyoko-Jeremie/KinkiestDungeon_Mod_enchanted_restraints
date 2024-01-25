@@ -1,8 +1,9 @@
-
 export function ApplyModRestraint() {
     // all the order are important , because some of those will link each other
     // the thing change from origin
-    let s = "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR " +
+    let s =
+        "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR " +
+        "EnchantedTrapPlug5 EnchantedNippleClamps3 EnchantedWolfPanties EnchantedTrapVibeProto EnchantedRearVibe1" +
         // origin Enchanted (except the ImproveEnchantedBlindfold)
         "EnchantedBelt EnchantedBra ImproveEnchantedBlindfold EnchantedAnkleCuffs EnchantedBallGag EnchantedMuzzle EnchantedMittens EnchantedArmbinder EnchantedHeels " +
         // Legs
