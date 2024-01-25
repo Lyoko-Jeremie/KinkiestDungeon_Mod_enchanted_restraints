@@ -54,6 +54,14 @@ export const WearsList = {
     HardGhostSlime: "HardGhostSlimeBoots HardGhostSlimeFeet HardGhostSlimeHands HardGhostSlimeLegs HardGhostSlimeArms HardGhostSlimeMouth HardGhostSlimeHead",
     // Vibration
     VibrationEnchanted: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
+    // Game Collect From Mod
+    Bubble: "Bubble",
+    SlimeBubble: "SlimeBubble",
+    LatexCube: "LatexCube",
+    Sarcophagus: "Sarcophagus",
+    DisplayTrap: "DisplayTrap",
+    DollStand: "DollStand",
+    DollStandSFW: "DollStandSFW",
     // // AAAAA
     // AAAAA: ,
 } as const; // 使用 as const 来获得一个 readonly tuple 类型
