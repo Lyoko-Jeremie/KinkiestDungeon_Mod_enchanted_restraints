@@ -280,6 +280,46 @@ export class Choice {
             remove,
         );
     };
+    ChoiceAddCheatChoiceGoodVision = (remove?: boolean) => {
+        // Keen Hearing [KeenHearing]
+        // 顺风耳
+        // You can more easily hear enemies and their movements through walls.
+        // 你可以更容易地透过墙壁听到敌人和他们的行动。
+        // Archer's Eye [ArchersEye]
+        // 千里眼
+        // +2 vision radius.
+        // +2 可视范围.
+        // Night Owl [NightOwl]
+        // 猫头鹰
+        // Your vision in dark areas is improved.
+        // 你在黑暗区域的视力得到增强。
+        this._AddCheatChoice(
+            "KeenHearing ArchersEye NightOwl",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceBadVision = (remove?: boolean) => {
+        // Blackout [Blackout]
+        // 屏蔽护目
+        // Blindfolds are stronger. While blindfolded you can only see enemies next to you.
+        // 眼罩变得更强，当佩戴眼罩时，你只能看到身边的敌人。
+        // Total Blackout [TotalBlackout]
+        // 阴影护目
+        // Blindfolds are extremely punishing and you can't see explored areas while blindfolded.
+        // 眼罩变得非常令人痛苦，当佩戴眼罩时，你看不到已探索区域。
+        // Poor Vision [Nearsighted]
+        // 视力障碍
+        // Vision radius is significantly reduced.
+        // 可视范围显著减小。
+        // Fear of the Dark [NightBlindness]
+        // 恐惧黑暗
+        // Your vision in dark areas is reduced.
+        // 你在黑暗区域的视力将会降低。
+        this._AddCheatChoice(
+            "Blackout TotalBlackout Nearsighted NightBlindness",
+            remove,
+        );
+    };
     ChoicePrintNowChoice = () => {
         const l = Array.from(KinkyDungeonStatsChoice.keys());
         let count = 0;

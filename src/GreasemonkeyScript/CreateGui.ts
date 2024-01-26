@@ -398,6 +398,24 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'ChoiceAddCheatChoiceGoodVision': {
+                            label: 'ChoiceAddCheatChoiceGoodVision',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodVision();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ChoiceAddCheatChoiceBadVision': {
+                            label: 'ChoiceAddCheatChoiceBadVision',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadVision();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         'ChoiceAddCheatChoiceMap': {
                             label: 'ChoiceAddCheatChoiceMap',
                             type: 'button',
