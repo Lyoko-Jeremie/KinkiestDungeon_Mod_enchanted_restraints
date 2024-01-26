@@ -169,27 +169,48 @@ export class MapGet {
             for (const c of l.split('')) {
 
                 if (c === '█') {
+                    // up/down stair
                     ctx.fillStyle = "black";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === '░') {
-                    ctx.fillStyle = "gray";
+                    // blank/wall
+                    ctx.fillStyle = "rgba(255,255,255,0.5)";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === '▓') {
+                    // Keyring
                     ctx.fillStyle = "yellow";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === '◘') {
-                    ctx.fillStyle = "blue";
+                    // player
+                    ctx.fillStyle = "#00ffff";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-                } else if (c === '0') {
-                    // ignore
                 } else if (c === 'G') {
+                    // ghost
                     ctx.fillStyle = "#00dfff";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === 'T') {
+                    // Trap
                     ctx.fillStyle = "#ff9fff";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === 'Y') {
+                    // Chest (shelf(lib)/rubble)
                     ctx.fillStyle = "#ff2bff";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else if (c === '0' || c === '2') {
+                    // floor
+                    ctx.fillStyle = "rgba(0,146,255,0.68)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else if (KDCornerTiles[c]) {
+                    // is CornerTiles
+                    ctx.fillStyle = "rgba(0,255,248,0.63)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else if (c === 'D') {
+                    // Door
+                    ctx.fillStyle = "rgba(206,206,206,0.25)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else if (c === 'b') {
+                    // window
+                    ctx.fillStyle = "rgba(206,206,206,0.25)";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 }
 
@@ -204,10 +225,15 @@ export class MapGet {
                 if (c !== '░') {
 
                     // 设置文字样式
-                    ctx.fillStyle = 'rgba(0,255,248,0.63)'; // 文字颜色
+                    ctx.fillStyle = 'rgba(0,255,248,0.75)'; // 文字颜色
                     ctx.font = `${blockSize - 2}px Arial`; // 文字大小和字体
                     ctx.textAlign = 'center'; // 文字在方块内居中
                     ctx.textBaseline = 'middle'; // 文字基线设置为中间
+
+                    if (c === '◘') {
+                        // player
+                        ctx.fillStyle = "#ff00ff";
+                    }
 
                     // 绘制文字
                     ctx.fillText(c, x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
@@ -217,13 +243,20 @@ export class MapGet {
                 const ent = KDMapData.Entities.find((T: { x: number, y: number }) => T.x === x && T.y === y);
                 if (ent) {
 
-                    ctx.fillStyle = 'rgb(255,202,204,0.75)'; // 文字颜色
-                    ctx.font = `${blockSize - 2}px Arial`; // 文字大小和字体
+                    ctx.font = `bold ${blockSize + 3}px Arial`; // 文字大小和字体
                     ctx.textAlign = 'center'; // 文字在方块内居中
                     ctx.textBaseline = 'middle'; // 文字基线设置为中间
 
-                    // draw a rect char
-                    ctx.fillText('▢', x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+                    if ((ent.items as string[])?.find(T => T === 'Keyring')) {
+                        ctx.fillStyle = 'rgba(255,255,0,1)'; // 文字颜色
+                        // draw a circle char
+                        ctx.fillText('◯', x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+                    } else {
+                        ctx.fillStyle = 'rgb(255,202,204,1)'; // 文字颜色
+                        // draw a rect char
+                        ctx.fillText('▢', x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+                    }
+
 
                 }
 
@@ -264,7 +297,8 @@ export class MapGet {
                     ctx.fillStyle = "black";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === '░') {
-                    ctx.fillStyle = "gray";
+                    // blank/wall
+                    ctx.fillStyle = "#707070";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else if (c === '▓') {
                     ctx.fillStyle = "yellow";
@@ -285,8 +319,28 @@ export class MapGet {
                 ctx.textAlign = 'center'; // 文字在方块内居中
                 ctx.textBaseline = 'middle'; // 文字基线设置为中间
 
+                if (c === '░') {
+                    // blank/wall
+                    ctx.fillStyle = "#c5c5c5";
+                }
+
                 // 绘制文字
                 ctx.fillText(c, x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+
+                const ent = KDMapData.Entities.find((T: { x: number, y: number }) => T.x === x && T.y === y);
+                if (ent) {
+
+                    ctx.font = `bold ${blockSize + 2}px Arial`; // 文字大小和字体
+                    ctx.textAlign = 'center'; // 文字在方块内居中
+                    ctx.textBaseline = 'middle'; // 文字基线设置为中间
+
+                    if ((ent.items as string[])?.find(T => T === 'Keyring')) {
+                        ctx.fillStyle = 'rgba(255,255,0,1)'; // 文字颜色
+                        // draw a circle char
+                        ctx.fillText('◯', x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+                    }
+
+                }
 
                 ++x;
             }

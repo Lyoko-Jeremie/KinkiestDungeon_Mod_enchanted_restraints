@@ -210,4 +210,6 @@ declare global {
     var KinkyDungeonFactionColors: { [key: string]: string[] };
 
     var KDLoadPerks: () => void;
+
+    var KDCornerTiles: { [key: string]: boolean };
 }
