@@ -1,4 +1,3 @@
-
 export class DebugSee {
     ShowAllRestraint() {
         console.log(KinkyDungeonAllRestraint());
@@ -12,7 +11,11 @@ export class DebugSee {
 
     ShowAllRestraintDynamicName() {
         console.log(KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item).name));
-        return KinkyDungeonAllRestraintDynamic().map((r) => KDRestraint(r.item).name);
+        return KinkyDungeonAllRestraintDynamic().map((r) => {
+            const T = KDRestraint(r.item);
+            const nameKD = TextGetKD(`Restraint${T.name}`)
+            return `${T.name} [${nameKD}]`;
+        });
     }
 
     ShowAllChoice() {
