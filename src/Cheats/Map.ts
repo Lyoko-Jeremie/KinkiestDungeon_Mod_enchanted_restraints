@@ -154,21 +154,57 @@ export class MapGet {
 
         const dataW = mm[0].split('').length;
         const dataH = mm.length;
-        node.width = (dataW + 1) * blockSize;
-        node.height = (dataH + 1) * blockSize;
+        node.width = (dataW + 2) * blockSize;
+        node.height = (dataH + 2) * blockSize;
         node.style.width = node.width + 'px';
         node.style.height = node.height + 'px';
 
         const ctx: CanvasRenderingContext2D = node.getContext("2d")!;
         let y = 0;
         let x = 0;
+        // additional row
+        for (let xx = 0; xx < dataW; xx++) {
+
+            if (xx % 10 === 0) {
+                ctx.fillStyle = "rgb(255,232,80)";
+                ctx.fillRect((xx + 1) * blockSize, y * blockSize, blockSize, blockSize);
+            } else {
+                ctx.fillStyle = "rgb(22,53,82)";
+                ctx.fillRect((xx + 1) * blockSize, y * blockSize, blockSize, blockSize);
+            }
+
+            ctx.font = `${blockSize}px Arial`; // 文字大小和字体
+            ctx.textAlign = 'center'; // 文字在方块内居中
+            ctx.textBaseline = 'middle'; // 文字基线设置为中间
+            ctx.fillStyle = 'rgb(31,155,154)'; // 文字颜色
+            ctx.fillText(`${xx % 10}`, (xx + 1) * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+        }
+        ++y;
         for (const l of mm) {
             if (l.length > 0) {
                 x = 0;
             } else {
                 continue;
             }
+            // additional col
+            if (y > 0) {
+                if ((y - 1) % 10 === 0) {
+                    ctx.fillStyle = "rgb(255,232,80)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else {
+                    ctx.fillStyle = "rgb(22,53,82)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                }
+                ctx.font = `${blockSize}px Arial`; // 文字大小和字体
+                ctx.textAlign = 'center'; // 文字在方块内居中
+                ctx.textBaseline = 'middle'; // 文字基线设置为中间
+                ctx.fillStyle = 'rgb(31,155,154)'; // 文字颜色
+                ctx.fillText(`${(y - 1) % 10}`, x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+            }
+            ++x;
             for (const c of l.split('')) {
+                const realY = (y - 1);
+                const realX = (x - 1);
 
                 if (c === '█') {
                     // up/down stair
@@ -216,7 +252,7 @@ export class MapGet {
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 }
 
-                const tile = KDMapData.Tiles[(x) + "," + (y)];
+                const tile = KDMapData.Tiles[realX + "," + realY];
                 if (tile) {
                     if (tile.Type === "Trap") {
                         ctx.fillStyle = "rgba(255,0,0,0.5)";
@@ -242,7 +278,7 @@ export class MapGet {
 
                 }
 
-                const ent = KDMapData.Entities.find((T: { x: number, y: number }) => T.x === x && T.y === y);
+                const ent = KDMapData.Entities.find((T: { x: number, y: number }) => T.x === realX && T.y === realY);
                 if (ent) {
 
                     ctx.font = `bold ${blockSize + 3}px Arial`; // 文字大小和字体
@@ -265,8 +301,8 @@ export class MapGet {
                 ++x;
             }
             // additional col
-            {
-                if (y % 10 === 0) {
+            if (y > 0) {
+                if ((y - 1) % 10 === 0) {
                     ctx.fillStyle = "rgb(255,232,80)";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                 } else {
@@ -277,7 +313,7 @@ export class MapGet {
                 ctx.textAlign = 'center'; // 文字在方块内居中
                 ctx.textBaseline = 'middle'; // 文字基线设置为中间
                 ctx.fillStyle = 'rgb(31,155,154)'; // 文字颜色
-                ctx.fillText(`${y % 10}`, x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+                ctx.fillText(`${(y - 1) % 10}`, x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
             }
 
             ++y;
@@ -287,17 +323,17 @@ export class MapGet {
 
             if (xx % 10 === 0) {
                 ctx.fillStyle = "rgb(255,232,80)";
-                ctx.fillRect(xx * blockSize, y * blockSize, blockSize, blockSize);
+                ctx.fillRect((xx + 1) * blockSize, y * blockSize, blockSize, blockSize);
             } else {
                 ctx.fillStyle = "rgb(22,53,82)";
-                ctx.fillRect(xx * blockSize, y * blockSize, blockSize, blockSize);
+                ctx.fillRect((xx + 1) * blockSize, y * blockSize, blockSize, blockSize);
             }
 
             ctx.font = `${blockSize}px Arial`; // 文字大小和字体
             ctx.textAlign = 'center'; // 文字在方块内居中
             ctx.textBaseline = 'middle'; // 文字基线设置为中间
             ctx.fillStyle = 'rgb(31,155,154)'; // 文字颜色
-            ctx.fillText(`${xx % 10}`, xx * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+            ctx.fillText(`${xx % 10}`, (xx + 1) * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
         }
 
         return {
