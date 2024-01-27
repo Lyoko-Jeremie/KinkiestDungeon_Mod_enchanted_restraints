@@ -152,8 +152,10 @@ export class MapGet {
         let m = this.MapKKSsMGet();
         let mm = m.split("\n");
 
-        node.width = mm[0].split('').length * blockSize;
-        node.height = mm.length * blockSize;
+        const dataW = mm[0].split('').length;
+        const dataH = mm.length;
+        node.width = (dataW + 1) * blockSize;
+        node.height = (dataH + 1) * blockSize;
         node.style.width = node.width + 'px';
         node.style.height = node.height + 'px';
 
@@ -262,7 +264,40 @@ export class MapGet {
 
                 ++x;
             }
+            // additional col
+            {
+                if (y % 10 === 0) {
+                    ctx.fillStyle = "rgb(255,232,80)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else {
+                    ctx.fillStyle = "rgb(22,53,82)";
+                    ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                }
+                ctx.font = `${blockSize}px Arial`; // 文字大小和字体
+                ctx.textAlign = 'center'; // 文字在方块内居中
+                ctx.textBaseline = 'middle'; // 文字基线设置为中间
+                ctx.fillStyle = 'rgb(31,155,154)'; // 文字颜色
+                ctx.fillText(`${y % 10}`, x * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
+            }
+
             ++y;
+        }
+        // additional row
+        for (let xx = 0; xx < dataW; xx++) {
+
+            if (xx % 10 === 0) {
+                ctx.fillStyle = "rgb(255,232,80)";
+                ctx.fillRect(xx * blockSize, y * blockSize, blockSize, blockSize);
+            } else {
+                ctx.fillStyle = "rgb(22,53,82)";
+                ctx.fillRect(xx * blockSize, y * blockSize, blockSize, blockSize);
+            }
+
+            ctx.font = `${blockSize}px Arial`; // 文字大小和字体
+            ctx.textAlign = 'center'; // 文字在方块内居中
+            ctx.textBaseline = 'middle'; // 文字基线设置为中间
+            ctx.fillStyle = 'rgb(31,155,154)'; // 文字颜色
+            ctx.fillText(`${xx % 10}`, xx * blockSize + blockSize / 2, y * blockSize + blockSize / 2);
         }
 
         return {
