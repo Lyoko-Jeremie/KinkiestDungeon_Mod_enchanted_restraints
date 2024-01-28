@@ -14,7 +14,9 @@ import {ApplyModRestraint} from './RestraintsPatch/ApplyModRestraint';
 export {EnchantedRestraintsPatch, isInit};
 
 // Cheats
-window.KinkyDungeonMod_EnchantedRestraints.Cheats = new Cheats();
+if (!window.KinkyDungeonMod_EnchantedRestraints.Cheats) {
+    window.KinkyDungeonMod_EnchantedRestraints.Cheats = new Cheats();
+}
 
 // RestraintsPatch
 // EnchantedRestraintsPatch();

@@ -124,7 +124,7 @@ class FullCheatsBase extends Choice {
 // }
 
 class CheatsHook extends FullCheatsBase {
-    _TickHook = new TickHook();
+    _TickHook = new TickHook('CheatsHook');
 
     setupHook(windowPtr: Window) {
         this._TickHook.setupHook(windowPtr);
@@ -175,19 +175,19 @@ class CheatsHook extends FullCheatsBase {
             EnemySense: {
                 id: "EnemySense",
                 type: "EnemySense",
-                duration: 1000,
+                duration: 100,
             },
             Analyze: {
                 id: "Analyze",
                 aura: "#ff5555",
                 type: "MagicalSight",
                 power: 5,
-                duration: 1000,
+                duration: 100,
             },
             Light: {
                 id: "Light",
                 type: "Light",
-                duration: 1000,
+                duration: 100,
             },
         };
         this._SetBuff(buffObj, remove);
@@ -219,13 +219,15 @@ class CheatsHook extends FullCheatsBase {
         } else {
             k.forEach(T => {
                 const it = KinkyDungeonPlayerBuffs[T];
+                // console.log('_SetBuff k', k, 'T', T, 'it', it);
                 if (it) {
-                    it.duration = buffObj[T].duration || 1000;
+                    it.duration = buffObj[T].duration || 100;
                 } else {
                     KinkyDungeonPlayerBuffs[T] = buffObj[T];
                 }
             });
         }
+        // console.log('_SetBuff KinkyDungeonPlayerBuffs', structuredClone(KinkyDungeonPlayerBuffs));
     };
     DisableInvisibility = () => {
         // this.PatchInvisibility(true);
@@ -288,7 +290,7 @@ class CheatsHook extends FullCheatsBase {
                 id: "Invisibility",
                 aura: "#888888",
                 type: "Sneak",
-                duration: 1000,
+                duration: 100,
                 power: 10.0,
                 player: true,
                 enemies: true,
@@ -297,12 +299,21 @@ class CheatsHook extends FullCheatsBase {
             Invisibility2: {
                 id: "Invisibility2",
                 type: "SlowDetection",
-                duration: 1100,
+                duration: 100,
                 power: 0.5,
                 player: true,
                 enemies: false,
                 tags: ["invisibility"]
-            }
+            },
+            GreaterInvisibility: {
+                "id": "GreaterInvisibility",
+                "aura": "#a45fd7",
+                "type": "Invisible",
+                "duration": 100,
+                "power": 1.5,
+                "player": true,
+                "tags": ["invisibility"]
+            },
         };
         this._SetBuff(buffObj, remove);
     };
@@ -350,7 +361,7 @@ class CheatsHook extends FullCheatsBase {
                 maxCount: 1,
                 currentCount: 1,
                 power: 3,
-                duration: 1000,
+                duration: 100,
                 tags: ["cast", "upcast"],
             }
         };
