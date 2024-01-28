@@ -123,9 +123,9 @@ export const StringTable_CN: StringTableType = {
     HardModeEnable: '困难模式 开',
     HardModeDisable: '困难模式 关',
     'SaveLoad Section': 'SaveLoad Section',
-    GetSaveCode: '获取存档码',
+    GetSaveCode: '获取存档码(同时会触发游戏内存档!)',
     GetSaveCodeData: '存档码',
-    CopyGameSaveDataStringToClipboard: '复制存档码到剪贴板',
+    CopyGameSaveDataStringToClipboard: '复制存档码到剪贴板(同时会触发游戏内存档!)',
     LoadGameSaveStringFromClipboard: '从剪贴板读取存档',
 
     errorMessage2I18N(s: string): string {
