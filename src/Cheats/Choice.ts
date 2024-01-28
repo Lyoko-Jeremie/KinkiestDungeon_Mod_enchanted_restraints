@@ -233,6 +233,8 @@ export class Choice {
         );
     };
     ChoiceAddCheatChoiceBadNoEscape = (remove?: boolean) => {
+        // 困难的门	[Doorknobs] [Doorknobs]
+        // 当你的手被束缚时，门更难打开。
         // Damsel in Chains  [Damsel]
         // 锁链中的少女
         // Metal restraints are harder to escape from.
@@ -267,8 +269,6 @@ export class Choice {
         );
     };
     ChoiceAddCheatChoiceMap = (remove?: boolean) => {
-        // 困难的门	[Doorknobs] [Doorknobs]
-        // 当你的手被束缚时，门更难打开。
         // 宽敞之牢	[MapLarge] [MapLarge]
         // 将每个方向的地图大小增加 1。
         // 广阔之牢	[MapHuge] [MapHuge]
@@ -276,7 +276,7 @@ export class Choice {
         // 辽阔之牢	[MapGigantic] [MapGigantic]
         // 将每个方向的地图大小增加 3。
         this._AddCheatChoice(
-            "Doorknobs MapLarge MapHuge MapGigantic",
+            "MapLarge MapHuge MapGigantic",
             remove,
         );
     };
