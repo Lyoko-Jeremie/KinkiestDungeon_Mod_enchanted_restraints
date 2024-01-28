@@ -253,6 +253,28 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['Relations Section']),
+                            type: 'br',
+                        },
+                        'FullAllRelations': {
+                            label: StringTable['FullAllRelations'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllRelations();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'FullAllGoddess': {
+                            label: StringTable['FullAllGoddess'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllGoddess();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['Bootstrap Section']),
                             type: 'br',
                         },

@@ -27,6 +27,10 @@ const StringTableKeys = [
     'AddAllKeyTools',
     'RemoveAllKeyTools',
 
+    'Relations Section',
+    'FullAllRelations',
+    'FullAllGoddess',
+
     'Bootstrap Section',
     'BootstrapAllGood',
     'BootstrapSpellChoicesTable',
