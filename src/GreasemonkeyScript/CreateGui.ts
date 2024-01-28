@@ -576,7 +576,7 @@ export class CreateGui {
                         ...Object.keys(WearsList).reduce<InitOptionsNoCustom['fields']>((acc, WK) => {
                             const o: InitOptionsNoCustom['fields'] = {};
                             o['Wear' + WK] = {
-                                label: 'Wear' + WK,
+                                label: StringTable.Wear2I18N('Wear' + WK),
                                 type: 'button',
                                 click() {
                                     const faction = thisRef.gmc!.fields['FactionSelect'].value;
@@ -618,7 +618,7 @@ export class CreateGui {
                             type: 'br',
                         },
                         'MapKKSsMGet': {
-                            label:StringTable ['MapKKSsMGet'],
+                            label: StringTable ['MapKKSsMGet'],
                             type: 'button',
                             click() {
                                 thisRef.gmc!.fields['MapKKSsMGetData'].value =
@@ -637,7 +637,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'MapKKSsMGetData': {
-                            label:StringTable ['MapKKSsMGetData'],
+                            label: StringTable ['MapKKSsMGetData'],
                             type: 'textarea',
                             default: '',
                         },
@@ -661,7 +661,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'MapKSsMGetData': {
-                            label:StringTable[ 'MapKSsMGetData'],
+                            label: StringTable['MapKSsMGetData'],
                             type: 'textarea',
                             default: '',
                         },
@@ -670,7 +670,7 @@ export class CreateGui {
                             type: 'br',
                         },
                         'MapOpenFull': {
-                            label:StringTable ['MapOpenFull'],
+                            label: StringTable ['MapOpenFull'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenFull();
@@ -679,7 +679,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'MapOpenNone': {
-                            label:StringTable ['MapOpenNone'],
+                            label: StringTable ['MapOpenNone'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenNone();
@@ -715,7 +715,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'SetAll_L_AreCage': {
-                            label:StringTable ['SetAll_L_AreCage'],
+                            label: StringTable ['SetAll_L_AreCage'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAll_L_AreCage();
@@ -724,7 +724,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'AllLibChestReset': {
-                            label:StringTable ['ResetAllLibChest'],
+                            label: StringTable ['ResetAllLibChest'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllLibChestReset();
@@ -737,7 +737,7 @@ export class CreateGui {
                             type: 'br',
                         },
                         'HardModeEnable': {
-                            label:StringTable ['HardModeEnable'],
+                            label: StringTable ['HardModeEnable'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeEnable();
@@ -746,7 +746,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'HardModeDisable': {
-                            label:StringTable[ 'HardModeDisable'],
+                            label: StringTable['HardModeDisable'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeDisable();

@@ -1,5 +1,6 @@
 import {StringTable_CN} from "./CN";
 import {StringTable_EN} from "./EN";
+import {WearFunctionType, WearsKeys} from "../Cheats/Restraint";
 
 const StringTableKeys = [
     'title',
@@ -99,7 +100,9 @@ const StringTableKeys = [
 export type StringTableTypeStringPart = { [key in typeof StringTableKeys[number]]: string; };
 
 export interface StringTableType extends StringTableTypeStringPart {
-    isInstalledMask(s: string):string;
+    isInstalledMask(s: string): string;
+
+    Wear2I18N(s: string): string;
 
     errorMessage2I18N(s: string): string;
 
@@ -126,3 +129,9 @@ export const StringTable: StringTableType = new Proxy({}, {
     },
 }) as StringTableType;
 
+
+// =============================================================================================
+
+export type WearStringTableInterface = {
+    [K in WearsKeys as `Wear${ /*Capitalize<K>*/ K}`]: string;
+};

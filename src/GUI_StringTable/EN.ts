@@ -88,5 +88,8 @@ export const StringTable_EN: StringTableType = {
     },
     fallback2I18N(s: string): string | undefined {
         return undefined;
-    }
+    },
+    Wear2I18N(s: string): string {
+        return s;
+    },
 };

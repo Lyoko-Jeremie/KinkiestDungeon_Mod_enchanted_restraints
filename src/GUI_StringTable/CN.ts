@@ -1,4 +1,44 @@
-import {StringTableType} from "./StringTable";
+import {StringTableType, WearStringTableInterface} from "./StringTable";
+
+const WearStringTable_CN: WearStringTableInterface = {
+    WearBanditLeg: "奴隶套装",
+    WearBubble: "泡泡套装()",
+    WearDisplayTrap: "展示架()",
+    WearDivine: "神圣套装",
+    WearDollStand: "玩偶架()",
+    WearDollStandSFW: "玩偶架SFW(?)",
+    WearDragon: "龙鳞",
+    WearDress: "圈子",
+    WearEnchanted: "远古套装",
+    WearEnchantedMaxVibe: "远古强力震动套装",
+    WearGlue: "黄色胶水",
+    WearHardEnchantedSlime: "橡胶远古史莱姆套装",
+    WearHardGhostSlime: "橡胶幽灵史莱姆套装",
+    WearHardSlime: "橡胶史莱姆套装",
+    WearIce: "冰套装",
+    WearKitty: "猫女套装",
+    WearLatexCube: "乳胶方块",
+    WearMageArmor: "MageArmor",
+    WearMaxVibe: "强力震动套装",
+    WearMysticDuct: "祝福丝带套装",
+    WearNippleClamps: "乳头按摩器系列",
+    WearRibbon: "魔法套装",
+    WearSaber: "Saber",
+    WearSarcophagus: "石棺()",
+    WearShadowHand: "影子手套装",
+    WearSlime: "史莱姆套装",
+    WearSlimeBubble: "史莱姆泡泡套装",
+    WearSlimeEnchanted: "远古史莱姆套装",
+    WearSlimeGhost: "幽灵史莱姆套装",
+    WearTrapPlug: "插入按摩器系列",
+    WearTrapVibeProto: "原始震动系列",
+    WearVibe: "震动套装",
+    WearVibrationEnchanted: "远古震动套装",
+    WearVinePlant: "藤曼套装",
+    WearWolf: "狼女套装",
+
+};
+
 
 export const StringTable_CN: StringTableType = {
     title: 'KinkiestDungeon enchanted_restraints Mod',
@@ -88,5 +128,12 @@ export const StringTable_CN: StringTableType = {
     },
     fallback2I18N(s: string): string | undefined {
         return undefined;
-    }
+    },
+    Wear2I18N(s: string): string {
+        const nn = WearStringTable_CN[s as keyof WearStringTableInterface];
+        if (nn) {
+            return `${nn}(${s})`
+        }
+        return s;
+    },
 };
