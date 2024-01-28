@@ -754,6 +754,54 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['SaveLoad Section']),
+                            type: 'br',
+                        },
+                        'GetSaveCode': {
+                            label: StringTable['GetSaveCode'],
+                            type: 'button',
+                            click() {
+                                thisRef.gmc!.fields['GetSaveCodeData'].value =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.GameSaveDataString();
+                                thisRef.gmc!.fields['GetSaveCodeData'].reload();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'GetSaveCodeData': {
+                            label: StringTable['GetSaveCodeData'],
+                            type: 'textarea',
+                            default: '',
+                        },
+                        'CopyGameSaveDataStringToClipboard': {
+                            label: StringTable['CopyGameSaveDataStringToClipboard'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.CopyGameSaveDataStringToClipboard()
+                                    .then(T => {
+                                    }).catch(E => {
+                                });
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'LoadGameSaveStringFromClipboard': {
+                            label: StringTable['LoadGameSaveStringFromClipboard'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.LoadGameSaveStringFromClipboard()
+                                    .then(T => {
+                                    }).catch(E => {
+                                });
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        // 'LoadGameSaveStringFromClipboardResult': {
+                        //     label: StringTable['LoadGameSaveStringFromClipboardResult'],
+                        //     type: 'textarea',
+                        //     default: '',
+                        // },
                     },
                 events: {
                     save(values) {

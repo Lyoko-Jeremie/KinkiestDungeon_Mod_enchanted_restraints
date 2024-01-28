@@ -82,6 +82,11 @@ export const StringTable_EN: StringTableType = {
     'HardMode Section': 'HardMode Section',
     HardModeEnable: 'HardModeEnable',
     HardModeDisable: 'HardModeDisable',
+    'SaveLoad Section': 'SaveLoad Section',
+    GetSaveCode: 'GetSaveCode',
+    GetSaveCodeData: 'GetSaveCodeData',
+    CopyGameSaveDataStringToClipboard: 'CopyGameSaveDataStringToClipboard',
+    LoadGameSaveStringFromClipboard: 'LoadGameSaveStringFromClipboard',
 
     errorMessage2I18N(s: string): string {
         return s;

@@ -44,9 +44,9 @@ export const StringTable_CN: StringTableType = {
     title: 'KinkiestDungeon enchanted_restraints Mod',
     'install EnchantedRestraints Mod Section': '安装 Enchanted Restraints Mod Section',
     install_EnchantedRestraintsPatch: '点击安装 EnchantedRestraintsPatch',
-    isInstalled: '已安装',
+    isInstalled: '是否已安装',
     isInstalledMask(s: string): string {
-        return `已安装？:${s}`
+        return `是否已安装:${s}`
     },
     'ApplyModRestraint Section': 'Apply Mod Restraint Section',
     ApplyModRestraint: 'ApplyModRestraint（全套mod装）',
@@ -120,8 +120,13 @@ export const StringTable_CN: StringTableType = {
     SetAll_L_AreCage: '将所有木桶都设置成笼子（部分地图会出错，慎用）',
     ResetAllLibChest: '重置所有箱子类（对应图书馆桌面和天文馆吊灯等）',
     'HardMode Section': 'HardMode Section',
-    HardModeEnable: 'HardMode Enable',
-    HardModeDisable: 'HardMode Disable',
+    HardModeEnable: '困难模式 开',
+    HardModeDisable: '困难模式 关',
+    'SaveLoad Section': 'SaveLoad Section',
+    GetSaveCode: '获取存档码',
+    GetSaveCodeData: '存档码',
+    CopyGameSaveDataStringToClipboard: '复制存档码到剪贴板',
+    LoadGameSaveStringFromClipboard: '从剪贴板读取存档',
 
     errorMessage2I18N(s: string): string {
         return s;
