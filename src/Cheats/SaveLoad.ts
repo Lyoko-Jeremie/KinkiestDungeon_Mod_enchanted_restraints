@@ -20,7 +20,11 @@ export class SaveLoad {
     }
 
     LoadGameSaveString(s: string) {
-        KinkyDungeonLoadGame(s);
+        // return KinkyDungeonLoadGame(s);
+
+        // use the building load impl, not impl myself. because the load task too complex
+        localStorage.setItem('KinkyDungeonSave', s);
+        KinkyDungeonStartNewGame(true);
     }
 
     async LoadGameSaveStringFromClipboard() {
@@ -31,7 +35,16 @@ export class SaveLoad {
             console.log('CopyGameSaveDataStringToClipboard ok');
             a = true;
 
+            // we use it to check ours save data is valid
+            // this will load, but not start a new game
             b = KinkyDungeonLoadGame(s);
+            if (!b) {
+                return [a, b];
+            }
+
+            // use the building load impl, not impl myself. because the load task too complex
+            localStorage.setItem('KinkyDungeonSave', s);
+            KinkyDungeonStartNewGame(true);
             return [a, b];
         } catch (E) {
             console.error(E);

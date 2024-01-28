@@ -1,3 +1,5 @@
+import {SaveLoadIndexDB} from "./SaveLoadIndexDB/SaveLoadIndexDB";
+
 console.log("=============================enchanted_restraints init begin=============================");
 console.time("enchanted_restraints init load time");
 
@@ -16,6 +18,13 @@ export {EnchantedRestraintsPatch, isInit};
 // Cheats
 if (!window.KinkyDungeonMod_EnchantedRestraints.Cheats) {
     window.KinkyDungeonMod_EnchantedRestraints.Cheats = new Cheats();
+}
+
+// SaveLoadIndexDB
+if (!window.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB) {
+    window.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB = new SaveLoadIndexDB(
+        window.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad
+    );
 }
 
 // RestraintsPatch

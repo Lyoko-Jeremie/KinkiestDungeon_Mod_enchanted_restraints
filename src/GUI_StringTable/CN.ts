@@ -133,6 +133,11 @@ export const StringTable_CN: StringTableType = {
     LoadGameSaveStringFromClipboard: '从剪贴板读取存档',
     'ForceNextLevelType Section': '强制之后每层的类型 Section',
     'ForceNextLevelTypeOnce Section': '强制下一层的类型 Section',
+    'SaveLoad IndexDB Section Demo': '简易IndexDB多存档功能 Section',
+    CreateAIndexDBSave: '以当前状态创建IndexDB新存档',
+    ListIndexDBSave: '列出所有IndexDB中的存档',
+    IndexDBSaveSelect: '选择要加载的存档',
+    LoadIndexDBSave: '加载选中的存档',
 
     errorMessage2I18N(s: string): string {
         return s;

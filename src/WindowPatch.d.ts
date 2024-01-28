@@ -1,16 +1,19 @@
 export {};
 import type {Cheats} from './Cheats/Cheats';
+import type {SaveLoadIndexDB} from './SaveLoadIndexDB/SaveLoadIndexDB';
 
 declare global {
     interface Window {
         KinkyDungeonMod_EnchantedRestraints: {
             Cheats: Cheats,
+            SaveLoadIndexDB: SaveLoadIndexDB,
             ApplyModRestraint: () => any[],
             setEdgeOnly: (b: boolean) => void,
             EnchantedRestraintsPatch: () => void,
         };
         Mod_EnchantedRestraints: {
             Cheats: Cheats,
+            SaveLoadIndexDB: SaveLoadIndexDB,
             ApplyModRestraint: () => any[],
             setEdgeOnly: (b: boolean) => void,
             EnchantedRestraintsPatch: () => void,
@@ -24,6 +27,8 @@ declare global {
     let KDAllModFiles: string[];
     let KDModFiles: { [key: string]: ReturnType<URL.createObjectURL> };
     let KinkyDungeonRootDirectory: string;
+
+    let KinkyDungeonStartNewGame: (Load: boolean) => void;
 
     // =================================================
     // from KK

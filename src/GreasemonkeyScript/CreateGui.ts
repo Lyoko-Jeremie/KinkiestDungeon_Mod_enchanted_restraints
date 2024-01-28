@@ -8,6 +8,7 @@ import {assign} from "lodash";
 import {LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {StringTable} from "../GUI_StringTable/StringTable";
+import {SaveLoadIndexDB} from "../SaveLoadIndexDB/SaveLoadIndexDB";
 
 KDOptOut = true;
 
@@ -867,6 +868,61 @@ export class CreateGui {
                                 };
                                 return assign<InitOptionsNoCustom['fields'], InitOptionsNoCustom['fields']>(acc, o);
                             }, {} as InitOptionsNoCustom['fields']),
+                        [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['SaveLoad IndexDB Section Demo']),
+                            type: 'br',
+                        },
+                        'CreateAIndexDBSave': {
+                            label: StringTable['CreateAIndexDBSave'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.addSave();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ListIndexDBSave': {
+                            label: StringTable['ListIndexDBSave'],
+                            type: 'button',
+                            click: async () => {
+                                const l = await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.list();
+                                console.log(l);
+                                thisRef.gmc!.fields['IndexDBSaveSelect'].settings.options = ['None'].concat(l);
+                                thisRef.gmc!.fields['IndexDBSaveSelect'].reload();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'IndexDBSaveSelect': {
+                            label: StringTable['IndexDBSaveSelect'],
+                            type: 'select',
+                            value: '',
+                            options: [],
+                            cssClassName: 'd-inline',
+                        },
+                        'LoadIndexDBSave': {
+                            label: StringTable['LoadIndexDBSave'],
+                            type: 'button',
+                            click: async () => {
+                                const timeS = thisRef.gmc!.fields['IndexDBSaveSelect'].value;
+                                await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.loadGame(timeS as string);
+                                // const s = await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.load(timeS as string);
+                                // console.log(s);
+                                // if (s) {
+                                //     // const r = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.LoadGameSaveString(s);
+                                //     // console.log(r);
+                                //     // if (r) {
+                                //     //     // go game
+                                //     //     KDSendEvent('loadGame');
+                                //     // }
+                                //
+                                //     // use the building load impl, not impl myself. because the load task too complex
+                                //     localStorage.setItem('KinkyDungeonSave', s);
+                                //     KinkyDungeonStartNewGame(true);
+                                // }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         // 'LoadGameSaveStringFromClipboardResult': {
                         //     label: StringTable['LoadGameSaveStringFromClipboardResult'],
                         //     type: 'textarea',

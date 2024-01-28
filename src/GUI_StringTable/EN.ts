@@ -92,6 +92,11 @@ export const StringTable_EN: StringTableType = {
     LoadGameSaveStringFromClipboard: 'LoadGameSaveStringFromClipboard',
     'ForceNextLevelType Section': 'ForceNextLevelType Section',
     'ForceNextLevelTypeOnce Section': 'ForceNextLevelTypeOnce Section',
+    'SaveLoad IndexDB Section Demo': 'SaveLoad IndexDB Section Demo',
+    CreateAIndexDBSave: 'CreateAIndexDBSave',
+    ListIndexDBSave: 'ListIndexDBSave',
+    IndexDBSaveSelect: 'IndexDBSaveSelect',
+    LoadIndexDBSave: 'LoadIndexDBSave',
 
     errorMessage2I18N(s: string): string {
         return s;

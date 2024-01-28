@@ -107,6 +107,12 @@ const StringTableKeys = [
 
     'ForceNextLevelType Section',
     'ForceNextLevelTypeOnce Section',
+
+    'SaveLoad IndexDB Section Demo',
+    'CreateAIndexDBSave',
+    'ListIndexDBSave',
+    'IndexDBSaveSelect',
+    'LoadIndexDBSave',
 ] as const;
 
 export type StringTableTypeStringPart = { [key in typeof StringTableKeys[number]]: string; };
