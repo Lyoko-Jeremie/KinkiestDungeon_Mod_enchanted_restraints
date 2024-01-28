@@ -13,6 +13,8 @@
   "dependencies": {
     "@types/archiver": "^6.0.2",
     "@types/lodash": "^4.14.196",
+    "@types/ungap__structured-clone": "^1.2.0",
+    "@ungap/structured-clone": "^1.2.0",
     "archiver": "^6.0.1",
     "bootstrap": "^5.3.1",
     "copy-webpack-plugin": "^12.0.2",

@@ -1,3 +1,4 @@
+import './polyfill';
 import './GreasemonkeyScript/CreateGui';
 import {CreateGui} from './GreasemonkeyScript/CreateGui';
 

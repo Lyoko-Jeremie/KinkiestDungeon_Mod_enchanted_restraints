@@ -707,6 +707,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ungap__structured-clone@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@types/ungap__structured-clone@npm:1.2.0"
+  checksum: 5399cfc129ecae2986fbe223fdf8f443c27a628e0d24e1be0fd3d041d643e9a041be54d9b9511fdf36279e7a3cb4c9d72493f30d75fdcde52efa3ac9dc0ebb1e
+  languageName: node
+  linkType: hard
+
 "@types/vinyl@npm:^2.0.4":
   version: 2.0.7
   resolution: "@types/vinyl@npm:2.0.7"
@@ -714,6 +721,13 @@ __metadata:
     "@types/expect": ^1.20.4
     "@types/node": "*"
   checksum: 8e6e341860a2a024d5802517fb171ffc66bfbd91b0eefe8dd4376e08733e468781417ba861b9d32bb8207707cf554e3aeb60d08297c5e666a40520af95082e2d
+  languageName: node
+  linkType: hard
+
+"@ungap/structured-clone@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@ungap/structured-clone@npm:1.2.0"
+  checksum: 4f656b7b4672f2ce6e272f2427d8b0824ed11546a601d8d5412b9d7704e83db38a8d9f402ecdf2b9063fc164af842ad0ec4a55819f621ed7e7ea4d1efcc74524
   languageName: node
   linkType: hard
 
@@ -938,6 +952,8 @@ __metadata:
   dependencies:
     "@types/archiver": ^6.0.2
     "@types/lodash": ^4.14.196
+    "@types/ungap__structured-clone": ^1.2.0
+    "@ungap/structured-clone": ^1.2.0
     "@webpack-cli/generators": ^3.0.7
     archiver: ^6.0.1
     bootstrap: ^5.3.1
