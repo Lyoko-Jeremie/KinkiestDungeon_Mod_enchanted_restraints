@@ -30,6 +30,7 @@ const WearStringTable_CN: WearStringTableInterface = {
     WearSlimeBubble: "史莱姆泡泡套装",
     WearSlimeEnchanted: "远古史莱姆套装",
     WearSlimeGhost: "灵浆史莱姆套装",
+    WearLiquidMetal: "液态金属套装",
     WearTrapPlug: "插入按摩器系列",
     WearTrapVibeProto: "原始震动系列",
     WearVibe: "震动套装",

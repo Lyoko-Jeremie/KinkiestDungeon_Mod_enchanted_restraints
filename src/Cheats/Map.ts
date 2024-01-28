@@ -526,7 +526,7 @@ export class MapGet {
                     KDMapData.JailPoints.push({x: x, y: y, type: "furniture", radius: 1});
                 }
                 KDMapData.Tiles[(x) + "," + (y)] = {Type: "Trap", Furniture: "DisplayStand", Trap: "DisplayStandTrap"};
-            }
+            }// DollStand
             return c;
         });
     }
