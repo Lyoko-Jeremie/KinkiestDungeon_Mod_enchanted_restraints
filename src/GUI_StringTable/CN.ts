@@ -130,6 +130,8 @@ export const StringTable_CN: StringTableType = {
     GetSaveCodeData: '存档码',
     CopyGameSaveDataStringToClipboard: '复制存档码到剪贴板(同时会触发游戏内存档!)',
     LoadGameSaveStringFromClipboard: '从剪贴板读取存档',
+    'ForceNextLevelType Section': '强制之后每层的类型 Section',
+    'ForceNextLevelTypeOnce Section': '强制下一层的类型 Section',
 
     errorMessage2I18N(s: string): string {
         return s;

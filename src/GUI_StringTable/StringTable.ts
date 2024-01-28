@@ -99,12 +99,14 @@ const StringTableKeys = [
     'HardMode Section',
     'HardModeEnable',
     'HardModeDisable',
-
     'SaveLoad Section',
     'GetSaveCode',
     'GetSaveCodeData',
     'CopyGameSaveDataStringToClipboard',
     'LoadGameSaveStringFromClipboard',
+
+    'ForceNextLevelType Section',
+    'ForceNextLevelTypeOnce Section',
 ] as const;
 
 export type StringTableTypeStringPart = { [key in typeof StringTableKeys[number]]: string; };

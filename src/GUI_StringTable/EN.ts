@@ -90,6 +90,8 @@ export const StringTable_EN: StringTableType = {
     GetSaveCodeData: 'GetSaveCodeData',
     CopyGameSaveDataStringToClipboard: 'CopyGameSaveDataStringToClipboard',
     LoadGameSaveStringFromClipboard: 'LoadGameSaveStringFromClipboard',
+    'ForceNextLevelType Section': 'ForceNextLevelType Section',
+    'ForceNextLevelTypeOnce Section': 'ForceNextLevelTypeOnce Section',
 
     errorMessage2I18N(s: string): string {
         return s;
