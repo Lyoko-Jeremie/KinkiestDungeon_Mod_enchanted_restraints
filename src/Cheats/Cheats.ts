@@ -22,21 +22,31 @@ export class CheatsBase extends Restraint {
 
     _FunctionReplaceHook = new _FunctionReplaceHook();
 
+    _MapType: string[] = [];
+    _MapBackgroundType: string[] = [];
+    NameList_ForceNextMapTypeOnce: string[] = [];
+    NameList_ForceNextMapType: string[] = [];
+
     protected installForceMap() {
-        const names = Object.keys(KinkyDungeonMapParams);
-        names.forEach(T => {
-            (this as any)['ForceNextMapTypeOnce_' + T + '_' + KinkyDungeonMapParams[T].background] = () => {
+        this._MapType = Object.keys(KinkyDungeonMapParams);
+        this._MapBackgroundType = this._MapType.map(T => KinkyDungeonMapParams[T].background);
+        this._MapType.forEach(T => {
+            const Name_ForceNextMapTypeOnce = 'ForceNextMapTypeOnce_' + T + '_' + KinkyDungeonMapParams[T].background;
+            (this as any)[Name_ForceNextMapTypeOnce] = () => {
                 this._FunctionReplaceHook.InstallFunctionReplaceHookOnce(
                     'KinkyDungeonGetMainPath',
                     () => T,
                 );
             };
-            (this as any)['ForceNextMapType_' + T + '_' + KinkyDungeonMapParams[T].background] = () => {
+            const Name_ForceNextMapType = 'ForceNextMapType_' + T + '_' + KinkyDungeonMapParams[T].background;
+            (this as any)[Name_ForceNextMapType] = () => {
                 this._FunctionReplaceHook.InstallFunctionReplaceHook(
                     'KinkyDungeonGetMainPath',
                     () => T,
                 );
             };
+            this.NameList_ForceNextMapTypeOnce.push(Name_ForceNextMapTypeOnce);
+            this.NameList_ForceNextMapType.push(Name_ForceNextMapType);
         });
     }
 
