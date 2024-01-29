@@ -72,6 +72,8 @@ export const StringTable_EN: StringTableType = {
     LockNowWearRestraintItem: 'LockNowWearRestraintItem',
     UnlockNowWearRestraintItem: 'UnlockNowWearRestraintItem',
     RemoveNowWearRestraintItem: 'RemoveNowWearRestraintItem',
+    JailOutfitSelect: 'JailOutfitSelect',
+    WearJailOutfit: 'WearJailOutfit',
     //  TODO
     'OpenChest Section': 'OpenChest Section',
     OpenChest: 'OpenChest',

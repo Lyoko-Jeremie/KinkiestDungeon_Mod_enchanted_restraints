@@ -50,6 +50,9 @@ export const WearsList = {
     Glue: "GlueLegs GlueFeet GlueBoots",
     // 狼女
     Wolf: "WolfArmbinder WolfCuffs WolfAnkleCuffs WolfHarness WolfBallGag WolfCollar WolfLeash WolfPanties",
+    // CyberDoll
+    CyberDoll: "CyberBelt CyberBra CyberBallGag CyberPlugGag CyberMuzzle CyberDollJacket CyberArmCuffs CyberAnkleCuffs CyberLegCuffs CyberHeels",
+    CyberAnkle: "CyberAnkleCuffs CyberAnkleCuffs2 CyberAnkleCuffs3 CyberLegCuffs CyberLegCuffs2 CyberArmCuffs CyberArmCuffs2 CyberArmCuffs3 CyberArmCuffs4",
     // Slime
     Slime: "SlimeBoots SlimeFeet SlimeHands SlimeLegs SlimeArms SlimeMouth SlimeHead",
     SlimeEnchanted: "EnchantedSlimeBoots EnchantedSlimeFeet EnchantedSlimeHands EnchantedSlimeLegs EnchantedSlimeArms EnchantedSlimeMouth EnchantedSlimeHead",
@@ -72,6 +75,7 @@ export const WearsList = {
     // AAAAA: ,
 } as const; // 使用 as const 来获得一个 readonly tuple 类型
 
+// KDJailOutfits
 
 // same as KinkyDungeonFactionColors
 const KinkyDungeonFactionColors_ = {
@@ -232,7 +236,26 @@ export class Restraint extends RestraintFactory() implements WearMethodsInterfac
     // Restraint extends (extends RestraintBase implements WearMethodsInterface)
 }
 
+type KDJailRestraint = { Name: string, Level: number, Variant?: string, Condition?: string, Priority?: string };
+
 export class RestraintCustomWear extends Restraint {
+    listAllKDJailOutfits() {
+        return Object.keys(KDJailOutfits);
+    }
+
+    getKDJailOutfit(k: string): KDJailRestraint[] | undefined {
+        return KDJailOutfits[k]?.restraints;
+    }
+
+    WearKDJailOutfit(k: string, lock?: LockList, faction?: string) {
+        const r = this.getKDJailOutfit(k);
+        if (r) {
+            return r.map((T) => {
+                return this.WearRestraints(T.Name, lock, faction, true);
+            });
+        }
+    }
+
     listAllRestraintItem(): restraint[] {
         return Array.from(KinkyDungeonRestraintsCache.values());
     }

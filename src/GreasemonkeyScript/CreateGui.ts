@@ -765,6 +765,33 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'JailOutfitSelect': {
+                            label: StringTable['JailOutfitSelect'],
+                            type: 'select',
+                            value: 'None',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllKDJailOutfits(),
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'WearJailOutfit': {
+                            label: StringTable['WearJailOutfit'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['JailOutfitSelect'].value as string;
+                                const faction = thisRef.gmc!.fields['FactionSelect'].value;
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
+                                    c,
+                                    thisRef.gmc!.fields['LockSelect'].value as LockList,
+                                    faction as KinkyDungeonFactionColors_Keys,
+                                    // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                );
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['OpenChest Section']),
                             type: 'br',
                         },

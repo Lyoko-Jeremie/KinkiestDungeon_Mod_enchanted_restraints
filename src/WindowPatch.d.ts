@@ -263,4 +263,12 @@ declare global {
     var KDLoadPerks: () => void;
 
     var KDCornerTiles: { [key: string]: boolean };
+
+    var KDJailOutfits: Record<string, {
+        overridelowerpriority: boolean,
+        priority: number,
+        jail: boolean,
+        parole: boolean,
+        restraints: KDJailRestraint[]
+    }>;
 }

@@ -37,7 +37,8 @@ const WearStringTable_CN: WearStringTableInterface = {
     WearVibrationEnchanted: "远古震动套装",
     WearVinePlant: "藤曼套装",
     WearWolf: "狼女套装",
-
+    WearCyberDoll: "网络娃娃套装",
+    WearCyberAnkle: "网络套装",
 };
 
 
@@ -113,6 +114,8 @@ export const StringTable_CN: StringTableType = {
     LockNowWearRestraintItem: '锁定当前选择的已穿戴物',
     UnlockNowWearRestraintItem: '解锁当前选择的已穿戴物',
     RemoveNowWearRestraintItem: '移除当前选择的已穿戴物',
+    JailOutfitSelect: '监狱套装',
+    WearJailOutfit: '穿上选择的监狱套装',
     //  TODO
     'OpenChest Section': '开箱 Section',
     OpenChest: '开箱（对应图书馆的桌面，和正常的箱子，在图书馆地图使用会进入游戏的随机中招逻辑）',
