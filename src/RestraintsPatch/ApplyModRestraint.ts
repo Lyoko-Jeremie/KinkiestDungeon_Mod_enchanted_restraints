@@ -1,4 +1,7 @@
-export function ApplyModRestraint() {
+import {LockList, LockList2RealLock} from "../Cheats/LockList";
+
+export function ApplyModRestraint(lock?: LockList) {
+    let realLock: string = LockList2RealLock(lock, LockList.Gold);
     // all the order are important , because some of those will link each other
     // the thing change from origin
     let s =
@@ -22,7 +25,7 @@ export function ApplyModRestraint() {
     console.log(s);
     let r = s.split(" ").filter(T => !!T).map(T => {
         try {
-            return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, "Gold")
+            return KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName(T), 10, false, realLock);
         } catch (e) {
             console.log(e);
         }

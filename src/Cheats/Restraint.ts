@@ -1,5 +1,5 @@
 import {isSafeInteger} from 'lodash'
-import {LockList} from "./LockList";
+import {LockList, LockList2RealLock} from "./LockList";
 
 export const WearsList = {
     // VinePlant
@@ -109,12 +109,7 @@ class RestraintBase {
         faction?: (keyof (typeof KinkyDungeonFactionColors)),
         forceWearIt: boolean = false,
     ) => {
-        let realLock: string = lock;
-        if (realLock === undefined || realLock === null) {
-            realLock = LockList.Gold;
-        } else if (realLock === LockList.None) {
-            realLock = "";
-        }
+        let realLock: string = LockList2RealLock(lock);
         // lock can be Purple Red White Blue Gold
         // Red White is normal key
         // Blue is magic key
@@ -261,13 +256,7 @@ export class RestraintCustomWear extends Restraint {
     }
 
     lockAWearingRestraintItem(item: item, lock: LockList = LockList.Purple) {
-        let realLock: string = lock;
-        if (realLock === undefined || realLock === null) {
-            realLock = LockList.Gold;
-        } else if (realLock === LockList.None) {
-            realLock = "";
-        }
-        KinkyDungeonLock(item, realLock);
+        KinkyDungeonLock(item, LockList2RealLock(lock));
     }
 
     unlockAWearingRestraintItem(item: item, NoEvent = false) {

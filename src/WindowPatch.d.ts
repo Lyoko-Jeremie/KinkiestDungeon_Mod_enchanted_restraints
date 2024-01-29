@@ -1,3 +1,5 @@
+import {LockList} from "./Cheats/LockList";
+
 export {};
 import type {Cheats} from './Cheats/Cheats';
 import type {SaveLoadIndexDB} from './SaveLoadIndexDB/SaveLoadIndexDB';
@@ -7,14 +9,14 @@ declare global {
         KinkyDungeonMod_EnchantedRestraints: {
             Cheats: Cheats,
             SaveLoadIndexDB: SaveLoadIndexDB,
-            ApplyModRestraint: () => any[],
+            ApplyModRestraint: (lock?: LockList) => any[],
             setEdgeOnly: (b: boolean) => void,
             EnchantedRestraintsPatch: () => void,
         };
         Mod_EnchantedRestraints: {
             Cheats: Cheats,
             SaveLoadIndexDB: SaveLoadIndexDB,
-            ApplyModRestraint: () => any[],
+            ApplyModRestraint: (lock?: LockList) => any[],
             setEdgeOnly: (b: boolean) => void,
             EnchantedRestraintsPatch: () => void,
         };
