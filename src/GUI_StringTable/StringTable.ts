@@ -81,6 +81,7 @@ const StringTableKeys = [
     'WearTheSelectedRestrain',
     'LockNowWearRestraintItem',
     'UnlockNowWearRestraintItem',
+    'RemoveNowWearRestraintItem',
     //  TODO
 
     'OpenChest Section',

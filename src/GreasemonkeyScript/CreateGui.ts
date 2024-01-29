@@ -88,6 +88,18 @@ export class CreateGui {
         this.do_install_EnchantedRestraintsPatch();
         console.log('[KinkiestDungeon enchanted_restraints Mod] waitKDLoadingFinished ok');
     };
+
+    calcNowWearRestraintItemSelect = () => {
+        return this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem().map(T => {
+            return `${T.restraint?.name}|[${T.restraint ? TextGet(`Restraint${T.restraint.name}`) : ''}][${T.restraint?.Group}]--` +
+                (T.parentRestraint ? (`[${T.parentRestraint?.name || ''}][${T.parentRestraint ? TextGet(`Restraint${T.parentRestraint.name}`) : ''}][${T.parentRestraint?.Group || ''}]`) : '');
+        })
+    }
+    flushNowWearRestraintItemSelect = () => {
+        this.gmc!.fields['NowWearRestraintItemSelect'].settings.options = this.calcNowWearRestraintItemSelect();
+        this.gmc!.fields['NowWearRestraintItemSelect'].reload();
+    }
+
     gmcCreator = () => {
         const thisRef = this;
         return new GM_config(
@@ -664,6 +676,7 @@ export class CreateGui {
                                             faction as KinkyDungeonFactionColors_Keys,
                                             // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                         );
+                                        thisRef.flushNowWearRestraintItemSelect();
                                     }
                                 }
                             },
@@ -677,10 +690,7 @@ export class CreateGui {
                             label: StringTable['NowWearRestraintItemSelect'],
                             type: 'select',
                             value: 'None',
-                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem().map(T => {
-                                return `${T.restraint?.name}|[${T.restraint ? TextGet(`Restraint${T.restraint.name}`) : ''}][${T.restraint?.Group}]--` +
-                                    (T.parentRestraint ? (`[${T.parentRestraint?.name || ''}][${T.parentRestraint ? TextGet(`Restraint${T.parentRestraint.name}`) : ''}][${T.parentRestraint?.Group || ''}]`) : '');
-                            }),
+                            options: thisRef.calcNowWearRestraintItemSelect(),
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
                         },
@@ -698,6 +708,7 @@ export class CreateGui {
                                         const n = l.find(T => T.restraint?.name === name);
                                         if (n) {
                                             thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.lockAWearingRestraintItem(n.item, k);
+                                            thisRef.flushNowWearRestraintItemSelect();
                                         } else {
                                             console.warn('LockNowWearRestraintItem not found', name);
                                         }
@@ -720,8 +731,32 @@ export class CreateGui {
                                         const n = l.find(T => T.restraint?.name === name);
                                         if (n) {
                                             thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.unlockAWearingRestraintItem(n.item);
+                                            thisRef.flushNowWearRestraintItemSelect();
                                         } else {
                                             console.warn('UnlockNowWearRestraintItem not found', name);
+                                        }
+                                    }
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'RemoveNowWearRestraintItem': {
+                            label: StringTable['RemoveNowWearRestraintItem'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['NowWearRestraintItemSelect'].value;
+                                const l = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem();
+                                if (c && isString(c)) {
+                                    const cc = c.split('|[');
+                                    if (cc.length === 2) {
+                                        const name = cc[0];
+                                        const n = l.find(T => T.restraint?.name === name);
+                                        if (n) {
+                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveRestraint(n.item);
+                                            thisRef.flushNowWearRestraintItemSelect();
+                                        } else {
+                                            console.warn('RemoveNowWearRestraintItem not found', name);
                                         }
                                     }
                                 }

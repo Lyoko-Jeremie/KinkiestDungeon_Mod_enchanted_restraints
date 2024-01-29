@@ -200,6 +200,11 @@ class RestraintBase {
         });
     };
 
+    RemoveRestraint = (item: item) => {
+        const T = KDRestraint(item);
+        return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)
+    };
+
 }
 
 type RestraintClassType = new () => RestraintBase & WearMethodsInterface;
