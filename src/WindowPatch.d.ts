@@ -84,6 +84,50 @@ declare global {
         autoMessage = true,
         securityEnemy: entity | undefined = undefined,
     ) => number;
+    /**
+     * @param {restraint | string} restraint
+     * @param {number} [Tightness]
+     * @param {boolean} [Bypass]
+     * @param {string} [Lock]
+     * @param {boolean} [Keep]
+     * @param {boolean} [Trapped] - Deprecated do not use
+     * @param {KinkyDungeonEvent[]} [events]
+     * @param {string} [faction]
+     * @param {boolean} [Deep] - whether or not it can go deeply in the stack
+     * @param {string} [Curse] - Curse to apply
+     * @param {entity} [securityEnemy] - Bypass is treated separately for these groups
+     * @param {boolean} [useAugmentedPower] - Augment power to keep consistency
+     * @param {string} [inventoryAs] - inventoryAs for the item
+     * @param {Record<string, any>} [data] - data for the item
+     * @param {string[]} [augmentedInventory]
+     * @param {ApplyVariant} [variant] - variant for the item
+     * @returns {number}
+     */
+    var KinkyDungeonAddRestraintIfWeaker: (
+        restraint: restraint | string,
+        Tightness: number,
+        Bypass: boolean,
+        Lock: string,
+        Keep?: boolean,
+        Trapped?: boolean,
+        events?: KinkyDungeonEvent[],
+        faction?: string,
+        Deep?: boolean,
+        Curse?: string,
+        securityEnemy?: entity,
+        useAugmentedPower?: boolean,
+        inventoryAs?: string,
+        data?: Record<string, any>,
+        augmentedInventory?: string[],
+        variant?: ApplyVariant,
+    ) => number;
+    /**
+     *
+     * @param {item} item
+     * @param {string} lock
+     * @param {boolean} NoEvent
+     */
+    var KinkyDungeonLock: (item: item, lock: string, NoEvent = false) => void;
 
     var KinkyDungeonAllRestraint: () => item[];
     var KinkyDungeonAllRestraintDynamic: () => { item: item, host: item }[];

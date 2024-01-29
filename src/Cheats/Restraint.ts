@@ -109,6 +109,12 @@ class RestraintBase {
         faction?: (keyof (typeof KinkyDungeonFactionColors)),
         forceWearIt: boolean = false,
     ) => {
+        let realLock: string = lock;
+        if (realLock === undefined || realLock === null) {
+            realLock = LockList.Gold;
+        } else if (realLock === LockList.None) {
+            realLock = "";
+        }
         // lock can be Purple Red White Blue Gold
         // Red White is normal key
         // Blue is magic key
@@ -130,7 +136,7 @@ class RestraintBase {
                                 RR,
                                 10000,
                                 false,
-                                lock || LockList.Gold,
+                                realLock,
                                 undefined,
                                 undefined,
                                 undefined,
@@ -143,7 +149,7 @@ class RestraintBase {
                                 RR,
                                 10000,
                                 true,
-                                lock || LockList.Gold,
+                                realLock,
                                 true,
                                 undefined,
                                 undefined,
@@ -255,7 +261,13 @@ export class RestraintCustomWear extends Restraint {
     }
 
     lockAWearingRestraintItem(item: item, lock: LockList = LockList.Purple) {
-        KinkyDungeonLock(item, lock);
+        let realLock: string = lock;
+        if (realLock === undefined || realLock === null) {
+            realLock = LockList.Gold;
+        } else if (realLock === LockList.None) {
+            realLock = "";
+        }
+        KinkyDungeonLock(item, realLock);
     }
 
     unlockAWearingRestraintItem(item: item, NoEvent = false) {
