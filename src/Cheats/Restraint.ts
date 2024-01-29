@@ -106,7 +106,8 @@ class RestraintBase {
     WearRestraints = (
         restraints = "",
         lock = LockList.Gold,
-        faction?: (keyof (typeof KinkyDungeonFactionColors))
+        faction?: (keyof (typeof KinkyDungeonFactionColors)),
+        forceWearIt: boolean = false,
     ) => {
         // lock can be Purple Red White Blue Gold
         // Red White is normal key
@@ -116,23 +117,40 @@ class RestraintBase {
         // MistressKey need the MistressKey to unlock
         // GhostLock need the Ectoplasm to unlock
         // 2 hidden lock MistressKey GhostLock only in the Restraint config
+        // some restraint cannot lock by any lock, the logic in `function KinkyDungeonIsLockable(restraint) {}`
         const W: [restraint, number][] = restraints.split(" ")
             .filter(T => !!T)
             .map<[] | [restraint, number]>(T => {
                     try {
                         const RR = KinkyDungeonGetRestraintByName(T);
                         console.log(RR.name);
-                        return [RR, KinkyDungeonAddRestraint(
-                            RR,
-                            10,
-                            false,
-                            lock || LockList.Gold,
-                            undefined,
-                            undefined,
-                            undefined,
-                            undefined,
-                            faction as string || undefined,
-                        )];
+                        if (forceWearIt) {
+                            // this impl will force wear and replace other conflict restraint
+                            return [RR, KinkyDungeonAddRestraint(
+                                RR,
+                                10000,
+                                false,
+                                lock || LockList.Gold,
+                                undefined,
+                                undefined,
+                                undefined,
+                                undefined,
+                                faction as string || undefined,
+                            )];
+                        } else {
+                            // this impl will ignore it if it cannot wear
+                            return [RR, KinkyDungeonAddRestraintIfWeaker(
+                                RR,
+                                10000,
+                                true,
+                                lock || LockList.Gold,
+                                true,
+                                undefined,
+                                undefined,
+                                faction as string || undefined,
+                                true,
+                            )];
+                        }
                     } catch (e) {
                         console.error(e);
                         return [];
@@ -208,5 +226,67 @@ export class Restraint extends RestraintFactory() implements WearMethodsInterfac
     // Restraint extends (extends RestraintBase implements WearMethodsInterface)
 }
 
-const a = new Restraint();
+export class RestraintCustomWear extends Restraint {
+    listAllRestraintItem(): restraint[] {
+        return Array.from(KinkyDungeonRestraintsCache.values());
+    }
+
+    listAllRestraintItemByGroup(): Map<string, restraint[]> {
+        const all = this.listAllRestraintItem();
+        return all.reduce((Acc, TT, I, A) => {
+            const T = TT;
+            if (!Acc.has(T.Group)) {
+                Acc.set(T.Group, []);
+            }
+            Acc.get(T.Group)!.push(TT);
+            return Acc;
+        }, new Map<string, restraint[]>);
+    }
+
+    getNowWearRestraintItem() {
+        return KinkyDungeonAllRestraintDynamic().map((r) => {
+            return {
+                item: r.item,
+                restraint: r.item ? KDRestraint(r.item) : undefined,
+                parentItem: r.host,
+                parentRestraint: r.host ? KDRestraint(r.host) : undefined,
+            };
+        });
+    }
+
+    lockAWearingRestraintItem(item: item, lock: LockList = LockList.Purple) {
+        KinkyDungeonLock(item, lock);
+    }
+
+    unlockAWearingRestraintItem(item: item, NoEvent = false) {
+        KinkyDungeonLock(item, "", NoEvent);
+    }
+
+    unlockAllWearingRestraint() {
+        const r = this.getNowWearRestraintItem();
+        for (const n of r) {
+            KinkyDungeonLock(n.item, "", true);
+        }
+    }
+
+}
+
+// const a = new Restraint();
+
+
+// if (AIData.attack.includes("Lock") && KinkyDungeonPlayerGetLockableRestraints().length > 0) {
+// function KinkyDungeonPlayerGetLockableRestraints()
+// /**
+//  * Generates a lock
+//  * @param {boolean} [Guaranteed]
+//  * @param {number} [Floor]
+//  * @param {boolean} [AllowGold]
+//  * @param {string} [Type] - Used to customize the type
+//  * @param {any} [Data] - Used to customize the type
+//  * @returns {string}
+//  */
+// function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold, Type, Data)
+
+// KinkyDungeonLock(Lockable[L], l); // Lock it!
+
 
