@@ -10,10 +10,10 @@ import {_FunctionReplaceHook} from './_FunctionReplaceHook';
 import {MapGet} from "./Map";
 import {LockList} from "./LockList";
 import {FullCheats} from "./Full";
-import {Restraint} from "./Restraint";
+import {RestraintCustomWear} from "./Restraint";
 
 
-export class CheatsBase extends Restraint {
+export class CheatsBase extends RestraintCustomWear {
 
     DebugSee = new DebugSee();
     SaveLoad = new SaveLoad();
