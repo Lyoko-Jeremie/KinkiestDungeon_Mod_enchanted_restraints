@@ -612,3 +612,47 @@ export class MapGet {
     }
 
 }
+
+// Charm Trap
+// 绷带陷阱
+// Ribbon Trap
+// 丝带陷阱
+// Shackle Trap
+// 镣铐陷阱
+// Mummy Trap
+// 木乃伊陷阱
+// Rope Trap
+// 绳陷阱
+// Holy Rope Trap
+// 神圣绳陷阱
+// Belt Trap
+// 束带陷阱
+// Cable Trap
+// 钢索陷阱
+// Slime Trap
+// 粘液陷阱
+// Chain Trap
+// 锁链陷阱
+// Shadow Latex Trap
+// 暗影乳胶陷阱
+//
+// KinkyDungeonSpellTrapCharmWeak,Charm Trap
+// KinkyDungeonSpellTrapRibbons,Ribbon Trap
+// KinkyDungeonSpellTrapShackleWeak,Shackle Trap
+// KinkyDungeonSpellTrapMummyWeak,Mummy Trap
+// KinkyDungeonSpellTrapRopeWeak,Rope Trap
+// KinkyDungeonSpellTrapRopeStrong,Rope Trap
+// KinkyDungeonSpellTrapRopeHoly,Holy Rope Trap
+// KinkyDungeonSpellTrapLeatherWeak,Belt Trap
+// KinkyDungeonSpellTrapCableWeak,Cable Trap
+// KinkyDungeonSpellTrapSlimeWeak,Slime Trap
+// KinkyDungeonSpellTrapMagicChainsWeak,Chain Trap
+// KinkyDungeonSpellTrapShadowLatex,Shadow Latex Trap
+// KinkyDungeonSpellTrapObsidian,Demonic Sigil
+// KinkyDungeonSpellTrapCrystal,Unstable Crystals
+// KinkyDungeonSpellTrapLustCloud,Gas Trap
+// KinkyDungeonSpellTrapSCloud,Gas Trap
+// KinkyDungeonSpellTrapLatex,Latex Engulfment
+// KinkyDungeonSpellTrapSleepDart,Sleep Dart
+// KinkyDungeonSpellSleepDart,Sleep Dart
+
