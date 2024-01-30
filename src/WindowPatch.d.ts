@@ -296,4 +296,8 @@ declare global {
         parole: boolean,
         restraints: KDJailRestraint[]
     }>;
+
+
+    /** @type {Map<string, number>} */
+    let KinkyDungeonFlags: Map<string, number>;
 }

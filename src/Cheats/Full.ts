@@ -134,6 +134,7 @@ class CheatsHook extends FullCheatsBase {
     InvisibilityIntervalHandle?: number;
     MaxEmpowerIntervalHandle?: number;
     EnemySenseIntervalHandle?: number;
+    Quickness5IntervalHandle?: number;
 
     DisableFullState = () => {
         if (this.FullStatIntervalHandle) {
@@ -154,6 +155,53 @@ class CheatsHook extends FullCheatsBase {
         KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
         KinkyDungeonStatManaPool = KinkyDungeonStatManaPoolMax;
         // KDGameData.AncientEnergyLevel = 1.0;
+    };
+
+
+    DisableQuickness5 = () => {
+        if (this.Quickness5IntervalHandle) {
+            this._TickHook.removeHook(this.Quickness5IntervalHandle);
+            this.Quickness5IntervalHandle = undefined;
+        }
+    };
+    EnableQuickness5 = () => {
+        this.DisableQuickness5();
+        this.Quickness5IntervalHandle = this._TickHook.addHook(() => {
+            this._SetQuickness5();
+        });
+    };
+    _SetQuickness5 = (remove?: boolean) => {
+        // KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 100});
+        const buffObj = {
+            Quickness2: {
+                "id": "Quickness2",
+                "type": "TimeSlow",
+                "duration": 99,
+                "aura": "#ffffff",
+                "power": 2
+            },
+            Quickness22: {
+                "id": "Quickness22",
+                "type": "StatGainStamina",
+                "duration": 99,
+                "power": -0.5
+            },
+            Quickness5: {
+                "id": "Quickness5",
+                "type": "TimeSlow",
+                "duration": 99,
+                "aura": "#ffffff",
+                "power": 10
+            },
+            Quickness52: {
+                "id": "Quickness52",
+                "type": "StatGainStamina",
+                "duration": 99,
+                "power": 100
+            },
+        };
+        KinkyDungeonFlags.set("TimeSlow", 100);
+        this._SetBuffIfEnabled(buffObj, remove);
     };
 
 
@@ -224,6 +272,23 @@ class CheatsHook extends FullCheatsBase {
                     it.duration = buffObj[T].duration || 100;
                 } else {
                     KinkyDungeonPlayerBuffs[T] = buffObj[T];
+                }
+            });
+        }
+        // console.log('_SetBuff KinkyDungeonPlayerBuffs', structuredClone(KinkyDungeonPlayerBuffs));
+    };
+    _SetBuffIfEnabled = (buffObj: any, remove?: boolean) => {
+        const k = Object.getOwnPropertyNames(buffObj);
+        if (remove) {
+            k.forEach(T => delete KinkyDungeonPlayerBuffs[T]);
+        } else {
+            k.forEach(T => {
+                const it = KinkyDungeonPlayerBuffs[T];
+                // console.log('_SetBuffIfEnabled k', k, 'T', T, 'it', it);
+                if (it) {
+                    it.duration = buffObj[T].duration || 100;
+                } else {
+                    // KinkyDungeonPlayerBuffs[T] = buffObj[T];
                 }
             });
         }
@@ -380,14 +445,14 @@ class Bootstrap extends CheatsHook {
         // generate by
         // JSON.stringify(Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name));
         const nameList: string[] = JSON.parse(
-            '["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,null,"Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light",null,"FlameBlade"]'
+            '["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,"Strength","Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light","Quickness2","FlameBlade",null,null,null,null,null,null,null,null,null]'
         );
         KinkyDungeonSpellChoices = nameList.map(n => (this.KinkyDungeonSpellsCacheMap!.get(n) || [undefined, undefined])[0]);
         // generate by
         // JSON.stringify(KinkyDungeonSpellChoicesToggle)
         KinkyDungeonSpellChoicesToggle =
             JSON.parse(
-                "[true,true,true,true,null,true,true,true,true,true,null,true,true,true,true,true,true,true,true,null,true]"
+                "[true,true,true,true,null,true,true,true,true,true,null,true,true,true,true,true,false,true,true,false,false]"
             );
     };
     RemoveAllKeyTools = () => {
@@ -442,12 +507,14 @@ class Bootstrap extends CheatsHook {
     EnableAllCheats = () => {
         this.EnableFullState();
         this.EnableEnemySense();
+        this.EnableQuickness5();
         this.EnableInvisibility();
         this.EnableMaxEmpower();
     };
     DisableAllCheats = () => {
         this.DisableFullState();
         this.DisableEnemySense();
+        this.DisableQuickness5();
         this.DisableInvisibility();
         this.DisableMaxEmpower();
     };
