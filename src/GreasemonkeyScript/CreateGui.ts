@@ -13,6 +13,10 @@ KDOptOut = true;
 
 export class CreateGui {
 
+    get version() {
+        return '1.21';
+    }
+
     // avoid same Math.random
     rIdP = 0;
 
@@ -121,6 +125,10 @@ export class CreateGui {
                 css: inlineGMCss + '\n' + inlineBootstrap,
                 'fields': // Fields object
                     {
+                        [thisRef.rId()]: {
+                            section: `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version}`,
+                            type: 'br',
+                        },
                         [thisRef.rId()]: {
                             section: GM_config.create(StringTable['install EnchantedRestraints Mod Section']),
                             type: 'br',
@@ -364,6 +372,24 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableFullState();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'EnableQuickness5': {
+                            label: StringTable['EnableQuickness5'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableQuickness5();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DisableQuickness5': {
+                            label: StringTable['DisableQuickness5'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableQuickness5();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
