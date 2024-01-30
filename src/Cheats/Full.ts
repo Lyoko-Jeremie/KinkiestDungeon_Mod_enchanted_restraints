@@ -163,6 +163,7 @@ class CheatsHook extends FullCheatsBase {
             this._TickHook.removeHook(this.Quickness5IntervalHandle);
             this.Quickness5IntervalHandle = undefined;
         }
+        this._SetQuickness5(true);
     };
     EnableQuickness5 = () => {
         this.DisableQuickness5();
@@ -200,8 +201,15 @@ class CheatsHook extends FullCheatsBase {
                 "power": 100
             },
         };
-        KinkyDungeonFlags.set("TimeSlow", 100);
         this._SetBuffIfEnabled(buffObj, remove);
+        if (!remove) {
+            let timeSlow = KDEntityBuffedStat(KinkyDungeonPlayerEntity, "TimeSlow");
+            if (timeSlow) {
+                KinkyDungeonFlags.set("TimeSlow", 100);
+            }
+        } else {
+            KinkyDungeonFlags.delete("TimeSlow");
+        }
     };
 
 
@@ -445,14 +453,14 @@ class Bootstrap extends CheatsHook {
         // generate by
         // JSON.stringify(Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name));
         const nameList: string[] = JSON.parse(
-            '["Leap","Fissure","Icicles","Crackle",null,"Heal2","Heal","CommandWord","CommandRelease","CommandSlime",null,"Strength","Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light","Quickness2","FlameBlade",null,null,null,null,null,null,null,null,null]'
+            '["Leap","Fissure","Icicles","Crackle","Heal2","Heal","CommandWordGreater","CommandDisenchant","CommandRelease","CommandSlime",null,"Strength","Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light","Quickness2","FlameBlade",null,null,null,null,null,null,null,null,null]'
         );
         KinkyDungeonSpellChoices = nameList.map(n => (this.KinkyDungeonSpellsCacheMap!.get(n) || [undefined, undefined])[0]);
         // generate by
         // JSON.stringify(KinkyDungeonSpellChoicesToggle)
         KinkyDungeonSpellChoicesToggle =
             JSON.parse(
-                "[true,true,true,true,null,true,true,true,true,true,null,true,true,true,true,true,false,true,true,false,false]"
+                "[true,true,true,true,true,true,true,true,true,true,null,true,true,true,true,true,false,true,true,false,false]"
             );
     };
     RemoveAllKeyTools = () => {
@@ -507,7 +515,7 @@ class Bootstrap extends CheatsHook {
     EnableAllCheats = () => {
         this.EnableFullState();
         this.EnableEnemySense();
-        this.EnableQuickness5();
+        // this.EnableQuickness5();
         this.EnableInvisibility();
         this.EnableMaxEmpower();
     };

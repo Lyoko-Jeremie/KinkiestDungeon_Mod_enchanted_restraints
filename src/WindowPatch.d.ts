@@ -231,7 +231,7 @@ declare global {
      * @param {boolean} [ForceRemove] - Ignore AlwaysKeep, for example if armor gets confiscated
      * @returns {boolean} true if the item was removed, false if it was not.
      */
-    function KinkyDungeonRemoveDynamicRestraint(hostItem, Keep: boolean, NoEvent?: boolean, Remover?: entity, ForceRemove?: boolean);
+    function KinkyDungeonRemoveDynamicRestraint(hostItem, Keep: boolean, NoEvent?: boolean, Remover?: entity, ForceRemove?: boolean): boolean;
 
     /**
      * It removes a restraint from the player
@@ -245,7 +245,16 @@ declare global {
      * @param {boolean} [ForceRemove] - Ignore AlwaysKeep, for example if armor gets confiscated
      * @returns {boolean} true if the item was removed, false if it was not.
      */
-    function KinkyDungeonRemoveRestraintSpecific(item: item, Keep: boolean, Add?: boolean, NoEvent?: boolean, Shrine?: boolean, UnLink?: boolean, Remover?: entity, ForceRemove?: boolean);
+    function KinkyDungeonRemoveRestraintSpecific(item: item, Keep: boolean, Add?: boolean, NoEvent?: boolean, Shrine?: boolean, UnLink?: boolean, Remover?: entity, ForceRemove?: boolean): boolean;
+
+    /**
+     *
+     * @param {entity} entity
+     * @param {string} stat
+     * @param {boolean} [onlyPositiveDuration]
+     * @returns {number}
+     */
+    function KDEntityBuffedStat(entity: entity, stat: string, onlyPositiveDuration?: boolean): number;
 
     /**
      *

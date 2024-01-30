@@ -37,6 +37,8 @@ export const StringTable_EN: StringTableType = {
     DisableAllCheats: 'DisableAllCheats',
     EnableFullState: 'EnableFullState',
     DisableFullState: 'DisableFullState',
+    EnableQuickness5: 'EnableQuickness5',
+    DisableQuickness5: 'DisableQuickness5',
     'Choice Section': 'Choice Section',
     ChoiceAddCheatChoiceGoodEscape: 'ChoiceAddCheatChoiceGoodEscape',
     ChoiceAddCheatChoiceGoodEnhance: 'ChoiceAddCheatChoiceGoodEnhance',

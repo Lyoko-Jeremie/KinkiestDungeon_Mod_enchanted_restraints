@@ -42,6 +42,8 @@ const StringTableKeys = [
     'DisableAllCheats',
     'EnableFullState',
     'DisableFullState',
+    'EnableQuickness5',
+    'DisableQuickness5',
 
     'Choice Section',
     'ChoiceAddCheatChoiceGoodEscape',
