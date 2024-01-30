@@ -8,7 +8,6 @@ import {assign, isString} from "lodash";
 import {LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {StringTable} from "../GUI_StringTable/StringTable";
-import {SaveLoadIndexDB} from "../SaveLoadIndexDB/SaveLoadIndexDB";
 
 KDOptOut = true;
 
@@ -96,7 +95,9 @@ export class CreateGui {
         })
     }
     flushNowWearRestraintItemSelect = () => {
-        this.gmc!.fields['NowWearRestraintItemSelect'].settings.options = this.calcNowWearRestraintItemSelect();
+        const l = this.calcNowWearRestraintItemSelect();
+        this.gmc!.fields['NowWearRestraintItemSelect'].settings.options = l;
+        this.gmc!.fields['NowWearRestraintItemSelect'].value = l[0];
         this.gmc!.fields['NowWearRestraintItemSelect'].reload();
     }
 
