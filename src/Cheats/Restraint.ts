@@ -308,6 +308,15 @@ export class RestraintCustomWear extends Restraint {
 
 }
 
+
+// 可以直接KinkyDungeonAddRestraint强制穿衣，这个会把不兼容link不上的顶掉，这个类似之前旧版本npc强制给你穿衣
+// KinkyDungeonAddRestraintIfWeaker会先检查穿不穿得上，然后他在内部再调用KinkyDungeonAddRestraint穿衣，所以会存在穿不上的情况，这个就类似从背包穿衣
+// 然后KinkyDungeonAddRestraintIfWeaker还有个deep参数，可以让npc给你穿在下面，他会去link链下面找，看能不能穿上，默认不会去找
+//
+// 脱衣也是，KinkyDungeonRemoveRestraint是脱指定部位的最外一件
+// KinkyDungeonRemoveRestraintSpecific可以指定某一件，然后他会在脱掉之后修复覆盖link关系
+
+
 // const a = new Restraint();
 
 
