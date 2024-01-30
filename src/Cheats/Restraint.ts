@@ -204,9 +204,17 @@ class RestraintBase {
         });
     };
 
-    RemoveRestraint = (item: item) => {
+    // RemoveRestraintSpecificDynamic = (item: item, forceRemove?: boolean) => {
+    //     return KinkyDungeonRemoveDynamicRestraint(item, true, undefined, undefined, forceRemove);
+    // };
+
+    RemoveRestraintSpecific = (item: item, forceRemove?: boolean) => {
+        return KinkyDungeonRemoveRestraintSpecific(item, true, undefined, undefined, undefined, undefined, undefined, forceRemove);
+    };
+
+    RemoveRestraintGroup = (item: item) => {
         const T = KDRestraint(item);
-        return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true)
+        return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true);
     };
 
 }

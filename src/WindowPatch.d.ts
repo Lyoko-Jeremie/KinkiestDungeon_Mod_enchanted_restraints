@@ -223,6 +223,31 @@ declare global {
     function KinkyDungeonRemoveRestraint(Group: string, Keep: boolean, Add?: boolean, NoEvent?: boolean, Shrine?: boolean, UnLink?: boolean, Remover?: entity): boolean;
 
     /**
+     * It removes the item's dynamic link
+     * @param {item} hostItem - The group of the item to remove.
+     * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
+     * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
+     * @param {entity} [Remover] - Who removes this
+     * @param {boolean} [ForceRemove] - Ignore AlwaysKeep, for example if armor gets confiscated
+     * @returns {boolean} true if the item was removed, false if it was not.
+     */
+    function KinkyDungeonRemoveDynamicRestraint(hostItem, Keep: boolean, NoEvent?: boolean, Remover?: entity, ForceRemove?: boolean);
+
+    /**
+     * It removes a restraint from the player
+     * @param {item} item - The item to remove.
+     * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
+     * @param {boolean} [Add] - If true, this is part of the process of adding another item and should not trigger infinite recursion
+     * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
+     * @param {boolean} [Shrine] - If the item is being removed from a shrine, this is true.
+     * @param {boolean} [UnLink] - If the item is being removed as part of an unlinking process
+     * @param {entity} [Remover] - Who removes this
+     * @param {boolean} [ForceRemove] - Ignore AlwaysKeep, for example if armor gets confiscated
+     * @returns {boolean} true if the item was removed, false if it was not.
+     */
+    function KinkyDungeonRemoveRestraintSpecific(item: item, Keep: boolean, Add?: boolean, NoEvent?: boolean, Shrine?: boolean, UnLink?: boolean, Remover?: entity, ForceRemove?: boolean);
+
+    /**
      *
      * @param {string} type
      * @param {any} data

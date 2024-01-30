@@ -27,12 +27,12 @@ export class CreateGui {
         setTimeout(this.waitKDLoadingFinished, 100);
     }
 
-    patchSpell = new PatchSpell();
+    _patchSpell = new PatchSpell();
 
     do_install_EnchantedRestraintsPatch = () => {
         KDOptOut = true;
         EnchantedRestraintsPatch();
-        this.patchSpell.PatchAllSpell();
+        this._patchSpell.PatchAllSpell();
         this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.setupHook(this.winRef);
     };
     btnType: BootstrapBtnType = 'secondary';
@@ -754,7 +754,7 @@ export class CreateGui {
                                         const name = cc[0];
                                         const n = l.find(T => T.restraint?.name === name);
                                         if (n) {
-                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveRestraint(n.item);
+                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveRestraintSpecific(n.item, true);
                                             thisRef.flushNowWearRestraintItemSelect();
                                         } else {
                                             console.warn('RemoveNowWearRestraintItem not found', name);
