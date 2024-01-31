@@ -92,11 +92,23 @@ export class CreateGui {
         console.log('[KinkiestDungeon enchanted_restraints Mod] waitKDLoadingFinished ok');
     };
 
+    calcGoddessRepKeyListSelect = () => {
+        return this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepKeyList().map(T => {
+            return `${T}[${StringTable.KinkyDungeonShrine2I18N(T)}]`;
+        });
+    }
+    flushPrintNowAllReputationStateList = () => {
+        this.gmc!.fields['PrintNowAllReputationStateList'].value =
+            this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllGoddessRep().map(T => {
+                return `${T[0]}[${StringTable.KinkyDungeonShrine2I18N(T[0])}]:${T[1]}`;
+            }).join('\n');
+        this.gmc!.fields['PrintNowAllReputationStateList'].reload();
+    }
     calcNowWearRestraintItemSelect = () => {
         return this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem().map(T => {
             return `${T.restraint?.name}|[${T.restraint ? TextGet(`Restraint${T.restraint.name}`) : ''}][${T.restraint?.Group}]--` +
                 (T.parentRestraint ? (`[${T.parentRestraint?.name || ''}][${T.parentRestraint ? TextGet(`Restraint${T.parentRestraint.name}`) : ''}][${T.parentRestraint?.Group || ''}]`) : '');
-        })
+        });
     }
     flushNowWearRestraintItemSelect = () => {
         const l = this.calcNowWearRestraintItemSelect();
@@ -283,6 +295,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllRelations();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -292,6 +305,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroAllRelations();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -301,15 +315,20 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllRelations();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
                         },
                         'FullAllGoddess': {
                             label: StringTable['FullAllGoddess'] + ' +50',
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllGoddess();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -319,6 +338,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroAllGoddess();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -328,6 +348,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllGoddess();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -337,6 +358,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllReputationState();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -346,6 +368,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ClearAllReputationState();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -355,20 +378,68 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllReputationState();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'GoddessRepSelect': {
+                            label: StringTable['GoddessRepSelect'],
+                            type: 'select',
+                            value: 'None',
+                            options: thisRef.calcGoddessRepKeyListSelect(),
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'AddSelectedGoddessRep': {
+                            label: StringTable['AddSelectedGoddessRep'] + ' +50',
+                            type: 'button',
+                            click() {
+                                let v = thisRef.gmc!.fields['GoddessRepSelect'].value as string;
+                                v = v.split('[')[0];
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, 50);
+                                thisRef.flushPrintNowAllReputationStateList();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ClearSelectedGoddessRep': {
+                            label: StringTable['ClearSelectedGoddessRep'],
+                            type: 'button',
+                            click() {
+                                let v = thisRef.gmc!.fields['GoddessRepSelect'].value as string;
+                                v = v.split('[')[0];
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepSet(v, 0);
+                                thisRef.flushPrintNowAllReputationStateList();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'NegativeSelectedGoddessRep': {
+                            label: StringTable['NegativeSelectedGoddessRep'] + ' -50',
+                            type: 'button',
+                            click() {
+                                let v = thisRef.gmc!.fields['GoddessRepSelect'].value as string;
+                                v = v.split('[')[0];
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, -50);
+                                thisRef.flushPrintNowAllReputationStateList();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
                         },
                         'PrintNowAllReputationState': {
                             label: StringTable['PrintNowAllReputationState'],
                             type: 'button',
                             click() {
-                                thisRef.gmc!.fields['PrintNowAllReputationStateList'].value =
-                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllGoddessRep().map(T => {
-                                        return `${T[0]}[${StringTable.KinkyDungeonShrine2I18N(T[0])}]:${T[1]}`;
-                                    }).join('\n');
-                                thisRef.gmc!.fields['PrintNowAllReputationStateList'].reload();
+                                thisRef.flushPrintNowAllReputationStateList();
                             },
+                            cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         'PrintNowAllReputationStateList': {

@@ -153,6 +153,22 @@ class FullCheatsBase extends Choice {
         });
     };
 
+    GoddessRepKeyList() {
+        return Object.getOwnPropertyNames(KinkyDungeonGoddessRep);
+    }
+
+    GoddessRepChange(T: keyof typeof KinkyDungeonGoddessRep, v: number = 50) {
+        if ((T in KinkyDungeonGoddessRep)) {
+            KinkyDungeonGoddessRep[T] += v;
+        }
+    }
+
+    GoddessRepSet(T: keyof typeof KinkyDungeonGoddessRep, v: number = 0) {
+        if ((T in KinkyDungeonGoddessRep)) {
+            KinkyDungeonGoddessRep[T] = v;
+        }
+    }
+
     GetAllGoddessRep(): [string, number][] {
         return Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => {
             return [T, KinkyDungeonGoddessRep[T]];

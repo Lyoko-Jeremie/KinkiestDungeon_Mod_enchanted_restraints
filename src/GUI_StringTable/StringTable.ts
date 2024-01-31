@@ -37,6 +37,10 @@ const StringTableKeys = [
     'FullAllReputationState',
     'ClearAllReputationState',
     'NegativeAllReputationState',
+    'GoddessRepSelect',
+    'AddSelectedGoddessRep',
+    'ClearSelectedGoddessRep',
+    'NegativeSelectedGoddessRep',
     'PrintNowAllReputationState',
     'PrintNowAllReputationStateList',
 
