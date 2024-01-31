@@ -116,7 +116,7 @@ export const StringTable_CN: StringTableType = {
     LockNowWearRestraintItem: '锁定当前选择的已穿戴物',
     UnlockNowWearRestraintItem: '解锁当前选择的已穿戴物',
     RemoveNowWearRestraintItem: '移除当前选择的已穿戴物',
-    JailOutfitSelect: '监狱套装',
+    JailOutfitSelect: '监狱套装（游戏内置套装，对应种类的NPC将你带去监狱时给你穿上的套装）',
     WearJailOutfit: '穿上选择的监狱套装',
     //  TODO
     'OpenChest Section': '开箱 Section',
