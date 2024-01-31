@@ -27,6 +27,11 @@ const StringTableKeys = [
     'AddAllKeyTools',
     'RemoveAllKeyTools',
 
+    'SpellPoints Section',
+    'AddSpellPoints',
+    'ZeroSpellPoints',
+    'NegativeSpellPoints',
+
     'Relations Section',
     'FullAllRelations',
     'ZeroAllRelations',

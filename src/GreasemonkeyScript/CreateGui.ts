@@ -287,6 +287,37 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['SpellPoints Section']),
+                            type: 'br',
+                        },
+                        'AddSpellPoints': {
+                            label: StringTable['AddSpellPoints'] + '+10',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(10);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ZeroSpellPoints': {
+                            label: StringTable['ZeroSpellPoints'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetSpellPoints(0);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'NegativeSpellPoints': {
+                            label: StringTable['NegativeSpellPoints'] + '-10',
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(-10);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['Relations Section']),
                             type: 'br',
                         },

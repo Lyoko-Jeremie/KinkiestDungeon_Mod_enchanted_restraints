@@ -1,4 +1,4 @@
-import {isSafeInteger} from 'lodash'
+import {isNil} from 'lodash'
 import {TickHook} from "./_TickHook";
 import {Choice} from "./Choice";
 
@@ -8,7 +8,10 @@ class FullCheatsBase extends Choice {
         KinkyDungeonChangeDistraction(n || 10, true, 1);
     };
     SetSpellPoints = (n?: number) => {
-        KinkyDungeonSpellPoints = n || 10000;
+        KinkyDungeonSpellPoints = isNil(n) ? 10000 : n;
+    };
+    ChangeSpellPoints = (n: number = 0) => {
+        KinkyDungeonSpellPoints += n;
     };
     SetAncientEnergy = (f?: number) => {
         KDGameData.AncientEnergyLevel = f || 1.0
