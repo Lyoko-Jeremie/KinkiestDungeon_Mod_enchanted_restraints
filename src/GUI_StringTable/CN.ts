@@ -67,8 +67,17 @@ export const StringTable_CN: StringTableType = {
     AddAllKeyTools: '添加全部常规解锁工具',
     RemoveAllKeyTools: '移除全部常规解锁工具',
     'Relations Section': '关系 Section',
-    FullAllRelations: '最大化和所有派系的关系',
-    FullAllGoddess: '最大化和所有女神的关系',
+    FullAllRelations: '最大化所有派系的关系',
+    ZeroAllRelations: '清零所有派系的关系',
+    NegativeAllRelations: '负所有派系的关系',
+    FullAllGoddess: '所有女神的关系',
+    ZeroAllGoddess: '清零所有女神的关系',
+    NegativeAllGoddess: '所有女神的关系',
+    FullAllReputationState: '所有名声',
+    ClearAllReputationState: '清零所有名声',
+    NegativeAllReputationState: '所有名声',
+    PrintNowAllReputationState: '显示所有名声状态',
+    PrintNowAllReputationStateList: '所有名声状态列表',
     'Bootstrap Section': 'Bootstrap 开局快速开始作弊 Section 【只点前两个按钮快速加入风灵月影宗内门】',
     BootstrapAllGood: '【开局】快速启用(全部)增益及动态作弊',
     BootstrapSpellChoicesTable: '【开局】快速设置为Mod预设法术列表（需先使用[增益作弊]开启全部法术列表）',
@@ -162,5 +171,8 @@ export const StringTable_CN: StringTableType = {
             return `${nn}(${s})`
         }
         return s;
+    },
+    KinkyDungeonShrine2I18N(s: string): string {
+        return TextGet('KinkyDungeonShrine' + s);
     },
 };

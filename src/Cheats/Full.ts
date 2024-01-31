@@ -112,9 +112,104 @@ class FullCheatsBase extends Choice {
             KinkyDungeonFactionRelations.Player[T] = 1;
         });
     };
-    FullAllGoddess = () => {
-        Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => KinkyDungeonGoddessRep[T] = 50);
+    ZeroAllRelations = () => {
+        Object.getOwnPropertyNames(KinkyDungeonFactionRelations.Player).map(T => {
+            KinkyDungeonFactionRelations.Player[T] = 0;
+        });
     };
+    NegativeAllRelations = () => {
+        Object.getOwnPropertyNames(KinkyDungeonFactionRelations.Player).map(T => {
+            KinkyDungeonFactionRelations.Player[T] = -1;
+        });
+    };
+    FullAllGoddess = (v: number = 50) => {
+        Object.getOwnPropertyNames(KinkyDungeonShrineBaseCosts).map(T => KinkyDungeonGoddessRep[T] += v);
+    };
+    ZeroAllGoddess = () => {
+        Object.getOwnPropertyNames(KinkyDungeonShrineBaseCosts).map(T => KinkyDungeonGoddessRep[T] = 0);
+    };
+    NegativeAllGoddess = (v: number = 50) => {
+        Object.getOwnPropertyNames(KinkyDungeonShrineBaseCosts).map(T => KinkyDungeonGoddessRep[T] += -v);
+    };
+    FullAllReputationState = (v: number = 50) => {
+        Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => {
+            if (!(T in KinkyDungeonShrineBaseCosts)) {
+                KinkyDungeonGoddessRep[T] += v;
+            }
+        });
+    };
+    ClearAllReputationState = () => {
+        Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => {
+            if (!(T in KinkyDungeonShrineBaseCosts)) {
+                KinkyDungeonGoddessRep[T] = 0;
+            }
+        });
+    };
+    NegativeAllReputationState = (v: number = 50) => {
+        Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => {
+            if (!(T in KinkyDungeonShrineBaseCosts)) {
+                KinkyDungeonGoddessRep[T] += -v;
+            }
+        });
+    };
+
+    GetAllGoddessRep(): [string, number][] {
+        return Object.getOwnPropertyNames(KinkyDungeonGoddessRep).map(T => {
+            return [T, KinkyDungeonGoddessRep[T]];
+        });
+    }
+
+    // Reputation
+    // KinkyDungeonGoddessRep
+    //
+    // {
+    //   "Ghost": 50,
+    //   "Prisoner": 50,
+    //   "Frustration": 50,
+    //   "Passion": 31.144000000000048,
+    //
+    //   "Leather": 50,
+    //   "Latex": 50,
+    //   "Rope": 50,
+    //   "Metal": 50,
+    //   "Will": 50,
+    //   "Elements": 50,
+    //   "Conjure": 50,
+    //   "Illusion": 50
+    // }
+    // [ 'Ghost', 'Prisoner', 'Frustration', 'Passion', 'Leather', 'Latex', 'Rope', 'Metal', 'Will', 'Elements', 'Conjure', 'Illusion' ]
+    // [
+    //   "顺从度",
+    //   "安全级别",
+    //   "懊恼",
+    //   "激情",
+    //
+    //   "皮革",
+    //   "乳胶",
+    //   "绳索",
+    //   "金属",
+    //   "恢复",
+    //   "精灵",
+    //   "咒术",
+    //   "幻术"
+    // ]
+    //
+    // Shrine
+    //
+    // let KinkyDungeonShrineBaseCosts = {
+    // 	//"Charms": 25,
+    // 	"Leather": 40,
+    // 	"Latex": 40,
+    // 	"Rope": 20,
+    // 	"Metal": 60,
+    // 	"Will": 20,
+    // 	"Elements": 200,
+    // 	"Conjure": 200,
+    // 	"Illusion": 200,
+    // };
+    // [ 'Leather', 'Latex', 'Rope', 'Metal', 'Will', 'Elements', 'Conjure', 'Illusion' ]
+    // [ "皮革", "乳胶", "绳索", "金属", "恢复", "精灵", "咒术", "幻术" ]
+
 }
 
 // function KDSwitchWeapon() {

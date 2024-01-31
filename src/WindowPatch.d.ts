@@ -149,7 +149,11 @@ declare global {
     var KinkyDungeonConsumables: Record<string, consumable>;
     var KinkyDungeonGoddessRep: Record<string, number>;
     var KinkyDungeonRescued: Record<string, boolean>;
-    var KinkyDungeonAid: Record<string, boolean>;
+    var KinkyDungeonAid: Record<string, boolean>;/**
+     * Base costs for all the shrines. Starts at this value, increases thereafter
+     * @type {Record<string, number>}
+     */
+    let KinkyDungeonShrineBaseCosts: Record<string, number>;
 
     var KinkyDungeonFactionRelationsBase: { [key: string]: { [key: string]: number } };
     var KinkyDungeonFactionRelations: { [key: string]: { [key: string]: number } };

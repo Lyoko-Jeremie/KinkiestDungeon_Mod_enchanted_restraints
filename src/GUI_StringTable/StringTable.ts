@@ -29,7 +29,16 @@ const StringTableKeys = [
 
     'Relations Section',
     'FullAllRelations',
+    'ZeroAllRelations',
+    'NegativeAllRelations',
     'FullAllGoddess',
+    'ZeroAllGoddess',
+    'NegativeAllGoddess',
+    'FullAllReputationState',
+    'ClearAllReputationState',
+    'NegativeAllReputationState',
+    'PrintNowAllReputationState',
+    'PrintNowAllReputationStateList',
 
     'Bootstrap Section',
     'BootstrapAllGood',
@@ -131,6 +140,7 @@ export interface StringTableType extends StringTableTypeStringPart {
     isInstalledMask(s: string): string;
 
     Wear2I18N(s: string): string;
+    KinkyDungeonShrine2I18N(s: string): string;
 
     errorMessage2I18N(s: string): string;
 

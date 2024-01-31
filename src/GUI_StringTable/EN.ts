@@ -26,7 +26,16 @@ export const StringTable_EN: StringTableType = {
     RemoveAllKeyTools: 'RemoveAllKeyTools',
     'Relations Section': 'Relations Section',
     FullAllRelations: 'FullAllRelations',
-    FullAllGoddess: 'FullAllGoddess',
+    ZeroAllRelations: 'ZeroAllRelations',
+    NegativeAllRelations: 'NegativeAllRelations',
+    FullAllGoddess: 'AllGoddessRelations',
+    ZeroAllGoddess: 'ZeroAllGoddessRelations',
+    NegativeAllGoddess: 'AllGoddessRelations',
+    FullAllReputationState: 'AllReputationState',
+    ClearAllReputationState: 'ClearAllReputationState',
+    NegativeAllReputationState: 'AllReputationState',
+    PrintNowAllReputationState: 'PrintNowAllReputationState',
+    PrintNowAllReputationStateList: 'PrintNowAllReputationStateList',
     'Bootstrap Section': 'Bootstrap Section',
     BootstrapAllGood: 'BootstrapAllGood',
     BootstrapSpellChoicesTable: 'BootstrapSpellChoicesTable',
@@ -116,5 +125,8 @@ export const StringTable_EN: StringTableType = {
     },
     Wear2I18N(s: string): string {
         return s;
+    },
+    KinkyDungeonShrine2I18N(s: string): string {
+        return TextGet('KinkyDungeonShrine' + s);
     },
 };
