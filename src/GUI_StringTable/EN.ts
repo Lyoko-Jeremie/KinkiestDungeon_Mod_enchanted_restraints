@@ -74,6 +74,7 @@ export const StringTable_EN: StringTableType = {
     'ChoiceAddOne Section': 'ChoiceAddOne Section',
     ChoiceSelect: 'ChoiceSelect',
     ChoiceAddOne: 'ChoiceAddOne',
+    ChoiceRemoveOne: 'ChoiceRemoveOne',
     'ChoicePrint Section': 'ChoicePrint Section',
     ChoicePrintAllValidChoice: 'ChoicePrintAllValidChoice',
     ChoicePrintAllValidChoiceList: 'ChoicePrintAllValidChoiceList',

@@ -116,6 +116,7 @@ export const StringTable_CN: StringTableType = {
     'ChoiceAddOne Section': '添加单个 Choice Section',
     ChoiceSelect: '选择Choice',
     ChoiceAddOne: '添加一个Choice',
+    ChoiceRemoveOne: '删除一个Choice',
     'ChoicePrint Section': '查看所有Choice列表 Section',
     ChoicePrintAllValidChoice: '查看所有可用Choice列表',
     ChoicePrintAllValidChoiceList: '查看所有可用Choice列表',

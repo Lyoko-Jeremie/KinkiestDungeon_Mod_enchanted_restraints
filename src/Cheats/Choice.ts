@@ -227,8 +227,16 @@ export class Choice {
         // 当你入狱时，保留你的衣物。
         // Second Wind [SecondWind]
         // "Gain 2 WP every time you remove a non-trivial restraint."
+        // Deft Fingering [SomaticPlus]
+        // 指法灵巧
+        // You can cast arm spells using just your fingers, as long as your hands aren't bound.
+        // 只要你的手没有被束缚，你就可以只用手指施展手臂的法术。
+        // Smooth Talker [SmoothTalker]
+        // 以和为贵
+        // Being gagged does not increase your miscast chance for verbal spells unless fully gagged, and reduces gag power by 20%.
+        // 除非你的嘴被完全堵住，否则堵嘴不会增加你念错咒语的几率，并且会降低 20% 的塞嘴威力。
         this._AddCheatChoice(
-            "Escapee Unchained Artist Slippery KeepOutfit SecondWind",
+            "Escapee Unchained Artist Slippery KeepOutfit SecondWind SomaticPlus SmoothTalker",
             remove,
         );
     };

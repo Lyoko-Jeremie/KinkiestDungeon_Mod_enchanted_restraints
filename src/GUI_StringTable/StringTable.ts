@@ -82,6 +82,7 @@ const StringTableKeys = [
     'ChoiceAddOne Section',
     'ChoiceSelect',
     'ChoiceAddOne',
+    'ChoiceRemoveOne',
 
     'ChoicePrint Section',
     'ChoicePrintAllValidChoice',

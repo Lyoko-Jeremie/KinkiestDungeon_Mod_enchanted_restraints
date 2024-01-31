@@ -736,6 +736,23 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'ChoiceRemoveOne': {
+                            label: StringTable['ChoiceRemoveOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['ChoiceAddOneSelect'].value;
+                                if (c) {
+                                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                                    });
+                                    if (N) {
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName, true);
+                                    }
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         [thisRef.rId()]: {
                             section: GM_config.create(StringTable['ChoicePrint Section']),
                             type: 'br',
