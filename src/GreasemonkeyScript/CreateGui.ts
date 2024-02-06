@@ -14,7 +14,7 @@ KDOptOut = true;
 export class CreateGui {
 
     get version() {
-        return '1.24';
+        return '1.25';
     }
 
     // avoid same Math.random
