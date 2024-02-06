@@ -14,7 +14,14 @@ KDOptOut = true;
 
 export class CreateGui {
 
-    playDing = playDing;
+    noPlayDing = false;
+
+    playDing = (hz: PlayDingType) => {
+        if (this.noPlayDing) {
+            return;
+        }
+        playDing(hz);
+    };
 
     get version() {
         return '1.25';
@@ -205,7 +212,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyKeys();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -215,7 +222,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyPotion();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -225,7 +232,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyGold();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -235,7 +242,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddDistraction();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -245,7 +252,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllRestraints();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -255,7 +262,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllOutfit();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -265,7 +272,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllConsumables();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -275,7 +282,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllWeapon();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -285,7 +292,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllKeyTools();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -295,7 +302,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllKeyTools();
-                                playDing(PlayDingType.dong);
+                                thisRef.playDing(PlayDingType.dong);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -309,7 +316,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(10);
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -319,7 +326,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetSpellPoints(0);
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -329,7 +336,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(-10);
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -344,7 +351,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllRelations();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -355,7 +362,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroAllRelations();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -366,7 +373,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllRelations();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -380,7 +387,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllGoddess();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -391,7 +398,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroAllGoddess();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -402,7 +409,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllGoddess();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -413,7 +420,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllReputationState();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -424,7 +431,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ClearAllReputationState();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -435,7 +442,7 @@ export class CreateGui {
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllReputationState();
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -459,7 +466,7 @@ export class CreateGui {
                                 v = v.split('[')[0];
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, 50);
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -472,7 +479,7 @@ export class CreateGui {
                                 v = v.split('[')[0];
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepSet(v, 0);
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -485,7 +492,7 @@ export class CreateGui {
                                 v = v.split('[')[0];
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, -50);
                                 thisRef.flushPrintNowAllReputationStateList();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -516,7 +523,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapAllGood();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -526,7 +533,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapSpellChoicesTable();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -536,7 +543,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapSimpleGood();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -546,7 +553,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapAllNegative();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -560,7 +567,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableAllCheats();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -570,7 +577,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableAllCheats();
-                                playDing(PlayDingType.dong);
+                                thisRef.playDing(PlayDingType.dong);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -580,7 +587,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableFullState();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -590,7 +597,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableFullState();
-                                playDing(PlayDingType.dong);
+                                thisRef.playDing(PlayDingType.dong);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -600,7 +607,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableQuickness5();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -610,7 +617,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableQuickness5();
-                                playDing(PlayDingType.dong);
+                                thisRef.playDing(PlayDingType.dong);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -860,7 +867,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllSpells();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
 
                                 thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options =
                                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
@@ -1291,7 +1298,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenFull();
-                                playDing(PlayDingType.ding);
+                                thisRef.playDing(PlayDingType.ding);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
@@ -1301,7 +1308,7 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenNone();
-                                playDing(PlayDingType.dong);
+                                thisRef.playDing(PlayDingType.dong);
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
