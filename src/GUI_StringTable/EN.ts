@@ -83,6 +83,7 @@ export const StringTable_EN: StringTableType = {
     AllSpellsList: 'AllSpellsList',
     SpellsPrintNowSpells: 'SpellsPrintNowSpells',
     NowSpellsList: 'NowSpellsList',
+    FullAllSpells: 'FullAllSpells',
     SpellsAddOneSelect: 'SpellsAddOneSelect',
     SpellsAddOne: 'SpellsAddOne',
     SpellsRemoveOneSelect: 'SpellsRemoveOneSelect',

@@ -93,6 +93,7 @@ const StringTableKeys = [
     'AllSpellsList',
     'SpellsPrintNowSpells',
     'NowSpellsList',
+    'FullAllSpells',
     'SpellsAddOneSelect',
     'SpellsAddOne',
     'SpellsRemoveOneSelect',

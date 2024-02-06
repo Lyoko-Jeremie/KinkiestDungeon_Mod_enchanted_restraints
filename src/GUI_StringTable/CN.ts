@@ -125,6 +125,7 @@ export const StringTable_CN: StringTableType = {
     AllSpellsList: '所有法术列表',
     SpellsPrintNowSpells: '列出当前已学法术',
     NowSpellsList: '当前已学法术列表',
+    FullAllSpells: '学习所有法术',
     SpellsAddOneSelect: '选择要添加到法术列表的法术',
     SpellsAddOne: '添加',
     SpellsRemoveOneSelect: '选择要从法术列表移除的法术',

@@ -848,6 +848,40 @@ export class CreateGui {
                         [thisRef.rId()]: {
                             type: 'br',
                         },
+                        'FullAllSpells': {
+                            label: StringTable['FullAllSpells'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllSpells();
+                                playDing(PlayDingType.ding);
+
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                                        .filter(T => !thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().find(T2 => T2.name === T.name))
+                                        .map(T => T.name)
+                                        .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`);
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].value = thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options[0];
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].reload();
+
+
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().map(T => T.name)
+                                        .map(T => {
+                                            const s = `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`;
+                                            if (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllBaseSpells().find(T2 => T2.name === T)) {
+                                                return s + ` (${StringTable['BaseSpells_DontRemove']})`;
+                                            }
+                                            return s;
+                                        });
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].value = thisRef.gmc!.fields['SpellsRemoveOneSelect'].settings.options[0];
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].reload();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
                         'SpellsAddOneSelect': {
                             label: StringTable['SpellsAddOneSelect'],
                             type: 'select',
