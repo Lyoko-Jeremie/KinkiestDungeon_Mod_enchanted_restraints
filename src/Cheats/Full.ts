@@ -1,4 +1,4 @@
-import {isNil} from 'lodash'
+import {uniqWith, isNil} from 'lodash'
 import {TickHook} from "./_TickHook";
 import {Choice} from "./Choice";
 
@@ -85,6 +85,39 @@ class FullCheatsBase extends Choice {
             }
         }
     };
+    ListAllBaseSpells = () => {
+        return KinkyDungeonSpellsStart;
+    };
+    ListAllSpells = () => {
+        let spells = new Set(KinkyDungeonSpellsStart);
+        for (let k of Object.keys(KinkyDungeonSpellList)) {
+            for (let sp of KinkyDungeonSpellList[k]) {
+                spells.add(KinkyDungeonFindSpell(sp.name));
+            }
+        }
+        return Array.from(spells);
+    };
+    ListNowSpells = () => {
+        return KinkyDungeonSpells;
+    };
+    AddOneSpell = (name: string) => {
+        if (!name) {
+            return;
+        }
+        const sp = KinkyDungeonFindSpell(name);
+        if (!sp) {
+            return;
+        }
+        KinkyDungeonSpells.push(sp);
+        KinkyDungeonSpells = uniqWith(KinkyDungeonSpells, (a, b) => a.name === b.name);
+    };
+    RemoveOneSpell = (name: string) => {
+        if (!name) {
+            return;
+        }
+        KinkyDungeonSpells = KinkyDungeonSpells.filter(T => T.name !== name);
+    };
+
     AllHeart = () => {
         for (let i = 0; i < 10; i++) {
             KDSendInput("heart", {type: "AP"});

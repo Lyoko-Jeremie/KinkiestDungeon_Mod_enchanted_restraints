@@ -88,6 +88,17 @@ const StringTableKeys = [
     'ChoicePrintAllValidChoice',
     'ChoicePrintAllValidChoiceList',
 
+    'Spells Section',
+    'SpellsPrintAllSpells',
+    'AllSpellsList',
+    'SpellsPrintNowSpells',
+    'NowSpellsList',
+    'SpellsAddOneSelect',
+    'SpellsAddOne',
+    'SpellsRemoveOneSelect',
+    'SpellsRemoveOne',
+    'BaseSpells_DontRemove',
+
     'DebugSee Section',
     'ShowAllRestraintDynamicName',
     'ShowAllRestraintDynamicNameList',

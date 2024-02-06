@@ -118,6 +118,7 @@ export class CreateGui {
     }
 
     gmcCreator = () => {
+        KDOptOut = true;
         const thisRef = this;
         return new GM_config(
             {
@@ -771,6 +772,134 @@ export class CreateGui {
                             label: StringTable['ChoicePrintAllValidChoiceList'],
                             type: 'textarea',
                             default: '',
+                        },
+                        [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['Spells Section']),
+                            type: 'br',
+                        },
+                        'SpellsPrintAllSpells': {
+                            label: StringTable['SpellsPrintAllSpells'],
+                            type: 'button',
+                            click() {
+                                thisRef.gmc!.fields['AllSpellsList'].value =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells().map(T => T.name)
+                                        .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}][${TextGet('KinkyDungeonSpellDescription' + T)}]`)
+                                        .join('\n');
+                                thisRef.gmc!.fields['AllSpellsList'].reload();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'AllSpellsList': {
+                            label: StringTable['AllSpellsList'],
+                            type: 'textarea',
+                            default: '',
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'SpellsPrintNowSpells': {
+                            label: StringTable['SpellsPrintNowSpells'],
+                            type: 'button',
+                            click() {
+                                thisRef.gmc!.fields['NowSpellsList'].value =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().map(T => T.name)
+                                        .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}][${TextGet('KinkyDungeonSpellDescription' + T)}]`)
+                                        .join('\n');
+                                thisRef.gmc!.fields['NowSpellsList'].reload();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'NowSpellsList': {
+                            label: StringTable['NowSpellsList'],
+                            type: 'textarea',
+                            default: '',
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'SpellsAddOneSelect': {
+                            label: StringTable['SpellsAddOneSelect'],
+                            type: 'select',
+                            value: '',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                                .filter(T => !thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().find(T2 => T2.name === T.name))
+                                .map(T => T.name)
+                                .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`),
+                            cssClassName: 'd-inline',
+                        },
+                        'SpellsAddOne': {
+                            label: StringTable['SpellsAddOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['SpellsAddOneSelect'].value as string;
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddOneSpell(c.split('|[')[0]);
+
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                                        .filter(T => !thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().find(T2 => T2.name === T.name))
+                                        .map(T => T.name)
+                                        .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`);
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].value = thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options[0];
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].reload();
+
+
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().map(T => T.name)
+                                        .map(T => {
+                                            const s = `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`;
+                                            if (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllBaseSpells().find(T2 => T2.name === T)) {
+                                                return s + ` (${StringTable['BaseSpells_DontRemove']})`;
+                                            }
+                                            return s;
+                                        });
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].value = thisRef.gmc!.fields['SpellsRemoveOneSelect'].settings.options[0];
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].reload();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'SpellsRemoveOneSelect': {
+                            label: StringTable['SpellsRemoveOneSelect'],
+                            type: 'select',
+                            value: '',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().map(T => T.name)
+                                .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`),
+                            cssClassName: 'd-inline',
+                        },
+                        'SpellsRemoveOne': {
+                            label: StringTable['SpellsRemoveOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['SpellsRemoveOneSelect'].value as string;
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveOneSpell(c.split('|[')[0]);
+
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().map(T => T.name)
+                                        .map(T => {
+                                            const s = `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`;
+                                            if (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllBaseSpells().find(T2 => T2.name === T)) {
+                                                return s + ` (${StringTable['BaseSpells_DontRemove']})`;
+                                            }
+                                            return s;
+                                        });
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].value = thisRef.gmc!.fields['SpellsRemoveOneSelect'].settings.options[0];
+                                thisRef.gmc!.fields['SpellsRemoveOneSelect'].reload();
+
+
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                                        .filter(T => !thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().find(T2 => T2.name === T.name))
+                                        .map(T => T.name)
+                                        .map(T => `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`);
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].value = thisRef.gmc!.fields['SpellsAddOneSelect'].settings.options[0];
+                                thisRef.gmc!.fields['SpellsAddOneSelect'].reload();
+
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
                             section: GM_config.create(StringTable['DebugSee Section']),
