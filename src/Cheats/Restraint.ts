@@ -128,7 +128,7 @@ class RestraintBase {
             .map<[] | [restraint, number]>(T => {
                     try {
                         const RR = KinkyDungeonGetRestraintByName(T);
-                        console.log(RR.name);
+                        console.log(RR.name, realLock, faction);
                         if (forceWearIt) {
                             // this impl will force wear and replace other conflict restraint
                             return [RR, KinkyDungeonAddRestraint(
