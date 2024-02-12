@@ -656,3 +656,7 @@ export class MapGet {
 // KinkyDungeonSpellTrapSleepDart,Sleep Dart
 // KinkyDungeonSpellSleepDart,Sleep Dart
 
+
+// KinkyDungeonEscapeList.js
+// let KinkyDungeonEscapeTypes = {
+
