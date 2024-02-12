@@ -7,7 +7,7 @@ import {KinkyDungeonFactionColors_Keys, Restraint, WearMethodsInterfaceKey, Wear
 import {assign, isString} from "lodash";
 import {LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
-import {StringTable} from "../GUI_StringTable/StringTable";
+import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "../Sound/Sound";
 
 KDOptOut = true;
@@ -1036,7 +1036,7 @@ export class CreateGui {
                             label: StringTable['LockSelect'],
                             type: 'select',
                             value: LockList.Purple,
-                            options: Object.values(LockList),
+                            options: Object.values(LockList).map(T => LockList2HumanName(T)),
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
                         },
@@ -1060,7 +1060,7 @@ export class CreateGui {
                                     const faction = thisRef.gmc!.fields['FactionSelect'].value;
                                     // (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats as Restraint)[('Wear' + WK) as WearMethodsInterfaceKey];
                                     (<Restraint>thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats)[<WearMethodsInterfaceKey>('Wear' + WK)](
-                                        thisRef.gmc!.fields['LockSelect'].value as LockList,
+                                        HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
                                         faction as KinkyDungeonFactionColors_Keys,
                                         // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
@@ -1115,7 +1115,7 @@ export class CreateGui {
                                         const faction = thisRef.gmc!.fields['FactionSelect'].value;
                                         thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
                                             cc[0],
-                                            thisRef.gmc!.fields['LockSelect'].value as LockList,
+                                            HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
                                             faction as KinkyDungeonFactionColors_Keys,
                                             // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                         );
@@ -1141,7 +1141,7 @@ export class CreateGui {
                             label: StringTable['LockNowWearRestraintItem'],
                             type: 'button',
                             click() {
-                                const k = thisRef.gmc!.fields['LockSelect'].value as LockList;
+                                const k = HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string);
                                 const c = thisRef.gmc!.fields['NowWearRestraintItemSelect'].value;
                                 const l = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem();
                                 if (c && isString(c)) {
@@ -1226,7 +1226,7 @@ export class CreateGui {
                                 const faction = thisRef.gmc!.fields['FactionSelect'].value;
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
                                     c,
-                                    thisRef.gmc!.fields['LockSelect'].value as LockList,
+                                    HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
                                     faction as KinkyDungeonFactionColors_Keys,
                                     // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                 );

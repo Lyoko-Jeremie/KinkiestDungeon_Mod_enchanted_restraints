@@ -1,6 +1,7 @@
 import {StringTable_CN} from "./CN";
 import {StringTable_EN} from "./EN";
 import {WearFunctionType, WearsKeys} from "../Cheats/Restraint";
+import {LockList} from "../Cheats/LockList";
 
 const StringTableKeys = [
     'title',
@@ -163,6 +164,7 @@ export interface StringTableType extends StringTableTypeStringPart {
     isInstalledMask(s: string): string;
 
     Wear2I18N(s: string): string;
+
     KinkyDungeonShrine2I18N(s: string): string;
 
     errorMessage2I18N(s: string): string;
@@ -196,3 +198,31 @@ export const StringTable: StringTableType = new Proxy({}, {
 export type WearStringTableInterface = {
     [K in WearsKeys as `Wear${ /*Capitalize<K>*/ K}`]: string;
 };
+
+// =============================================================================================
+
+export function LockList2HumanName(lock?: LockList): string {
+    if (lock === LockList.None || lock === undefined || lock === null) {
+        console.error(`LockList2HumanName() unknown lock [${lock}]`);
+        return "None";
+    } else {
+        const k1 = TextGet(`Kinky${lock}Lock`);
+        const k2 = TextGet(`Kinky${lock}LockType`);
+        let name = k1 === `Kinky${lock}Lock` ? k2 : k1;
+        name = name === `Kinky${lock}LockType` ? lock : name;
+        return `${lock}|[${name}]`;
+    }
+}
+
+export function HumanName2LockList(lockName?: string): LockList {
+    if (lockName === LockList.None || lockName === undefined || lockName === null) {
+        return LockList.None;
+    }
+    const lock = lockName.split('|[')[0];
+    if (Object.keys(LockList).includes(lock)) {
+        return lock as LockList;
+    } else {
+        console.error(`HumanName2LockList() unknown lockName [${lockName}]`);
+        return LockList.None;
+    }
+}
