@@ -11,6 +11,7 @@ import {MapGet} from "./Map";
 import {LockList} from "./LockList";
 import {FullCheats} from "./Full";
 import {RestraintCustomWear} from "./Restraint";
+import {Quest} from "./Quest";
 
 
 export class CheatsBase extends RestraintCustomWear {
@@ -67,7 +68,7 @@ class HardMode {
 }
 
 // https://github.com/tannerntannern/ts-mixer
-export class Cheats extends Mixin(CheatsBase, MapGet, HardMode, FullCheats) {
+export class Cheats extends Mixin(CheatsBase, MapGet, HardMode, FullCheats, Quest) {
     // empty
 }
 

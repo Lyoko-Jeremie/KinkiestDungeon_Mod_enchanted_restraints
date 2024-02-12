@@ -322,4 +322,184 @@ declare global {
     let KinkyDungeonInventory: Map<string, Map<string, item>>;
     let KinkyDungeonStruggleGroups: any[];
 
+    /**
+     *
+     * @param {KDMapDataType} map
+     * @param {*} tile
+     * @returns {string}
+     */
+    function KDGetShrineQuest(map: KDMapDataType, tile: any): string;
+
+    /**
+     *
+     * @param {KDMapDataType} map
+     * @param {*} tile
+     */
+    function KDSetShrineQuest(map: KDMapDataType, tile: any, quest: string): void;
+
+    /**
+     *
+     * @param {KDMapDataType} map
+     * @param {string} flag
+     */
+    function KDSetMapFlag(map: KDMapDataType, flag: string): void;
+
+    /**
+     * @type {Record<string, KDQuest>}
+     */
+    let KDQuests: Record<string, KDQuest>;
+
+    let QuestCompleteWeight: number;
+    let KDDefaultGoddessQuestRep: number;
+
+    /**
+     *
+     * @param {string} Name
+     * @param {string} Icon
+     * @param {string} Goddess
+     * @param {(Goddess, Flag) => void} spawnFunction
+     * @param {number} Rep
+     * @param {number} restraintsCountMult
+     * @param {string[]} restraintsTags
+     * @returns {KDQuest}
+     */
+    function KDGenQuestTemplate(
+        Name: string,
+        Icon: string,
+        Goddess: string,
+        spawnFunction: ((Goddess, Flag) => void),
+        restraintsCountMult: number,
+        restraintsTags: string[],
+        Loot?: string,
+        Rep: number = KDDefaultGoddessQuestRep,
+    ): KDQuest;
+
+    /**
+     *
+     * @param {any} spell
+     * @param {number} count
+     * @param {string[]} tags
+     * @param {string} faction
+     * @param {boolean} [noDeep]
+     * @param {boolean} [bypass] - Bypass inaccessible things
+     * @param {string} [Lock]
+     * @param {object} [options]
+     * @param {boolean} [options.Progressive]
+     * @param {boolean} [options.ProgressiveSkip] - Will skip over stuff already equipped
+     * @param {boolean} [options.DontPreferWill]
+     * @param {boolean} [options.Keep]
+     * @param {boolean} [options.RequireWill]
+     * @returns {{r:restraint, v: ApplyVariant}[]}
+     */
+    function KDPlayerEffectRestrain(
+        spell: any | undefined,
+        count: number,
+        tags: string[],
+        faction: string,
+        noDeep: boolean,
+        bypass: boolean,
+        allowEvade = false,
+        allowBlock = false,
+        allowBondageResist = true,
+        Lock?: string,
+        options?: {
+            Progressive: boolean,
+            ProgressiveSkip: boolean,
+            DontPreferWill: boolean,
+            Keep: boolean,
+            RequireWill: boolean,
+        },
+    ): { r: restraint, v: ApplyVariant }[];
+
+    function KDSetQuestData(quest: string, data: {
+        QuestLocation: { x: number, y: number },  // KDCurrentWorldSlot
+        QuestRoom: string,  // KDMapData.RoomType
+    });
+
+    function KDGetQuestData(quest: string): {
+        QuestLocation: { x: number, y: number },  // KDCurrentWorldSlot
+        QuestRoom: string,  // KDMapData.RoomType
+    } | {};
+
+
+    /**
+     * Gets a restraint from a list of eligible restraints and a group prioritization order
+     * @param {{restraint: restraint, variant?: ApplyVariant, weight: number}[]} RestraintList
+     * @param {string[]} GroupOrder
+     * @param {boolean} [skip]
+     * @returns {{r: restraint, v: ApplyVariant}}
+     */
+    function KDChooseRestraintFromListGroupPriWithVariants(
+        RestraintList: { restraint: restraint, variant?: ApplyVariant, weight: number }[],
+        GroupOrder: string[],
+        skip = true,
+    ): { r: restraint, v: ApplyVariant };
+
+    /**
+     *
+     * @param {KDHasTags} enemy
+     * @param {*} Level
+     * @param {*} Index
+     * @param {*} Bypass
+     * @param {*} Lock
+     * @param {*} RequireWill
+     * @param {*} LeashingOnly
+     * @param {*} NoStack
+     * @param {*} extraTags
+     * @param {*} agnostic - Determines if playertags and current bondage are ignored
+     * @param {entity} [securityEnemy] - Bypass is treated separately for these groups
+     * @param {string} [curse] - Planning to add this curse
+     * @param {boolean} [useAugmented] - useAugmented
+     * @param {string[]} [augmentedInventory] -
+     * @param {object} [options]
+     * @param {boolean} [options.dontAugmentWeight]
+     * @param {boolean} [options.ApplyVariants]
+     * @param {boolean} [options.dontPreferVariant]
+     * @param {{minPower?: number, maxPower?: number, onlyLimited?: boolean, noUnlimited?: boolean, noLimited?: boolean, onlyUnlimited?: boolean, ignore?: string[], require?: string[], looseLimit?: boolean, ignoreTags?: string[], allowedGroups?: string[]}} [filter] - Filters for items
+     * @returns {{r: restraint, v: ApplyVariant}}
+     */
+    function KDGetRestraintWithVariants(
+        enemy: KDHasTags,
+        Level: any,
+        Index: any,
+        Bypass: any,
+        Lock: any,
+        RequireWill: any,
+        LeashingOnly?: any,
+        NoStack?: any,
+        extraTags?: any,
+        agnostic?: any,
+        filter?: {
+            minPower?: number,
+            maxPower?: number,
+            onlyLimited?: boolean,
+            noUnlimited?: boolean,
+            noLimited?: boolean,
+            onlyUnlimited?: boolean,
+            ignore?: string[],
+            require?: string[],
+            looseLimit?: boolean,
+            ignoreTags?: string[],
+            allowedGroups?: string[]
+        },
+        securityEnemy?: entity,
+        curse?: string,
+        useAugmented?: boolean,
+        augmentedInventory?: string[],
+        options?: {
+            dontAugmentWeight: boolean,
+            ApplyVariants: boolean,
+            dontPreferVariant: boolean,
+        },
+    ): { r: restraint, v: ApplyVariant };
+
+    function KDAddQuest(quest: string): void;
+
+    function KDRemoveQuest(quest: string): void;
+
+    /**
+     * @type {Record<string, KDQuest>}
+     */
+    let KDQuests: Record<string, KDQuest>;
+
 }

@@ -121,6 +121,17 @@ const StringTableKeys = [
     'WearJailOutfit',
     //  TODO
 
+    'Quest Section',
+    'QuestPrintNowAccept',
+    'NowQuestList',
+    'ListAllQuest',
+    'ListAllQuestHasAccept',
+    'QuestAddOneSelect',
+    'QuestAddOne',
+    'QuestRemoveOne',
+    'QuestRemoveAll',
+    'UnlockAllQuestLock',
+
     'OpenChest Section',
     'OpenChest',
 
@@ -202,8 +213,10 @@ export type WearStringTableInterface = {
 // =============================================================================================
 
 export function LockList2HumanName(lock?: LockList): string {
-    if (lock === LockList.None || lock === undefined || lock === null) {
+    if (lock === undefined || lock === null) {
         console.error(`LockList2HumanName() unknown lock [${lock}]`);
+        return "None";
+    } else if (lock === LockList.None) {
         return "None";
     } else {
         const k1 = TextGet(`Kinky${lock}Lock`);

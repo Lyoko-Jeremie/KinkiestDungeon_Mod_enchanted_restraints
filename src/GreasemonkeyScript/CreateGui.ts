@@ -4,7 +4,7 @@ import {EnchantedRestraintsPatch, isInit} from '../initMod';
 import inlineGMCss from './inlineText/GM.css?inlineText';
 import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
 import {KinkyDungeonFactionColors_Keys, Restraint, WearMethodsInterfaceKey, WearsList} from "../Cheats/Restraint";
-import {assign, isString} from "lodash";
+import {assign, isNil, isString} from "lodash";
 import {LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
@@ -116,8 +116,10 @@ export class CreateGui {
     }
     calcNowWearRestraintItemSelect = () => {
         return this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem().map(T => {
-            return `${T.restraint?.name}|[${T.restraint ? TextGet(`Restraint${T.restraint.name}`) : ''}][${T.restraint?.Group}]--` +
-                (T.parentRestraint ? (`[${T.parentRestraint?.name || ''}][${T.parentRestraint ? TextGet(`Restraint${T.parentRestraint.name}`) : ''}][${T.parentRestraint?.Group || ''}]`) : '');
+            const l1 = LockList2HumanName(T.item?.lock as LockList);
+            const l2 = LockList2HumanName(T.parentItem?.lock as LockList);
+            return `${T.restraint?.name}|[${T.restraint ? TextGet(`Restraint${T.restraint.name}`) : ''}][${T.restraint?.Group}][${l1}]--` +
+                (T.parentRestraint ? (`[${T.parentRestraint?.name || ''}][${T.parentRestraint ? TextGet(`Restraint${T.parentRestraint.name}`) : ''}][${T.parentRestraint?.Group || ''}][${l2}]`) : '');
         });
     }
     flushNowWearRestraintItemSelect = () => {
@@ -1230,6 +1232,103 @@ export class CreateGui {
                                     faction as KinkyDungeonFactionColors_Keys,
                                     // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                 );
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['Quest Section']),
+                            type: 'br',
+                        },
+                        'QuestPrintNowAccept': {
+                            label: StringTable['QuestPrintNowAccept'],
+                            type: 'button',
+                            click() {
+                                thisRef.gmc!.fields['NowQuestList'].value =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowAcceptedQuest()
+                                        .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}][${T.Succeed}][${T.Succeed}][${T.SucceedSub}][${T.Fail}]`)
+                                        .join('\n');
+                                thisRef.gmc!.fields['NowQuestList'].reload();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'NowQuestList': {
+                            label: StringTable['NowQuestList'],
+                            type: 'textarea',
+                            default: '',
+                        },
+                        'ListAllQuest': {
+                            label: StringTable['ListAllQuest'],
+                            type: 'textarea',
+                            default: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestWithInfo()
+                                .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}][${T.Succeed}][${T.Succeed}][${T.SucceedSub}][${T.Fail}]`)
+                                .join('\n'),
+                        },
+                        'ListAllQuestHasAccept': {
+                            label: StringTable['ListAllQuestHasAccept'],
+                            type: 'textarea',
+                            default: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestHasAcceptWithInfo()
+                                .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}][${T.Succeed}][${T.Succeed}][${T.SucceedSub}][${T.Fail}]`)
+                                .join('\n'),
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'QuestAddOneSelect': {
+                            label: StringTable['QuestAddOneSelect'],
+                            type: 'select',
+                            value: '',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestWithInfo()
+                                .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}] ${T.accepted ? '【Accepted】' : ''} `),
+                            // .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}][${T.Succeed}][${T.SucceedSub}][${T.Fail}]`),
+                            cssClassName: 'd-inline',
+                        },
+                        'QuestAddOne': {
+                            label: StringTable['QuestAddOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['QuestAddOneSelect'].value as string;
+                                const q = c.split('|[')[0];
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AcceptQuest(q);
+
+                                thisRef.gmc!.fields['QuestAddOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestWithInfo()
+                                        .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}] ${T.accepted ? '【Accepted】' : ''} `);
+                                thisRef.gmc!.fields['QuestAddOneSelect'].reload();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'QuestRemoveOne': {
+                            label: StringTable['QuestRemoveOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['QuestAddOneSelect'].value as string;
+                                const q = c.split('|[')[0];
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveQuest(q);
+
+                                thisRef.gmc!.fields['QuestAddOneSelect'].settings.options =
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestWithInfo()
+                                        .map(T => `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}] ${T.accepted ? '【Accepted】' : ''} `);
+                                thisRef.gmc!.fields['QuestAddOneSelect'].reload();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'QuestRemoveAll': {
+                            label: StringTable['QuestRemoveAll'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllQuest();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'UnlockAllQuestLock': {
+                            label: StringTable['UnlockAllQuestLock'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.UnlockAllQuestLock();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
