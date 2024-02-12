@@ -13,6 +13,7 @@ export const StringTable_EN: StringTableType = {
     'ApplyRestraint Section': 'ApplyRestraint Section',
     RemoveAllRestraint: 'RemoveAllRestraint',
     RemoveAllRestraintDynamic: 'RemoveAllRestraintDynamic',
+    ForceClearRestraint: 'ForceClearRestraint',
     'Keys Section': 'Keys Section',
     AddManyKeys: 'AddManyKeys',
     AddManyPotion: 'AddManyPotion',

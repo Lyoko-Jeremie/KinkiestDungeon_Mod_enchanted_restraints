@@ -14,6 +14,7 @@ const StringTableKeys = [
     'ApplyRestraint Section',
     'RemoveAllRestraint',
     'RemoveAllRestraintDynamic',
+    'ForceClearRestraint',
 
     'Keys Section',
     'AddManyKeys',

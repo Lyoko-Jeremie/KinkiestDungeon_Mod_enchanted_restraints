@@ -217,6 +217,11 @@ class RestraintBase {
         return KinkyDungeonRemoveRestraint(KDRestraint(T).Group, true);
     };
 
+    ForceClearRestraint = () => {
+        KinkyDungeonInventory.set("restraint", new Map());
+        KinkyDungeonStruggleGroups = [];
+    }
+
 }
 
 type RestraintClassType = new () => RestraintBase & WearMethodsInterface;

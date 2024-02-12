@@ -149,7 +149,8 @@ declare global {
     var KinkyDungeonConsumables: Record<string, consumable>;
     var KinkyDungeonGoddessRep: Record<string, number>;
     var KinkyDungeonRescued: Record<string, boolean>;
-    var KinkyDungeonAid: Record<string, boolean>;/**
+    var KinkyDungeonAid: Record<string, boolean>;
+    /**
      * Base costs for all the shrines. Starts at this value, increases thereafter
      * @type {Record<string, number>}
      */
@@ -313,4 +314,12 @@ declare global {
 
     /** @type {Map<string, number>} */
     let KinkyDungeonFlags: Map<string, number>;
+
+    /**
+     * Your inventory contains items that are on you
+     * @type {Map<string, Map<string, item>>}
+     */
+    let KinkyDungeonInventory: Map<string, Map<string, item>>;
+    let KinkyDungeonStruggleGroups: any[];
+
 }

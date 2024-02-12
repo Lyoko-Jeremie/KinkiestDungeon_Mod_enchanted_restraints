@@ -55,6 +55,7 @@ export const StringTable_CN: StringTableType = {
     'ApplyRestraint Section': 'Apply Restraint Section',
     RemoveAllRestraint: '脱下最外层约束',
     RemoveAllRestraintDynamic: '脱下全部约束',
+    ForceClearRestraint: '强制清除所有穿戴物',
     'Keys Section': 'Keys Section',
     AddManyKeys: '增加大量钥匙Keys',
     AddManyPotion: '增加大量药水Potion',
