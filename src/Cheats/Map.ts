@@ -660,3 +660,9 @@ export class MapGet {
 // KinkyDungeonEscapeList.js
 // let KinkyDungeonEscapeTypes = {
 
+
+//
+// if (KinkyDungeonStatsChoice.get("escapeselect")) {
+//     DrawTextFitKD(TextGet("KDEscapeMethod_" + KDPerkOrbMethod), 1250, 200 + count * pspacing, Twidth, "#ffffff", KDTextGray2, 30);
+//     DrawTextFitKD(TextGet("KDEscapeMethodDesc_" + KDPerkOrbMethod), 1250, 235 + count * pspacing, Twidth, "#ffffff", KDTextGray2, 22);
+//
