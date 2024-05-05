@@ -97,7 +97,7 @@ export const StringTable_CN: StringTableType = {
     DisableAllCheats: '禁用【所有】动态内存作弊',
     EnableFullState: '启动【保持状态全满】动态内存作弊',
     DisableFullState: '禁用【保持状态全满】动态内存作弊',
-    EnableQuickness5: '启用时间静止(起点后需点击技能【双重加速】生效)',
+    EnableQuickness5: '启用时间静止(启用后需点击技能【双重加速】生效)',
     DisableQuickness5: '关闭时间静止',
     'Choice Section': '技能 Section',
     ChoiceAddCheatChoiceGoodEscape: '添加有益逃生的Choice',
