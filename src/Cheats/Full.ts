@@ -211,6 +211,12 @@ class FullCheatsBase extends Choice {
         });
     }
 
+    GetAllFactionRelations(): [string, number][] {
+        return Object.getOwnPropertyNames(KinkyDungeonFactionRelations.Player).map(T => {
+            return [T, KinkyDungeonFactionRelations.Player[T]];
+        });
+    }
+
     // Reputation
     // KinkyDungeonGoddessRep
     //

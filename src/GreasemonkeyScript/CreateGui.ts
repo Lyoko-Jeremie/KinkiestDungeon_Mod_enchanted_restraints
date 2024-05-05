@@ -124,10 +124,22 @@ export class CreateGui {
         });
     }
     flushPrintNowAllReputationStateList = () => {
-        this.gmc!.fields['PrintNowAllReputationStateList'].value =
-            this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllGoddessRep().map(T => {
-                return `${T[0]}[${StringTable.KinkyDungeonShrine2I18N(T[0])}]:${T[1]}`;
-            }).join('\n');
+        const rGod = this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllGoddessRep().map(T => {
+            return `${T[0]}[${StringTable.KinkyDungeonShrine2I18N(T[0])}]:${T[1]}`;
+        }).join('\n');
+        const rFaction = this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllFactionRelations().map(T => {
+            const r = StringTable.KinkyDungeonKinkyDungeonFaction2I18N(T[0]);
+            return [r[1], `${T[0]}[${r[0]}]:${T[1]}`] as [boolean, string];
+        }).sort((a, b) => {
+            if (a[0] === b[0]) {
+                return 0;
+            }
+            if (a[0] && !b[0]) {
+                return -1;
+            }
+            return 1;
+        }).map(T => T[1]).join('\n');
+        this.gmc!.fields['PrintNowAllReputationStateList'].value = rGod + '\n------------\n' + rFaction;
         this.gmc!.fields['PrintNowAllReputationStateList'].reload();
     }
     calcNowWearRestraintItemSelect = () => {
@@ -829,6 +841,106 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'ChoiceAddOneFilterInput': {
+                            label: StringTable['ChoiceAddOneFilterInput'],
+                            type: 'text',
+                            value: thisRef.lastSearch.get('ChoiceAddOneFilter'),
+                            default: thisRef.lastSearch.get('ChoiceAddOneFilter'),
+                            eventCallbacks: {
+                                click(e) {
+                                    console.log('ChoiceAddOneFilterInput eventCallbacks click', e);
+                                },
+                                blur(e) {
+                                    console.log('ChoiceAddOneFilterInput eventCallbacks blur', e);
+                                },
+                                keyup(e) {
+                                    console.log('ChoiceAddOneFilterInput eventCallbacks keydown', e);
+
+                                    const searchKey = thisRef.gmc!.fields['ChoiceAddOneFilterInput'].toValue();
+                                    console.log('searchKey', searchKey);
+                                    if (!isString(searchKey)) {
+                                        console.warn('ChoiceAddOneFilterInput searchKey is not string', searchKey);
+                                        return;
+                                    }
+                                    const nn = thisRef.gmc!.fields['ChoiceAddOneFilterSelect'];
+                                    if (searchKey.length === 0) {
+                                        nn.settings.options = [];
+                                        thisRef.lastSearch.delete('ChoiceAddOneFilter');
+                                        nn.reload();
+                                        return;
+                                    }
+                                    nn.settings.options =
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
+                                            .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`)
+                                            .filter(T =>
+                                                T.includes(searchKey)
+                                            )/*.concat(['None'])*/;
+                                    thisRef.lastSearch.set('ChoiceAddOneFilter', searchKey);
+                                    nn.reload();
+
+                                },
+                                change(e) {
+                                    console.log('ChoiceAddOneFilterInput eventCallbacks change', e);
+                                },
+                            },
+                            afterToNode: (node, wrapper, settings, id, configId) => {
+                                console.log('ChoiceAddOneFilterInput afterToNode', node, wrapper, settings, id, configId);
+                                node.addEventListener('keydown', (e) => {
+                                    console.log('ChoiceAddOneFilterInput keydown', e);
+                                    // e.stopPropagation();
+                                });
+                            },
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'ChoiceAddOneFilterSelect': {
+                            label: StringTable['ChoiceAddOneFilterSelect'],
+                            type: 'select',
+                            value: '',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
+                                .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`)
+                                .filter(T =>
+                                    T.includes(thisRef.lastSearch.get('ChoiceAddOneFilter'))
+                                ),
+                            cssClassName: 'd-inline',
+                        },
+                        'ChoiceFilterAddOne': {
+                            label: StringTable['ChoiceFilterAddOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['ChoiceAddOneFilterSelect'].value;
+                                if (c && isString(c) && c.length > 0) {
+                                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                                    });
+                                    if (N) {
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName);
+                                    }
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ChoiceFilterRemoveOne': {
+                            label: StringTable['ChoiceFilterRemoveOne'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['ChoiceAddOneFilterSelect'].value;
+                                if (c && isString(c) && c.length > 0) {
+                                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                                    });
+                                    if (N) {
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName, true);
+                                    }
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['ChoicePrint Section']),
                             type: 'br',
                         },
@@ -1150,7 +1262,8 @@ export class CreateGui {
                         'AllRestraintItemFilterInput': {
                             label: StringTable['AllRestraintItemFilterInput'],
                             type: 'text',
-                            value: '',
+                            value: thisRef.lastSearch.get('AllRestraintItemFilter'),
+                            default: thisRef.lastSearch.get('AllRestraintItemFilter'),
                             eventCallbacks: {
                                 click(e) {
                                     console.log('AllRestraintItemFilterInput eventCallbacks click', e);
