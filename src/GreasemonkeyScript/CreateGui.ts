@@ -40,7 +40,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '1.30';
+        return '1.31';
     }
 
     // avoid same Math.random
