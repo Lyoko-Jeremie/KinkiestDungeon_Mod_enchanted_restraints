@@ -12,6 +12,22 @@ import {playDing, PlayDingType} from "../Sound/Sound";
 
 KDOptOut = true;
 
+class LastSearch {
+    lastSearch: Map<string, string> = new Map<string, string>();
+
+    get(key: string, defaultValue: string = ''): string {
+        return this.lastSearch.get(key) || defaultValue;
+    }
+
+    set(key: string, value: string) {
+        this.lastSearch.set(key, value);
+    }
+
+    delete(key: string) {
+        this.lastSearch.delete(key);
+    }
+}
+
 export class CreateGui {
 
     noPlayDing = false;
@@ -128,6 +144,8 @@ export class CreateGui {
         this.gmc!.fields['NowWearRestraintItemSelect'].value = l[0];
         this.gmc!.fields['NowWearRestraintItemSelect'].reload();
     }
+
+    lastSearch: LastSearch = new LastSearch();
 
     gmcCreator = () => {
         KDOptOut = true;
@@ -1059,7 +1077,7 @@ export class CreateGui {
                                 label: StringTable.Wear2I18N('Wear' + WK),
                                 type: 'button',
                                 click() {
-                                    const faction = thisRef.gmc!.fields['FactionSelect'].value;
+                                    const faction = thisRef.gmc!.fields['FactionSelect'].toValue();
                                     // (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats as Restraint)[('Wear' + WK) as WearMethodsInterfaceKey];
                                     (<Restraint>thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats)[<WearMethodsInterfaceKey>('Wear' + WK)](
                                         HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
@@ -1110,13 +1128,110 @@ export class CreateGui {
                             label: StringTable['WearTheSelectedRestrain'],
                             type: 'button',
                             click() {
-                                const c = thisRef.gmc!.fields['AllRestraintItemSelect'].value;
+                                const c = thisRef.gmc!.fields['AllRestraintItemSelect'].toValue();
                                 if (c && isString(c)) {
                                     const cc = c.split('|[');
-                                    const faction = thisRef.gmc!.fields['FactionSelect'].value;
+                                    const faction = thisRef.gmc!.fields['FactionSelect'].toValue();
                                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
                                         cc[0],
-                                        HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
+                                        HumanName2LockList(thisRef.gmc!.fields['LockSelect'].toValue() as string),
+                                        faction as KinkyDungeonFactionColors_Keys,
+                                        // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                    );
+                                    thisRef.flushNowWearRestraintItemSelect();
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'AllRestraintItemFilterInput': {
+                            label: StringTable['AllRestraintItemFilterInput'],
+                            type: 'text',
+                            value: '',
+                            eventCallbacks: {
+                                click(e) {
+                                    console.log('AllRestraintItemFilterInput eventCallbacks click', e);
+                                },
+                                blur(e) {
+                                    console.log('AllRestraintItemFilterInput eventCallbacks blur', e);
+                                },
+                                keyup(e) {
+                                    console.log('AllRestraintItemFilterInput eventCallbacks keydown', e);
+
+                                    const searchKey = thisRef.gmc!.fields['AllRestraintItemFilterInput'].toValue();
+                                    console.log('searchKey', searchKey);
+                                    if (!isString(searchKey)) {
+                                        console.warn('AllRestraintItemFilterInput blur searchKey is not string', searchKey);
+                                        return;
+                                    }
+                                    const nn = thisRef.gmc!.fields['AllRestraintItemFilterSelect'];
+                                    if (searchKey.length === 0) {
+                                        nn.settings.options = ['None'];
+                                        thisRef.lastSearch.delete('AllRestraintItemFilter');
+                                        nn.reload();
+                                        return;
+                                    }
+                                    nn.settings.options =
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem()
+                                            .map(T => {
+                                                return `${T.name}|[${TextGet(`Restraint${T.name}`)}]`;
+                                            })
+                                            .filter(T =>
+                                                T.includes(searchKey)
+                                            )/*.concat(['None'])*/;
+                                    thisRef.lastSearch.set('AllRestraintItemFilter', searchKey);
+                                    nn.reload();
+
+                                },
+                                change(e) {
+                                    console.log('AllRestraintItemFilterInput eventCallbacks change', e);
+                                },
+                            },
+                            afterToNode: (node, wrapper, settings, id, configId) => {
+                                console.log('AllRestraintItemSelect afterToNode', node, wrapper, settings, id, configId);
+                                node.addEventListener('keydown', (e) => {
+                                    console.log('AllRestraintItemFilterInput keydown', e);
+                                    // e.stopPropagation();
+                                });
+                            },
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'AllRestraintItemFilterSelect': {
+                            label: StringTable['AllRestraintItemFilterSelect'],
+                            type: 'select',
+                            value: 'None',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem().map(T => {
+                                return `${T.name}|[${TextGet(`Restraint${T.name}`)}]`;
+                            }).filter(T => T.includes(thisRef.lastSearch.get('AllRestraintItemFilter'))).concat(['None']),
+                            eventCallbacks: {
+                                click(e) {
+                                    console.warn('AllRestraintItemFilterSelect click', e);
+                                },
+                                change(e) {
+                                    console.warn('AllRestraintItemFilterSelect change', e);
+                                },
+                            },
+                            afterToNode: (node, wrapper, settings, id, configId) => {
+                                console.log('AllRestraintItemFilterSelect afterToNode', node, wrapper, settings, id, configId);
+                            },
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'AllRestraintItemFilterWearIt': {
+                            label: StringTable['AllRestraintItemFilterWearIt'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['AllRestraintItemFilterSelect'].toValue();
+                                if (c && isString(c) && c.length > 0 && c !== 'None' && c !== '|[]') {
+                                    const cc = c.split('|[');
+                                    const faction = thisRef.gmc!.fields['FactionSelect'].toValue();
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
+                                        cc[0],
+                                        HumanName2LockList(thisRef.gmc!.fields['LockSelect'].toValue() as string),
                                         faction as KinkyDungeonFactionColors_Keys,
                                         // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
