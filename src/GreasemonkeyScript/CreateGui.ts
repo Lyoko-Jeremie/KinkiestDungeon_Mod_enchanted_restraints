@@ -1566,6 +1566,49 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'OpenShadowChest': {
+                            label: StringTable['OpenShadowChest'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.OpenShadowChest();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'ReSetAllChests': {
+                            label: StringTable['ReSetAllChests'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ReSetAllChests();
+                            },
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'SetAllChestsToSpecialChestsSelect': {
+                            label: StringTable['SetAllChestsToSpecialChestsSelect'],
+                            type: 'select',
+                            value: '',
+                            options: Object.getOwnPropertyNames(KDSpecialChests),
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'SetAllChestsToSpecialChests': {
+                            label: StringTable['SetAllChestsToSpecialChests'],
+                            type: 'button',
+                            click() {
+                                let v = thisRef.gmc!.fields['SetAllChestsToSpecialChestsSelect'].value as string;
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAllChestsToSpecialChests(v as any);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['Map Section']),
                             type: 'br',
                         },

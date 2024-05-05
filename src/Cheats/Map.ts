@@ -611,7 +611,65 @@ export class MapGet {
         this.MapGrid = this.MapGrid.replaceAll('X', 'Y')
     }
 
+    // KDSpecialChests
+    // let KDSpecialChests = {
+    // 	"silver" : "ChestSilver",
+    // 	"shadow" : "ChestShadow",       // the de-buff `Cursed` Wears Chest
+    // 	"lessershadow" : "ChestShadow",
+    // 	"kitty" : "Chests/Kitty",
+    // 	"robot" : "Chests/Robot",
+    // };
+    //
+    // KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
+    // KinkyDungeonTilesSet((cornerX + 2) + "," + (cornerY + 2), {
+    // 	Loot: "shadow", Roll: KDRandom(),
+    // 	lootTrap: KDGenChestTrap(true, cornerX + 2, cornerY + 2, "shadow", undefined, false)}
+    // );
+    SetAllChestsToSpecialChests(
+        type: keyof SpecialChestsType,
+    ) {
+        this.SetMapTrap((x, y, c) => {
+                if (c === 'C') {
+                    KDMapData.Tiles[(x) + "," + (y)].Loot = type;
+                    if (type === 'shadow') {
+                        KDMapData.Tiles[(x) + "," + (y)].lootTrap =
+                            KDGenChestTrap(true, x, y, "shadow", undefined, false);
+                    }
+                }
+                return c;
+            }
+        );
+    }
+
+// 	"c": (x, y, Fog, noReplace) => {
+// 		return (KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "gold" || KinkyDungeonTilesGet(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
+// 		((KinkyDungeonTilesGet(x + "," + y) && (KDSpecialChests[KinkyDungeonTilesGet(x + "," + y).Loot])) ? KDSpecialChests[KinkyDungeonTilesGet(x + "," + y).Loot] + "Open" :
+// 			((KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "blue")) ? "ChestBlueOpen" :
+// 			((KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "dark")) ? "ChestDarkOpen" :
+// 			((KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "pearl" || KinkyDungeonTilesGet(x + "," + y).Loot == "lesserpearl")) ? "ChestPearlOpen" : "ChestOpen"))));
+// 	},
+//
+// 	"C": (x, y, Fog, noReplace) => {
+// 		return (KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "gold" || KinkyDungeonTilesGet(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
+// 		((KinkyDungeonTilesGet(x + "," + y) && (KDSpecialChests[KinkyDungeonTilesGet(x + "," + y).Loot])) ? KDSpecialChests[KinkyDungeonTilesGet(x + "," + y).Loot] :
+// 		((KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "blue")) ? "ChestBlue" :
+// 		((KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "dark")) ? "ChestDark" :
+// 		((KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "pearl" || KinkyDungeonTilesGet(x + "," + y).Loot == "lesserpearl")) ? "ChestPearl" : "Chest"))));
+// 	},
+    ReSetAllChests() {
+        this.MapGrid = this.MapGrid.replaceAll('c', 'C');
+    }
 }
+
+const SpecialChestsList = {
+    silver: "ChestSilver",
+    shadow: "ChestShadow",
+    lessershadow: "ChestShadow",
+    kitty: "Chests/Kitty",
+    robot: "Chests/Robot",
+} as const;
+
+type SpecialChestsType = typeof SpecialChestsList;
 
 // Charm Trap
 // 绷带陷阱

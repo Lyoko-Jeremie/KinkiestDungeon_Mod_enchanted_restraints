@@ -141,6 +141,10 @@ const StringTableKeys = [
 
     'OpenChest Section',
     'OpenChest',
+    'OpenShadowChest',
+    'ReSetAllChests',
+    'SetAllChestsToSpecialChestsSelect',
+    'SetAllChestsToSpecialChests',
 
     'Map Section',
     'MapKKSsMGet',

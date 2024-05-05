@@ -502,4 +502,8 @@ declare global {
      */
     let KDQuests: Record<string, KDQuest>;
 
+    let KDSpecialChests: Record<string, string>;
+
+    function KDGenChestTrap(guaranteed, x, y, chestType, lock, noTrap);
+
 }

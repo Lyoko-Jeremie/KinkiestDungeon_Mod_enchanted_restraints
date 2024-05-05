@@ -180,11 +180,47 @@ class RestraintBase {
 
     kinkyDungeonFactionColors!: { [key: string]: string[] };
 
+    // 	'Y': (moveX, moveY) => { // Open the chest
+    // 		let allowManip = KDAllowUseItems(true);
+    // 		if (allowManip) {
+    // 			let chestType = (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint) == "lib" ? "shelf" : "rubble";
+    // 			KinkyDungeonLoot(MiniGameKinkyDungeonLevel, (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint), chestType);
+    // 			if (KDToggles.Sound) AudioPlayInstantSoundKD(KinkyDungeonRootDirectory + "Audio/Coins.ogg");
+    // 			KinkyDungeonMapSet(moveX, moveY, 'X');
+    // 			KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
+    // 		} else {
+    // 			KinkyDungeonSendActionMessage(6, TextGet("KDCantTouchThat"), "#ff8933",1, false, true);
+    // 		}
+    // 		return true;
+    // 	},
     OpenChest(times: number = 10) {
         let chestType = KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] == "lib" ? "shelf" : "rubble";
         if (isSafeInteger(times) && times > 0) {
             for (let i = 0; i < times; i++) {
                 KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
+            }
+        }
+    }
+
+    // 	"beforeChest": {
+    // 		"shadowChest": (e, data) => {
+    // 			if ((data.chestType == "shadow" || data.chestType == "lessershadow") && KDCanCurse(["ChestCollar"])) {
+    // 				// Shadow chests spawn cursed epicenter
+    // 				if (data.chestType == "shadow" || KDRandom() < 0.2)
+    // 					KDSummonCurseTrap(data.x, data.y);
+    // 			}
+    // 		},
+    // 		"lessergoldChest": (e, data) => {
+    // 			if ((data.chestType == "lessergold") && KDCanCurse(["ChestCollar"])) {
+    // 				// Shadow chests spawn cursed epicenter
+    // 				KDSummonCurseTrap(data.x, data.y);
+    // 			}
+    // 		},
+    // 	},
+    OpenShadowChest(times: number = 10) {
+        if (isSafeInteger(times) && times > 0) {
+            for (let i = 0; i < times; i++) {
+                KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], 'shadow');
             }
         }
     }
