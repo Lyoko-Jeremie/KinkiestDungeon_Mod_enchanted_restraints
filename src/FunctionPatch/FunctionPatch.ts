@@ -1,11 +1,17 @@
-import {get} from 'lodash';
+import {get, set} from 'lodash';
 
 
 export interface PatchHookConfig {
     originalFunctionName: string;
     hookFunctionBefore?: <Args extends IArguments>(arg: Args) => Args;
     hookFunctionAfter?: <Args extends IArguments, T>(arg: Args, returnValue: T) => T;
-    originalCustomGetter?: (jumpFunction: (...args: any[]) => any) => ((...args: any[]) => any);
+    /**
+     * Custom replacer for originalFunction
+     * it must do the task : place the jumpFunction to the hookFunctionPoint as newFunction , and return the old one
+     * @param jumpFunction  The jumpFunction
+     * @returns The originalFunction
+     */
+    originalFunctionCustomReplacer?: (jumpFunction: (...args: any[]) => any) => ((...args: any[]) => any);
 }
 
 export interface PatchHookInfo extends PatchHookConfig {
@@ -16,13 +22,28 @@ export interface PatchHookInfo extends PatchHookConfig {
 export class FunctionPatchHooker {
     hookTable: Map<string, PatchHookInfo[]> = new Map();
 
-    private getOriginalFunction(originalFunctionName: string) {
-        return get(window, originalFunctionName);
+    constructor(
+        public winRef: Window,
+    ) {
+    }
+
+    private replaceOriginalFunction(originalFunctionName: string, replaceJumpFunction: ((...args: any[]) => any)) {
+        const originalFunction = get(this.winRef, originalFunctionName);
+        if (originalFunction === undefined) {
+            console.error('[FunctionPatchHook] originalFunction is undefined:', [originalFunctionName]);
+            return originalFunction;
+        }
+        set(this.winRef, originalFunctionName, replaceJumpFunction);
+        console.log('[FunctionPatchHook] replaceOriginalFunction', [originalFunctionName, originalFunction]);
+        return originalFunction;
     }
 
     private createJumpFunction(originalFunctionName: string): ((...args: any[]) => any) {
+        console.log('[FunctionPatchHook] createJumpFunction', [originalFunctionName]);
         const thisPtr = this;
         return function () {    // JumpFunction
+            console.log('[FunctionPatchHook] JumpFunction calling', [originalFunctionName]);
+
             const hookInfo = thisPtr.hookTable.get(originalFunctionName)!;
 
             const originalFunction = hookInfo[0].originalFunctionHandle;
@@ -61,6 +82,13 @@ export class FunctionPatchHooker {
     }
 
     prepareHook(hookConfig: PatchHookConfig) {
+        if (this.isAllHookInstalled) {
+            this.installHook(hookConfig);
+            return;
+        }
+
+        console.log('[FunctionPatchHook] prepareHook', [this.hookTable]);
+
         if (!hookConfig || !hookConfig.originalFunctionName
             || (hookConfig.hookFunctionBefore === undefined && hookConfig.hookFunctionAfter === undefined)
         ) {
@@ -88,6 +116,7 @@ export class FunctionPatchHooker {
     }
 
     doLeakCheck() {
+        console.log('[FunctionPatchHook] doLeakCheck', [this.hookTable]);
         for (const [originalFunctionName, hookInfo] of this.hookTable.entries()) {
             if (hookInfo.length === 0) {
                 console.error('[FunctionPatchHook] doLeakCheck hookInfo is invalid:', [originalFunctionName, hookInfo]);
@@ -102,13 +131,20 @@ export class FunctionPatchHooker {
         }
     }
 
+    isAllHookInstalled = false;
+
     installAllHooks() {
+        if (this.isAllHookInstalled) {
+            return;
+        }
+        this.isAllHookInstalled = true;
+        console.log('[FunctionPatchHook] installAllHooks', [this.hookTable]);
+        this.doLeakCheck();
         for (const [originalFunctionName, hookInfo] of this.hookTable.entries()) {
             if (hookInfo.length === 0) {
                 console.error('[FunctionPatchHook] installAllHooks hookInfo is invalid:', [originalFunctionName, hookInfo]);
                 continue;
             }
-            this.doLeakCheck();
 
             const hook = hookInfo[0];
             let originalFunctionHandle;
@@ -119,12 +155,18 @@ export class FunctionPatchHooker {
             } else {
 
                 jumpFunctionHandle = this.createJumpFunction(originalFunctionName);
-                if (hookInfo[0].originalCustomGetter) {
-                    originalFunctionHandle = hookInfo[0].originalCustomGetter(
+                if (hookInfo[0].originalFunctionCustomReplacer) {
+                    originalFunctionHandle = hookInfo[0].originalFunctionCustomReplacer(
                         jumpFunctionHandle
                     );
                 } else {
-                    originalFunctionHandle = this.getOriginalFunction(originalFunctionName);
+                    originalFunctionHandle = this.replaceOriginalFunction(originalFunctionName, jumpFunctionHandle);
+                }
+                if (originalFunctionHandle === undefined) {
+                    console.error('[FunctionPatchHook] installAllHooks originalFunctionHandle is undefined. delete.',
+                        [originalFunctionName, hookInfo]);
+                    this.hookTable.delete(originalFunctionName);
+                    continue;
                 }
                 originalFunctionHandle.bind(originalFunctionHandle);
                 hookInfo[0].originalFunctionHandle = originalFunctionHandle;
@@ -142,6 +184,7 @@ export class FunctionPatchHooker {
     }
 
     installHook(hookConfig: PatchHookConfig) {
+        console.log('[FunctionPatchHook] installHook', [this.hookTable]);
 
         if (!hookConfig || !hookConfig.originalFunctionName
             || (hookConfig.hookFunctionBefore === undefined && hookConfig.hookFunctionAfter === undefined)
@@ -153,21 +196,28 @@ export class FunctionPatchHooker {
         if (!this.hookTable.has(hookConfig.originalFunctionName)
             || this.hookTable.get(hookConfig.originalFunctionName)!.length === 0) {
             this.hookTable.set(hookConfig.originalFunctionName, []);
+
             let originalFunctionHandle;
             const jumpFunctionHandle = this.createJumpFunction(hookConfig.originalFunctionName);
-            if (hookConfig.originalCustomGetter) {
-                originalFunctionHandle = hookConfig.originalCustomGetter(
+            if (hookConfig.originalFunctionCustomReplacer) {
+                originalFunctionHandle = hookConfig.originalFunctionCustomReplacer(
                     jumpFunctionHandle
                 );
             } else {
-                originalFunctionHandle = this.getOriginalFunction(hookConfig.originalFunctionName);
+                originalFunctionHandle = this.replaceOriginalFunction(hookConfig.originalFunctionName, jumpFunctionHandle);
+            }
+            if (originalFunctionHandle === undefined) {
+                console.error('[FunctionPatchHook] installHook originalFunctionHandle is undefined.', [hookConfig.originalFunctionName]);
+                return;
             }
             originalFunctionHandle.bind(originalFunctionHandle);
+
             this.hookTable.get(hookConfig.originalFunctionName)!.push({
                 ...hookConfig,
                 originalFunctionHandle,
                 jumpFunctionHandle
             });
+
         } else {
             const nn = this.hookTable.get(hookConfig.originalFunctionName)!;
             nn.push({

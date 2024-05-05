@@ -12,9 +12,12 @@ import {LockList} from "./LockList";
 import {FullCheats} from "./Full";
 import {RestraintCustomWear} from "./Restraint";
 import {Quest} from "./Quest";
+import {FunctionPatchHooker} from "../FunctionPatch/FunctionPatch";
 
 
 export class CheatsBase extends RestraintCustomWear {
+
+    _FunctionPatchHooker: FunctionPatchHooker;
 
     DebugSee = new DebugSee();
     SaveLoad = new SaveLoad();
@@ -51,10 +54,24 @@ export class CheatsBase extends RestraintCustomWear {
         });
     }
 
+    public addGlobalFunctionHook(
+        functionName: string,
+        hookFunctionBefore?: <Args extends IArguments>(arg: Args) => Args,
+        hookFunctionAfter?: <Args extends IArguments, T>(arg: Args, returnValue: T) => T,
+    ) {
+        this._FunctionPatchHooker.prepareHook({
+            originalFunctionName: functionName,
+            hookFunctionBefore: hookFunctionBefore,
+            hookFunctionAfter: hookFunctionAfter,
+        });
+    }
+
     constructor() {
         super();
+        this._FunctionPatchHooker = new FunctionPatchHooker(window);
         this.installRestraint();
         this.installForceMap();
+        this._FunctionPatchHooker.installAllHooks();
     }
 }
 

@@ -264,6 +264,27 @@ export function addEnchantedItems() {
         return KinkyDungeonRestraints.push(T);
     });
 
+    // patch `function KinkyDungeonLootEvent()` for ImproveEnchantedBlindfold
+    window.KinkyDungeonMod_EnchantedRestraints.Cheats.addGlobalFunctionHook(
+        'KinkyDungeonLootEvent',
+        undefined,
+        (args, returnValue) => {
+            console.log('KinkyDungeonLootEvent hook (KinkyDungeonLootEvent()) for ImproveEnchantedBlindfold', [args, returnValue]);
+            const [Loot, Floor, Replacemsg, Lock] = args;
+            // from KinkyDungeonLoot.js L582   `function KinkyDungeonLootEvent()`
+            if (Loot.name == "ImproveEnchantedBlindfold") {
+                let restraint = KinkyDungeonGetRestraintByName(Loot.name);
+                KinkyDungeonInventoryAdd({
+                    name: Loot.name,
+                    id: KinkyDungeonGetItemID(),
+                    type: LooseRestraint,
+                    events: Object.assign([], restraint.events)
+                });
+                KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+            }
+            return returnValue;
+        },
+    );
     KinkyDungeonRestraints.push((() => {
         let T = structuredClone(KinkyDungeonRestraints.find(restraint => restraint.name === "EnchantedBlindfold")!!);
         T.name = "ImproveEnchantedBlindfold";
