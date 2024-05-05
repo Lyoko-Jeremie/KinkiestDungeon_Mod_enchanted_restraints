@@ -118,6 +118,10 @@ export const StringTable_CN: StringTableType = {
     ChoiceSelect: '选择Choice',
     ChoiceAddOne: '添加一个Choice',
     ChoiceRemoveOne: '删除一个Choice',
+    ChoiceAddOneFilterInput: '搜索Choice',
+    ChoiceAddOneFilterSelect: '选择Choice',
+    ChoiceFilterAddOne: '添加一个Choice',
+    ChoiceFilterRemoveOne: '删除一个Choice',
     'ChoicePrint Section': '查看所有Choice列表 Section',
     ChoicePrintAllValidChoice: '查看所有可用Choice列表',
     ChoicePrintAllValidChoiceList: '查看所有可用Choice列表',
@@ -143,8 +147,8 @@ export const StringTable_CN: StringTableType = {
     AllRestraintItemSelect: '所有可用的穿戴',
     NowWearRestraintItemSelect: '已经穿戴的物品',
     WearTheSelectedRestrain: '穿上选择的物品',
-    AllRestraintItemFilterInput: '搜索已经穿戴的物品',
-    AllRestraintItemFilterSelect: '已经穿戴的物品',
+    AllRestraintItemFilterInput: '搜索所有可用的穿戴',
+    AllRestraintItemFilterSelect: '选择可用的穿戴',
     AllRestraintItemFilterWearIt: '穿上选择的物品',
     LockNowWearRestraintItem: '锁定当前选择的已穿戴物',
     UnlockNowWearRestraintItem: '解锁当前选择的已穿戴物',
@@ -208,5 +212,13 @@ export const StringTable_CN: StringTableType = {
     },
     KinkyDungeonShrine2I18N(s: string): string {
         return TextGet('KinkyDungeonShrine' + s);
+    },
+    KinkyDungeonKinkyDungeonFaction2I18N(s: string): [string, boolean] {
+        const k = 'KinkyDungeonFaction' + s;
+        const r = TextGet(k);
+        if (k === r) {
+            return [k, false];
+        }
+        return [r, true];
     },
 };

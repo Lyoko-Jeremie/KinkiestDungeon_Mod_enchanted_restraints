@@ -76,6 +76,10 @@ export const StringTable_EN: StringTableType = {
     ChoiceSelect: 'ChoiceSelect',
     ChoiceAddOne: 'ChoiceAddOne',
     ChoiceRemoveOne: 'ChoiceRemoveOne',
+    ChoiceAddOneFilterInput: 'SearchChoice',
+    ChoiceAddOneFilterSelect: 'ChoiceAddOneSelect',
+    ChoiceFilterAddOne: 'ChoiceFilterAddOne',
+    ChoiceFilterRemoveOne: 'ChoiceFilterRemoveOne',
     'ChoicePrint Section': 'ChoicePrint Section',
     ChoicePrintAllValidChoice: 'ChoicePrintAllValidChoice',
     ChoicePrintAllValidChoiceList: 'ChoicePrintAllValidChoiceList',
@@ -102,7 +106,7 @@ export const StringTable_EN: StringTableType = {
     NowWearRestraintItemSelect: 'NowWearRestraintItemSelect',
     WearTheSelectedRestrain: 'WearTheSelectedRestrain',
     AllRestraintItemFilterInput: 'SearchAllRestraintItem',
-    AllRestraintItemFilterSelect: 'AllRestraintItemFilterSelect',
+    AllRestraintItemFilterSelect: 'AllRestraintItemSelect',
     AllRestraintItemFilterWearIt: 'WearIt',
     LockNowWearRestraintItem: 'LockNowWearRestraintItem',
     UnlockNowWearRestraintItem: 'UnlockNowWearRestraintItem',
@@ -162,5 +166,13 @@ export const StringTable_EN: StringTableType = {
     },
     KinkyDungeonShrine2I18N(s: string): string {
         return TextGet('KinkyDungeonShrine' + s);
+    },
+    KinkyDungeonKinkyDungeonFaction2I18N(s: string): [string, boolean] {
+        const k = 'KinkyDungeonFaction' + s;
+        const r = TextGet(k);
+        if (k === r) {
+            return [k, false];
+        }
+        return [r, true];
     },
 };

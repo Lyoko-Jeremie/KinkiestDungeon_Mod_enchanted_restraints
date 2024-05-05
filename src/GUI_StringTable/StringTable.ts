@@ -85,6 +85,10 @@ const StringTableKeys = [
     'ChoiceSelect',
     'ChoiceAddOne',
     'ChoiceRemoveOne',
+    'ChoiceAddOneFilterInput',
+    'ChoiceAddOneFilterSelect',
+    'ChoiceFilterAddOne',
+    'ChoiceFilterRemoveOne',
 
     'ChoicePrint Section',
     'ChoicePrintAllValidChoice',
@@ -180,6 +184,8 @@ export interface StringTableType extends StringTableTypeStringPart {
     Wear2I18N(s: string): string;
 
     KinkyDungeonShrine2I18N(s: string): string;
+
+    KinkyDungeonKinkyDungeonFaction2I18N(s: string): [string, boolean];
 
     errorMessage2I18N(s: string): string;
 
