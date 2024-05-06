@@ -630,10 +630,13 @@ export class MapGet {
     ) {
         this.SetMapTrap((x, y, c) => {
                 if (c === 'C') {
-                    KDMapData.Tiles[(x) + "," + (y)].Loot = type;
-                    if (type === 'shadow') {
-                        KDMapData.Tiles[(x) + "," + (y)].lootTrap =
-                            KDGenChestTrap(true, x, y, "shadow", undefined, false);
+                    const tile = KDMapData.Tiles[(x) + "," + (y)];
+                    if (tile) {
+                        KDMapData.Tiles[(x) + "," + (y)].Loot = type;
+                        if (type === 'shadow') {
+                            KDMapData.Tiles[(x) + "," + (y)].lootTrap =
+                                KDGenChestTrap(true, x, y, "shadow", undefined, false);
+                        }
                     }
                 }
                 return c;

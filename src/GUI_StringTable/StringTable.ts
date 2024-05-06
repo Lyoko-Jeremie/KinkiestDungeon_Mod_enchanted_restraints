@@ -227,7 +227,9 @@ export type WearStringTableInterface = {
 
 export function LockList2HumanName(lock?: LockList): string {
     if (lock === undefined || lock === null) {
-        console.error(`LockList2HumanName() unknown lock [${lock}]`);
+        if (lock !== undefined) {
+            console.error(`LockList2HumanName() unknown lock [${lock}]`);
+        }
         return "None";
     } else if (lock === LockList.None) {
         return "None";
