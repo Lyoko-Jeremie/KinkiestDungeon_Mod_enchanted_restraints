@@ -20,6 +20,7 @@ export class CheatsBase extends RestraintCustomWear {
     _FunctionPatchHooker: FunctionPatchHooker;
 
     setupHook_CheatsBase(windowPtr: Window) {
+        console.log("CheatsBase setupHook_CheatsBase");
         this._FunctionPatchHooker.setupHook(windowPtr);
     }
 

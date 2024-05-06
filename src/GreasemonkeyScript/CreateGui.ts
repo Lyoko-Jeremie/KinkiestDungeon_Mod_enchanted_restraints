@@ -63,17 +63,21 @@ export class CreateGui {
 
     do_install_EnchantedRestraintsPatch = () => {
         if (this.do_install_EnchantedRestraintsPatch_isCalled) {
+            if (StateEnchantedRestraintsPatch.AutoInstall) {
+                EnchantedRestraintsPatch();
+            }
             return;
-        }
-        this.do_install_EnchantedRestraintsPatch_isCalled = true;
+        } else {
+            this.do_install_EnchantedRestraintsPatch_isCalled = true;
 
-        KDOptOut = true;
-        if (StateEnchantedRestraintsPatch.AutoInstall) {
-            EnchantedRestraintsPatch();
+            KDOptOut = true;
+            if (StateEnchantedRestraintsPatch.AutoInstall) {
+                EnchantedRestraintsPatch();
+            }
+            this._patchSpell.PatchAllSpell();
+            this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.setupHook(this.winRef);
+            this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.installAllFunctionPatchHooker();
         }
-        this._patchSpell.PatchAllSpell();
-        this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.setupHook(this.winRef);
-        this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.installAllFunctionPatchHooker();
     };
     btnType: BootstrapBtnType = 'secondary';
     gmc: undefined | GM_configStruct = undefined;
@@ -124,9 +128,7 @@ export class CreateGui {
             return;
         }
         this.initMod();
-        if (StateEnchantedRestraintsPatch.AutoInstall) {
-            this.do_install_EnchantedRestraintsPatch();
-        }
+        this.do_install_EnchantedRestraintsPatch();
         console.log('[KinkiestDungeon enchanted_restraints Mod] waitKDLoadingFinished ok');
     };
 
@@ -204,17 +206,20 @@ export class CreateGui {
                             label: StringTable['install_EnchantedRestraintsPatch'],
                             type: 'button',
                             click() {
-                                if (thisRef.do_install_EnchantedRestraintsPatch_isCalled) {
-                                    if (!StateEnchantedRestraintsPatch.isInit()) {
-                                        EnchantedRestraintsPatch();
-                                    }
-                                } else {
-                                    thisRef.do_install_EnchantedRestraintsPatch();
-                                }
+                                thisRef.do_install_EnchantedRestraintsPatch();
+
                                 thisRef.gmc!.fields['isInstalled'].settings.label =
                                     StringTable.isInstalledMask(`${StateEnchantedRestraintsPatch.isInit()}`);
                                 thisRef.gmc!.fields['isInstalled'].reload();
+
+                                thisRef.gmc!.fields['isModInit'].settings.label =
+                                    StringTable.isModInitMask(`${thisRef.do_install_EnchantedRestraintsPatch_isCalled}`);
+                                thisRef.gmc!.fields['isModInit'].reload();
                             },
+                        },
+                        'isModInit': {
+                            label: StringTable.isModInitMask(`${thisRef.do_install_EnchantedRestraintsPatch_isCalled}`),
+                            type: 'label',
                         },
                         'isInstalled': {
                             label: StringTable.isInstalledMask(`${StateEnchantedRestraintsPatch.isInit()}`),

@@ -16,6 +16,15 @@ html, body, #MyConfig {
     align-self: center;
 }
 
+#MyConfig_isModInit_var {
+    display: flex;
+    justify-content: center;
+}
+
+#MyConfig_field_isModInit {
+    align-self: center;
+}
+
 #MyConfig_isInstalled_var {
     display: flex;
     justify-content: center;

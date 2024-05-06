@@ -3,13 +3,16 @@ import {StringTableType} from "./StringTable";
 export const StringTable_EN: StringTableType = {
     title: 'KinkiestDungeon enchanted_restraints Mod',
     'install EnchantedRestraints Mod Section': 'install EnchantedRestraints Mod Section',
-    install_EnchantedRestraintsPatch: 'install_EnchantedRestraintsPatch',
+    install_EnchantedRestraintsPatch: 'click to init Mod | install EnchantedRestraintsPatch',
     isInstalled: 'isInstalled',
+    isModInitMask(s: string): string {
+        return `isModInit:${s}`
+    },
     isInstalledMask(s: string): string {
-        return `isInstalled:${s}`
+        return `isEnchantedRestraintsPatchInstalled:${s}`
     },
     isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string {
-        return `isAutoInstallEnchantedRestraintsPatch:${s} (need restart)`
+        return `isAutoInstallEnchantedRestraintsPatch:${s} (Auto Install need restart)`
     },
     'ApplyModRestraint Section': 'ApplyModRestraint Section',
     ApplyModRestraint: 'ApplyModRestraint',

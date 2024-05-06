@@ -280,6 +280,7 @@ class CheatsHook extends FullCheatsBase {
     _TickHook = new TickHook('CheatsHook');
 
     setupHook_CheatsHook(windowPtr: Window) {
+        console.log("CheatsHook setupHook_CheatsHook");
         this._TickHook.setupHook(windowPtr);
     }
 
