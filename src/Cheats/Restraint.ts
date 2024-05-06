@@ -71,6 +71,7 @@ export const WearsList = {
     DisplayTrap: "DisplayTrap",
     DollStand: "DollStand",
     DollStandSFW: "DollStandSFW",
+    CursedCollar: "CursedCollar CursedCollar2",
     // // AAAAA
     // AAAAA: ,
 } as const; // 使用 as const 来获得一个 readonly tuple 类型

@@ -39,6 +39,7 @@ const WearStringTable_CN: WearStringTableInterface = {
     WearWolf: "狼女套装",
     WearCyberDoll: "网络娃娃套装",
     WearCyberAnkle: "网络套装",
+    WearCursedCollar: "星尘月尘项圈",
 };
 
 
