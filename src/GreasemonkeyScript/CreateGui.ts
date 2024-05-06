@@ -1594,7 +1594,7 @@ export class CreateGui {
                             label: StringTable['SetAllChestsToSpecialChestsSelect'],
                             type: 'select',
                             value: '',
-                            options: Object.getOwnPropertyNames(KDSpecialChests),
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllSpecialChestsType(),
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },

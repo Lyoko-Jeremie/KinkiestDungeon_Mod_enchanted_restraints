@@ -641,6 +641,10 @@ export class MapGet {
         );
     }
 
+    GetAllSpecialChestsType() {
+        return Object.getOwnPropertyNames(KDSpecialChests);
+    }
+
 // 	"c": (x, y, Fog, noReplace) => {
 // 		return (KinkyDungeonTilesGet(x + "," + y) && (KinkyDungeonTilesGet(x + "," + y).Loot == "gold" || KinkyDungeonTilesGet(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
 // 		((KinkyDungeonTilesGet(x + "," + y) && (KDSpecialChests[KinkyDungeonTilesGet(x + "," + y).Loot])) ? KDSpecialChests[KinkyDungeonTilesGet(x + "," + y).Loot] + "Open" :
