@@ -607,14 +607,14 @@ class Bootstrap extends CheatsHook {
         // generate by
         // JSON.stringify(Array.from(Array(KinkyDungeonSpellChoiceCount).keys()).map(I=>KinkyDungeonSpells[KinkyDungeonSpellChoices[ I ]]?.name));
         const nameList: string[] = JSON.parse(
-            '["Leap","Fissure","Icicles","Crackle","Heal2","Heal","CommandWordGreater","CommandDisenchant","CommandRelease","CommandSlime",null,"Strength","Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light","Quickness2","FlameBlade",null,null,null,null,null,null,null,null,null]'
+            '["Leap","Fissure","Icicles","Crackle","Heal2","Heal","CommandWordGreater","CommandDisenchant","CommandRelease","CommandSlime","RecoverObject","Strength","Engulf","FloatingWeapon","Analyze","TrueSight","EnemySense","Invisibility","Light","Quickness2","FlameBlade",null,null,null,null,null,null,null,null,null]'
         );
         KinkyDungeonSpellChoices = nameList.map(n => (this.KinkyDungeonSpellsCacheMap!.get(n) || [undefined, undefined])[0]);
         // generate by
         // JSON.stringify(KinkyDungeonSpellChoicesToggle)
         KinkyDungeonSpellChoicesToggle =
             JSON.parse(
-                "[true,true,true,true,true,true,true,true,true,true,null,true,true,true,true,true,false,true,true,false,false]"
+                "[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,false,false]"
             );
     };
     RemoveAllKeyTools = () => {
