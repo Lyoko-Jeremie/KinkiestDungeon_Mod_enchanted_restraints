@@ -1,10 +1,10 @@
 import {BootstrapBtnType, GM_config, GM_configStruct, InitOptionsNoCustom} from '../GM_config_TS/gm_config';
-import {EnchantedRestraintsPatch, isInit} from '../initMod';
+import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
 import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
 import {KinkyDungeonFactionColors_Keys, Restraint, WearMethodsInterfaceKey, WearsList} from "../Cheats/Restraint";
-import {assign, isNil, isString} from "lodash";
+import {assign, isString} from "lodash";
 import {LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
@@ -59,9 +59,18 @@ export class CreateGui {
 
     _patchSpell = new PatchSpell();
 
+    do_install_EnchantedRestraintsPatch_isCalled = false;
+
     do_install_EnchantedRestraintsPatch = () => {
+        if (this.do_install_EnchantedRestraintsPatch_isCalled) {
+            return;
+        }
+        this.do_install_EnchantedRestraintsPatch_isCalled = true;
+
         KDOptOut = true;
-        EnchantedRestraintsPatch();
+        if (StateEnchantedRestraintsPatch.AutoInstall) {
+            EnchantedRestraintsPatch();
+        }
         this._patchSpell.PatchAllSpell();
         this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.setupHook(this.winRef);
         this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.installAllFunctionPatchHooker();
@@ -115,7 +124,9 @@ export class CreateGui {
             return;
         }
         this.initMod();
-        this.do_install_EnchantedRestraintsPatch();
+        if (StateEnchantedRestraintsPatch.AutoInstall) {
+            this.do_install_EnchantedRestraintsPatch();
+        }
         console.log('[KinkiestDungeon enchanted_restraints Mod] waitKDLoadingFinished ok');
     };
 
@@ -193,14 +204,42 @@ export class CreateGui {
                             label: StringTable['install_EnchantedRestraintsPatch'],
                             type: 'button',
                             click() {
-                                thisRef.do_install_EnchantedRestraintsPatch();
-                                thisRef.gmc!.fields['isInstalled'].settings.label = StringTable.isInstalledMask(`${isInit()}`);
+                                if (thisRef.do_install_EnchantedRestraintsPatch_isCalled) {
+                                    if (!StateEnchantedRestraintsPatch.isInit()) {
+                                        EnchantedRestraintsPatch();
+                                    }
+                                } else {
+                                    thisRef.do_install_EnchantedRestraintsPatch();
+                                }
+                                thisRef.gmc!.fields['isInstalled'].settings.label =
+                                    StringTable.isInstalledMask(`${StateEnchantedRestraintsPatch.isInit()}`);
                                 thisRef.gmc!.fields['isInstalled'].reload();
                             },
                         },
                         'isInstalled': {
-                            label: StringTable.isInstalledMask(`${isInit()}`),
+                            label: StringTable.isInstalledMask(`${StateEnchantedRestraintsPatch.isInit()}`),
                             type: 'label',
+                        },
+                        'isAutoInstallEnchantedRestraintsPatch': {
+                            label: StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall),
+                            type: 'checkbox',
+                            value: StateEnchantedRestraintsPatch.AutoInstall,
+                            checked: StateEnchantedRestraintsPatch.AutoInstall,
+                            eventCallbacks: {
+                                click(e) {
+                                    console.log('isAutoInstallEnchantedRestraintsPatch', thisRef.gmc!.fields['isAutoInstallEnchantedRestraintsPatch'].toValue());
+                                    StateEnchantedRestraintsPatch.AutoInstall =
+                                        thisRef.gmc!.fields['isAutoInstallEnchantedRestraintsPatch'].toValue() as boolean;
+                                    thisRef.gmc!.fields['isAutoInstallEnchantedRestraintsPatch'].settings.label =
+                                        StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall);
+                                    thisRef.gmc!.fields['isAutoInstallEnchantedRestraintsPatch'].value = StateEnchantedRestraintsPatch.AutoInstall;
+                                    thisRef.gmc!.fields['isAutoInstallEnchantedRestraintsPatch'].reload();
+                                },
+                            },
+                            afterToNode: () => {
+                                (<HTMLInputElement>thisRef.gmc!.fields['isAutoInstallEnchantedRestraintsPatch'].node).checked =
+                                    StateEnchantedRestraintsPatch.AutoInstall;
+                            },
                         },
                         [thisRef.rId()]: {
                             section: GM_config.create(StringTable['ApplyModRestraint Section']),

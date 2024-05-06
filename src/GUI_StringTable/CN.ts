@@ -50,6 +50,9 @@ export const StringTable_CN: StringTableType = {
     isInstalledMask(s: string): string {
         return `是否已安装:${s}`
     },
+    isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string {
+        return `是否自动安装EnchantedRestraintsPatch:${s} (重启生效)`
+    },
     'ApplyModRestraint Section': 'Apply Mod Restraint Section',
     ApplyModRestraint: 'ApplyModRestraint（全套mod装）',
     'ApplyRestraint Section': 'Apply Restraint Section',

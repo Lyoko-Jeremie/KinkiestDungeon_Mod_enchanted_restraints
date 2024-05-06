@@ -8,6 +8,9 @@ export const StringTable_EN: StringTableType = {
     isInstalledMask(s: string): string {
         return `isInstalled:${s}`
     },
+    isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string {
+        return `isAutoInstallEnchantedRestraintsPatch:${s} (need restart)`
+    },
     'ApplyModRestraint Section': 'ApplyModRestraint Section',
     ApplyModRestraint: 'ApplyModRestraint',
     'ApplyRestraint Section': 'ApplyRestraint Section',

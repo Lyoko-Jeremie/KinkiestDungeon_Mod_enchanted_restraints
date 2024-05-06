@@ -10,10 +10,10 @@ window.Mod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 
 
 import {Cheats} from './Cheats/Cheats';
-import {EnchantedRestraintsPatch, setEdgeOnly, isInit} from './RestraintsPatch/RestraintsPatch';
+import {EnchantedRestraintsPatch, setEdgeOnly, StateEnchantedRestraintsPatch} from './RestraintsPatch/RestraintsPatch';
 import {ApplyModRestraint} from './RestraintsPatch/ApplyModRestraint';
 
-export {EnchantedRestraintsPatch, isInit};
+export {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch};
 
 // Cheats
 if (!window.KinkyDungeonMod_EnchantedRestraints.Cheats) {

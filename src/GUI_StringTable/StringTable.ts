@@ -185,6 +185,8 @@ export type StringTableTypeStringPart = { [key in typeof StringTableKeys[number]
 export interface StringTableType extends StringTableTypeStringPart {
     isInstalledMask(s: string): string;
 
+    isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string;
+
     Wear2I18N(s: string): string;
 
     KinkyDungeonShrine2I18N(s: string): string;

@@ -25,6 +25,16 @@ html, body, #MyConfig {
     align-self: center;
 }
 
+#MyConfig_isAutoInstallEnchantedRestraintsPatch_var {
+    display: flex;
+    justify-content: center;
+}
+
+#MyConfig_isAutoInstallEnchantedRestraintsPatch_field_label,
+#MyConfig_field_isAutoInstallEnchantedRestraintsPatch {
+    align-self: center;
+}
+
 .d-inline {
     display: inline-block !important;
 }

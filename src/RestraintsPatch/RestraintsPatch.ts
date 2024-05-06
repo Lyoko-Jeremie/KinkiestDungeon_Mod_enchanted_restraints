@@ -10,12 +10,26 @@ import {frozenClone} from "./PatchUtils";
 
 export {setEdgeOnly};
 
-
 let initFlag = false;
 
-export function isInit() {
-    return initFlag;
-}
+export const StateEnchantedRestraintsPatch = new class {
+    isInit() {
+        return initFlag;
+    }
+
+    set AutoInstall(value: boolean) {
+        if (value) {
+            localStorage.removeItem('KinkyDungeonMod_EnchantedRestraints.NotAutoInstall');
+        } else {
+            localStorage.setItem('KinkyDungeonMod_EnchantedRestraints.NotAutoInstall', '1');
+        }
+    }
+
+    get AutoInstall() {
+        return !localStorage.getItem('KinkyDungeonMod_EnchantedRestraints.NotAutoInstall');
+    }
+};
+
 
 export function EnchantedRestraintsPatch() {
     if (initFlag) {
