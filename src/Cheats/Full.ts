@@ -279,7 +279,7 @@ class FullCheatsBase extends Choice {
 class CheatsHook extends FullCheatsBase {
     _TickHook = new TickHook('CheatsHook');
 
-    setupHook(windowPtr: Window) {
+    setupHook_CheatsHook(windowPtr: Window) {
         this._TickHook.setupHook(windowPtr);
     }
 

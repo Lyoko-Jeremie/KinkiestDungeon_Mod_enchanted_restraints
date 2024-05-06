@@ -64,6 +64,7 @@ export class CreateGui {
         EnchantedRestraintsPatch();
         this._patchSpell.PatchAllSpell();
         this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.setupHook(this.winRef);
+        this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.installAllFunctionPatchHooker();
     };
     btnType: BootstrapBtnType = 'secondary';
     gmc: undefined | GM_configStruct = undefined;

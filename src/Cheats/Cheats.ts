@@ -19,6 +19,14 @@ export class CheatsBase extends RestraintCustomWear {
 
     _FunctionPatchHooker: FunctionPatchHooker;
 
+    setupHook_CheatsBase(windowPtr: Window) {
+        this._FunctionPatchHooker.setupHook(windowPtr);
+    }
+
+    installAllFunctionPatchHooker() {
+        this._FunctionPatchHooker.installAllHooks();
+    }
+
     DebugSee = new DebugSee();
     SaveLoad = new SaveLoad();
     LockList = LockList;
@@ -68,10 +76,9 @@ export class CheatsBase extends RestraintCustomWear {
 
     constructor() {
         super();
-        this._FunctionPatchHooker = new FunctionPatchHooker(window);
+        this._FunctionPatchHooker = new FunctionPatchHooker();
         this.installRestraint();
         this.installForceMap();
-        this._FunctionPatchHooker.installAllHooks();
     }
 }
 
@@ -86,7 +93,10 @@ class HardMode {
 
 // https://github.com/tannerntannern/ts-mixer
 export class Cheats extends Mixin(CheatsBase, MapGet, HardMode, FullCheats, Quest) {
-    // empty
+    setupHook(windowPtr: Window) {
+        this.setupHook_CheatsHook(windowPtr);
+        this.setupHook_CheatsBase(windowPtr);
+    }
 }
 
 

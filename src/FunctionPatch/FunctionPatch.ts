@@ -22,18 +22,29 @@ export interface PatchHookInfo extends PatchHookConfig {
 export class FunctionPatchHooker {
     hookTable: Map<string, PatchHookInfo[]> = new Map();
 
-    constructor(
-        public winRef: Window,
-    ) {
+    windowPtr?: Window;
+
+    setupHook(windowPtr: Window) {
+        if (this.windowPtr) {
+            return;
+        }
+        this.windowPtr = windowPtr;
+    }
+
+    constructor() {
     }
 
     private replaceOriginalFunction(originalFunctionName: string, replaceJumpFunction: ((...args: any[]) => any)) {
-        const originalFunction = get(this.winRef, originalFunctionName);
+        if (!this.windowPtr) {
+            console.error('[FunctionPatchHook] replaceOriginalFunction windowPtr is undefined.');
+            throw Error('[FunctionPatchHook] replaceOriginalFunction windowPtr is undefined.');
+        }
+        const originalFunction = get(this.windowPtr, originalFunctionName);
         if (originalFunction === undefined) {
             console.error('[FunctionPatchHook] originalFunction is undefined:', [originalFunctionName]);
             return originalFunction;
         }
-        set(this.winRef, originalFunctionName, replaceJumpFunction);
+        set(this.windowPtr, originalFunctionName, replaceJumpFunction);
         console.log('[FunctionPatchHook] replaceOriginalFunction', [originalFunctionName, originalFunction]);
         return originalFunction;
     }
@@ -83,7 +94,11 @@ export class FunctionPatchHooker {
 
     prepareHook(hookConfig: PatchHookConfig) {
         if (this.isAllHookInstalled) {
-            this.installHook(hookConfig);
+            if (this.windowPtr) {
+                this.installHook(hookConfig);
+            } else {
+                console.error('[FunctionPatchHook] prepareHook to installHook windowPtr is undefined.');
+            }
             return;
         }
 
@@ -125,8 +140,10 @@ export class FunctionPatchHooker {
             const isAllHooked = hookInfo.every(hook => hook.jumpFunctionHandle && hook.originalFunctionHandle);
             const isAllNotHooked = hookInfo.every(hook => !hook.jumpFunctionHandle && !hook.originalFunctionHandle);
             const isJumpAndOriginalSameState = hookInfo.every(hook => !!hook.jumpFunctionHandle === !!hook.originalFunctionHandle);
-            if (!isAllHooked || !isAllNotHooked || isJumpAndOriginalSameState) {
-                console.error('[FunctionPatchHook] doLeakCheck is invalid:', [originalFunctionName, hookInfo]);
+            if (!isAllHooked || !isAllNotHooked || !isJumpAndOriginalSameState) {
+                console.error('[FunctionPatchHook] doLeakCheck is invalid:',
+                    [originalFunctionName, hookInfo],
+                    [!isAllHooked, !isAllNotHooked, isJumpAndOriginalSameState]);
             }
         }
     }
@@ -135,6 +152,10 @@ export class FunctionPatchHooker {
 
     installAllHooks() {
         if (this.isAllHookInstalled) {
+            return;
+        }
+        if (!this.windowPtr) {
+            console.error('[FunctionPatchHook] installAllHooks windowPtr is undefined.');
             return;
         }
         this.isAllHookInstalled = true;
@@ -185,6 +206,10 @@ export class FunctionPatchHooker {
 
     installHook(hookConfig: PatchHookConfig) {
         console.log('[FunctionPatchHook] installHook', [this.hookTable]);
+
+        if (!this.windowPtr) {
+            return this.prepareHook(hookConfig);
+        }
 
         if (!hookConfig || !hookConfig.originalFunctionName
             || (hookConfig.hookFunctionBefore === undefined && hookConfig.hookFunctionAfter === undefined)
