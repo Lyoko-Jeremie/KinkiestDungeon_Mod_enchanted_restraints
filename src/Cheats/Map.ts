@@ -1,3 +1,5 @@
+import {uniq} from 'lodash';
+
 export class MapGet {
 
     getMapGrid(): string {
@@ -626,7 +628,7 @@ export class MapGet {
     // 	lootTrap: KDGenChestTrap(true, cornerX + 2, cornerY + 2, "shadow", undefined, false)}
     // );
     SetAllChestsToSpecialChests(
-        type: keyof SpecialChestsType,
+        type: (keyof SpecialChestsType) | HandsFreeChestType,
     ) {
         this.SetMapTrap((x, y, c) => {
                 if (c === 'C') {
@@ -645,7 +647,7 @@ export class MapGet {
     }
 
     GetAllSpecialChestsType() {
-        return Object.getOwnPropertyNames(KDSpecialChests);
+        return uniq(Object.getOwnPropertyNames(KDSpecialChests).concat(KDHandsfreeChestTypes));
     }
 
 // 	"c": (x, y, Fog, noReplace) => {
@@ -666,6 +668,27 @@ export class MapGet {
     ReSetAllChests() {
         this.MapGrid = this.MapGrid.replaceAll('c', 'C');
     }
+
+    ListAllCheatsInMap() {
+        const cheatsList: any[] = [];
+        this.SetMapTrap((x, y, c) => {
+                if (c === 'C') {
+                    const tile = KDMapData.Tiles[(x) + "," + (y)];
+                    if (tile) {
+                        cheatsList.push({
+                            x: x,
+                            y: y,
+                            LootType: tile.Loot,
+                            tile: tile,
+                        });
+                    }
+                }
+                return c;
+            }
+        );
+        console.log('ListAllCheats', cheatsList);
+        return cheatsList;
+    }
 }
 
 const SpecialChestsList = {
@@ -677,6 +700,11 @@ const SpecialChestsList = {
 } as const;
 
 type SpecialChestsType = typeof SpecialChestsList;
+
+// let KDHandsfreeChestTypes = ["shadow", "lessershadow", "gold", "robot", "kitty"];
+const HandsfreeChestTypes = ["shadow", "lessershadow", "gold", "robot", "kitty"] as const;
+
+type HandsFreeChestType = typeof HandsfreeChestTypes[number];
 
 // Charm Trap
 // 绷带陷阱
