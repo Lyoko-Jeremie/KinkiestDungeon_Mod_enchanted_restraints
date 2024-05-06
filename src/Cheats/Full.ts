@@ -76,14 +76,70 @@ class FullCheatsBase extends Choice {
         })
     };
 
+    //  /**
+    //  *
+    //  * @param {string} name
+    //  * @param {boolean} SearchEnemies
+    //  * @returns {spell}
+    //  */
+    // function KinkyDungeonFindSpell(name, SearchEnemies = false) {
+    // 	if (KDSpellMemo[name]) return KDSpellMemo[name];
+    // 	if (SearchEnemies) {
+    // 		let spell = KinkyDungeonSearchSpell(KinkyDungeonSpellListEnemies, name);
+    // 		if (spell) {
+    // 			KDSpellMemo[name] = spell;
+    // 			return spell;
+    // 		}
+    // 	}
+    // 	let spell2 = KinkyDungeonSearchSpell(KinkyDungeonSpellsStart, name);
+    // 	if (spell2) {
+    // 		KDSpellMemo[name] = spell2;
+    // 		return spell2;
+    // 	}
+    // 	for (let key in KinkyDungeonSpellList) {
+    // 		let list = KinkyDungeonSpellList[key];
+    // 		let spell = KinkyDungeonSearchSpell(list, name);
+    // 		if (spell) {
+    // 			KDSpellMemo[name] = spell;
+    // 			return spell;
+    // 		}
+    // 	}
+    // 	return KinkyDungeonSearchSpell(KinkyDungeonSpells, name);
+    // }
+    //
+
     AllSpells = () => {
+        // function KinkyDungeonResetMagic() {
+        // 	KDClearChoices();
+        // 	KinkyDungeonSpellChoiceCount = 30;
+        // 	KinkyDungeonSpells = [];
+        // 	KDRefreshSpellCache = true;
+        // 	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart); // Copy the dictionary
         KinkyDungeonSpells = [];
         Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart);
         for (let k of Object.keys(KinkyDungeonSpellList)) {
             for (let sp of KinkyDungeonSpellList[k]) {
-                KinkyDungeonSpells.push(KinkyDungeonFindSpell(sp.name));
+                // let KDRefreshSpellCache = true;
+                // function KDPushSpell(spell) {
+                // 	KinkyDungeonSpells.push(JSON.parse(JSON.stringify(spell)));
+                // 	KDRefreshSpellCache = true;
+                // }
+                //
+                //
+                // KinkyDungeonSpells = [];
+                // KDRefreshSpellCache = true;
+                // for (let spell of saveData.spells) {
+                // 	let sp = KinkyDungeonFindSpell(spell);
+                // 	if (sp) KDPushSpell(sp);
+                // }
+                if (sp) {
+                    KDPushSpell(sp);
+                }
+                // KinkyDungeonSpells.push(JSON.parse(JSON.stringify(KinkyDungeonFindSpell(sp.name))));
             }
         }
+        KDRefreshSpellCache = true;
+        KDUpdateSpellCache()
     };
     ListAllBaseSpells = () => {
         return KinkyDungeonSpellsStart;
@@ -119,11 +175,19 @@ class FullCheatsBase extends Choice {
     };
 
     AllHeart = () => {
-        for (let i = 0; i < 10; i++) {
-            KDSendInput("heart", {type: "AP"});
-            KDSendInput("heart", {type: "SP"});
-            KDSendInput("heart", {type: "MP"});
-            KDSendInput("heart", {type: "WP"});
+        if (typeof KinkyDungeonGrid === "undefined") {
+            // new version 5.0
+            KDMaxStatStart = 100;
+            KDMaxStatStartPool = 100;
+            KDMaxStat = 500;
+        } else {
+            // old version
+            for (let i = 0; i < 10; i++) {
+                KDSendInput("heart", {type: "AP"});
+                KDSendInput("heart", {type: "SP"});
+                KDSendInput("heart", {type: "MP"});
+                KDSendInput("heart", {type: "WP"});
+            }
         }
     };
 // function KinkyDungeonHandleHeart() {
@@ -400,7 +464,7 @@ class CheatsHook extends FullCheatsBase {
                 duration: 100,
             },
         };
-        this._SetBuff(buffObj, remove);
+        this._SetBuffIfEnabled(buffObj, remove);
     };
     _SetBuff = (buffObj: any, remove?: boolean) => {
         // KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 100});

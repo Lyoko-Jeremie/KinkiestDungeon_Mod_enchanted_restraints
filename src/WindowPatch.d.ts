@@ -171,6 +171,8 @@ declare global {
     var KinkyDungeonSpellsStart: spell[];
     var KinkyDungeonSpellList: Record<string, spell[]>;
     var KinkyDungeonFindSpell: (name: string, SearchEnemies?: boolean) => spell;
+    var KDPushSpell: (sp: spell) => void;
+    var KDUpdateSpellCache: () => void;
 
     var KinkyDungeonInventoryAddWeapon: (Name: string) => void;
     var KinkyDungeonInventoryAddLoose: (Name: string) => void;
@@ -507,4 +509,10 @@ declare global {
 
     function KDGenChestTrap(guaranteed, x, y, chestType, lock, noTrap);
 
+    // Distraction -- It lowers your stamina regen
+    let KDMaxStat: number; // Maximum any stat can get boosted to
+    let KDMaxStatStart: number; // Start of stats
+    let KDMaxStatStartPool: number; // Start of stats
+
+    let KDRefreshSpellCache: boolean;
 }
