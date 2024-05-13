@@ -644,6 +644,16 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'Add1000MaxState': {
+                            label: StringTable['Add1000MaxState'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.Add1000MaxState();
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         [thisRef.rId()]: {
                             section: GM_config.create(StringTable['Enable Section']),
                             type: 'br',

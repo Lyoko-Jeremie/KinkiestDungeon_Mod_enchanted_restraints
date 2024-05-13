@@ -176,6 +176,7 @@ class FullCheatsBase extends Choice {
 
     AllHeart = () => {
         if (typeof KinkyDungeonGrid === "undefined") {
+            return;
             // new version 5.0
             KDMaxStatStart = 100;
             KDMaxStatStartPool = 100;
@@ -709,6 +710,8 @@ class Bootstrap extends CheatsHook {
         this.AddManyKeys();
         this.AddManyGold();
 
+        this.Add1000MaxState();
+
         this.BootstrapSimpleGood();
     };
     BootstrapSimpleGood = () => {
@@ -744,6 +747,23 @@ class Bootstrap extends CheatsHook {
         this.DisableInvisibility();
         this.DisableMaxEmpower();
     };
+    Add1000MaxState = () => {
+        // 性欲 分心
+        KDGameData.StatMaxBonus['AP'] += 100;
+        // 魔力
+        KDGameData.StatMaxBonus['MP'] += 100;
+        // 体力
+        KDGameData.StatMaxBonus['SP'] += 100;
+        // 意志
+        KDGameData.StatMaxBonus['WP'] += 100;
+
+        KinkyDungeonStatManaPoolMax += 1000;
+
+        KinkyDungeonUpdateStats(0);
+
+        KDGameData.CollectedHearts = (KDGameData.CollectedHearts || 0) + 10;
+
+    }
 }
 
 export class FullCheats extends Bootstrap {

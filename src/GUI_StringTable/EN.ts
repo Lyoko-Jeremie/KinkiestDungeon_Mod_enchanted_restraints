@@ -56,6 +56,7 @@ export const StringTable_EN: StringTableType = {
     BootstrapSpellChoicesTable: 'BootstrapSpellChoicesTable',
     BootstrapSimpleGood: 'BootstrapSimpleGood',
     BootstrapAllNegative: 'BootstrapAllNegative',
+    Add1000MaxState: 'AllMaxStateAdd1000',
     'Enable Section': 'Enable Section',
     EnableAllCheats: 'EnableAllCheats',
     DisableAllCheats: 'DisableAllCheats',

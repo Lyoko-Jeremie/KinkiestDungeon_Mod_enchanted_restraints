@@ -589,21 +589,28 @@ interface entity {
 
 
 /**
- *  @typedef {{
+ *@typedef {{
+ * JourneyProgression: string[],
+ * AttachedWep: string,
+ * InventoryAction: string,
+ * InventoryActionManaCost: number,
+ * SellMarkup: number,
+ * CurseLevel: number,
+ * UsingConsumable: string,
+ * BondageTarget: number,
+ * FoodTarget: number,
  * KeysNeeded: boolean,
- * PoolUses: number,
- * PoolUsesGrace: number,
  * JailRemoveRestraintsTimer: number;
  * KinkyDungeonSpawnJailers: number;
  * KinkyDungeonSpawnJailersMax: number;
  * KinkyDungeonLeashedPlayer: number;
  * KinkyDungeonLeashingEnemy: number;
- * KinkyDungeonJailGuard: number;
- * KinkyDungeonGuardTimer: number;
- * KinkyDungeonGuardTimerMax: number;
- * KinkyDungeonGuardSpawnTimer: number;
- * KinkyDungeonGuardSpawnTimerMax: number;
- * KinkyDungeonGuardSpawnTimerMin: number;
+ * JailGuard: number;
+ * GuardTimer: number;
+ * GuardTimerMax: number;
+ * GuardSpawnTimer: number;
+ * GuardSpawnTimerMax: number;
+ * GuardSpawnTimerMin: number;
  * KinkyDungeonMaxPrisonReduction: number;
  * KinkyDungeonPrisonReduction: number;
  * KinkyDungeonPrisonExtraGhostRep: number;
@@ -614,6 +621,7 @@ interface entity {
  * KinkyDungeonPenanceCostCurrent: number;
  * KinkyDungeonAngel: number;
  * KDPenanceStage: number;
+ * SpawnedPartyPrisoners: Record<string, number>;
  * KDPenanceStageEnd: number;
  * AngelCurrentRep: string;
  * KDPenanceMode: string;
@@ -621,6 +629,7 @@ interface entity {
  * OrgasmTurns: number;
  * OrgasmStamina: number;
  * SleepTurns: number;
+ * SlowMoveTurns: number;
  * PlaySelfTurns: number;
  * RescueFlag: boolean;
  * KinkyDungeonPenance: boolean;
@@ -635,7 +644,6 @@ interface entity {
  * Outfit: string,
  * Champion: string,
  * ChampionCurrent: number,
- * JailPoints: KDJailPoint[],
  * LastMapSeed: string,
  * AlreadyOpened: {x: number, y:number}[],
  * Journey: string,
@@ -669,28 +677,29 @@ interface entity {
  * HunterTimer: number,
  * Hunters: number[],
  * Quests: string[],
- * MapFaction: string,
+ * QuestData: Record<string, any>,
+ * RevealedTiles: Record<string, number>,
+ * RevealedFog: Record<string, number>,
  * PriorJailbreaks: number,
  * PriorJailbreaksDecay: number,
- * PreviousWeapon: string,
+ * PreviousWeapon: string[],
+ * PreviousWeaponLock: boolean[],
  * StaminaPause: number,
  * StaminaSlow: number,
  * ManaSlow: number,
  * TempFlagFloorTicks: Record<string, number>,
  * KneelTurns: number,
- * HiddenSpellPages : Record<string, boolean>,
+ * AllowedSpellPages : Record<string, string[]>,
  * KeyringLocations : {x: number, y: number}[],
  * HiddenItems : Record<string, boolean>,
  * ItemPriority : Record<string, number>,
  * CagedTime : number,
- * ShopItems: shopItem[],
  * DelayedActions: KDDelayedAction[],
- * JailFaction: string[],
- * GuardFaction: string[],
  * OfferCount: number,
- * MainPath: string,
- * ShortcutPath: string,
  * ItemID: number,
+ * Offhand: string,
+ * OffhandOld: string,
+ * OffhandReturn: string,
  * ShopkeeperFee: number,
  * DollCount: number,
  * ChestsGenerated: string[],
@@ -701,35 +710,311 @@ interface entity {
  * Training: Record<string, KDTrainingRecord>,
  * QuickLoadout: KDPresetLoadout[],
  * CurrentLoadout: number,
- * QuickLoadouts: Record<string, string[]>,
-
- *}} KDGameDataBase
+ * HighestLevelCurrent: number,
+ * HighestLevel: number,
+ * KDChasingEnemies: entity[],
+ * ShopRewardProgram: number,
+ * ShopRewardProgramThreshold: number,
+ * tickAlertTimer: boolean,
+ * HostileFactions: string[],
+ * MovePoints: number,
+ * Wait: number,
+ * Class: string,
+ * Party: entity[],
+ * CapturedParty: entity[],
+ * PlayerName: string,
+ * QuickLoadout_Weapon: boolean,
+ * QuickLoadout_Merge: boolean,
+ * ItemsSold: Record<string, number>,
+ * MaxParty: number,
+ * Crouch: boolean,
+ * FocusControlToggle: Record<string, boolean>,
+ * FloorRobotType: Record<string, string>,
+ * EpicenterLevel: number,
+ * BlockTokens: number,
+ * DodgeTokens: number,
+ * ShieldTokens: number,
+ * BlockTokensMax: number,
+ * DodgeTokensMax: number,
+ * ShieldTokensMax: number,
+ * Shield: number,
+ * ShieldDamage: number,
+ * Balance: number,
+ * BalancePause: boolean,
+ * Collection: Record<string, KDCollectionEntry>,
+ * CollectionSorted: KDCollectionEntry[],
+ * HeelPower: number,
+ * visionAdjust: number,
+ * visionAdjustBlind: number,
+ * visionBlind: number,
+ * CollectionGuests: number,
+ * SelectedEscapeMethod: string,
+ * Restriction: number,
+ * JourneyX: number,
+ * JourneyY: number,
+ * ShortcutIndex: number,
+ * JourneyMap: KDJourneyMap,
+ * JourneyTarget: {x: number, y: number},
+ * LastDragon: string,
+ * ElevatorsUnlocked: Record<number, boolean>,
+ * TeleportLocations: Record<string, {x: number, y: number, type: string, checkpoint: string, level: number}>,
+ * MaxVisionDist: number,
+ * MinVisionDist: number,
+ * NightVision: number,
+ * LockoutChance: number,
+ * StatMaxBonus: Record<string, number>,
+ * QuickLoadouts: Record<string, string[]>
+ * }} KDGameDataBase
  */
 interface KDGameDataBase {
-    QuickLoadouts: {},
+    JourneyProgression: string[],
+    AttachedWep: string,
+    InventoryAction: string,
+    InventoryActionManaCost: number,
+    SellMarkup: number,
+    CurseLevel: number,
+    UsingConsumable: string,
+    BondageTarget: number,
+    FoodTarget: number,
+    KeysNeeded: boolean,
+    JailRemoveRestraintsTimer: number;
+    KinkyDungeonSpawnJailers: number;
+    KinkyDungeonSpawnJailersMax: number;
+    KinkyDungeonLeashedPlayer: number;
+    KinkyDungeonLeashingEnemy: number;
+    JailGuard: number;
+    GuardTimer: number;
+    GuardTimerMax: number;
+    GuardSpawnTimer: number;
+    GuardSpawnTimerMax: number;
+    GuardSpawnTimerMin: number;
+    KinkyDungeonMaxPrisonReduction: number;
+    KinkyDungeonPrisonReduction: number;
+    KinkyDungeonPrisonExtraGhostRep: number;
+    PrisonGoodBehaviorFromLeash: number;
+    KinkyDungeonJailTourTimer: number;
+    KinkyDungeonJailTourTimerMin: number;
+    KinkyDungeonJailTourTimerMax: number;
+    KinkyDungeonPenanceCostCurrent: number;
+    KinkyDungeonAngel: number;
+    KDPenanceStage: number;
+    SpawnedPartyPrisoners: Record<string, number>;
+    KDPenanceStageEnd: number;
+    AngelCurrentRep: string;
+    KDPenanceMode: string;
+    OrgasmStage: number;
+    OrgasmTurns: number;
+    OrgasmStamina: number;
+    SleepTurns: number;
+    SlowMoveTurns: number;
+    PlaySelfTurns: number;
+    RescueFlag: boolean;
+    KinkyDungeonPenance: boolean;
+    GuardApplyTime: number;
+    WarningLevel: number;
+    AncientEnergyLevel: number;
+    OrigEnergyLevel: number;
+    LastMP: number;
+    LastAP: number;
+    LastSP: number;
+    LastWP: number;
+    Outfit: string,
+    Champion: string,
+    ChampionCurrent: number,
+    LastMapSeed: string,
+    AlreadyOpened: {x: number, y:number}[],
+    Journey: string,
+    CheckpointIndices: number[],
+    PrisonerState: string,
+    TimesJailed: number,
+    JailTurns: number,
+    JailKey: boolean,
+    CurrentDialog: string,
+    CurrentDialogStage: string,
+    OrgasmNextStageTimer: number,
+    DistractionCooldown: number,
+    ConfirmAttack: boolean,
+    CurrentDialogMsg: string,
+    CurrentDialogMsgSpeaker: string,
+    CurrentDialogMsgPersonality: string,
+    CurrentDialogMsgID: number,
+    CurrentDialogMsgData: Record<string, string>,
+    CurrentDialogMsgValue: Record<string, number>,
+    AlertTimer: number,
+    RespawnQueue: {enemy: string, faction: string}[],
+    HeartTaken: boolean,
+    CurrentVibration: KinkyVibration,
+    Edged: boolean,
+    TimeSinceLastVibeStart: Record<string, number>,
+    TimeSinceLastVibeEnd: Record<string, number>,
+    OfferFatigue: number,
+    Favors: Record<string, number>,
+    RoomType: string,
+    MapMod: string,
+    HunterTimer: number,
+    Hunters: number[],
+    Quests: string[],
+    QuestData: Record<string, any>,
+    RevealedTiles: Record<string, number>,
+    RevealedFog: Record<string, number>,
+    PriorJailbreaks: number,
+    PriorJailbreaksDecay: number,
+    PreviousWeapon: string[],
+    PreviousWeaponLock: boolean[],
+    StaminaPause: number,
+    StaminaSlow: number,
+    ManaSlow: number,
+    TempFlagFloorTicks: Record<string, number>,
+    KneelTurns: number,
+    AllowedSpellPages : Record<string, string[]>,
+    KeyringLocations : {x: number, y: number}[],
+    HiddenItems : Record<string, boolean>,
+    ItemPriority : Record<string, number>,
+    CagedTime : number,
+    DelayedActions: KDDelayedAction[],
+    OfferCount: number,
+    ItemID: number,
+    Offhand: string,
+    OffhandOld: string,
+    OffhandReturn: string,
+    ShopkeeperFee: number,
+    DollCount: number,
+    ChestsGenerated: string[],
+    DollRoomCount: number,
+    CollectedHearts: number,
+    CollectedOrbs: number,
+    otherPlaying: number,
+    Training: Record<string, KDTrainingRecord>,
+    QuickLoadout: KDPresetLoadout[],
     CurrentLoadout: number,
-    Training: {},
+    HighestLevelCurrent: number,
+    HighestLevel: number,
+    KDChasingEnemies: entity[],
+    ShopRewardProgram: number,
+    ShopRewardProgramThreshold: number,
+    tickAlertTimer: boolean,
+    HostileFactions: string[],
+    MovePoints: number,
+    Wait: number,
+    Class: string,
+    Party: entity[],
+    CapturedParty: entity[],
+    PlayerName: string,
+    QuickLoadout_Weapon: boolean,
+    QuickLoadout_Merge: boolean,
+    ItemsSold: Record<string, number>,
+    MaxParty: number,
+    Crouch: boolean,
+    FocusControlToggle: Record<string, boolean>,
+    FloorRobotType: Record<string, string>,
+    EpicenterLevel: number,
+    BlockTokens: number,
+    DodgeTokens: number,
+    ShieldTokens: number,
+    BlockTokensMax: number,
+    DodgeTokensMax: number,
+    ShieldTokensMax: number,
+    Shield: number,
+    ShieldDamage: number,
+    Balance: number,
+    BalancePause: boolean,
+    Collection: Record<string, KDCollectionEntry>,
+    CollectionSorted: KDCollectionEntry[],
+    HeelPower: number,
+    visionAdjust: number,
+    visionAdjustBlind: number,
+    visionBlind: number,
+    CollectionGuests: number,
+    SelectedEscapeMethod: string,
+    Restriction: number,
+    JourneyX: number,
+    JourneyY: number,
+    ShortcutIndex: number,
+    JourneyMap: KDJourneyMap,
+    JourneyTarget: {x: number, y: number},
+    LastDragon: string,
+    ElevatorsUnlocked: Record<number, boolean>,
+    TeleportLocations: Record<string, {x: number, y: number, type: string, checkpoint: string, level: number}>,
+    MaxVisionDist: number,
+    MinVisionDist: number,
+    NightVision: number,
+    LockoutChance: number,
+    StatMaxBonus: Record<string, number>,
+    QuickLoadouts: Record<string, string[]>
+
+
+    // ===============================================
+
+    LockoutChance: number,
+    ShortcutIndex: number,
+    JourneyProgression: [...KDDefaultJourney],
+    JourneyTarget: null,
+    JourneyX: number,
+    JourneyY: number,
+    JourneyMap: Record,
+    AttachedWep: "",
+    Collection: Record,
+    CollectionSorted: [],
+    RevealedTiles: Record,
+    RevealedFog: Record,
+    Balance: number,
+    BalancePause: false,
+    HeelPower: number,
+    SlowMoveTurns: number,
+    Shield: number,
+    ShieldDamage: number,
+    PlayerName: "Ada",
+    Party: [],
+    CapturedParty: [],
+    BlockTokens: number,
+    DodgeTokens: number,
+    ShieldTokens: number,
+    BlockTokensMax: number,
+    DodgeTokensMax: number,
+    ShieldTokensMax: number,
+    MaxParty: KDDefaultMaxParty,
+    QuickLoadout_Weapon: true,
+    QuickLoadout_Merge: true,
+    FocusControlToggle: Record,
+    TeleportLocations: Record,
+
+    ItemsSold: Record,
+    CurseLevel: number,
+    UsingConsumable: "",
+    MovePoints: number,
+    InventoryAction: "",
+    InventoryActionManaCost: number,
+    SellMarkup: number,
+    BondageTarget: number,
+    FoodTarget: number,
+    ShopRewardProgram: number,
+    ShopRewardProgramThreshold: number,
+
+    QuickLoadouts: Record,
+    CurrentLoadout: number,
+    Training: Record,
+    SpawnedPartyPrisoners: Record,
     CollectedOrbs: number,
     CollectedHearts: number,
     DollRoomCount: number,
     ChestsGenerated: [],
-    MainPath: 'grv',
-    ShortcutPath: 'grv',
     DollCount: number,
 
+    ElevatorsUnlocked: Record,
+
     CagedTime: number,
-    HiddenItems: {},
-    ItemPriority: {},
-    KeyringLocations: { x: number, y: number }[],
-    HiddenSpellPages: {},
+    HiddenItems: Record,
+    ItemPriority: Record,
+    KeyringLocations: string[],
+    AllowedSpellPages: Record,
     PriorJailbreaks: number,
     PriorJailbreaksDecay: number,
-    MapFaction: "",
     KeysNeeded: false,
     RoomType: "",
     MapMod: "",
 
     Quests: string[],
+    QuestData: Record,
 
     HunterTimer: number,
     Hunters: [],
@@ -738,20 +1023,18 @@ interface KDGameDataBase {
     OrgasmNextStageTimer: number,
     DistractionCooldown: number,
 
-    PoolUses: number,
-    PoolUsesGrace: number,
     JailRemoveRestraintsTimer: number,
     KinkyDungeonSpawnJailers: number,
     KinkyDungeonSpawnJailersMax: number,
     KinkyDungeonLeashedPlayer: number,
     KinkyDungeonLeashingEnemy: number,
 
-    KinkyDungeonJailGuard: number,
-    KinkyDungeonGuardTimer: number,
-    KinkyDungeonGuardTimerMax: number,
-    KinkyDungeonGuardSpawnTimer: number,
-    KinkyDungeonGuardSpawnTimerMax: number,
-    KinkyDungeonGuardSpawnTimerMin: number,
+    JailGuard: number,
+    GuardTimer: number,
+    GuardTimerMax: number,
+    GuardSpawnTimer: number,
+    GuardSpawnTimerMax: number,
+    GuardSpawnTimerMin: number,
     KinkyDungeonMaxPrisonReduction: number,
     KinkyDungeonPrisonReduction: number,
     KinkyDungeonPrisonExtraGhostRep: number,
@@ -784,16 +1067,14 @@ interface KDGameDataBase {
     AncientEnergyLevel: number,
     OrigEnergyLevel: number,
     LastAP: number,
-    LastSP: number,
-    LastMP: number,
-    LastWP: number,
+    LastSP: KDMaxStatStart,
+    LastMP: KDMaxStatStart,
+    LastWP: KDMaxStatStart,
 
     Outfit: "Default",
 
     Champion: "",
     ChampionCurrent: number,
-
-    JailPoints: [],
 
     WarningLevel: number,
     LastMapSeed: "",
@@ -802,7 +1083,7 @@ interface KDGameDataBase {
     Journey: "",
     CheckpointIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 
-    TempFlagFloorTicks: {},
+    TempFlagFloorTicks: Record,
 
     // "" = not a prisoner
     // "jail" = must remain in cell
@@ -817,8 +1098,8 @@ interface KDGameDataBase {
     CurrentDialogMsg: "",
     CurrentDialogMsgSpeaker: "",
     CurrentDialogMsgPersonality: "",
-    CurrentDialogMsgData: {},
-    CurrentDialogMsgValue: {},
+    CurrentDialogMsgData: Record,
+    CurrentDialogMsgValue: Record,
     CurrentDialogMsgID: number,
 
     ConfirmAttack: false,
@@ -827,29 +1108,62 @@ interface KDGameDataBase {
 
     CurrentVibration: null,
     Edged: false,
-    TimeSinceLastVibeStart: {},
-    TimeSinceLastVibeEnd: {},
+    TimeSinceLastVibeStart: Record,
+    TimeSinceLastVibeEnd: Record,
 
     OfferFatigue: number,
+    Offhand: "",
+    OffhandOld: "",
+    OffhandReturn: "",
 
-    Favors: {},
-    PreviousWeapon: null,
+    Favors: Record,
+    PreviousWeapon: ["Unarmed", "Unarmed", "Unarmed", "Unarmed"],
+    PreviousWeaponLock: [false, false, false, false],
     QuickLoadout: [],
 
     StaminaPause: number,
     StaminaSlow: number,
     ManaSlow: number,
     KneelTurns: number,
-    ShopItems: [],
     DelayedActions: [],
-    JailFaction: [],
-    GuardFaction: [],
 
     OfferCount: number,
+
+    KDChasingEnemies: [],
 
     ItemID: number,
     ShopkeeperFee: number,
     otherPlaying: number,
+    CategoryIndex: Record,
+    HighestLevel: number,
+    HighestLevelCurrent: number,
+    tickAlertTimer: false,
+    HostileFactions: [],
+    Wait: number,
+    Class: "",
+    EpicenterLevel: number,
+    CollectionGuests: number,
+
+    FloorRobotType: Record,
+    SelectedEscapeMethod: "Key",
+
+    Crouch: false,
+    visionAdjust: number, // Eyes start out fully light adjusted
+    visionAdjustBlind: number, // Slowly follows actual visionadjust, used to determine if blindness occurs
+    visionBlind: number, // Penalty to vision radius based on overbright
+    Restriction: number,
+    LastDragon: "",
+
+    MaxVisionDist: number,
+    MinVisionDist: number,
+    NightVision: number,
+
+    StatMaxBonus: {
+        AP: number,
+        SP: number,
+        MP: number,
+        WP: number,
+    },
 };
 
 interface floorParams {

@@ -515,4 +515,11 @@ declare global {
     let KDMaxStatStartPool: number; // Start of stats
 
     let KDRefreshSpellCache: boolean;
+
+    /**
+     *
+     * @param {number} delta
+     */
+    function KinkyDungeonUpdateStats(delta);
+
 }

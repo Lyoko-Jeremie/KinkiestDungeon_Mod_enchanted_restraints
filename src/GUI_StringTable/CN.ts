@@ -99,6 +99,7 @@ export const StringTable_CN: StringTableType = {
     BootstrapSpellChoicesTable: '【开局】快速设置为Mod预设法术列表（需先使用[增益作弊]开启全部法术列表）',
     BootstrapSimpleGood: '【开局】快速开启(除钥匙与黄金外的)增益及动态作弊【风灵月影宗外门入口】',
     BootstrapAllNegative: '【开局】快速启用全部 负面减益【风灵月影宗侧门入口】',
+    Add1000MaxState: '所有属性最大值增加1000',
     'Enable Section': '动态内存作弊 Section',
     EnableAllCheats: '启动【所有】动态内存作弊（包括[预设法术列表]中的探查和视野法术保持和范围修改）',
     DisableAllCheats: '禁用【所有】动态内存作弊',
