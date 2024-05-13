@@ -764,6 +764,51 @@ class Bootstrap extends CheatsHook {
         KDGameData.CollectedHearts = (KDGameData.CollectedHearts || 0) + 10;
 
     }
+    // KDMapData.Tiles["12,3"] = { Type: "Tablet", Name: "Heart", Light: 3 , lightColor: 8947967 }
+    // KinkyDungeonMapSet(12,3,'M')
+    //
+    //
+    // 		case "heart": {
+    // 			KDDelayedActionPrune(["Action", "World"]);
+    // 			tile = KinkyDungeonTilesGet(data.targetTile);
+    // 			if (tile) {
+    // 				let amnt = (data.amount || 3);
+    // 				if (data.type == "AP") {
+    // 					if (KinkyDungeonStatDistractionMax < KDMaxStat) //for (let i = 0; i < amnt; i++) KDPushSpell(KinkyDungeonFindSpell("APUp1"));
+    // 						KDGameData.StatMaxBonus[data.type] += amnt;
+    // 					KinkyDungeonUpdateStats(0);
+    // 				}else if (data.type == "SP") {
+    // 					if (KinkyDungeonStatStaminaMax < KDMaxStat)// for (let i = 0; i < amnt; i++) KDPushSpell(KinkyDungeonFindSpell("SPUp1"));
+    // 						KDGameData.StatMaxBonus[data.type] += amnt;
+    // 					KinkyDungeonUpdateStats(0);
+    // 				} else if (data.type == "MP") {
+    // 					if (KinkyDungeonStatManaMax < KDMaxStat)// for (let i = 0; i < amnt; i++) KDPushSpell(KinkyDungeonFindSpell("MPUp1"));
+    // 						KDGameData.StatMaxBonus[data.type] += amnt;
+    // 					KinkyDungeonUpdateStats(0);
+    // 				} else if (data.type == "WP") {
+    // 					if (KinkyDungeonStatWillMax < KDMaxStat) //for (let i = 0; i < amnt; i++) KDPushSpell(KinkyDungeonFindSpell("WPUp1"));
+    // 						KDGameData.StatMaxBonus[data.type] += amnt;
+    // 					KinkyDungeonUpdateStats(0);
+    // 				}
+    // 				KDGameData.CollectedHearts = (KDGameData.CollectedHearts || 0) + 1;
+    //
+    // 				// Send the message and advance time
+    // 				KinkyDungeonAdvanceTime(1);
+    // 				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTabletReadSuccess"), "lightgreen", 1);
+    //
+    // 				KinkyDungeonTargetTile = null;
+    // 				KinkyDungeonTargetTileLocation = "";
+    // 				KDModalArea = false;
+    //
+    // 				// Remove the tile
+    // 				let x = parseInt(data.targetTile.split(',')[0]);
+    // 				let y = parseInt(data.targetTile.split(',')[1]);
+    // 				if (x && y) {
+    // 					KinkyDungeonMapSet(x, y, 'm');
+    // 					KinkyDungeonTilesDelete(data.targetTile);
+    // 				}
+    // 			}
+    // 			break;
 }
 
 export class FullCheats extends Bootstrap {
