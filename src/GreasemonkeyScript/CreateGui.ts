@@ -926,13 +926,14 @@ export class CreateGui {
                                         nn.reload();
                                         return;
                                     }
+                                    const searchKeySearch = searchKey.toLowerCase();
                                     nn.settings.options =
                                         thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
                                             .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`)
                                             .filter(T =>
-                                                T.includes(searchKey)
+                                                T.toLowerCase().includes(searchKeySearch)
                                             )/*.concat(['None'])*/;
-                                    thisRef.lastSearch.set('ChoiceAddOneFilter', searchKey);
+                                    thisRef.lastSearch.set('ChoiceAddOneFilter', searchKeySearch);
                                     nn.reload();
 
                                 },
@@ -956,9 +957,7 @@ export class CreateGui {
                             value: '',
                             options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
                                 .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`)
-                                .filter(T =>
-                                    T.includes(thisRef.lastSearch.get('ChoiceAddOneFilter'))
-                                ),
+                                .filter(T => T.toLowerCase().includes(thisRef.lastSearch.get('ChoiceAddOneFilter'))),
                             cssClassName: 'd-inline',
                         },
                         'ChoiceFilterAddOne': {
@@ -1342,15 +1341,16 @@ export class CreateGui {
                                         nn.reload();
                                         return;
                                     }
+                                    const searchKeySearch = searchKey.toLowerCase();
                                     nn.settings.options =
                                         thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem()
                                             .map(T => {
                                                 return `${T.name}|[${TextGet(`Restraint${T.name}`)}]`;
                                             })
                                             .filter(T =>
-                                                T.includes(searchKey)
+                                                T.toLowerCase().includes(searchKeySearch)
                                             )/*.concat(['None'])*/;
-                                    thisRef.lastSearch.set('AllRestraintItemFilter', searchKey);
+                                    thisRef.lastSearch.set('AllRestraintItemFilter', searchKeySearch);
                                     nn.reload();
 
                                 },
@@ -1374,7 +1374,7 @@ export class CreateGui {
                             value: 'None',
                             options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem().map(T => {
                                 return `${T.name}|[${TextGet(`Restraint${T.name}`)}]`;
-                            }).filter(T => T.includes(thisRef.lastSearch.get('AllRestraintItemFilter'))).concat(['None']),
+                            }).filter(T => T.toLowerCase().includes(thisRef.lastSearch.get('AllRestraintItemFilter'))).concat(['None']),
                             eventCallbacks: {
                                 click(e) {
                                     console.warn('AllRestraintItemFilterSelect click', e);
