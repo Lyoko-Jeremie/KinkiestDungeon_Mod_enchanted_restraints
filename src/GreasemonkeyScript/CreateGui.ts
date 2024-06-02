@@ -5,7 +5,7 @@ import inlineGMCss from './inlineText/GM.css?inlineText';
 import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
 import {KinkyDungeonFactionColors_Keys, Restraint, WearMethodsInterfaceKey, WearsList} from "../Cheats/Restraint";
 import {assign, isString} from "lodash";
-import {LockList} from "../Cheats/LockList";
+import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "../Sound/Sound";
@@ -1222,7 +1222,7 @@ export class CreateGui {
                             label: StringTable['LockSelect'],
                             type: 'select',
                             value: LockList.Purple,
-                            options: Object.values(LockList).map(T => LockList2HumanName(T)),
+                            options: Object.values(KDLocksTypeInstance.KDLocks).map(T => LockList2HumanName(T)),
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
                         },

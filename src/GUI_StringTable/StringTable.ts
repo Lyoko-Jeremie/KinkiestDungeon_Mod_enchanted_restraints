@@ -1,7 +1,7 @@
 import {StringTable_CN} from "./CN";
 import {StringTable_EN} from "./EN";
 import {WearFunctionType, WearsKeys} from "../Cheats/Restraint";
-import {LockList} from "../Cheats/LockList";
+import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 
 const StringTableKeys = [
     'title',
@@ -237,6 +237,8 @@ export function LockList2HumanName(lock?: LockList): string {
         }
         return "None";
     } else if (lock === LockList.None) {
+        return "None";
+    } else if (!KDLocksTypeInstance.KDLocks.includes(lock)) {
         return "None";
     } else {
         const k1 = TextGet(`Kinky${lock}Lock`);

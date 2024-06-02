@@ -1708,3 +1708,64 @@ interface spell {
 
 }
 
+
+type KDLockType = {
+    specialActions?: (tile: any, entity: entity) => void;
+    canNPCPass: (xx: number, yy: number, MapTile: object, Enemy: entity) => boolean;
+
+    filter: (Guaranteed: boolean, Floor: number, AllowGold: boolean, Type: string, data: any) => boolean;
+    weight: (Guaranteed: boolean, Floor: number, AllowGold: boolean, Type: string, data: any) => number;
+
+    consume_key: boolean;
+    lockmult: number;
+
+    penalty?: Record<string, number>;
+
+    /* For chests, etc*/
+    pickable: boolean;
+    /** Replace the pick icon with hacking */
+    hackPick?: boolean;
+    pick_speed: number;
+    pick_diff: number;
+    pick_lim?: number;
+    /** For restraints */
+    canPick: (data: any) => boolean;
+    doPick: (data: any) => boolean;
+    failPick: (data: any) => string;
+    breakChance: (data: any) => boolean;
+    unlockable: boolean;
+    unlock_diff?: number;
+    key: string;
+    canUnlock: (data: any) => boolean;
+    doUnlock: (data: any) => boolean;
+    doLock?: (data: any) => void;
+    failUnlock: (data: any) => string;
+    removeKeys: (data: any) => void;
+
+    levelStart: (item) => void;
+    shrineImmune: boolean;
+
+    commandlevel: number;
+    commandable: boolean;
+    command_lesser: () => number;
+    command_greater: () => number;
+    command_supreme: () => number;
+
+    loot_special: boolean;
+    loot_locked: boolean;
+}
+
+
+interface KDQuest {
+    name: string;
+    npc: string;
+    visible: boolean;
+    nocancel?: boolean,
+    tick?: (delta) => void;
+    worldgenstart?: () => void;
+    accept?: () => void;
+    weight: (RoomType: any, MapMod: any, data: any, currentQuestList: any) => number;
+    prerequisite: (RoomType: any, MapMod: any, data: any, currentQuestList: any) => boolean;
+    tags?: string[],
+};
+

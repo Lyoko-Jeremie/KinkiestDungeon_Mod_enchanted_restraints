@@ -522,4 +522,6 @@ declare global {
      */
     function KinkyDungeonUpdateStats(delta);
 
+    let KDLocks: Record<string, KDLockType>;
 }
+

@@ -8,7 +8,7 @@ import {SaveLoad} from './SaveLoad';
 import {DebugSee} from './DebugSee';
 import {_FunctionReplaceHook} from './_FunctionReplaceHook';
 import {MapGet} from "./Map";
-import {LockList} from "./LockList";
+import {KDLocksTypeInstance, LockList} from "./LockList";
 import {FullCheats} from "./Full";
 import {RestraintCustomWear} from "./Restraint";
 import {Quest} from "./Quest";
@@ -30,7 +30,10 @@ export class CheatsBase extends RestraintCustomWear {
 
     DebugSee = new DebugSee();
     SaveLoad = new SaveLoad();
-    LockList = LockList;
+
+    get LockList() {
+        return KDLocksTypeInstance.KDLocks;
+    }
 
 
     _FunctionReplaceHook = new _FunctionReplaceHook();
