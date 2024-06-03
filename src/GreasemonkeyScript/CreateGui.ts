@@ -3,7 +3,13 @@ import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMo
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
 import inlineBootstrap from 'bootstrap/dist/css/bootstrap.css?inlineText';
-import {KinkyDungeonFactionColors_Keys, Restraint, WearMethodsInterfaceKey, WearsList} from "../Cheats/Restraint";
+import {
+    CurseWears,
+    KinkyDungeonFactionColors_Keys,
+    Restraint,
+    WearMethodsInterfaceKey,
+    WearsList
+} from "../Cheats/Restraint";
 import {assign, isString} from "lodash";
 import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
@@ -1404,6 +1410,85 @@ export class CreateGui {
                                         // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
                                     thisRef.flushNowWearRestraintItemSelect();
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'ShadowCurseSelect': {
+                            label: StringTable['ShadowCurseSelect'],
+                            type: 'select',
+                            value: 'None',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseNameList.map(T => {
+                                return `${T}|[${T}]`;
+                            }),
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'ShadowVariantSelect': {
+                            label: StringTable['ShadowVariantSelect'],
+                            type: 'select',
+                            value: 'None',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseVariantNameList.map(T => {
+                                return `${T}|[${TextGet(`curseInfo${T}`)}]`;
+                            }).concat(['None']),
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'CurseWearIt': {
+                            label: StringTable['CurseWearIt'],
+                            type: 'button',
+                            click() {
+
+                                const w = thisRef.gmc!.fields['AllRestraintItemFilterSelect'].toValue();
+                                let ww: string[] | undefined;
+                                if (w && isString(w) && w.length > 0 && w !== 'None' && w !== '|[]') {
+                                    ww = w.split('|[');
+                                    // const faction = thisRef.gmc!.fields['FactionSelect'].toValue();
+                                    // thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
+                                    //     ww[0],
+                                    //     HumanName2LockList(thisRef.gmc!.fields['LockSelect'].toValue() as string),
+                                    //     faction as KinkyDungeonFactionColors_Keys,
+                                    //     // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                    // );
+                                    // thisRef.flushNowWearRestraintItemSelect();
+                                } else {
+                                    ww = undefined;
+                                }
+
+                                const c = thisRef.gmc!.fields['ShadowCurseSelect'].toValue() as string;
+                                const v = thisRef.gmc!.fields['ShadowVariantSelect'].toValue() as string;
+
+                                if (c && isString(c) && c !== 'None') {
+                                    const cc = c.split('|[');
+
+                                    if (v && isString(v) && v !== 'None' && ww) {
+                                        const vv = v.split('|[');
+
+                                        // TODO
+                                        //      addRandomShadowCurseWear
+                                        //      addShadowCurseWear
+                                        //      addShadowCurseWearWithVariant
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariant(
+                                            cc[0],
+                                            ww[0],
+                                            vv[0],
+                                        );
+                                    } else {
+                                        if (ww) {
+                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWear(
+                                                cc[0],
+                                                ww[0],
+                                            );
+                                        } else {
+                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addRandomShadowCurseWear(
+                                                cc[0],
+                                            );
+                                        }
+                                    }
                                 }
                             },
                             cssClassName: 'd-inline',

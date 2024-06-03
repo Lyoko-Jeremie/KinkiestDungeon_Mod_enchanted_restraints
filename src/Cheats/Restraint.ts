@@ -449,6 +449,7 @@ export class CurseWears {
      * @param shadowCurseName   ShadowCurseNameList
      */
     addRandomShadowCurseWear(shadowCurseName: string) {
+        console.log('addRandomShadowCurseWear', shadowCurseName);
         // KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], 'shadow');
         // let loot: { loot: typeof KinkyDungeonLootTable.shadow, weight: number } = {} as any;
         let loot: typeof KDShadowRestraints[number] | undefined =
@@ -474,7 +475,13 @@ export class CurseWears {
      * @param wearsName
      */
     addShadowCurseWear(shadowCurseName: string, wearsName: string) {
-        this.setKinkyDungeonGetRestraintReturn(KinkyDungeonGetRestraintByName(wearsName));
+        console.log('addShadowCurseWear', shadowCurseName, wearsName);
+        let w = KinkyDungeonGetRestraintByName(wearsName);
+        if (!w) {
+            console.error('addShadowCurseWear Cannot find the wearsName:', wearsName);
+            return;
+        }
+        this.setKinkyDungeonGetRestraintReturn(w);
         try {
             this.addRandomShadowCurseWear(shadowCurseName);
         } catch (e) {
@@ -491,6 +498,11 @@ export class CurseWears {
      * @param variantName       ShadowCurseVariantNameList
      */
     addShadowCurseWearWithVariant(shadowCurseName: string, wearsName: string, variantName: string) {
+        console.log('addShadowCurseWearWithVariant', shadowCurseName, wearsName, variantName);
+        if (!this.ShadowCurseVariantNameList.includes(variantName)) {
+            console.error('addShadowCurseWearWithVariant variantName not in ShadowCurseVariantNameList', variantName);
+            return;
+        }
         this.setKinkyDungeonGetHexByListReturn([variantName]);
         try {
             this.addShadowCurseWear(shadowCurseName, wearsName);
