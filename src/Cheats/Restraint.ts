@@ -1,5 +1,6 @@
-import {isSafeInteger} from 'lodash'
+import {isSafeInteger, clone, cloneDeep} from 'lodash';
 import {LockList, LockList2RealLock} from "./LockList";
+import {FunctionPatchHooker} from "../FunctionPatch/FunctionPatch";
 
 export const WearsList = {
     // VinePlant
@@ -348,6 +349,157 @@ export class RestraintCustomWear extends Restraint {
         }
     }
 
+    CurseWears = new CurseWears();
+}
+
+export class CurseWears {
+    // KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], 'shadow');
+    // KinkyDungeonLootEvent(KDShadowRestraints[5], 1, ".......")
+
+    get ShadowCurseNameList(): string[] {
+        return KDShadowRestraints.map((T) => T.name);
+    }
+
+    get ShadowCurseBuffNameList(): string[] {
+        return Object.keys(KDEventHexModular);
+    }
+
+    get ShadowCurseVariantNameList(): string[] {
+        let v = [];
+        for (const T of Object.keys(KDHexVariantList)) {
+            v.push(...KDHexVariantList[T]);
+        }
+        let s = new Set(v);
+        s.delete("Common");
+        return Array.from(s.values());
+    }
+
+    get ShadowCurseVariantNameListByLevel(): typeof KDHexVariantList {
+        let v = cloneDeep(KDHexVariantList);
+        delete v["Common"];
+        return v;
+    }
+
+    hookKinkyDungeonGetRestraintEnable: boolean = false;
+    hookedKinkyDungeonGetRestraintReturn?: restraint = undefined;
+
+    setKinkyDungeonGetRestraintReturn(r: restraint) {
+        this.hookKinkyDungeonGetRestraintEnable = true;
+        this.hookedKinkyDungeonGetRestraintReturn = r;
+    }
+
+    unsetKinkyDungeonGetRestraintReturn() {
+        this.hookKinkyDungeonGetRestraintEnable = false;
+        this.hookedKinkyDungeonGetRestraintReturn = undefined;
+    }
+
+    hookKinkyDungeonGetHexByListEnable: boolean = false;
+    hookedKinkyDungeonGetHexByListReturn?: string[] = undefined;
+
+    setKinkyDungeonGetHexByListReturn(r: string[]) {
+        this.hookKinkyDungeonGetHexByListEnable = true;
+        this.hookedKinkyDungeonGetHexByListReturn = r;
+    }
+
+    unsetKinkyDungeonGetHexByListReturn() {
+        this.hookKinkyDungeonGetHexByListEnable = false;
+        this.hookedKinkyDungeonGetHexByListReturn = undefined;
+    }
+
+    installCurseWearsHook(functionPatchHook: FunctionPatchHooker) {
+        // hook for Game/src/item/KinkyDungeonLoot.js :
+        // if (Loot.armortags) {
+        // 			let newarmor = KinkyDungeonGetRestraint({tags: Loot.armortags}, KDGetEffLevel(), (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint), true, "",
+        // 				undefined, undefined, undefined, undefined, true, undefined, undefined, undefined, forceequip);
+        // 			if (!newarmor && forceequip) {
+        // 				KinkyDungeonGetRestraint({tags: Loot.armortags}, KDGetEffLevel(), (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint), true, "",
+        // 					undefined, undefined, undefined, undefined, true, undefined, undefined, undefined, false);
+        // 			}
+        // 			if (newarmor) armor = newarmor.name;
+        // 		}
+        functionPatchHook.prepareHook({
+            originalFunctionName: 'KinkyDungeonGetRestraint',
+            hookFunctionBeforeReplace: (arg) => {
+                console.log('KinkyDungeonGetRestraint called', arg);
+                if (this.hookKinkyDungeonGetRestraintEnable) {
+                    console.log('install_CurseWears_KinkyDungeonGetRestraint_Hook called', arg);
+                    return [true, undefined, this.hookedKinkyDungeonGetRestraintReturn];
+                }
+                return [false, arg, undefined];
+            },
+        });
+        // hook for Game/src/item/KinkyDungeonLoot.js :
+        // let curs = KDGetByWeight(KinkyDungeonGetHexByListWeighted(Loot.hexlist, armor, false, Loot.hexlevelmin, Loot.hexlevelmax, [hexVariant, ...hex_extra]));
+        functionPatchHook.prepareHook({
+            originalFunctionName: 'KinkyDungeonGetHexByList',
+            hookFunctionBeforeReplace: (arg) => {
+                console.log('KinkyDungeonGetHexByList called', arg);
+                let [List, includeOrig, minLevel, maxLevel] = arg;
+                if (this.hookKinkyDungeonGetHexByListEnable) {
+                    console.log('install_CurseWears_KinkyDungeonGetRestraintByName_Hook called', arg);
+                    return [true, undefined, this.hookedKinkyDungeonGetHexByListReturn];
+                }
+                return [false, arg, undefined];
+            },
+        });
+    }
+
+    /**
+     *
+     * @param shadowCurseName   ShadowCurseNameList
+     */
+    addRandomShadowCurseWear(shadowCurseName: string) {
+        // KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], 'shadow');
+        // let loot: { loot: typeof KinkyDungeonLootTable.shadow, weight: number } = {} as any;
+        let loot: typeof KDShadowRestraints[number] | undefined =
+            KDShadowRestraints.find((T) => T.name === shadowCurseName);
+        if (loot) {
+            let l = cloneDeep(loot);
+            // hook for Game/src/item/KinkyDungeonLoot.js :
+            // let hexed = Loot.hexlist && (Loot.hexchance == undefined || KDRandom() < Loot.hexchance + (Loot.hexscale|| 0) * levelPercent || (Loot.nouncursed && !Loot.enchantlist && KinkyDungeonInventoryGet(Loot.nouncursed)));
+
+            // l.minHex = 3;
+            // l.maxHex = 20;
+            l.hexchance = 10;
+            // KinkyDungeonLootEvent(loot, MiniGameKinkyDungeonLevel, TextGet(loot.message), loot.lock);
+            KinkyDungeonLootEvent(l, KDGetEffLevel(), TextGet(l.message), l.lock);
+        } else {
+            console.error('addRandomShadowCurseWear Cannot find the shadowCurseName:', shadowCurseName);
+        }
+    }
+
+    /**
+     *
+     * @param shadowCurseName   ShadowCurseNameList
+     * @param wearsName
+     */
+    addShadowCurseWear(shadowCurseName: string, wearsName: string) {
+        this.setKinkyDungeonGetRestraintReturn(KinkyDungeonGetRestraintByName(wearsName));
+        try {
+            this.addRandomShadowCurseWear(shadowCurseName);
+        } catch (e) {
+            console.error("addShadowCurseWear error", e);
+        } finally {
+            this.unsetKinkyDungeonGetRestraintReturn();
+        }
+    }
+
+    /**
+     *
+     * @param shadowCurseName   ShadowCurseNameList
+     * @param wearsName
+     * @param variantName       ShadowCurseVariantNameList
+     */
+    addShadowCurseWearWithVariant(shadowCurseName: string, wearsName: string, variantName: string) {
+        this.setKinkyDungeonGetHexByListReturn([variantName]);
+        try {
+            this.addShadowCurseWear(shadowCurseName, wearsName);
+        } catch (e) {
+            console.error("addShadowCurseWearWithVariant error", e);
+        } finally {
+            this.unsetKinkyDungeonGetHexByListReturn();
+        }
+    }
 }
 
 

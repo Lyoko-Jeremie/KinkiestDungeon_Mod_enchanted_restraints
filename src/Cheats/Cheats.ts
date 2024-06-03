@@ -70,11 +70,13 @@ export class CheatsBase extends RestraintCustomWear {
         functionName: string,
         hookFunctionBefore?: <Args extends IArguments>(arg: Args) => Args,
         hookFunctionAfter?: <Args extends IArguments, T>(arg: Args, returnValue: T) => T,
+        hookFunctionBeforeReplace?: <Args extends IArguments>(arg: Args) => [boolean, Args | undefined, any],
     ) {
         this._FunctionPatchHooker.prepareHook({
             originalFunctionName: functionName,
             hookFunctionBefore: hookFunctionBefore,
             hookFunctionAfter: hookFunctionAfter,
+            hookFunctionBeforeReplace: hookFunctionBeforeReplace,
         });
     }
 
@@ -83,6 +85,7 @@ export class CheatsBase extends RestraintCustomWear {
         this._FunctionPatchHooker = new FunctionPatchHooker();
         this.installRestraint();
         this.installForceMap();
+        this.CurseWears.installCurseWearsHook(this._FunctionPatchHooker);
     }
 }
 

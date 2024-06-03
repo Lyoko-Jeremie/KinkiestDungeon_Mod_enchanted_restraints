@@ -822,7 +822,7 @@ interface KDGameDataBase {
     Champion: string,
     ChampionCurrent: number,
     LastMapSeed: string,
-    AlreadyOpened: {x: number, y:number}[],
+    AlreadyOpened: { x: number, y: number }[],
     Journey: string,
     CheckpointIndices: number[],
     PrisonerState: string,
@@ -841,7 +841,7 @@ interface KDGameDataBase {
     CurrentDialogMsgData: Record<string, string>,
     CurrentDialogMsgValue: Record<string, number>,
     AlertTimer: number,
-    RespawnQueue: {enemy: string, faction: string}[],
+    RespawnQueue: { enemy: string, faction: string }[],
     HeartTaken: boolean,
     CurrentVibration: KinkyVibration,
     Edged: boolean,
@@ -866,11 +866,11 @@ interface KDGameDataBase {
     ManaSlow: number,
     TempFlagFloorTicks: Record<string, number>,
     KneelTurns: number,
-    AllowedSpellPages : Record<string, string[]>,
-    KeyringLocations : {x: number, y: number}[],
-    HiddenItems : Record<string, boolean>,
-    ItemPriority : Record<string, number>,
-    CagedTime : number,
+    AllowedSpellPages: Record<string, string[]>,
+    KeyringLocations: { x: number, y: number }[],
+    HiddenItems: Record<string, boolean>,
+    ItemPriority: Record<string, number>,
+    CagedTime: number,
     DelayedActions: KDDelayedAction[],
     OfferCount: number,
     ItemID: number,
@@ -931,10 +931,10 @@ interface KDGameDataBase {
     JourneyY: number,
     ShortcutIndex: number,
     JourneyMap: KDJourneyMap,
-    JourneyTarget: {x: number, y: number},
+    JourneyTarget: { x: number, y: number },
     LastDragon: string,
     ElevatorsUnlocked: Record<number, boolean>,
-    TeleportLocations: Record<string, {x: number, y: number, type: string, checkpoint: string, level: number}>,
+    TeleportLocations: Record<string, { x: number, y: number, type: string, checkpoint: string, level: number }>,
     MaxVisionDist: number,
     MinVisionDist: number,
     NightVision: number,
@@ -1769,3 +1769,10 @@ interface KDQuest {
     tags?: string[],
 };
 
+interface KDHexEnchantEventsData {
+    variant: { events: KinkyDungeonEvent[], template: string },
+}
+
+interface KDHexEnchantWeightData {
+    item: string,
+}

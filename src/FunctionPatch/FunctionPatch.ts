@@ -6,6 +6,14 @@ export interface PatchHookConfig {
     hookFunctionBefore?: <Args extends IArguments>(arg: Args) => Args;
     hookFunctionAfter?: <Args extends IArguments, T>(arg: Args, returnValue: T) => T;
     /**
+     * replace hole function
+     * @param arg
+     * @return [isReplace:boolean, arg?:Args|undefined if not replace, returnValue?:any if replace]
+     *         [false, arg, undefined];
+     *         [true, undefined, return];
+     */
+    hookFunctionBeforeReplace?: <Args extends IArguments>(arg: Args) => [boolean, Args | undefined, any];
+    /**
      * Custom replacer for originalFunction
      * it must do the task : place the jumpFunction to the hookFunctionPoint as newFunction , and return the old one
      * @param jumpFunction  The jumpFunction
@@ -66,6 +74,18 @@ export class FunctionPatchHooker {
             let newArguments = arguments;
             if (hookInfo) {
                 for (const hook of hookInfo) {
+                    if (hook.hookFunctionBeforeReplace) {
+                        try {
+                            let [replace, replaceArguments, replaceReturn] =
+                                hook.hookFunctionBeforeReplace(newArguments);
+                            if (replace) {
+                                newArguments = replaceArguments!;
+                                return replaceReturn;
+                            }
+                        } catch (e) {
+                            console.error('[FunctionPatchHook] JumpFunction before replace hook error:', [originalFunctionName, hook]);
+                        }
+                    }
                     if (hook.hookFunctionBefore) {
                         try {
                             newArguments = hook.hookFunctionBefore(newArguments);
@@ -105,7 +125,12 @@ export class FunctionPatchHooker {
         console.log('[FunctionPatchHook] prepareHook', [this.hookTable]);
 
         if (!hookConfig || !hookConfig.originalFunctionName
-            || (hookConfig.hookFunctionBefore === undefined && hookConfig.hookFunctionAfter === undefined)
+            ||
+            (
+                hookConfig.hookFunctionBefore === undefined
+                && hookConfig.hookFunctionAfter === undefined
+                && hookConfig.hookFunctionBeforeReplace === undefined
+            )
         ) {
             console.error('[FunctionPatchHook] prepareHook hookConfig is invalid:', hookConfig);
             return;
@@ -140,7 +165,7 @@ export class FunctionPatchHooker {
             const isAllHooked = hookInfo.every(hook => hook.jumpFunctionHandle && hook.originalFunctionHandle);
             const isAllNotHooked = hookInfo.every(hook => !hook.jumpFunctionHandle && !hook.originalFunctionHandle);
             const isJumpAndOriginalSameState = hookInfo.every(hook => !!hook.jumpFunctionHandle === !!hook.originalFunctionHandle);
-            if (!isAllHooked || !isAllNotHooked || !isJumpAndOriginalSameState) {
+            if (!isAllHooked || isAllNotHooked || !isJumpAndOriginalSameState) {
                 console.error('[FunctionPatchHook] doLeakCheck is invalid:',
                     [originalFunctionName, hookInfo],
                     [!isAllHooked, !isAllNotHooked, isJumpAndOriginalSameState]);
@@ -212,7 +237,11 @@ export class FunctionPatchHooker {
         }
 
         if (!hookConfig || !hookConfig.originalFunctionName
-            || (hookConfig.hookFunctionBefore === undefined && hookConfig.hookFunctionAfter === undefined)
+            || (
+                hookConfig.hookFunctionBefore === undefined
+                && hookConfig.hookFunctionAfter === undefined
+                && hookConfig.hookFunctionBeforeReplace === undefined
+            )
         ) {
             console.error('[FunctionPatchHook] installHook hookConfig is invalid:', hookConfig);
             return;

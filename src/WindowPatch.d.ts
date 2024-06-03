@@ -522,6 +522,79 @@ declare global {
      */
     function KinkyDungeonUpdateStats(delta);
 
-    let KDLocks: Record<string, KDLockType>;
+    var KDLocks: Record<string, KDLockType>;
+
+    var KinkyDungeonLootTable: Record<string, {
+        name: string,
+        minLevel: number,
+        weight: number,
+        armortags: string[],
+        armor: string,
+        cursesuffix: string,
+        amtMult: number,
+        maxEnchants: number,
+        faction: string,
+        hexlist: string,
+        enchantlist: string,
+        hexchance: number,
+        enchantchance: number,
+        alwaysenchanthex: true,
+        hexscale: number,
+        unlockcurse: string[],
+        hexlevelmin: number,
+        hexlevelmax: number,
+        enchantlevelmin: number,
+        enchantlevelmax: number,
+        message: string,
+        messageColor: string,
+        messageTime: number,
+        allFloors: boolean,
+        lock: string | undefined,
+
+        minHex: number,
+        maxHex: number,
+    }[]>;
+
+    var KDShadowRestraints: {
+        name: string,
+        minLevel: number,
+        weight: number,
+        armortags: string[],
+        armor: string,
+        cursesuffix: string,
+        amtMult: number,
+        maxEnchants: number,
+        faction: string,
+        hexlist: string,
+        enchantlist: string,
+        hexchance: number,
+        enchantchance: number,
+        alwaysenchanthex: true,
+        hexscale: number,
+        unlockcurse: string[],
+        hexlevelmin: number,
+        hexlevelmax: number,
+        enchantlevelmin: number,
+        enchantlevelmax: number,
+        message: string,
+        messageColor: string,
+        messageTime: number,
+        allFloors: boolean,
+        lock: string | undefined,
+
+        minHex: number,
+        maxHex: number,
+    }[];
+
+    var KDEventHexModular: Record<string, {
+        weight: (item: string, allHex: string[], data: KDHexEnchantEventsData) => number,
+        events: (data: KDHexEnchantEventsData) => KinkyDungeonEvent[],
+    }>;
+
+    function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock);
+
+    function KDGetEffLevel(): number;
+
+    var KDHexVariantList: Record<string, string[]>;
 }
 
