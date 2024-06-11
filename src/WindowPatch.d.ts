@@ -596,5 +596,21 @@ declare global {
     function KDGetEffLevel(): number;
 
     var KDHexVariantList: Record<string, string[]>;
+
+    function KDApplyVarToInvVar(restraint: restraint, variant: ApplyVariant): KDRestraintVariant;
+
+
+    /** @type {Record<string, KDEnchantment>} */
+    var KDEventEnchantmentModular: Record<string, KDEnchantment>;
+
+    /**
+     * @enum {ModifierEnum}
+     */
+    var KDModifierEnum = {
+        restraint: 0,
+        looserestraint: 0,
+        weapon: 1,
+        consumable: 2,
+    };
 }
 

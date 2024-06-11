@@ -1776,3 +1776,128 @@ interface KDHexEnchantEventsData {
 interface KDHexEnchantWeightData {
     item: string,
 }
+
+
+interface KDCursedDef {
+    /** Restraints with this curse are unremovable via shrine */
+    noShrine?: boolean,
+    /** This curse is treated as a type of lock, for display purposes */
+    lock?: boolean,
+    /** Power multiplier of the curse, similar to a lock's lockmult */
+    powerMult?: number,
+    /** Fixed power increase */
+    powerBoost?: number,
+    /** This curse keeps events with the curse property from vanishing */
+    activatecurse?: boolean,
+    /** custom icon for removing (failure) */
+    customIcon_RemoveFailure?: string,
+    /** custom icon for removing (success) */
+    customIcon_RemoveSuccess?: string,
+    /** custom icon for the struggle groups display */
+    customIcon_hud?: string,
+    /** TODO NOT IMPLEMENTED for a future RemoveCursesWithShrine function */
+    shrineRemove?: string[],
+    level: number,
+    weight: (item, allHex?) => number,
+    customStruggle?: (item: item, Curse?: string) => void,
+    customInfo?: (item: item, Curse?: string) => void,
+    onApply?: (item: item, host?: item) => void,
+    condition: (item: item) => boolean,
+    remove: (item: item, host: item) => void,
+    events?: KinkyDungeonEvent[]
+}
+
+type KDRestraintVariant = {
+    /** Name prefix */
+    prefix?: string,
+    /** Name suffix */
+    suffix?: string,
+    /** The curse to apply with this inventory variant */
+    curse?: string,
+    /** The lock to apply with this inventory variant */
+    lock?: string,
+    /** extra events added on */
+    events: KinkyDungeonEvent[],
+    /** The original restraint this is based on */
+    template: string,
+    /** If true, this item will not be forcibly kept whenever being added or removed */
+    noKeep?: boolean,
+}
+
+
+interface ApplyVariant {
+    nonstackable?: boolean,
+    hexes: string[],
+    enchants: string[],
+    level: number,
+    powerBonus: number,
+    curse?: string,
+    noKeep?: boolean,
+    prefix?: string,
+    suffix?: string,
+    minfloor: number,
+    maxfloor?: number,
+}
+
+
+enum ModifierEnum {
+    restraint,
+    weapon,
+    consumable,
+}
+
+interface KDEnchantmentType {
+    level: number,
+    filter: (item: string, allEnchant: string[], data: KDHexEnchantWeightData) => boolean,
+    weight: (item: string, allEnchant: string[], data: KDHexEnchantWeightData) => number,
+    events: (item: string, Loot: any, curse: string, primaryEnchantment: string, enchantments: string[], data: KDHexEnchantEventsData) => KinkyDungeonEvent[]
+}
+
+interface KDHexEnchantEventsData {
+    variant: {events: KinkyDungeonEvent[], template: string},
+}
+interface KDHexEnchantWeightData {
+    item: string,
+}
+
+interface KDEnchantment {
+    tags: string[],
+    prefix?: string,
+    suffix?: string,
+    types: Record<ModifierEnum, KDEnchantmentType>,
+}
+
+interface KDModifierConditionData {
+    element?: string,
+    Loot: string,
+    curse: string,
+    primaryEnchantment: string,
+    enchantments: string[],
+}
+
+interface KDModifierEffectType {
+    level: number,
+    onSelect?: (item: string, data: KDModifierConditionData) => void;
+    filter: (item: string, positive: PosNeutNeg, data: KDModifierConditionData) => boolean;
+    weight: (item: string, positive: PosNeutNeg, data: KDModifierConditionData) => number;
+    events: (item: string, positive: PosNeutNeg, data: KDModifierConditionData) => KinkyDungeonEvent[];
+}
+
+interface KDModifierEffect {
+    tags: string[],
+    types: Record<ModifierEnum, KDModifierEffectType>
+}
+
+interface KDModifierConditionType {
+    level: number,
+    filter: (item: string, effect_positive: KDModifierEffect[], effect_neutral: KDModifierEffect[], effect_negative: KDModifierEffect[], data: KDModifierConditionData) => boolean;
+    weight: (item: string, effect_positive: KDModifierEffect[], effect_neutral: KDModifierEffect[], effect_negative: KDModifierEffect[], data: KDModifierConditionData) => number;
+    events: (item: string, effect_positive: KDModifierEffect[], effect_neutral: KDModifierEffect[], effect_negative: KDModifierEffect[], data: KDModifierConditionData) => KinkyDungeonEvent[];
+}
+
+interface KDModifierCondition {
+    tags: string[],
+    types: Record<ModifierEnum, KDModifierConditionType>
+}
+
+
