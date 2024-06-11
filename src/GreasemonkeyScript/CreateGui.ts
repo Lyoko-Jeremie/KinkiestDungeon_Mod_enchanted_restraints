@@ -1438,6 +1438,9 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
                         },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
                         'ShadowEnchantmentBuffSelect': {
                             label: StringTable['ShadowEnchantmentBuffSelect'],
                             type: 'select',
@@ -1453,6 +1456,9 @@ export class CreateGui {
                                 const n = node as HTMLSelectElement;
                                 n.multiple = true;
                             },
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
                         },
                         'CurseWearIt': {
                             label: StringTable['CurseWearIt'],
