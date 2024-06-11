@@ -380,31 +380,6 @@ export class CurseWears {
         return v;
     }
 
-    // hookKinkyDungeonGetRestraintEnable: boolean = false;
-    // hookedKinkyDungeonGetRestraintReturn?: restraint = undefined;
-    //
-    // setKinkyDungeonGetRestraintReturn(r: restraint) {
-    //     this.hookKinkyDungeonGetRestraintEnable = true;
-    //     this.hookedKinkyDungeonGetRestraintReturn = r;
-    // }
-    //
-    // unsetKinkyDungeonGetRestraintReturn() {
-    //     this.hookKinkyDungeonGetRestraintEnable = false;
-    //     this.hookedKinkyDungeonGetRestraintReturn = undefined;
-    // }
-
-    // hookKinkyDungeonGetHexByListEnable: boolean = false;
-    // hookedKinkyDungeonGetHexByListReturn?: string[] = undefined;
-    //
-    // setKinkyDungeonGetHexByListReturn(r: string[]) {
-    //     this.hookKinkyDungeonGetHexByListEnable = true;
-    //     this.hookedKinkyDungeonGetHexByListReturn = r;
-    // }
-    //
-    // unsetKinkyDungeonGetHexByListReturn() {
-    //     this.hookKinkyDungeonGetHexByListEnable = false;
-    //     this.hookedKinkyDungeonGetHexByListReturn = undefined;
-    // }
 
     curseWearHookTable = {
         // hook for Game/src/item/KinkyDungeonLoot.js :
@@ -430,47 +405,10 @@ export class CurseWears {
         KinkyDungeonGetEnchantmentsByListWeighted: new CurseWearHook<Record<string, number>>('KinkyDungeonGetEnchantmentsByListWeighted'),
     };
 
-    // cwhKinkyDungeonGetRestraint = new CurseWearHook('KinkyDungeonGetRestraint');
-
     installCurseWearsHook(functionPatchHook: FunctionPatchHooker) {
         for (const T of Object.values(this.curseWearHookTable)) {
             T.install(functionPatchHook);
         }
-        // functionPatchHook.prepareHook({
-        //     originalFunctionName: 'KinkyDungeonGetRestraint',
-        //     hookFunctionBeforeReplace: (arg) => {
-        //         console.log('[CurseWears] KinkyDungeonGetRestraint called', arg);
-        //         if (this.hookKinkyDungeonGetRestraintEnable) {
-        //             console.log('[CurseWears] install_CurseWears_KinkyDungeonGetRestraint_Hook called', arg);
-        //             return [true, undefined, this.hookedKinkyDungeonGetRestraintReturn];
-        //         }
-        //         return [false, arg, undefined];
-        //     },
-        // });
-        // functionPatchHook.prepareHook({
-        //     originalFunctionName: 'KinkyDungeonGetHexByList',
-        //     hookFunctionBeforeReplace: (arg) => {
-        //         console.log('[CurseWears] KinkyDungeonGetHexByList called', arg);
-        //         let [List, includeOrig, minLevel, maxLevel] = arg;
-        //         if (this.hookKinkyDungeonGetHexByListEnable) {
-        //             console.log('[CurseWears] install_CurseWears_KinkyDungeonGetRestraintByName_Hook called', arg);
-        //             return [true, undefined, this.hookedKinkyDungeonGetHexByListReturn];
-        //         }
-        //         return [false, arg, undefined];
-        //     },
-        // });
-        // functionPatchHook.prepareHook({
-        //     originalFunctionName: 'KinkyDungeonGetEnchantmentsByListWeighted',
-        //     hookFunctionBeforeReplace: (arg) => {
-        //         console.log('[CurseWears] KinkyDungeonGetEnchantmentsByListWeighted called', arg);
-        //         let [List, includeOrig, minLevel, maxLevel] = arg;
-        //         if (this.hookKinkyDungeonGetEnchantmentsByListWeightedEnable) {
-        //             console.log('[CurseWears] install_CurseWears_KinkyDungeonGetEnchantmentsByListWeighted_Hook called', arg);
-        //             return [true, undefined, this.hookedKinkyDungeonGetEnchantmentsByListWeightedReturn];
-        //         }
-        //         return [false, arg, undefined];
-        //     },
-        // });
     }
 
     /**
