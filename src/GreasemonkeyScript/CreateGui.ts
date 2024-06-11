@@ -1493,11 +1493,8 @@ export class CreateGui {
                                     bb = b.filter(T => T !== 'None').map(T => T.split('|['));
                                     // console.log('CurseWearIt bb', [b, b.filter(T => T !== 'None')]);
                                 }
-                                let hasB = false;
                                 // console.log('CurseWearIt bbb', [b, bb]);
-                                if (bb.length !== 0) {
-                                    hasB = true;
-                                }
+                                let hasB = bb.length !== 0;
 
                                 if (hasC && hasV && hasB) {
                                     const cc = c.split('|[');
@@ -1507,6 +1504,16 @@ export class CreateGui {
                                         cc[0],
                                         ww[0],
                                         vv[0],
+                                        bb.map(T => T[0]),
+                                    );
+                                    return;
+                                }
+                                if (hasC && hasB) {
+                                    const cc = c.split('|[');
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariantWithEnchantmentBuff(
+                                        cc[0],
+                                        ww[0],
+                                        undefined,
                                         bb.map(T => T[0]),
                                     );
                                     return;
