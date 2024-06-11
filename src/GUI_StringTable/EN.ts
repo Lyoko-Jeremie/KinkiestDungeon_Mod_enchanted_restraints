@@ -117,6 +117,7 @@ export const StringTable_EN: StringTableType = {
     AllRestraintItemFilterWearIt: 'WearIt',
     ShadowCurseSelect: 'ShadowCurseClassSelect(Required)',
     ShadowVariantSelect: 'ShadowVariantSpecialSelect(Optional, Overwrite ShadowCurseClass)',
+    ShadowEnchantmentBuffSelect: 'ShadowEnchantmentBuffSelect(Optional)',
     CurseWearIt: 'CurseWearIt(SelectWearsFromAbove OR RandomWears)',
     LockNowWearRestraintItem: 'LockNowWearRestraintItem',
     UnlockNowWearRestraintItem: 'UnlockNowWearRestraintItem',
@@ -188,5 +189,8 @@ export const StringTable_EN: StringTableType = {
             return [k, false];
         }
         return [r, true];
+    },
+    EnchantmentBuff2I18N(s: string, winRef: Window): string {
+        return winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.getEnchantmentBuffKeyText(s);
     },
 };

@@ -1,4 +1,4 @@
-import {BootstrapBtnType, GM_config, GM_configStruct, InitOptionsNoCustom} from '../GM_config_TS/gm_config';
+import {BootstrapBtnType, Field, GM_config, GM_configStruct, InitOptionsNoCustom} from '../GM_config_TS/gm_config';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 // https://stackoverflow.com/questions/42631645/webpack-import-typescript-module-both-normally-and-as-raw-string
 import inlineGMCss from './inlineText/GM.css?inlineText';
@@ -10,7 +10,7 @@ import {
     WearMethodsInterfaceKey,
     WearsList
 } from "../Cheats/Restraint";
-import {assign, isString} from "lodash";
+import {assign, isArray, isString} from "lodash";
 import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
@@ -1378,9 +1378,9 @@ export class CreateGui {
                             label: StringTable['AllRestraintItemFilterSelect'],
                             type: 'select',
                             value: 'None',
-                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem().map(T => {
+                            options: ['None', ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem().map(T => {
                                 return `${T.name}|[${TextGet(`Restraint${T.name}`)}]`;
-                            }).filter(T => T.toLowerCase().includes(thisRef.lastSearch.get('AllRestraintItemFilter'))).concat(['None']),
+                            }).filter(T => T.toLowerCase().includes(thisRef.lastSearch.get('AllRestraintItemFilter')))],
                             eventCallbacks: {
                                 click(e) {
                                     console.warn('AllRestraintItemFilterSelect click', e);
@@ -1432,11 +1432,27 @@ export class CreateGui {
                             label: StringTable['ShadowVariantSelect'],
                             type: 'select',
                             value: 'None',
-                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseVariantNameList.map(T => {
+                            options: ['None', ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseVariantNameList.map(T => {
                                 return `${T}|[${TextGet(`curseInfo${T}`)}]`;
-                            }).concat(['None']),
+                            })],
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'ShadowEnchantmentBuffSelect': {
+                            label: StringTable['ShadowEnchantmentBuffSelect'],
+                            type: 'select',
+                            multiple: true,
+                            value: 'None',
+                            options: ['None', ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.getCurseWearEnchantmentBuffList().all.map(T => {
+                                return `${T[0]}|[${T[1]}]`;
+                            })],
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                            afterToNode: (node: HTMLElement, wrapper: HTMLElement | null, settings: Field, id: string, configId: string) => {
+                                console.log('ShadowEnchantmentBuffSelect afterToNode', node, wrapper, settings, id, configId);
+                                const n = node as HTMLSelectElement;
+                                n.multiple = true;
+                            },
                         },
                         'CurseWearIt': {
                             label: StringTable['CurseWearIt'],
@@ -1444,7 +1460,7 @@ export class CreateGui {
                             click() {
 
                                 const w = thisRef.gmc!.fields['AllRestraintItemFilterSelect'].toValue();
-                                let ww: string[] | undefined;
+                                let ww: string[] | undefined[];
                                 if (w && isString(w) && w.length > 0 && w !== 'None' && w !== '|[]') {
                                     ww = w.split('|[');
                                     // const faction = thisRef.gmc!.fields['FactionSelect'].toValue();
@@ -1456,40 +1472,71 @@ export class CreateGui {
                                     // );
                                     // thisRef.flushNowWearRestraintItemSelect();
                                 } else {
-                                    ww = undefined;
+                                    ww = [undefined];
                                 }
 
                                 const c = thisRef.gmc!.fields['ShadowCurseSelect'].toValue() as string;
                                 const v = thisRef.gmc!.fields['ShadowVariantSelect'].toValue() as string;
+                                const b = thisRef.gmc!.fields['ShadowEnchantmentBuffSelect'].toValue() as string[];
+                                console.log('CurseWearIt b', [b]);
 
-                                if (c && isString(c) && c !== 'None') {
+                                const hasC = c && isString(c) && c !== 'None';
+                                const hasV = v && isString(v) && v !== 'None';
+                                let hasB = b && isArray(b) && b.length > 0 && b[0] !== 'None';
+                                let bb: string[][] = [];
+                                if (hasB) {
+                                    bb = b.filter(T => T === 'None').map(T => T.split('|['));
+                                }
+                                console.log('CurseWearIt b', [b, bb]);
+                                if (bb.length === 0) {
+                                    hasB = false;
+                                }
+
+                                if (hasC && hasV && hasB) {
+                                    const cc = c.split('|[');
+                                    const vv = v.split('|[');
+
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariantWithEnchantmentBuff(
+                                        cc[0],
+                                        ww[0],
+                                        vv[0],
+                                        bb[0],
+                                    );
+                                    return;
+                                }
+                                if (hasC && hasV) {
+                                    const cc = c.split('|[');
+                                    const vv = v.split('|[');
+
+                                    // TODO
+                                    //      addRandomShadowCurseWear
+                                    //      addShadowCurseWear
+                                    //      addShadowCurseWearWithVariant
+                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariant(
+                                        cc[0],
+                                        ww[0],
+                                        vv[0],
+                                    );
+                                    return;
+                                }
+                                if (hasC) {
                                     const cc = c.split('|[');
 
-                                    if (v && isString(v) && v !== 'None' && ww) {
-                                        const vv = v.split('|[');
-
-                                        // TODO
-                                        //      addRandomShadowCurseWear
-                                        //      addShadowCurseWear
-                                        //      addShadowCurseWearWithVariant
-                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariant(
+                                    if (ww[0]) {
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWear(
                                             cc[0],
                                             ww[0],
-                                            vv[0],
                                         );
+                                        return;
                                     } else {
-                                        if (ww) {
-                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWear(
-                                                cc[0],
-                                                ww[0],
-                                            );
-                                        } else {
-                                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addRandomShadowCurseWear(
-                                                cc[0],
-                                            );
-                                        }
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addRandomShadowCurseWear(
+                                            cc[0],
+                                        );
+                                        return;
                                     }
+                                    return;
                                 }
+
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},

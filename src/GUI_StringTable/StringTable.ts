@@ -124,6 +124,7 @@ const StringTableKeys = [
     'AllRestraintItemFilterWearIt',
     'ShadowCurseSelect',
     'ShadowVariantSelect',
+    'ShadowEnchantmentBuffSelect',
     'CurseWearIt',
     'LockNowWearRestraintItem',
     'UnlockNowWearRestraintItem',
@@ -198,6 +199,8 @@ export interface StringTableType extends StringTableTypeStringPart {
     KinkyDungeonShrine2I18N(s: string): string;
 
     KinkyDungeonKinkyDungeonFaction2I18N(s: string): [string, boolean];
+
+    EnchantmentBuff2I18N(s: string, winRef: Window): string;
 
     errorMessage2I18N(s: string): string;
 
