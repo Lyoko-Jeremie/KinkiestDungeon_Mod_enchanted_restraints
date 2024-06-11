@@ -117,7 +117,7 @@ export const StringTable_EN: StringTableType = {
     AllRestraintItemFilterWearIt: 'WearIt',
     ShadowCurseSelect: 'ShadowCurseClassSelect(Required)',
     ShadowVariantSelect: 'ShadowVariantSpecialSelect(Optional, Overwrite ShadowCurseClass)',
-    ShadowEnchantmentBuffSelect: 'ShadowEnchantmentBuffSelect(Optional)',
+    ShadowEnchantmentBuffSelect: 'ShadowEnchantmentBuffSelect(Optional, Force Generate 0~2N EnchantmentBuff)',
     CurseWearIt: 'CurseWearIt(SelectWearsFromAbove OR RandomWears)',
     LockNowWearRestraintItem: 'LockNowWearRestraintItem',
     UnlockNowWearRestraintItem: 'UnlockNowWearRestraintItem',

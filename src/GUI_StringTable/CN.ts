@@ -160,7 +160,7 @@ export const StringTable_CN: StringTableType = {
     AllRestraintItemFilterWearIt: '穿上选择的物品',
     ShadowCurseSelect: '选择诅咒分类（必选）',
     ShadowVariantSelect: '选择特定诅咒（可选，覆盖分类）',
-    ShadowEnchantmentBuffSelect: '选择特定增益（可选）',
+    ShadowEnchantmentBuffSelect: '选择特定增益（可选，强制生成0~2N个指定类型的增益）',
     CurseWearIt: '穿诅咒服装（从上一行选择服装，不选则随机）',
     LockNowWearRestraintItem: '锁定当前选择的已穿戴物',
     UnlockNowWearRestraintItem: '解锁当前选择的已穿戴物',

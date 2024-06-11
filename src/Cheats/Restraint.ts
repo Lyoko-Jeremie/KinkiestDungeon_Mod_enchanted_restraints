@@ -411,6 +411,9 @@ export class CurseWears {
         }
     }
 
+
+    enchantsPatcher = new EnchantsPatcher();
+
     /**
      *
      * @param shadowCurseName   ShadowCurseNameList
@@ -430,12 +433,16 @@ export class CurseWears {
             // l.maxHex = 20;
             l.hexchance = 10;
 
-            // let enchants = (Loot.minEnchants || 1) + Math.floor(KDRandom() * ((Loot.maxEnchants || 1) - (Loot.minEnchants || 1)));
-            l.hexchance = 10;
+            this.enchantsPatcher.patch(l);
 
-            // KinkyDungeonLootEvent(loot, MiniGameKinkyDungeonLevel, TextGet(loot.message), loot.lock);
-            KinkyDungeonLootEvent(l, KDGetEffLevel(), TextGet(l.message), l.lock);
+            try {
+                // KinkyDungeonLootEvent(loot, MiniGameKinkyDungeonLevel, TextGet(loot.message), loot.lock);
+                KinkyDungeonLootEvent(l, KDGetEffLevel(), TextGet(l.message), l.lock);
+            } finally {
+                this.enchantsPatcher.disable();
+            }
         } else {
+            this.enchantsPatcher.disable();
             console.error('addRandomShadowCurseWear Cannot find the shadowCurseName:', shadowCurseName);
         }
     }
@@ -495,7 +502,12 @@ export class CurseWears {
      * @param variantName       ShadowCurseVariantNameList
      * @param enchantmentBuffKey    KDEventEnchantmentModular Key
      */
-    addShadowCurseWearWithVariantWithEnchantmentBuff(shadowCurseName: string, wearsName: string | undefined, variantName: string | undefined, enchantmentBuffKey: string[]) {
+    addShadowCurseWearWithVariantWithEnchantmentBuff(
+        shadowCurseName: string,
+        wearsName: string | undefined,
+        variantName: string | undefined,
+        enchantmentBuffKey: string[],
+    ) {
         console.log('[CurseWears] addShadowCurseWearWithVariantWithEnchantmentBuff', shadowCurseName, wearsName, variantName, enchantmentBuffKey);
         if (!isArray(enchantmentBuffKey) || enchantmentBuffKey.length === 0) {
             console.error('addShadowCurseWearWithVariantWithEnchantmentBuff enchantmentBuffKey is empty / is not array', [enchantmentBuffKey]);
@@ -521,6 +533,7 @@ export class CurseWears {
             dataRef.lastE = dataRef.lastE % dataRef.enchantmentBuffKey.length;
             return forceWeightObj;
         });
+        this.enchantsPatcher.enable(enchantmentBuffKey.length);
         try {
             if (variantName) {
                 this.addShadowCurseWearWithVariant(shadowCurseName, wearsName, variantName);
@@ -534,6 +547,7 @@ export class CurseWears {
         } catch (e) {
             console.error("addShadowCurseWearWithVariantWithEnchantmentBuff error", e);
         } finally {
+            this.enchantsPatcher.disable();
             this.curseWearHookTable.KinkyDungeonGetEnchantmentsByListWeighted.disable();
         }
     }
@@ -634,6 +648,32 @@ export class CurseWears {
     getEnchantmentBuffKeyText(key: string) {
         const n = KDEventEnchantmentModular[key];
         return n.prefix ? TextGet("KDVarPref" + n.prefix) : n.suffix ? TextGet("KDVarSuff" + n.suffix) : key;
+    }
+
+}
+
+export class EnchantsPatcher {
+    // let enchants = (Loot.minEnchants || 1) + Math.floor(KDRandom() * ((Loot.maxEnchants || 1) - (Loot.minEnchants || 1)));
+
+    minEnchants: number | undefined = undefined;
+    maxEnchants: number | undefined = undefined;
+
+    patch(l: typeof KDShadowRestraints[number]) {
+        if (this.minEnchants !== undefined && this.maxEnchants !== undefined) {
+            l.minEnchants = this.minEnchants;
+            l.maxEnchants = this.maxEnchants;
+        }
+        // (new Array(10)).fill(0).map((v, i) => 1 + Math.floor(KDRandom() * 10 - 1))
+    }
+
+    enable(n: number) {
+        this.minEnchants = 1;
+        this.maxEnchants = n * 2;
+    }
+
+    disable() {
+        this.minEnchants = undefined;
+        this.maxEnchants = undefined;
     }
 
 }

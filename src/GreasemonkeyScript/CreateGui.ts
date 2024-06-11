@@ -1484,18 +1484,19 @@ export class CreateGui {
                                 const c = thisRef.gmc!.fields['ShadowCurseSelect'].toValue() as string;
                                 const v = thisRef.gmc!.fields['ShadowVariantSelect'].toValue() as string;
                                 const b = thisRef.gmc!.fields['ShadowEnchantmentBuffSelect'].toValue() as string[];
-                                console.log('CurseWearIt b', [b]);
+                                // console.log('CurseWearIt b', [b, isArray(b)]);
 
                                 const hasC = c && isString(c) && c !== 'None';
                                 const hasV = v && isString(v) && v !== 'None';
-                                let hasB = b && isArray(b) && b.length > 0 && b[0] !== 'None';
                                 let bb: string[][] = [];
-                                if (hasB) {
-                                    bb = b.filter(T => T === 'None').map(T => T.split('|['));
+                                if (isArray(b)) {
+                                    bb = b.filter(T => T !== 'None').map(T => T.split('|['));
+                                    // console.log('CurseWearIt bb', [b, b.filter(T => T !== 'None')]);
                                 }
-                                console.log('CurseWearIt b', [b, bb]);
-                                if (bb.length === 0) {
-                                    hasB = false;
+                                let hasB = false;
+                                // console.log('CurseWearIt bbb', [b, bb]);
+                                if (bb.length !== 0) {
+                                    hasB = true;
                                 }
 
                                 if (hasC && hasV && hasB) {
@@ -1506,7 +1507,7 @@ export class CreateGui {
                                         cc[0],
                                         ww[0],
                                         vv[0],
-                                        bb[0],
+                                        bb.map(T => T[0]),
                                     );
                                     return;
                                 }

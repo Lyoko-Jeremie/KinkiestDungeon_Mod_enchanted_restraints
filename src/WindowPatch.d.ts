@@ -563,6 +563,7 @@ declare global {
         armor: string,
         cursesuffix: string,
         amtMult: number,
+        minEnchants: number,
         maxEnchants: number,
         faction: string,
         hexlist: string,
