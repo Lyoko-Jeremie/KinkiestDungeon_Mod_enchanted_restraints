@@ -165,6 +165,9 @@ export const StringTable_CN: StringTableType = {
     LockNowWearRestraintItem: '锁定当前选择的已穿戴物',
     UnlockNowWearRestraintItem: '解锁当前选择的已穿戴物',
     RemoveNowWearRestraintItem: '移除当前选择的已穿戴物',
+    NowWearRestraintItemDifficulty: '当前选择的已穿戴物最大难度',
+    GetNowWearRestraintItemDifficulty: '获取当前选择的已穿戴物最大难度',
+    SetNowWearRestraintItemDifficulty: '设置当前选择的已穿戴物最大难度',
     JailOutfitSelect: 'NPC套装（游戏内置套装，对应种类的NPC的套装）',
     WearJailOutfit: '穿上选择的套装',
     //  TODO

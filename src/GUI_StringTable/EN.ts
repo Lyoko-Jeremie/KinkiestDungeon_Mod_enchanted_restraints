@@ -122,6 +122,9 @@ export const StringTable_EN: StringTableType = {
     LockNowWearRestraintItem: 'LockNowWearRestraintItem',
     UnlockNowWearRestraintItem: 'UnlockNowWearRestraintItem',
     RemoveNowWearRestraintItem: 'RemoveNowWearRestraintItem',
+    NowWearRestraintItemDifficulty: 'SelectedNowWearRestraintItemMaxDifficulty',
+    GetNowWearRestraintItemDifficulty: 'GetNowWearRestraintItemDifficulty',
+    SetNowWearRestraintItemDifficulty: 'SetNowWearRestraintItemDifficulty',
     JailOutfitSelect: 'JailOutfitSelect',
     WearJailOutfit: 'WearJailOutfit',
     //  TODO

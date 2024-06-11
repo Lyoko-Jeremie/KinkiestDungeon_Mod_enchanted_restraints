@@ -260,6 +260,91 @@ class RestraintBase {
         KinkyDungeonStruggleGroups = [];
     }
 
+
+    GetNowRestraintDifficulty = (item: item,) => {
+        // return `tightness[${(item.tightness || 0) * 0.01}(show)][${item.tightness}(real)]`
+        //     + `,pick[${item.pickProgress}]`
+        //     + `,struggle[${item.struggleProgress}]`
+        //     + `,cut[${item.cutProgress}]`
+        //     + `,unlock[${item.unlockProgress}]`
+        return {
+            tightness: item.tightness || 0,
+            pick: item.pickProgress || 0,
+            struggle: item.struggleProgress || 0,
+            cut: item.cutProgress || 0,
+            unlock: item.unlockProgress || 0,
+        };
+    }
+
+    GetNowRestraintDifficultyNumber = (item: item,) => {
+        return item.tightness || 0;
+    }
+
+    SetNowRestraintDifficulty = (item: item, d: number) => {
+        console.log('SetNowRestraintDifficulty', item, d);
+        // restraint
+        // DrawTextKD(TextGet("KDItemDifficulty").replace("AMNT",
+        // 	Math.max(0, Math.round(100 * (0.01 * (item.tightness || 0) + 1 - struggleData.origEscapeChance + struggleData.escapePenalty + Math.max(0, struggleData.extraLim, struggleData.limitChance)))) + ""
+        // ).replace("ESCP", TextGet("KDEscape" + StruggleType)),
+        // 530, MY + O * lineSize, "#ffffff", "#333333", fontSize, "left", 150); O++;
+        // let a = Math.min(1, Math.max(-1, struggleData.escapeChance - Math.max(0, struggleData.extraLim, struggleData.limitChance)));
+        // let b = Math.min(1, Math.max(-1, struggleData.escapeChance));
+        // let amnt = Math.round(100 * a)
+        // 	+ "-"
+        // 	+ Math.round(100 * b);
+        // if (a < 0 && b < 0)
+        // 	amnt = Math.round(100 * Math.max(a, b)) + "";
+        // else if (a == b)
+        // 	amnt = Math.round(100 * a) + "";
+        // else if (a < 0 && b >= 0) {
+        // 	a = Math.max(0, a);
+        // 	amnt = Math.round(100 * a)
+        // 		+ "-"
+        // 		+ Math.round(100 * b);
+        // }
+        // DrawTextKD(TextGet("KDItemStruggle").replace("AMNT",
+        // 	amnt
+        // ).replace("ESCP", TextGet("KDEscape" + StruggleType)),
+        // 530, MY + O * lineSize, "#ffffff", "#333333", fontSize, "left", 150); O++;
+
+        // Math.max(0,
+        //     Math.round(
+        //         100 * (0.01 * (item.tightness || 0)
+        //             + 1
+        //             - struggleData.origEscapeChance
+        //             + struggleData.escapePenalty
+        //             + Math.max(0,
+        //                 struggleData.extraLim,
+        //                 struggleData.limitChance)
+        //         )
+        //     )
+        // )
+
+        // let a = Math.min(1, Math.max(-1, struggleData.escapeChance - Math.max(0, struggleData.extraLim, struggleData.limitChance)));
+        // let b = Math.min(1, Math.max(-1, struggleData.escapeChance));
+
+        // let a = {
+        //     "name": "MaidDress",
+        //     "id": 1337,
+        //     "type": "restraint",
+        //     "events": [],
+        //     "tightness": 10000,
+        //     "lock": "Rubber",
+        //     "faction": "Slime",
+        //     "pickProgress": 0,
+        //     "struggleProgress": 0,
+        //     "unlockProgress": 0,
+        //     "cutProgress": 0
+        // };
+        if (!(isSafeInteger(d) && d >= 0)) {
+            console.warn('SetNowRestraintDifficulty d is not a good integer:', d);
+            d = 0;
+        }
+
+        // const rw = KinkyDungeonAllRestraint();
+        item.tightness = d;
+    };
+
 }
 
 type RestraintClassType = new () => RestraintBase & WearMethodsInterface;

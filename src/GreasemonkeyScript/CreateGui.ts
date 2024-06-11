@@ -10,7 +10,7 @@ import {
     WearMethodsInterfaceKey,
     WearsList
 } from "../Cheats/Restraint";
-import {assign, isArray, isString} from "lodash";
+import {assign, isArray, isString, parseInt} from "lodash";
 import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
@@ -1624,6 +1624,61 @@ export class CreateGui {
                                         thisRef.flushNowWearRestraintItemSelect();
                                     } else {
                                         console.warn('RemoveNowWearRestraintItem not found', name);
+                                    }
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            type: 'br',
+                        },
+                        'NowWearRestraintItemDifficulty': {
+                            label: StringTable['NowWearRestraintItemDifficulty'],
+                            type: 'int',
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'GetNowWearRestraintItemDifficulty': {
+                            label: StringTable['GetNowWearRestraintItemDifficulty'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['NowWearRestraintItemSelect'].toValue();
+                                const l = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem();
+                                if (c && isString(c)) {
+                                    const cc = c.split('|[');
+                                    const name = cc[0];
+                                    const n = l.find(T => T.restraint?.name === name);
+                                    if (n) {
+                                        const d = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetNowRestraintDifficultyNumber(n.item);
+                                        thisRef.gmc!.fields['NowWearRestraintItemDifficulty'].value = d;
+                                        thisRef.gmc!.fields['NowWearRestraintItemDifficulty'].reload();
+                                    } else {
+                                        console.warn('GetNowWearRestraintItem not found', name);
+                                    }
+                                }
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'SetNowWearRestraintItemDifficulty': {
+                            label: StringTable['SetNowWearRestraintItemDifficulty'],
+                            type: 'button',
+                            click() {
+                                let d = thisRef.gmc!.fields['NowWearRestraintItemDifficulty'].toValue() as number;
+                                console.log('SetNowWearRestraintItemDifficulty', d);
+                                d = parseInt(d as any);
+                                const c = thisRef.gmc!.fields['NowWearRestraintItemSelect'].toValue();
+                                const l = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem();
+                                if (c && isString(c)) {
+                                    const cc = c.split('|[');
+                                    const name = cc[0];
+                                    const n = l.find(T => T.restraint?.name === name);
+                                    if (n) {
+                                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetNowRestraintDifficulty(n.item, d);
+                                        // TODO
+                                    } else {
+                                        // console.warn('RemoveNowWearRestraintItem not found', name);
                                     }
                                 }
                             },
