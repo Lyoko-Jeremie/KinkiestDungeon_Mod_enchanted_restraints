@@ -526,7 +526,7 @@ export class CurseWears {
      * @param wearsName
      * @param variantName       ShadowCurseVariantNameList
      */
-    addShadowCurseWearWithVariant(shadowCurseName: string, wearsName: string, variantName: string) {
+    addShadowCurseWearWithVariant(shadowCurseName: string, wearsName: string | undefined, variantName: string) {
         console.log('addShadowCurseWearWithVariant', shadowCurseName, wearsName, variantName);
         if (!this.ShadowCurseVariantNameList.includes(variantName)) {
             console.error('addShadowCurseWearWithVariant variantName not in ShadowCurseVariantNameList', variantName);
@@ -534,7 +534,11 @@ export class CurseWears {
         }
         this.curseWearHookTable.KinkyDungeonGetHexByList.enable([variantName]);
         try {
-            this.addShadowCurseWear(shadowCurseName, wearsName);
+            if (wearsName) {
+                this.addShadowCurseWear(shadowCurseName, wearsName);
+            } else {
+                this.addRandomShadowCurseWear(shadowCurseName);
+            }
         } catch (e) {
             console.error("addShadowCurseWearWithVariant error", e);
         } finally {
@@ -549,7 +553,7 @@ export class CurseWears {
      * @param variantName       ShadowCurseVariantNameList
      * @param enchantmentBuffKey    KDEventEnchantmentModular Key
      */
-    addShadowCurseWearWithVariantWithEnchantmentBuff(shadowCurseName: string, wearsName: string, variantName: string, enchantmentBuffKey: string[]) {
+    addShadowCurseWearWithVariantWithEnchantmentBuff(shadowCurseName: string, wearsName: string | undefined, variantName: string | undefined, enchantmentBuffKey: string[]) {
         console.log('addShadowCurseWearWithVariantWithEnchantmentBuff', shadowCurseName, wearsName, variantName, enchantmentBuffKey);
         if (!isArray(enchantmentBuffKey) || enchantmentBuffKey.length === 0) {
             console.error('addShadowCurseWearWithVariantWithEnchantmentBuff enchantmentBuffKey is empty / is not array', [enchantmentBuffKey]);
@@ -576,7 +580,15 @@ export class CurseWears {
             return forceWeightObj;
         });
         try {
-            this.addShadowCurseWearWithVariant(shadowCurseName, wearsName, variantName);
+            if (variantName) {
+                this.addShadowCurseWearWithVariant(shadowCurseName, wearsName, variantName);
+            } else {
+                if (wearsName) {
+                    this.addShadowCurseWear(shadowCurseName, wearsName);
+                } else {
+                    this.addRandomShadowCurseWear(shadowCurseName);
+                }
+            }
         } catch (e) {
             console.error("addShadowCurseWearWithVariantWithEnchantmentBuff error", e);
         } finally {
