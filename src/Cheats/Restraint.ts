@@ -336,9 +336,12 @@ class RestraintBase {
         //     "unlockProgress": 0,
         //     "cutProgress": 0
         // };
-        if (!(isSafeInteger(d) && d >= 0)) {
-            console.warn('SetNowRestraintDifficulty d is not a good integer:', d);
+        if (!(isSafeInteger(d))) {
+            console.warn('SetNowRestraintDifficulty d is not a safe integer:', d);
             d = 0;
+        }
+        if (!(d >= 0)) {
+            console.warn('SetNowRestraintDifficulty d is not a positive integer:', d);
         }
 
         // const rw = KinkyDungeonAllRestraint();
