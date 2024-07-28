@@ -452,6 +452,10 @@ export class CurseWears {
         return Object.keys(KDEventHexModular);
     }
 
+    get ShadowCurseBuffSpecialNameList(): string[] {
+        return Object.keys(KDApplyVariants);
+    }
+
     get ShadowCurseVariantNameList(): string[] {
         let v = [];
         for (const T of Object.keys(KDHexVariantList)) {
@@ -484,6 +488,7 @@ export class CurseWears {
         // hook for Game/src/item/KinkyDungeonLoot.js :
         // let curs = KDGetByWeight(KinkyDungeonGetHexByListWeighted(Loot.hexlist, armor, false, Loot.hexlevelmin, Loot.hexlevelmax, [hexVariant, ...hex_extra]));
         //      hook for Game/src/item/KinkyDungeonRestraints.js in function KinkyDungeonGetHexByListWeighted() :
+        //   KDApplyVariants + KDHexVariantList
         // let list = KinkyDungeonGetHexByList(List, includeOrig, minLevel, maxLevel);
         KinkyDungeonGetHexByList: new CurseWearHook<string[]>('KinkyDungeonGetHexByList'),
         // hook for Game/src/item/KinkyDungeonLoot.js :
@@ -561,12 +566,17 @@ export class CurseWears {
      *
      * @param shadowCurseName   ShadowCurseNameList
      * @param wearsName
-     * @param variantName       ShadowCurseVariantNameList
+     * @param variantName       ShadowCurseVariantNameList + ShadowCurseBuffSpecialNameList
      */
     addShadowCurseWearWithVariant(shadowCurseName: string, wearsName: string | undefined, variantName: string) {
         console.log('[CurseWears] addShadowCurseWearWithVariant', shadowCurseName, wearsName, variantName);
-        if (!this.ShadowCurseVariantNameList.includes(variantName)) {
-            console.error('addShadowCurseWearWithVariant variantName not in ShadowCurseVariantNameList', variantName);
+        // if (!this.ShadowCurseVariantNameList.includes(variantName) &&
+        //     !this.ShadowCurseBuffSpecialNameList.includes(variantName)) {
+        //     console.error('addShadowCurseWearWithVariant variantName not in ShadowCurseVariantNameList + ShadowCurseBuffSpecialNameList', variantName);
+        //     return;
+        // }
+        if (!this.ShadowCurseBuffNameList.includes(variantName)) {
+            console.error('addShadowCurseWearWithVariant variantName not in ShadowCurseBuffNameList', variantName);
             return;
         }
         this.curseWearHookTable.KinkyDungeonGetHexByList.enable([variantName]);

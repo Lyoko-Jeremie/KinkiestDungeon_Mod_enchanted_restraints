@@ -592,6 +592,11 @@ declare global {
         events: (data: KDHexEnchantEventsData) => KinkyDungeonEvent[],
     }>;
 
+    /**
+     * @type {Record<string, ApplyVariant>}
+     */
+    let KDApplyVariants: Record<string, ApplyVariant>;
+
     function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock);
 
     function KDGetEffLevel(): number;

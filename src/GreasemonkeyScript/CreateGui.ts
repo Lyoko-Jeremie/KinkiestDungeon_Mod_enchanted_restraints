@@ -1432,7 +1432,11 @@ export class CreateGui {
                             label: StringTable['ShadowVariantSelect'],
                             type: 'select',
                             value: 'None',
-                            options: ['None', ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseVariantNameList.map(T => {
+                            options: ['None', ...[
+                                // ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseVariantNameList,
+                                // ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseBuffSpecialNameList,
+                                ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseBuffNameList,
+                            ].map(T => {
                                 return `${T}|[${TextGet(`curseInfo${T}`)}]`;
                             })],
                             cssClassName: 'd-inline',
