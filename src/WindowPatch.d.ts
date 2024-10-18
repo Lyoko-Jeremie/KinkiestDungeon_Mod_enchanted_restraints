@@ -46,6 +46,7 @@ declare global {
     var KinkyDungeonGetRestraintByName: (Text: string) => restraint;
     var KinkyDungeonLoadGame: (s: string) => boolean;
     var KinkyDungeonSaveGame: (ToString: boolean) => string;
+    var KinkyDungeonCompressSave: (save: any) => Promise<string>;
     var TextGet: (Text: string) => string;
     var TextGetKD: (Text: string) => string;
     var KDRestraint: (item: Named) => restraint;

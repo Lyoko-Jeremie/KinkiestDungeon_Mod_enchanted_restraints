@@ -1,7 +1,19 @@
+import * as LZString from 'lz-string';
+
 export class SaveLoad {
+    async AsyncGetGameSaveDataString() {
+        // const save = LZString.compressToBase64(JSON.stringify(KinkyDungeonSaveGame(true)));
+        const save = await KinkyDungeonCompressSave(KinkyDungeonSaveGame(true));
+        console.log(save);
+        return save;
+    }
+
     GameSaveDataString() {
-        console.log(KinkyDungeonSaveGame(true));
-        return KinkyDungeonSaveGame(true);
+        const save = LZString.compressToBase64(JSON.stringify(KinkyDungeonSaveGame(true)));
+        // const save = await KinkyDungeonCompressSave(KinkyDungeonSaveGame(true));
+        console.log(save);
+        KinkyDungeonSaveGame(false);
+        return save;
     }
 
     GameSaveNow() {

@@ -17,9 +17,33 @@ class FullCheatsBase extends Choice {
         KDGameData.AncientEnergyLevel = f || 1.0
     };
     AddManyKeys = () => {
-        KinkyDungeonLockpicks = 1000;
-        KinkyDungeonRedKeys = 1000;
-        KinkyDungeonBlueKeys = 1000;
+        // KinkyDungeonLockpicks = 1000;
+        // KinkyDungeonRedKeys = 1000;
+        // KinkyDungeonBlueKeys = 1000;
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Pick, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.RedKey, 1000);
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.BlueKey, 1000);
+
+        // 简单的钥匙
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.CuffKeys, 1000);
+        // 圆盘锁工具
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DiscPick, 1000);
+
+        // 钥匙卡
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.KeyCard, 1000);
+        // 魔法切割机
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.EnchantedGrinder, 1000);
+        // 玩偶ID
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DollID, 1000);
+
+        // 神圣脆脆马卡龙
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DivineTear, 1000);
+        // 精灵肥皂
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ElfCrystal, 1000);
+        // 纯洁卷轴
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollPurity, 1000);
+
+
         // 远古钥匙 use to unlock MistressKey Gold
         KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1000);
         // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
@@ -683,9 +707,24 @@ class Bootstrap extends CheatsHook {
             );
     };
     RemoveAllKeyTools = () => {
-        KinkyDungeonLockpicks = 0;
-        KinkyDungeonRedKeys = 0;
-        KinkyDungeonBlueKeys = 0;
+        // KinkyDungeonLockpicks = 0;
+        // KinkyDungeonRedKeys = 0;
+        // KinkyDungeonBlueKeys = 0;
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Pick, -KinkyDungeonItemCount('Pick'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.RedKey, -KinkyDungeonItemCount('RedKey'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.BlueKey, -KinkyDungeonItemCount('BlueKey'));
+
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.CuffKeys, -KinkyDungeonItemCount('CuffKeys'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DiscPick, -KinkyDungeonItemCount('DiscPick'));
+
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.KeyCard, -KinkyDungeonItemCount('KeyCard'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.EnchantedGrinder, -KinkyDungeonItemCount('EnchantedGrinder'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DollID, -KinkyDungeonItemCount('DollID'));
+
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DivineTear, -KinkyDungeonItemCount('DivineTear'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ElfCrystal, -KinkyDungeonItemCount('ElfCrystal'));
+        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollPurity, -KinkyDungeonItemCount('ScrollPurity'));
+
         // 远古钥匙 use to unlock MistressKey Gold
         KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, -KinkyDungeonItemCount('MistressKey'));
         // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
