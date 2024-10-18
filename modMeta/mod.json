@@ -1,0 +1,13 @@
+{
+  "modname": "KinkiestDungeon_enchanted_restraints",
+  "moddesc": "A Cheats Mod with some enchanted_restraints",
+  "author": "LyokoJeremie",
+
+  "modbuild": "1.66",
+  "gamemajor": 5,
+  "gameminor": 3,
+  "gamepatch_min": -1,
+  "gamepatch_max": -1,
+  "priority": 0,
+  "fileorder": []
+}

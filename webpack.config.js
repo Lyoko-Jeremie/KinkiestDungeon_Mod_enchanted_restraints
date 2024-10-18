@@ -36,6 +36,17 @@ async function checkAndCreateDirectory(directoryPath) {
 // code come from GPT-4
 class RenameAndZipPlugin {
 
+  constructor(
+    additionalFileRootPath = './',
+    additionalFiles = [],
+  ) {
+    this.additionalFileRootPath = additionalFileRootPath;
+    this.additionalFiles = additionalFiles;
+  }
+
+  additionalFileRootPath = './';
+  additionalFiles = [];
+
   outputZipName = 'enchanted_restraints.zip';
   outputZipPath = 'zip';
 
@@ -98,6 +109,12 @@ class RenameAndZipPlugin {
         // }
       }
 
+      // add additional files
+      for (const additionalFile of this.additionalFiles) {
+        const assetPath = path.join(this.additionalFileRootPath, additionalFile);
+        archive.append(fs.createReadStream(assetPath), {name: additionalFile});
+      }
+
       // 完成文件的追加
       return archive.finalize();
     });
@@ -144,7 +161,12 @@ const config = {
     //   ],
     // }),
 
-    new RenameAndZipPlugin(),
+    new RenameAndZipPlugin(
+      './modMeta',
+      [
+        'mod.json',
+      ],
+    ),
 
     // https://www.npmjs.com/package/zip-webpack-plugin
     // new ZipPlugin({
