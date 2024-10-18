@@ -961,6 +961,7 @@ __metadata:
     fork-ts-checker-webpack-plugin: ^8.0.0
     idb-keyval: ^6.2.1
     lodash: ^4.17.21
+    lz-string: ^1.5.0
     moment: ^2.30.1
     rename-webpack-plugin: ^2.0.0
     ts-loader: ^9.4.4
@@ -3238,6 +3239,15 @@ __metadata:
   version: 10.0.0
   resolution: "lru-cache@npm:10.0.0"
   checksum: 18f101675fe283bc09cda0ef1e3cc83781aeb8373b439f086f758d1d91b28730950db785999cd060d3c825a8571c03073e8c14512b6655af2188d623031baf50
+  languageName: node
+  linkType: hard
+
+"lz-string@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "lz-string@npm:1.5.0"
+  bin:
+    lz-string: bin/bin.js
+  checksum: 1ee98b4580246fd90dd54da6e346fb1caefcf05f677c686d9af237a157fdea3fd7c83a4bc58f858cd5b10a34d27afe0fdcbd0505a47e0590726a873dc8b8f65d
   languageName: node
   linkType: hard
 
