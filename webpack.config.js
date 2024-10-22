@@ -126,7 +126,7 @@ class RenameAndZipPlugin {
 const config = {
   entry: {
     enchanted_restraints: './src/init.ts',
-    ModFilterBypass: './src/ModFilterBypass.ts',
+    // ModFilterBypass: './src/ModFilterBypass.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
