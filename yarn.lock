@@ -46,6 +46,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@interactjs/types@npm:1.10.27":
+  version: 1.10.27
+  resolution: "@interactjs/types@npm:1.10.27"
+  checksum: 4e85701da5aec6d89b174c3379ec4359128d40bfe57817ce2eda58613353afca19d88bce3036c337a070d6f7982d818998d4b61cb18f67f3a70b9b342e2319c3
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -960,6 +967,7 @@ __metadata:
     copy-webpack-plugin: ^12.0.2
     fork-ts-checker-webpack-plugin: ^8.0.0
     idb-keyval: ^6.2.1
+    interactjs: ^1.10.27
     lodash: ^4.17.21
     lz-string: ^1.5.0
     moment: ^2.30.1
@@ -2826,6 +2834,15 @@ __metadata:
     through: ^2.3.6
     wrap-ansi: ^7.0.0
   checksum: f13ee4c444187786fb393609dedf6b30870115a57b603f2e6424f29a99abc13446fd45ee22461c33c9c40a92a60a8df62d0d6b25d74fc6676fa4cb211de55b55
+  languageName: node
+  linkType: hard
+
+"interactjs@npm:^1.10.27":
+  version: 1.10.27
+  resolution: "interactjs@npm:1.10.27"
+  dependencies:
+    "@interactjs/types": 1.10.27
+  checksum: b3f6f7fee94090537c99e8ed78cafbd619da0d18eb078ed9ab0e4602725dda2424404ff944f5f373075fcf953f47ecb5cbd84a81575ea00d5c774c18905932d1
   languageName: node
   linkType: hard
 
