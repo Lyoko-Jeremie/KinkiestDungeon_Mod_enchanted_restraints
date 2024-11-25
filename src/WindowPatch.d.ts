@@ -87,30 +87,12 @@ declare global {
         autoMessage = true,
         securityEnemy: entity | undefined = undefined,
     ) => number;
-    /**
-     * @param {restraint | string} restraint
-     * @param {number} [Tightness]
-     * @param {boolean} [Bypass]
-     * @param {string} [Lock]
-     * @param {boolean} [Keep]
-     * @param {boolean} [Trapped] - Deprecated do not use
-     * @param {KinkyDungeonEvent[]} [events]
-     * @param {string} [faction]
-     * @param {boolean} [Deep] - whether or not it can go deeply in the stack
-     * @param {string} [Curse] - Curse to apply
-     * @param {entity} [securityEnemy] - Bypass is treated separately for these groups
-     * @param {boolean} [useAugmentedPower] - Augment power to keep consistency
-     * @param {string} [inventoryAs] - inventoryAs for the item
-     * @param {Record<string, any>} [data] - data for the item
-     * @param {string[]} [augmentedInventory]
-     * @param {ApplyVariant} [variant] - variant for the item
-     * @returns {number}
-     */
-    var KinkyDungeonAddRestraintIfWeaker: (
+
+    function KinkyDungeonAddRestraintIfWeaker(
         restraint: restraint | string,
-        Tightness: number,
-        Bypass: boolean,
-        Lock: string,
+        Tightness?: number,
+        Bypass?: boolean,
+        Lock?: string,
         Keep?: boolean,
         Trapped?: boolean,
         events?: KinkyDungeonEvent[],
@@ -123,7 +105,9 @@ declare global {
         data?: Record<string, any>,
         augmentedInventory?: string[],
         variant?: ApplyVariant,
-    ) => number;
+        powerBonus: number = 0
+    ): number;
+
     /**
      *
      * @param {item} item
@@ -619,5 +603,32 @@ declare global {
         weapon: 1,
         consumable: 2,
     };
+
+    function KDEquipInventoryVariant(
+        variant: KDRestraintVariant,
+        prefix: string = "",
+        Tightness?: number,
+        Bypass?: boolean,
+        Lock?: string,
+        Keep?: boolean,
+        Trapped?: boolean,
+        faction?: string,
+        Deep?: boolean,
+        curse?: string,
+        securityEnemy?: entity,
+        useAugmentedPower?: boolean,
+        _inventoryAs?: string,
+        ID: string = "",
+        suffix: string = "",
+        powerBonus: number = 0
+    );
+
+    var KDUpdateItemEventCache: boolean;
+
+    let KinkyDungeonRestraintVariants: Record<string, KDRestraintVariant> = {};
+
+    let KinkyDungeonWeaponVariants: Record<string, KDWeaponVariant> = {};
+
+    let KinkyDungeonConsumableVariants: Record<string, KDConsumableVariant> = {};
 }
 
