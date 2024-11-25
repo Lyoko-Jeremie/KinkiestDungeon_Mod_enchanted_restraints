@@ -260,6 +260,13 @@ export class MapGet {
                         ctx.fillStyle = "rgba(255,0,0,0.5)";
                         ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
                     }
+                    if (tile.Type === "Shrine") {
+                        if (tile.Quest) {
+                            // ShrineAuraQuest
+                            ctx.fillStyle = "rgb(173,106,255)";
+                            ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                        }
+                    }
                 }
 
                 if (c !== '░') {
@@ -384,7 +391,19 @@ export class MapGet {
                 } else if (c === 'G') {
                     ctx.fillStyle = "#ff9fff";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                } else if (c === 'A') {
+                    // Shrine
+                    if (KDMapData.Tiles[x + "," + y]?.Quest) {
+                        // ShrineAuraQuest
+                        console.log('ShrineAuraQuest', [x, y, KDMapData.Tiles[x + "," + y].Quest]);
+                        ctx.fillStyle = "rgb(173,106,255)";
+                        ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                    } else {
+                        // ctx.fillStyle = "rgba(206,206,206,0.25)";
+                        // ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
+                    }
                 }
+
 
                 // 设置文字样式
                 ctx.fillStyle = 'rgba(0,255,248,0.63)'; // 文字颜色
