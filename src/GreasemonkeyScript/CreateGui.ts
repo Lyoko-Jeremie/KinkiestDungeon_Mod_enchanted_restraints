@@ -2055,54 +2055,6 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
-                            section: GM_config.create(StringTable['ForceNextLevelType Section']),
-                            type: 'br',
-                        },
-                        ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NameList_ForceNextMapType.reduce<InitOptionsNoCustom['fields']>(
-                            (acc, MT) => {
-                                const o: InitOptionsNoCustom['fields'] = {};
-                                o[MT] = {
-                                    // label: StringTable.Wear2I18N('Wear' + WK),
-                                    label: MT,
-                                    type: 'button',
-                                    click() {
-                                        const f = (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats as any)[MT];
-                                        if (typeof f === 'function') {
-                                            f();
-                                        } else {
-                                            console.log('not a function NameList_ForceNextMapType', MT, f);
-                                        }
-                                    },
-                                    cssClassName: 'd-inline',
-                                    xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
-                                };
-                                return assign<InitOptionsNoCustom['fields'], InitOptionsNoCustom['fields']>(acc, o);
-                            }, {} as InitOptionsNoCustom['fields']),
-                        [thisRef.rId()]: {
-                            section: GM_config.create(StringTable['ForceNextLevelTypeOnce Section']),
-                            type: 'br',
-                        },
-                        ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NameList_ForceNextMapTypeOnce.reduce<InitOptionsNoCustom['fields']>(
-                            (acc, MT) => {
-                                const o: InitOptionsNoCustom['fields'] = {};
-                                o[MT] = {
-                                    // label: StringTable.Wear2I18N('Wear' + WK),
-                                    label: MT,
-                                    type: 'button',
-                                    click() {
-                                        const f = (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats as any)[MT];
-                                        if (typeof f === 'function') {
-                                            f();
-                                        } else {
-                                            console.log('not a function NameList_ForceNextMapTypeOnce', MT, f);
-                                        }
-                                    },
-                                    cssClassName: 'd-inline',
-                                    xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
-                                };
-                                return assign<InitOptionsNoCustom['fields'], InitOptionsNoCustom['fields']>(acc, o);
-                            }, {} as InitOptionsNoCustom['fields']),
-                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['SaveLoad IndexDB Section Demo']),
                             type: 'br',
                         },
