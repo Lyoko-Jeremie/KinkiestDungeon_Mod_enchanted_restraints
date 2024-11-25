@@ -215,20 +215,20 @@ export class CreateGui {
                                 thisRef.do_install_EnchantedRestraintsPatch();
 
                                 thisRef.gmc!.fields['isInstalled'].settings.label =
-                                    StringTable.isInstalledMask(`${StateEnchantedRestraintsPatch.isInit()}`);
+                                    StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit());
                                 thisRef.gmc!.fields['isInstalled'].reload();
 
                                 thisRef.gmc!.fields['isModInit'].settings.label =
-                                    StringTable.isModInitMask(`${thisRef.do_install_EnchantedRestraintsPatch_isCalled}`);
+                                    StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled);
                                 thisRef.gmc!.fields['isModInit'].reload();
                             },
                         },
                         'isModInit': {
-                            label: StringTable.isModInitMask(`${thisRef.do_install_EnchantedRestraintsPatch_isCalled}`),
+                            label: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
                             type: 'label',
                         },
                         'isInstalled': {
-                            label: StringTable.isInstalledMask(`${StateEnchantedRestraintsPatch.isInit()}`),
+                            label: StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()),
                             type: 'label',
                         },
                         'isAutoInstallEnchantedRestraintsPatch': {
