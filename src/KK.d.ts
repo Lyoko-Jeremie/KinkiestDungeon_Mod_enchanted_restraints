@@ -1822,6 +1822,28 @@ type KDRestraintVariant = {
     template: string,
     /** If true, this item will not be forcibly kept whenever being added or removed */
     noKeep?: boolean,
+    /** Power of the variant */
+    power?: number,
+}
+type KDWeaponVariant = {
+    /** Name prefix */
+    prefix?: string,
+    /** Name suffix */
+    suffix?: string,
+    /** extra events added on */
+    events: KinkyDungeonEvent[],
+    /** The original weapon this is based on */
+    template: string,
+}
+type KDConsumableVariant = {
+    /** Name prefix */
+    prefix?: string,
+    /** Name suffix */
+    suffix?: string,
+    /** extra events added on */
+    events: KinkyDungeonEvent[],
+    /** The original consumable this is based on */
+    template: string,
 }
 
 
