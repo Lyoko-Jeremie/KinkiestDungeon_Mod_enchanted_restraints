@@ -1921,58 +1921,6 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
-                            section: GM_config.create(StringTable['Map Section']),
-                            type: 'br',
-                        },
-                        'MapKKSsMGet': {
-                            label: StringTable ['MapKKSsMGet'],
-                            type: 'button',
-                            click() {
-                                thisRef.gmc!.fields['MapKKSsMGetData'].value =
-                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKKSsMGet();
-                                thisRef.gmc!.fields['MapKKSsMGetData'].reload();
-
-                                const c = document.createElement('canvas');
-                                const r =
-                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(c);
-                                c.id = 'MapKKSsMGetDataCanvas';
-                                // add a canvas node after this node
-                                thisRef.gmc!.fields['MapKKSsMGetData'].node!.after(
-                                    c
-                                );
-                            },
-                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
-                        },
-                        'MapKKSsMGetData': {
-                            label: StringTable ['MapKKSsMGetData'],
-                            type: 'textarea',
-                            default: '',
-                        },
-                        'MapKSsMGet': {
-                            label: StringTable['MapKSsMGet'],
-                            type: 'button',
-                            click() {
-                                thisRef.gmc!.fields['MapKSsMGetData'].value =
-                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKSsMGet();
-                                thisRef.gmc!.fields['MapKSsMGetData'].reload();
-
-                                const c = document.createElement('canvas');
-                                const r =
-                                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(c);
-                                c.id = 'MapKSsMGetDataCanvas';
-                                // add a canvas node after this node
-                                thisRef.gmc!.fields['MapKSsMGetData'].node!.after(
-                                    c
-                                );
-                            },
-                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
-                        },
-                        'MapKSsMGetData': {
-                            label: StringTable['MapKSsMGetData'],
-                            type: 'textarea',
-                            default: '',
-                        },
-                        [thisRef.rId()]: {
                             section: GM_config.create(StringTable['Map Cheats Section']),
                             type: 'br',
                         },
