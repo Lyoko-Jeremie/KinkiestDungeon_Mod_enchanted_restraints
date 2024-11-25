@@ -11,6 +11,7 @@ import {
     WearsList
 } from "../Cheats/Restraint";
 import {assign, isArray, isString, parseInt} from "lodash";
+// import interact from "interactjs";
 import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
@@ -46,7 +47,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '1.80';
+        return '1.81';
     }
 
     // avoid same Math.random
