@@ -191,9 +191,9 @@ const StringTableKeys = [
 export type StringTableTypeStringPart = { [key in typeof StringTableKeys[number]]: string; };
 
 export interface StringTableType extends StringTableTypeStringPart {
-    isModInitMask(s: string): string;
+    isModInitMask(s: boolean): string;
 
-    isInstalledMask(s: string): string;
+    isInstalledMask(s: boolean): string;
 
     isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string;
 
