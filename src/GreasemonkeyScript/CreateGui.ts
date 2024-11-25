@@ -2220,8 +2220,50 @@ export class CreateGui {
                         // All the values that aren't saved are passed to thisRef function
                         // for (i in values) alert(values[i]);
                     },
-                    open(doc) {
-                        doc.addEventListener('keydown', (event) => {
+                    open(this: GM_configStruct, document: Document, window: Window, frame: HTMLElement) {
+                        // if (document && true) {
+                        //     frame.style.padding = '.5em';
+                        //     const interactAble = interact(frame);
+                        //     interactAble.resizable({
+                        //         edges: {left: true, right: true, bottom: true, top: true},
+                        //         listeners: {
+                        //             move: function (event) {
+                        //                 console.log('move', event);
+                        //                 console.log('move', event.deltaRect, event.rect, event.delta);
+                        //                 // let {x, y} = event.target.dataset
+                        //                 //
+                        //                 // x = (parseFloat(x) || 0) + event.deltaRect.left
+                        //                 // y = (parseFloat(y) || 0) + event.deltaRect.top
+                        //                 //
+                        //                 // Object.assign(event.target.style, {
+                        //                 //     width: `${event.rect.width}px`,
+                        //                 //     height: `${event.rect.height}px`,
+                        //                 //     // transform: `translate(${x}px, ${y}px)`,
+                        //                 // })
+                        //                 //
+                        //                 // Object.assign(event.target.dataset, {x, y})
+                        //             },
+                        //             onstart: function (event) {
+                        //                 console.log('onstart', event);
+                        //             },
+                        //             onmove: function (event) {
+                        //                 console.log('onmove', event);
+                        //             },
+                        //             onend: function (event) {
+                        //                 console.log('onend', event);
+                        //             },
+                        //         },
+                        //     });
+                        //     // interactAble.on('resizeend', (event) => {
+                        //     //     event.target.dataset = {x: 0, y: 0};
+                        //     //     console.log('resizeend', frame.style.width, frame.style.height);
+                        //     // });
+                        //     console.log('document', [document, window, frame]);
+                        //     console.log('interactAble', interactAble);
+                        // } else {
+                        //     console.error('document not found', [document, window, frame]);
+                        // }
+                        document.addEventListener('keydown', (event) => {
                             console.log('keydown', event);
                             if (event.altKey && (event.key === 'Q' || event.key === 'q')) {
                                 if (thisRef.gmc && thisRef.gmc.isOpen) {
