@@ -693,6 +693,16 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'BootstrapFullAllSpells': {
+                            label: StringTable['BootstrapFullAllSpells'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllSpells();
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         'BootstrapSimpleGood': {
                             label: StringTable['BootstrapSimpleGood'],
                             type: 'button',
@@ -1338,6 +1348,34 @@ export class CreateGui {
                         [thisRef.rId()]: {
                             type: 'br',
                         },
+                        'JailOutfitSelect': {
+                            label: StringTable['JailOutfitSelect'],
+                            type: 'select',
+                            value: 'None',
+                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllKDJailOutfits(),
+                            cssClassName: 'd-inline',
+                            cssStyleText: 'margin-right: 0.25em;',
+                        },
+                        'WearJailOutfit': {
+                            label: StringTable['WearJailOutfit'],
+                            type: 'button',
+                            click() {
+                                const c = thisRef.gmc!.fields['JailOutfitSelect'].value as string;
+                                const faction = thisRef.gmc!.fields['FactionSelect'].value;
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
+                                    c,
+                                    HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
+                                    faction as KinkyDungeonFactionColors_Keys,
+                                    // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                );
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            section: GM_config.create('AllRestraintItemSelect'),
+                            type: 'br',
+                        },
                         'AllRestraintItemSelect': {
                             label: StringTable['AllRestraintItemSelect'],
                             type: 'select',
@@ -1380,6 +1418,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            section: GM_config.create('AllRestraintItemFilterSelect'),
                             type: 'br',
                         },
                         'AllRestraintItemFilterInput': {
@@ -1623,6 +1662,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
+                            section: GM_config.create('NowWearRestraintItemSelect'),
                             type: 'br',
                         },
                         'NowWearRestraintItemSelect': {
@@ -1748,33 +1788,6 @@ export class CreateGui {
                                         // console.warn('RemoveNowWearRestraintItem not found', name);
                                     }
                                 }
-                            },
-                            cssClassName: 'd-inline',
-                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
-                        },
-                        [thisRef.rId()]: {
-                            type: 'br',
-                        },
-                        'JailOutfitSelect': {
-                            label: StringTable['JailOutfitSelect'],
-                            type: 'select',
-                            value: 'None',
-                            options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllKDJailOutfits(),
-                            cssClassName: 'd-inline',
-                            cssStyleText: 'margin-right: 0.25em;',
-                        },
-                        'WearJailOutfit': {
-                            label: StringTable['WearJailOutfit'],
-                            type: 'button',
-                            click() {
-                                const c = thisRef.gmc!.fields['JailOutfitSelect'].value as string;
-                                const faction = thisRef.gmc!.fields['FactionSelect'].value;
-                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
-                                    c,
-                                    HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
-                                    faction as KinkyDungeonFactionColors_Keys,
-                                    // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
-                                );
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
