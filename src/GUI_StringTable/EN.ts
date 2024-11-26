@@ -25,6 +25,7 @@ export const StringTable_EN: StringTableType = {
     AddManyPotion: 'AddManyPotion',
     AddManyGold: 'AddManyGold',
     AddDistraction: 'AddDistraction',
+    ZeroDistraction: 'ZeroDistraction',
     AddAllRestraints: 'AddAllRestraints',
     AddAllOutfit: 'AddAllOutfit',
     AddAllConsumables: 'AddAllConsumables',

@@ -392,6 +392,16 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'ZeroDistraction': {
+                            label: StringTable ['ZeroDistraction'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroDistraction();
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         'AddAllRestraints': {
                             label: StringTable['AddAllRestraints'],
                             type: 'button',

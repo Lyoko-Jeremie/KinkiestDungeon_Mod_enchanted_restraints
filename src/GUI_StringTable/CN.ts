@@ -68,6 +68,7 @@ export const StringTable_CN: StringTableType = {
     AddManyPotion: '增加大量药水Potion',
     AddManyGold: '增加大量黄金Gold',
     AddDistraction: '增加大量性欲值Distraction（这个在游戏中是独立机制）',
+    ZeroDistraction: '清空性欲值Distraction',
     AddAllRestraints: '添加全部拘束Restraints到背包',
     AddAllOutfit: '添加全部服装Outfit到背包',
     AddAllConsumables: '添加全部消耗品Consumables到背包',

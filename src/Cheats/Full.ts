@@ -9,6 +9,9 @@ class FullCheatsBase extends Choice {
         // let KDModCompat = {
         KDChangeDistraction('', '', '', n || 1000, true, 1);
     };
+    ZeroDistraction = (n?: number) => {
+        KDChangeDistraction('', '', '', n || -100000, true, 1);
+    };
     SetSpellPoints = (n?: number) => {
         KinkyDungeonSpellPoints = isNil(n) ? 10000 : n;
     };

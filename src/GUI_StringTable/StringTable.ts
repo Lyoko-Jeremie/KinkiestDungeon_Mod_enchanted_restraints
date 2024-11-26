@@ -22,6 +22,7 @@ const StringTableKeys = [
     'AddManyPotion',
     'AddManyGold',
     'AddDistraction',
+    'ZeroDistraction',
     'AddAllRestraints',
     'AddAllOutfit',
     'AddAllConsumables',
