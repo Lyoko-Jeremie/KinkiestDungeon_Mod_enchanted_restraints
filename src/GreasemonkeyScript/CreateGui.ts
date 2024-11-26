@@ -1373,7 +1373,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
-                            section: GM_config.create('AllRestraintItemSelect'),
+                            section: GM_config.create(StringTable['AllRestraintItemSection']),
                             type: 'br',
                         },
                         'AllRestraintItemSelect': {
@@ -1418,7 +1418,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
-                            section: GM_config.create('AllRestraintItemFilterSelect'),
+                            section: GM_config.create(StringTable['AllRestraintItemFilterSection']),
                             type: 'br',
                         },
                         'AllRestraintItemFilterInput': {
@@ -1662,7 +1662,7 @@ export class CreateGui {
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
                         [thisRef.rId()]: {
-                            section: GM_config.create('NowWearRestraintItemSelect'),
+                            section: GM_config.create(StringTable['NowWearRestraintItemSection']),
                             type: 'br',
                         },
                         'NowWearRestraintItemSelect': {
