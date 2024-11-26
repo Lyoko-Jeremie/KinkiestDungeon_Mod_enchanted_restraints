@@ -5,7 +5,9 @@ import {Choice} from "./Choice";
 class FullCheatsBase extends Choice {
 
     AddDistraction = (n?: number) => {
-        KinkyDungeonChangeDistraction(n || 10, true, 1);
+        // KinkyDungeonChangeDistraction(n || 10, true, 1);
+        // let KDModCompat = {
+        KDChangeDistraction('', '', '', n || 1000, true, 1);
     };
     SetSpellPoints = (n?: number) => {
         KinkyDungeonSpellPoints = isNil(n) ? 10000 : n;

@@ -187,7 +187,8 @@ declare global {
     var Weapon: string;
     var Misc: string;
 
-    var KinkyDungeonChangeDistraction: (Amount: number, NoFloater: boolean, lowerPerc: number, minimum = 0) => void;
+    // var KinkyDungeonChangeDistraction: (Amount: number, NoFloater: boolean, lowerPerc: number, minimum = 0) => void;
+    function KDChangeDistraction(src: string, type: string, trig: string, Amount: number, NoFloater?: boolean, lowerPerc?: number, minimum: number = 0): number;
 
     var KinkyDungeonLoot: (
         Level: number,
