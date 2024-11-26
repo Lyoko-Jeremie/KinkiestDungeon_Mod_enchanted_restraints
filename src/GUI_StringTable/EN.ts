@@ -54,6 +54,7 @@ export const StringTable_EN: StringTableType = {
     'Bootstrap Section': 'Bootstrap Section',
     BootstrapAllGood: 'BootstrapAllGood',
     BootstrapSpellChoicesTable: 'BootstrapSpellChoicesTable',
+    BootstrapFullAllSpells: 'BootstrapFullAllSpells',
     BootstrapSimpleGood: 'BootstrapSimpleGood',
     BootstrapAllNegative: 'BootstrapAllNegative',
     Add1000MaxState: 'AllMaxStateAdd1000',

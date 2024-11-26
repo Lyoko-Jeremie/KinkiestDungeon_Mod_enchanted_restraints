@@ -54,6 +54,7 @@ const StringTableKeys = [
     'Bootstrap Section',
     'BootstrapAllGood',
     'BootstrapSpellChoicesTable',
+    'BootstrapFullAllSpells',
     'BootstrapSimpleGood',
     'BootstrapAllNegative',
     'Add1000MaxState',
