@@ -748,6 +748,10 @@ export class CurseWears {
         return n.prefix ? TextGet("KDVarPref" + n.prefix) : n.suffix ? TextGet("KDVarSuff" + n.suffix) : key;
     }
 
+
+
+
+
 }
 
 export class EnchantsPatcher {
@@ -856,5 +860,173 @@ export class CurseWearHook<ReturnValueType> {
 // function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold, Type, Data)
 
 // KinkyDungeonLock(Lockable[L], l); // Lock it!
+
+
+
+
+
+// TODO wear CurseWear selected
+//
+// type KDRestraintVariant = {
+// let KinkyDungeonRestraintVariants: Record<string, KDRestraintVariant> = {};
+//
+// /**
+//  * Adds an inventory variant to the player's inventory
+//  * @param variant
+//  * @param [prefix]
+//  * @param [Tightness]
+//  * @param [Bypass]
+//  * @param [Lock]
+//  * @param [Keep]
+//  * @param [Trapped]
+//  * @param [faction]
+//  * @param [Deep] - whether or not it can go deeply in the stack
+//  * @param [curse] - Curse to apply
+//  * @param [securityEnemy] - Bypass is treated separately for these groups
+//  * @param [useAugmentedPower] - Augment power to keep consistency
+//  * @param [inventoryAs] - inventoryAs for the item
+//  * @param [ID]
+//  * @param [suffix]
+//  * @param [powerBonus]
+//  */
+// function KDEquipInventoryVariant (
+//     variant:             KDRestraintVariant,
+//     prefix:              string = "",
+//     Tightness?:          number,
+//     Bypass?:             boolean,
+//     Lock?:               string,
+//     Keep?:               boolean,
+//     Trapped?:            boolean,
+//     faction?:            string,
+//     Deep?:               boolean,
+//     curse?:              string,
+//     securityEnemy?:      entity,
+//     useAugmentedPower?:  boolean,
+//     _inventoryAs?:       string,
+//     ID:                  string = "",
+//     suffix:              string = "",
+//     powerBonus:          number = 0
+// )
+// {
+//     KDUpdateItemEventCache = true;
+//     let origRestraint = KinkyDungeonGetRestraintByName(variant.template);
+//     let events = origRestraint.events ? JSON.parse(JSON.stringify(origRestraint.events)) : [];
+//     let newname = prefix + variant.template + (ID || (KinkyDungeonGetItemID() + "")) + (curse ? curse : "");
+//     if (prefix) variant.prefix = prefix;
+//     if (suffix) variant.suffix = suffix;
+//     if (curse) {
+//         variant = JSON.parse(JSON.stringify(variant));
+//         variant.curse = curse;
+//     }
+//     if (powerBonus) variant.power = powerBonus;
+//     if (!KinkyDungeonRestraintVariants[newname])
+//         KinkyDungeonRestraintVariants[newname] = variant;
+//     if (variant.events)
+//         Object.assign(events, variant.events);
+//     return KinkyDungeonAddRestraintIfWeaker(origRestraint, Tightness, Bypass, Lock, Keep, Trapped, events, faction, Deep, curse, securityEnemy, useAugmentedPower, newname, undefined, undefined, undefined,
+//         powerBonus
+//     );
+// }
+//
+//
+//
+//
+//
+// Game/src/item/KinkyDungeonLoot.ts L355
+// function KinkyDungeonLootEvent(Loot: any, Floor: number, Replacemsg: string, Lock?: string, container?: KDContainer): string
+//
+//
+// 	else if (Loot.armor || Loot.armortags) {
+// 		let armor = Loot.armor;
+// 		let hexed = Loot.hexlist && (Loot.hexchance == undefined || KDRandom() < Loot.hexchance + (Loot.hexscale|| 0) * levelPercent || (Loot.nouncursed && !Loot.enchantlist && KinkyDungeonInventoryGet(Loot.nouncursed)));
+// 		let forceequip = Loot.forceEquip || (hexed && (Loot.forceEquipCursed || KinkyDungeonStatsChoice.get("CurseSeeker"))) || (!hexed && (Loot.forceEquipUncursed));
+// 		if (Loot.noForceEquip) forceequip = false;
+// 		if (Loot.armortags) {
+// 			let newarmor = KinkyDungeonGetRestraint({tags: Loot.armortags}, KDGetEffLevel(), (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint), true, "",
+// 				undefined, undefined, undefined, undefined, true, undefined, undefined, undefined, forceequip);
+// 			if (!newarmor && forceequip) {
+// 				KinkyDungeonGetRestraint({tags: Loot.armortags}, KDGetEffLevel(), (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint), true, "",
+// 					undefined, undefined, undefined, undefined, true, undefined, undefined, undefined, false);
+// 			}
+// 			if (newarmor) armor = newarmor.name;
+// 		}
+// 		let unlockcurse = null;
+// 		let hexVariant = "";
+// 		let enchantVariant = "";
+// 		let enchant_extra = [];
+// 		let hex_extra = [];
+// 		let enchants = (Loot.minEnchants || 1) + Math.floor(KDRandom() * ((Loot.maxEnchants || 1) - (Loot.minEnchants || 1)));
+// 		let curses = (Loot.minHex || 1) + Math.floor(KDRandom() * ((Loot.maxHex || 1) - (Loot.minHex || 1)));
+// 		if (hexed) {
+// 			while (curses > 0) {
+// 				let curs = KDGetByWeight(KinkyDungeonGetHexByListWeighted(Loot.hexlist, armor, false, Loot.hexlevelmin, Loot.hexlevelmax, [hexVariant, ...hex_extra]));
+// 				if (!enchantVariant) {
+// 					hexVariant = curs;
+// 					// Sets the armor to the cursed type
+// 					armor = armor+(Loot.cursesuffix != undefined ? Loot.cursesuffix : Loot.hexlist);
+// 				} else {
+// 					hex_extra.push(curs);
+// 				}
+// 				curses -= 1;
+// 			}
+// 		}
+// 		if (Loot.enchantlist && (Loot.enchantchance == undefined || KDRandom() < Loot.enchantchance + (Loot.enchantscale|| 0) * levelPercent || (Loot.nouncursed && !hexVariant && KinkyDungeonInventoryGet(Loot.nouncursed)) || (hexVariant && Loot.alwaysenchanthex))) {
+// 			while (enchants > 0) {
+// 				let ench = KDGetByWeight(
+// 					KinkyDungeonGetEnchantmentsByListWeighted(Loot.enchantlist, ModifierEnum.restraint, armor, false, Loot.enchantlevelmin, Loot.enchantlevelmax, [enchantVariant, ...enchant_extra])
+// 				);
+// 				if (!enchantVariant) {
+// 					enchantVariant = ench;
+// 				} else {
+// 					enchant_extra.push(ench);
+// 				}
+// 				enchants -= 1;
+// 			}
+// 		}
+// 		if (Loot.unlockcurse && (hexVariant || !Loot.hexlist) && (Loot.cursechance == undefined || KDRandom() < Loot.cursechance + (Loot.cursescale|| 0) * levelPercent)) {
+// 			let curselist = [];
+// 			for (let c of Loot.unlockcurse) {
+// 				curselist.push(c);
+// 			}
+// 			unlockcurse = KDGetByWeight(KinkyDungeonGetCurseByListWeighted(curselist, armor, false, Loot.hexlevelmin, Loot.hexlevelmax));
+// 		}
+// 		if (hexVariant || enchantVariant) {
+// 			let events: KinkyDungeonEvent[] = JSON.parse(JSON.stringify(KDRestraint({name: armor}).events || []));
+// 			let variant: KDRestraintVariant = {
+// 				template: armor,
+// 				events: events,
+// 			};
+// 			if (hexVariant) {
+// 				events.push(...KDEventHexModular[hexVariant].events({variant: variant}));
+// 			}
+// 			for (let c of hex_extra) {
+// 				events.push(...KDEventHexModular[c].events({variant: variant}));
+// 			}
+// 			if (enchantVariant) {
+// 				events.push(...KDEventEnchantmentModular[enchantVariant].types[KDModifierEnum.restraint].events(armor, Loot, hexVariant, enchantVariant, enchant_extra, {variant: variant}));
+// 			}
+// 			for (let e of enchant_extra) {
+// 				events.push(...KDEventEnchantmentModular[e].types[KDModifierEnum.restraint].events(armor, Loot, hexVariant, enchantVariant, enchant_extra, {variant: variant}));
+// 			}
+//
+// 			let equipped = 0;
+// 			if (forceequip) {
+// 				equipped = KDEquipInventoryVariant(variant, KDEventEnchantmentModular[enchantVariant]?.prefix, 0, true, undefined, true, false, Loot.faction || (unlockcurse ? "Curse" : undefined), true, unlockcurse, undefined, false, undefined, undefined, KDEventEnchantmentModular[enchantVariant]?.suffix);
+// 			}
+// 			if (!equipped) {
+// 				KDGiveInventoryVariant(variant, KDEventEnchantmentModular[enchantVariant]?.prefix, unlockcurse, undefined, undefined, KDEventEnchantmentModular[enchantVariant]?.suffix, Loot.faction || (unlockcurse ? "Curse" : undefined), undefined, undefined, container);
+// 			} else {
+// 				KinkyDungeonSendTextMessage(10, TextGet("KDCursedChestEquip" + (unlockcurse ? "Cursed" : ""))
+// 					.replace("NEWITM", TextGet("Restraint" + variant.template)),
+// 				"#aa88ff", 10);
+// 			}
+//
+// 			if (Replacemsg)
+// 				Replacemsg = Replacemsg.replace("ArmorAcquired", (enchantVariant ? TextGet("KDVarPrefEnchanted") : "") + ' ' + TextGet("Restraint" + armor));
+// 		} else {
+// 			KDInvAddLoose(container, armor, unlockcurse, Loot.faction || (unlockcurse ? "Curse" : undefined));
+// 			if (Replacemsg)
+// 				Replacemsg = Replacemsg.replace("ArmorAcquired", TextGet("Restraint" + armor));
+// 		}
 
 
