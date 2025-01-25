@@ -5,6 +5,7 @@ import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 
 const StringTableKeys = [
     'title',
+    'lastVersion',
     'install EnchantedRestraints Mod Section',
     'install_EnchantedRestraintsPatch',
     'isInstalled',

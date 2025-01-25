@@ -45,6 +45,7 @@ const WearStringTable_CN: WearStringTableInterface = {
 
 export const StringTable_CN: StringTableType = {
     title: 'KinkiestDungeon enchanted_restraints Mod',
+    lastVersion: '最新版',
     'install EnchantedRestraints Mod Section': '安装 Enchanted Restraints Mod Section',
     install_EnchantedRestraintsPatch: '点击初始化 Mod | 安装 EnchantedRestraintsPatch',
     isInstalled: '是否已安装',

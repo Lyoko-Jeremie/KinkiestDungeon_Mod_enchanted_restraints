@@ -2,6 +2,7 @@ import {StringTableType} from "./StringTable";
 
 export const StringTable_EN: StringTableType = {
     title: 'KinkiestDungeon enchanted_restraints Mod',
+    lastVersion: 'last version',
     'install EnchantedRestraints Mod Section': 'install EnchantedRestraints Mod Section',
     install_EnchantedRestraintsPatch: 'click to init Mod | install EnchantedRestraintsPatch',
     isInstalled: 'isInstalled',

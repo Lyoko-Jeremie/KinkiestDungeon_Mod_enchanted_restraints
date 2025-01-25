@@ -202,7 +202,7 @@ export class CreateGui {
                 'fields': // Fields object
                     {
                         [thisRef.rId()]: {
-                            section: `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version}`,
+                            section: `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest"></a>]`,
                             type: 'br',
                         },
                         [thisRef.rId()]: {
