@@ -631,5 +631,143 @@ declare global {
     let KinkyDungeonWeaponVariants: Record<string, KDWeaponVariant> = {};
 
     let KinkyDungeonConsumableVariants: Record<string, KDConsumableVariant> = {};
+
+    function KinkyDungeonCanUseWeapon(NoOverride?: boolean, e?: boolean, weapon?: weapon): boolean;
+
+    function KinkyDungeonCalculateMiscastChance();
+
+    function KinkyDungeonCalculateSlowLevel(delta?: number);
+
+    function KinkyDungeonGetEvasion(Enemy?: entity, NoOverride?: boolean, IsSpell?: boolean, IsMagic?: boolean, cost?: boolean): number;
+
+    function KinkyDungeoCheckComponentsPartial(spell: spell, x: number, y: number, includeFull: boolean, noOverride?: boolean): string[];
+
+    function KinkyDungeoCheckComponents(spell: spell, x?: number, y?: number, noOverride?: boolean): {
+        components: string[],
+        failed: string[],
+    };
+
+    function KinkyDungeonSendEvent(Event: string, data: any, forceSpell?: any);
+
+    function KinkyDungeonCanDrink(byEnemy?: boolean): boolean;
+
+    // Distraction -- It lowers your stamina regen
+    let KDMaxStat = 40; // Maximum any stat can get boosted to
+    let KDMaxStatStart = 10; // Start of stats
+    let KDMaxStatStartPool = 40; // Start of stats
+
+    let KDStamDamageThresh = 0.3;
+    let KDStamDamageThreshBonus = 0.01;
+
+    let KDSleepRegenWill = KDSleepWillFractionJail * KDMaxStatStart / 40;
+
+    let KinkyDungeonStatDistractionMax = KDMaxStatStart;
+    let KDDistractionLowerPercMult = 0.1;
+    let KinkyDungeonStatDistractionLower = 0;
+    let KinkyDungeonStatDistractionLowerCap = 0.9;
+    let KinkyDungeonStatArousalLowerRegenSleep = 0; // Decrease lower distraction in sleep?
+    let KinkyDungeonDistractionUnlockSuccessMod = 0.5; // Determines how much harder it is to insert a key while aroused. 1.0 is half success chance, 2.0 is one-third, etc.
+    let KinkyDungeonStatDistraction = 0;
+    let KinkyDungeonCrotchRopeDistraction = 0.4;
+    let KinkyDungeonStatDistractionRegen = -1.0;
+    let KinkyDungeonStatDistractionRegenPerUpgrade = KinkyDungeonStatDistractionRegen * 0.1;
+    let KDNoUnchasteBraMult = 0.9;
+    let KDNoUnchasteMult = 0.8;
+    let KDDistractionDecayMultDistractionMode = 0.25;
+    let KDDistractedAmount = 0.15;
+    let KinkyDungeonStatDistractionMiscastChance = 0.7; // Miscast chance at max distraction
+    let KinkyDungeonMiscastChance = 0;
+    let KinkyDungeonVibeLevel = 0;
+    let KinkyDungeonTeaseLevel = 0;
+    /** This is super powerful teasing that bypasses chastity */
+    let KinkyDungeonTeaseLevelBypass = 0;
+    let KinkyDungeonOrgasmVibeLevel = 0;
+    let KinkyDungeonDistractionPerVibe = 0.2; // How much distraction per turn per vibe energy cost
+    let KinkyDungeonDistractionPerPlug = 0.1; // How much distraction per move per plug level
+    let KinkyDungeonVibeCostPerIntensity = 0.15;
+
+    let KinkyDungeonStatWillpowerExhaustion = 0;
+    let KinkyDungeonSleepTurnsMax = 41;
+    // Note that things which increase max distraction (aphrodiasic) also increase the max stamina drain. This can end up being very dangerous as being edged at extremely high distraction will drain all your energy completely, forcing you to wait until the torment is over or the drugs wear off
+
+    // Stamina -- your MP. Used to cast spells and also struggle
+    let KinkyDungeonStatStaminaMax = KDMaxStatStart;
+    let KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
+    let KinkyDungeonStatStaminaRegen = 0.5;
+    let KinkyDungeonStatStaminaRegenPerUpgrade = 0.0;
+    let KinkyDungeonStatStaminaRegenPerUpgradeWill = 0.02;
+    let KDNarcolepticRegen = -0.06;
+    let KinkyDungeonStatStaminaRegenJail = 0.125;
+    let KinkyDungeonStatStaminaRegenSleep = KinkyDungeonStatStaminaMax / 40;
+    let KinkyDungeonStatStaminaRegenSleepBedMultiplier = 1.5;
+    let KinkyDungeonStatStaminaRegenWait = 0.5;
+    let KinkyDungeoNStatStaminaLow = 4;
+    let KDSprintCostBase = 1.5; // Cost of sprinting
+    let KDSprintCostSlowLevel = [0.5, 1.0, 0.0, 0.5, 1.0]; // Extra cost per slow level
+    let KinkyDungeonStatWillMax = KDMaxStatStart;
+    let KinkyDungeonStatWill = KinkyDungeonStatWillMax;
+    let KinkyDungeonStatWillRate = 0;
+    let KinkyDungeonStatManaMax = KDMaxStatStart;
+    let KinkyDungeonStatMana = KinkyDungeonStatManaMax;
+    let KinkyDungeonStatManaPool = KinkyDungeonStatManaMax;
+    let KinkyDungeonStatManaPoolMax = KDMaxStatStartPool;
+    let KDManaPoolRatio = 1.0; // 1 point of mana costs 1 points of pool mana
+    let KinkyDungeonStatManaRate = 0;
+    let KinkyDungeonStatManaRegen = 0; // How fast stamina that is converted to mana regenerates
+    let KinkyDungeonStatManaLowRegen = 0; // How fast stamina that is converted to mana regenerates when low
+    let KDMeditationRegen = 0.1;
+    let KinkyDungeonStatManaRegenLowThreshold = 5; // Threshold for fast mana regen
+    let KinkyDungeonStatManaPoolRegen = 0.01; // Threshold for pool mana regen, % of max mana
+    let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.03; // It costs stamina to move while bound
+    let KinkyDungeonStatStaminaCostStruggle = -3.0; // It costs stamina to struggle
+    let KinkyDungeonStatStaminaCostRemove = -0.5; // It costs stamina to struggle
+    let KinkyDungeonStatStaminaCostTool = -0.2; // It costs stamina to cut, but much less
+    let KinkyDungeonStatStaminaCostPick = -0.1; // It costs stamina to pick, but much less
+
+
+    let KinkyDungeonStatWillCostStruggle = 0; // It costs will to struggle
+    let KinkyDungeonStatWillCostRemove = 0; // It costs will to struggle
+    let KinkyDungeonStatWillCostTool = 0; // It costs will to cut, but much less
+    let KinkyDungeonStatWillCostPick = 0; // It costs stamina to pick, but much less
+    let KinkyDungeonStatWillCostUnlock = 0; // It costs stamina to pick, but much less
+
+    let KinkyDungeonStatWillCostEscape = -0.2; // It costs will to struggle out of an item
+    let KinkyDungeonStatWillBonusEscape = 0.2; // Bonus for Second Wind
+
+    let KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
+
+    // Current Status
+    let KinkyDungeonStatBeltLevel = 0; // Chastity bra does not add belt level
+    let KinkyDungeonStatPlugLevel = 0; // Cumulative with front and rear plugs
+    let KinkyDungeonPlugCount = 0;
+    let KinkyDungeonStatVibeLevel = 0; // Cumulative with diminishing returns for multiple items
+    let KinkyDungeonStatEdged = false; // If all vibrating effects are edging, then this will be true
+
+    let KinkyDungeonStatDistractionGainChaste = -0.1; // Cumulative w/ groin and bra
+
+
+    // Restraint stats
+
+    let KinkyDungeonSlowLevel = 0; // Adds to the number of move points you need before you move
+
+    let KinkyDungeonBlindLevelBase = 0; // Base, increased by buffs and such, set to 0 after consumed in UpdateStats
+    let KinkyDungeonBlindLevel = 0; // Blind level 1: -33% vision, blind level 2: -67% vision, Blind level 3: Vision radius = 1
+    let KinkyDungeonStatBlind = 0; // Used for temporary blindness
+    let KinkyDungeonStatFreeze = 0; // Used for temporary freeze
+    let KinkyDungeonStatBind = 0; // Used for temporary bind
+    let KinkyDungeonDeaf = false; // Deafness reduces your vision radius to 0 if you are fully blind (blind level 3)
+    let KinkyDungeonSleepiness = 0; // Sleepiness
+    let KinkyDungeonSleepinessMax = 10;
+
+    // Other stats
+    let KinkyDungeonGold = 0;
+
+    let KinkyDungeonHasCrotchRope = false;
+
+    // Combat
+    let KinkyDungeonTorsoGrabChance = 0.4;
+    let KinkyDungeonTorsoGrabChanceBonus = 0.2;
+    let KinkyDungeonWeaponGrabChance = 1.0;
+
 }
 

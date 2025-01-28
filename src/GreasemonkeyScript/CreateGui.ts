@@ -47,7 +47,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '1.81';
+        return '1.82';
     }
 
     // avoid same Math.random
@@ -792,6 +792,130 @@ export class CreateGui {
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableQuickness5();
+                                thisRef.playDing(PlayDingType.dong);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        [thisRef.rId()]: {
+                            section: GM_config.create(StringTable['Dynamic Hook Cheats Section']),
+                            type: 'br',
+                        },
+                        'DynamicHookEnableAlwaysCanUseAnyWeapon': {
+                            label: StringTable['DynamicHookEnableAlwaysCanUseAnyWeapon'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanUseAnyWeapon');
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookDisableAlwaysCanUseAnyWeapon': {
+                            label: StringTable['DynamicHookDisableAlwaysCanUseAnyWeapon'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanUseAnyWeapon');
+                                thisRef.playDing(PlayDingType.dong);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookEnableAlwaysCanDrink': {
+                            label: StringTable['DynamicHookEnableAlwaysCanDrink'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanDrink');
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookDisableAlwaysCanDrink': {
+                            label: StringTable['DynamicHookDisableAlwaysCanDrink'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanDrink');
+                                thisRef.playDing(PlayDingType.dong);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookEnableNeverMiscastMagic': {
+                            label: StringTable['DynamicHookEnableNeverMiscastMagic'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('NeverMiscastMagic');
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookDisableNeverMiscastMagic': {
+                            label: StringTable['DynamicHookDisableNeverMiscastMagic'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('NeverMiscastMagic');
+                                thisRef.playDing(PlayDingType.dong);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookEnableNeverSlow': {
+                            label: StringTable['DynamicHookEnableNeverSlow'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('NeverSlow');
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookDisableNeverSlow': {
+                            label: StringTable['DynamicHookDisableNeverSlow'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('NeverSlow');
+                                thisRef.playDing(PlayDingType.dong);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookEnableNeverMiss': {
+                            label: StringTable['DynamicHookEnableNeverMiss'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('NeverMiss');
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookDisableNeverMiss': {
+                            label: StringTable['DynamicHookDisableNeverMiss'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('NeverMiss');
+                                thisRef.playDing(PlayDingType.dong);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookEnableAlwaysCanUseMagic': {
+                            label: StringTable['DynamicHookEnableAlwaysCanUseMagic'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanUseMagic');
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'DynamicHookDisableAlwaysCanUseMagic': {
+                            label: StringTable['DynamicHookDisableAlwaysCanUseMagic'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanUseMagic');
                                 thisRef.playDing(PlayDingType.dong);
                             },
                             cssClassName: 'd-inline',

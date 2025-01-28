@@ -1,12 +1,36 @@
-class FunctionReplaceInfo {
+export class FunctionReplaceInfo<F extends CallableFunction = CallableFunction> {
     constructor(
         public hookFunctionName: string,
-        public oldFunction: CallableFunction,
-        public replaceFunction: CallableFunction,
-        public callCount: number = 0,
-        public maxCallCount: number = -1
+        public oldFunction: F,
+        public replaceFunction: F,
+        config?: FunctionReplaceHookConfig,
     ) {
+        this.callCount = config?.callCount ?? 0;
+        this.maxCallCount = config?.maxCallCount ?? -1;
+        this.proxyMode = config?.proxyMode ?? false;
+        this.noLog = config?.noLog ?? false;
     }
+
+    public callCount: number = 0;
+    public maxCallCount: number = -1;
+    public proxyMode = false;
+    public noLog = false;
+
+    invoke(winRef: Window, originFunctionCallArgs: any[]) {
+        if (this.proxyMode) {
+            return this.replaceFunction(this, originFunctionCallArgs);
+        } else {
+            return this.replaceFunction(...originFunctionCallArgs);
+        }
+    }
+
+}
+
+export interface FunctionReplaceHookConfig {
+    callCount?: number,
+    maxCallCount?: number,
+    proxyMode?: boolean,
+    noLog?: boolean,
 }
 
 export class _FunctionReplaceHook {
@@ -24,9 +48,11 @@ export class _FunctionReplaceHook {
         }
     }
     InstallFunctionReplaceHookOnce = (hookFName: string, newFunction: CallableFunction) => {
-        this.InstallFunctionReplaceHook(hookFName, newFunction, 1);
+        this.InstallFunctionReplaceHook(hookFName, newFunction, {
+            maxCallCount: 1,
+        });
     }
-    InstallFunctionReplaceHook = (hookFName: string, newFunction: CallableFunction, maxCallCount = -1) => {
+    InstallFunctionReplaceHook = <F extends CallableFunction = CallableFunction>(hookFName: string, newFunction: F, config?: FunctionReplaceHookConfig) => {
         // uninstall old hook point
         this.UninstallFunctionReplaceHook(hookFName);
         // FunctionReplaceInfo
@@ -34,23 +60,24 @@ export class _FunctionReplaceHook {
             hookFName,
             (window as any)[hookFName],
             newFunction,
-            0,
-            maxCallCount,
+            config,
         );
         // install hook point
         this.Hook_Point_Map.set(hookFName, functionReplaceInfo);
         (window as any)[hookFName] = (...arg: any[]) => {
-            console.log('FunctionReplaceHook called', hookFName);
             // add count & call replace function
             const n = this.Hook_Point_Map.get(hookFName)!!;
-            const f = n.replaceFunction;
+            if (!n.noLog) {
+                console.log('FunctionReplaceHook called', hookFName);
+            }
             n.callCount = n.callCount + 1;
             if (n.maxCallCount >= 0 && n.callCount >= n.maxCallCount) {
                 // uninstall hook , (for call once type hook)
                 this.UninstallFunctionReplaceHook(hookFName);
             }
-            return f(...arg);
+            return n.invoke.call(n, window, arg);
         };
+        return functionReplaceInfo;
     };
     // ((() => {
     //     const names = Object.keys(KinkyDungeonMapParams);

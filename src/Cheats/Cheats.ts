@@ -13,6 +13,7 @@ import {FullCheats} from "./Full";
 import {RestraintCustomWear} from "./Restraint";
 import {Quest} from "./Quest";
 import {FunctionPatchHooker} from "../FunctionPatch/FunctionPatch";
+import {DynamicCheatsHook} from "./DynamicCheatsHook";
 
 
 export class CheatsBase extends RestraintCustomWear {
@@ -80,12 +81,15 @@ export class CheatsBase extends RestraintCustomWear {
         });
     }
 
+    dynamicCheatsHook: DynamicCheatsHook;
+
     constructor() {
         super();
         this._FunctionPatchHooker = new FunctionPatchHooker();
         this.installRestraint();
         this.installForceMap();
         this.CurseWears.installCurseWearsHook(this._FunctionPatchHooker);
+        this.dynamicCheatsHook = new DynamicCheatsHook(this._FunctionReplaceHook);
     }
 }
 

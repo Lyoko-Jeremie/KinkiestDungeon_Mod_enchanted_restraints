@@ -168,7 +168,7 @@ export class FunctionPatchHooker {
             if (!isAllHooked || isAllNotHooked || !isJumpAndOriginalSameState) {
                 console.error('[FunctionPatchHook] doLeakCheck is invalid:',
                     [originalFunctionName, hookInfo],
-                    [!isAllHooked, !isAllNotHooked, isJumpAndOriginalSameState]);
+                    [isAllHooked, isAllNotHooked, isJumpAndOriginalSameState]);
             }
         }
     }
@@ -185,7 +185,7 @@ export class FunctionPatchHooker {
         }
         this.isAllHookInstalled = true;
         console.log('[FunctionPatchHook] installAllHooks', [this.hookTable]);
-        this.doLeakCheck();
+        // this.doLeakCheck();
         for (const [originalFunctionName, hookInfo] of this.hookTable.entries()) {
             if (hookInfo.length === 0) {
                 console.error('[FunctionPatchHook] installAllHooks hookInfo is invalid:', [originalFunctionName, hookInfo]);
@@ -227,6 +227,7 @@ export class FunctionPatchHooker {
                 }
             }
         }
+        this.doLeakCheck();
     }
 
     installHook(hookConfig: PatchHookConfig) {

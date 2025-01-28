@@ -1405,18 +1405,39 @@ interface weapon {
 
 
 interface spell {
+    nocrit?: boolean,
+
+    /** bind tags for the spell/bullet */
+    bindTags?: string[],
+
+    ignoreshield?: boolean,
+    shield_crit?: boolean, // Crit thru shield
+    shield_stun?: boolean, // stun thru shield
+    shield_freeze?: boolean, // freeze thru shield
+    shield_bind?: boolean, // bind thru shield
+    shield_snare?: boolean, // snare thru shield
+    shield_slow?: boolean, // slow thru shield
+    shield_distract?: boolean, // Distract thru shield
+    shield_vuln?: boolean,
+
+    /** Crit damage multiplier of the spell */
+    crit?: number;
+    /** Sound efgfect that plays when you miscast */
+    miscastSfx?: string,
     /** This spell doesnt hurt the target upon directly hitting, only the AoE */
     noDirectDamage?: true,
+    /** This spell doesnt apply the hit effect on collision*/
+    noDirectHit?: true,
     /** This spell does not leave a warning to the player */
     hideWarnings?: boolean,
     /** This spell does leave a warning to the player */
-    alwaysWarn?: boolean,
-    /** Marks a spell as non-magical, so traps dont leave a rune on the ground */
-    nonmagical?: boolean,
+    alwaysWarn?:boolean,
     /** Marks the spell as a command word spell to enemies */
     commandword?: boolean,
     /** The spell is used to buff allies */
     buffallies?: boolean,
+    /** Dont buff self with it */
+    noSelfBuff?: boolean,
     /** caster will also target themselves */
     selfbuff?: boolean,
     /** Type of binding applied to the power */
@@ -1462,6 +1483,8 @@ interface spell {
     effectTileDensityTrail?: number,
     effectTileTrailAoE?: number,
     effectTileDoT?: effectTileRef,
+    effectTileDoT2?: effectTileRef,
+    effectTileDistDoT?: number,
     effectTileDurationModDoT?: number,
     effectTileDensityDoT?: number,
     effectTileDensity?: number,
@@ -1470,12 +1493,16 @@ interface spell {
     hide?: boolean,
 
     shotgunCount?: number,
+    shotgunFan?: boolean,
     shotgunSpread?: number,
     shotgunDistance?: number,
     shotgunSpeedBonus?: number,
 
     distractEff?: number,
+    desireMult?: number,
     bindEff?: number,
+
+    nonmagical?: boolean,
 
     damageFlags?: string[],
     /** Wont spawn a trail on the player, ever */
@@ -1489,6 +1516,10 @@ interface spell {
     /** Buffs applied by the hit will effect everyone */
     buffAll?: boolean,
     name: string;
+    customCost?: string,
+    /** Spell does not advance time */
+    quick?: boolean;
+    addBind?: boolean,
     /** spell required to unlock this one */
     prerequisite?: string | string[];
     /** blocked if you have this spell */
@@ -1497,14 +1528,22 @@ interface spell {
     hideUnlearnable?: boolean,
     /** Spell is hidden if you didnt learn this spell */
     hideWithout?: string,
+    /** Spell is hidden if you learned a specific spell */
+    hideWith?: string,
     /** Spell is hidden if you DID learn it */
     hideLearned?: boolean,
     /** Automatically learns the spells when you learn it (thru magic screen) */
     autoLearn?: string[],
+    /** Automatically learns the spell pages when you learn it (thru magic screen) */
+    learnPage?: string[],
     /** This spell wont trigger an aggro action */
     noAggro?: boolean;
     /** Whether the spell defaults to the Player faction */
     allySpell?: boolean;
+    /** This spell wont friendly fire the player */
+    noFF?: boolean;
+    /** This spell wont affect the player if belonging to an allied entity */
+    noHitAlliedPlayer?: boolean,
     /** Spell overrides the faction */
     faction?: string;
     /** Whether the spell defaults to the Enemy faction */
@@ -1523,14 +1562,20 @@ interface spell {
     aoedamage?: number;
     /** Damage type */
     damage?: string;
+    /** Is the damage teasing */
+    tease?: boolean;
     /** size of sprite */
     size?: number;
     /** Prevents multiple instances of the spell from doing damage on the same turn from the same bullet to the same enemy */
     noUniqueHits?: boolean;
     /** AoE */
     aoe?: number;
+    /** AoE of bullet itself (only for bolts) */
+    bulletAoE?: number;
     /** bind */
     bind?: number;
+    /** bind crit mult*/
+    bindcrit?: number;
     /** distract */
     distract?: number;
     /** Bonus daMAGE TO BOUND TATRGETS */
@@ -1545,12 +1590,25 @@ interface spell {
     chargecost?: number;
     minRange?: number;
     noSprite?: boolean;
+    /** Learn these flags permanently */
+    learnFlags?: string[],
+    /** Increases the more you do */
+    increasingCost?: boolean,
+    decreaseCost?: boolean,
+    /** Specific to a class */
+    classSpecific?: string;
     /** Verbal, arms, or legs */
-    components?: any[];
+    components?: string[];
+    /** The bullet's position is always fixed toward the caster */
+    followCaster?: boolean,
     /** Spell level */
     level: number;
     /** Whether the spell is passive (like the summon count up) or active like the bolt or toggle spells*/
     passive?: boolean;
+    /** An active spell but it has passive effects */
+    mixedPassive?: boolean;
+    /** Active spell for mana cost purposes, only used to override behavior of passive and toggle spells */
+    active?: boolean;
     /** costOnToggle */
     costOnToggle?: boolean;
     /** Type of the spell */
@@ -1569,6 +1627,8 @@ interface spell {
     range?: number;
     /** lifetime of the Hit bullet created by the spell, not the bullet itself in the case of an "inert" bullet*/
     lifetime?: number;
+    /** Prevents the bullet from having a source, i.e. the bullet is not associated from the caster*/
+    noSource?: boolean,
     /** Specifically for the bullet lifetime, currently unused */
     bulletLifetime?: number;
     /** channel turns */
@@ -1583,6 +1643,10 @@ interface spell {
     hitsfx?: string;
     /** Played on bullet impact */
     landsfx?: string;
+    /** trailEvadeable */
+    trailEvadeable?: boolean;
+    /** trailNoblock */
+    trailNoblock?: boolean;
     /** trailPower */
     trailPower?: number;
     /** trailHit */
@@ -1623,8 +1687,10 @@ interface spell {
     noTargetPlayer?: boolean;
     /** Only target walls */
     WallsOnly?: boolean;
-    /** Spell can be dodged */
+    /** Spell can be dodged, default cantt be dodged */
     evadeable?: boolean;
+    /** Spell can NOT be blocked. default can be blocked */
+    noblock?: boolean;
     /** Targeting location */
     meleeOrigin?: boolean;
     /** Cant hit the same enemy twice per turrn, impoprtant for piercing spells */
@@ -1665,6 +1731,12 @@ interface spell {
     piercingTrail?: boolean;
     /** nonVolatile */
     nonVolatile?: boolean;
+    /** likely to cause chain reactions */
+    volatile?: boolean;
+    /** likely to cause chain reactions */
+    volatilehit?: boolean;
+    /** Can only block these types of spells */
+    blockType?: string[],
     /** Cancels automove when cast */
     cancelAutoMove?: boolean;
     /** requireLOS */
@@ -1679,14 +1751,20 @@ interface spell {
     noSumMsg?: boolean;
     /** Targeted like a bolt, showing the aim line */
     projectileTargeting?: boolean;
+    /** Adds additional distance on the cast when targeted by an enemy */
+    extraDist?: number
     /** CastInWalls */
     CastInWalls?: boolean;
+    /** Allows casting into fog of war */
+    CastInDark?: boolean;
     /** noTargetEnemies */
     noTargetEnemies?: boolean;
     /** Exception list for NoTargetEnemies */
     exceptionFactions?: string[];
-    /** noTargetAllies */
+    /**  */
     noTargetAllies?: boolean;
+    /** Can only target the player */
+    targetPlayerOnly?: boolean;
     /** Sets the enemy's specialCD shared between others */
     specialCD?: number;
     /** AI wont choose this as first choice */
