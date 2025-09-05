@@ -42,6 +42,9 @@ class FullCheatsBase extends Choice {
             'ElfCrystal',
             // 纯洁卷轴
             'ScrollPurity',
+            'ScrollArms',
+            'ScrollVerbal',
+            'ScrollLegs',
             // 远古钥匙 use to unlock MistressKey Gold
             'MistressKey',
             // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
@@ -83,6 +86,7 @@ class FullCheatsBase extends Choice {
         ).split(" ").filter(T => !!T));
         Object.getOwnPropertyNames(KinkyDungeonConsumables).map(T => {
             if (!ignoreSet.has(T)) {
+                KinkyDungeonConsumables[T].maxInventory = 10000;
                 KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
             }
         });
