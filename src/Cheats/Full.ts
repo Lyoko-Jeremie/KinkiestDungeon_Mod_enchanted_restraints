@@ -22,49 +22,53 @@ class FullCheatsBase extends Choice {
         KDGameData.AncientEnergyLevel = f || 1.0
     };
     AddManyKeys = () => {
-        // KinkyDungeonLockpicks = 1000;
-        // KinkyDungeonRedKeys = 1000;
-        // KinkyDungeonBlueKeys = 1000;
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Pick, 1000);
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.RedKey, 1000);
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.BlueKey, 1000);
+        [
+            'Pick',
+            'RedKey',
+            'BlueKey',
+            // 简单的钥匙
+            'CuffKeys',
+            // 圆盘锁工具
+            'DiscPick',
+            // 钥匙卡
+            'KeyCard',
+            // 魔法切割机
+            'EnchantedGrinder',
+            // 玩偶ID
+            'DollID',
+            // 神圣脆脆马卡龙
+            'DivineTear',
+            // 精灵肥皂
+            'ElfCrystal',
+            // 纯洁卷轴
+            'ScrollPurity',
+            // 远古钥匙 use to unlock MistressKey Gold
+            'MistressKey',
+            // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
+            'AncientPowerSource',
+            // 灵浆 use to unlock GhostLock
+            'Ectoplasm',
+        ].forEach(T => {
+            // KinkyDungeonConsumables.Pick.maxInventory;
+            KinkyDungeonConsumables[T].maxInventory = 10000;
+            KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
+        });
 
-        // 简单的钥匙
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.CuffKeys, 1000);
-        // 圆盘锁工具
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DiscPick, 1000);
-
-        // 钥匙卡
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.KeyCard, 1000);
-        // 魔法切割机
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.EnchantedGrinder, 1000);
-        // 玩偶ID
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DollID, 1000);
-
-        // 神圣脆脆马卡龙
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.DivineTear, 1000);
-        // 精灵肥皂
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ElfCrystal, 1000);
-        // 纯洁卷轴
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollPurity, 1000);
-
-
-        // 远古钥匙 use to unlock MistressKey Gold
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1000);
-        // 能量水晶 use to charge AncientEnergy to power the origin Enchanted Restraint
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1000);
-        // 灵浆 use to unlock GhostLock
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, 1000);
     };
     AddManyGold = () => {
         KinkyDungeonAddGold(10000000);
     };
     AddManyPotion = () => {
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1000);
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1000);
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1000);
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionWill, 1000);
-        KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ManaOrb, 1000);
+        [
+            'PotionMana',
+            'PotionStamina',
+            'PotionFrigid',
+            'PotionWill',
+            'ManaOrb',
+        ].forEach(T => {
+            KinkyDungeonConsumables[T].maxInventory = 10000;
+            KinkyDungeonChangeConsumable(KinkyDungeonConsumables[T], 1000);
+        });
     };
     AddAllWeapon = () => {
         Object.getOwnPropertyNames(KinkyDungeonWeapons).map(T => KinkyDungeonInventoryAddWeapon(KinkyDungeonWeapons[T].name));
