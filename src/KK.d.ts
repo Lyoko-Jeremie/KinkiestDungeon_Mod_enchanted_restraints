@@ -1290,18 +1290,37 @@ type KDPerk = {
     requireArousal?: boolean,
 }
 
+interface NamedAndTyped extends Named {
+    /** Type of the item*/
+    type?: string,
+}
 
-interface consumable {
+interface consumable extends NamedAndTyped {
     name: string,
+    range?: number,
+    maxInventory?: number,
+    /** 1 - (Rarity * sub value) = sub threshold */
+    sub?: number,
     rarity: number,
+    /** Wont be confiscated in prison */
+    isSubby?: boolean,
+    /** Base chance to sneak thru strip search */
+    sneakChance?: number,
     type: string,
+    /** used solely for shop */
+    uniqueTags?: string[],
     shop?: boolean,
     spell?: string,
     potion?: boolean,
+    latexsolvent?: number,
     noHands?: boolean,
     arousalMode?: boolean,
     /** Data var */
-    data?: Record<string, string | number>,
+    data?: Record<string, string|number>,
+    /** Modular system */
+    itemEffect?: string,
+    /** Whats inside the potion??? */
+    contains?: string,
     /** Requirement that overrides all other requirements */
     prereq?: string,
     /** Requirement in addition to all other requirements such as not being gagged for potions, bound, etc */
