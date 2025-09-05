@@ -135,7 +135,7 @@ class RestraintBase {
                             // this impl will force wear and replace other conflict restraint
                             return [RR, KinkyDungeonAddRestraint(
                                 RR,
-                                10000,
+                                10,
                                 false,
                                 realLock,
                                 undefined,
@@ -148,7 +148,7 @@ class RestraintBase {
                             // this impl will ignore it if it cannot wear
                             return [RR, KinkyDungeonAddRestraintIfWeaker(
                                 RR,
-                                10000,
+                                10,
                                 true,
                                 realLock,
                                 true,
