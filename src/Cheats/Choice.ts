@@ -149,7 +149,7 @@ export class Choice {
         // Psychic [Psychic]
         // 精神
         // You no longer drop keys and picks, can unlock yourself with bound hands, and don't need hands for items/potions.
-        // 您不再掉落钥匙和镐，可以用拘束住的手解锁自己，并且不需要手来使用物品/药水。
+        // 你身上的钥匙和撬锁工具将不会掉落，不用手也可以打开身上拘束具的锁，并且不需要手来使用物品/药水。
         // Quick-Draw [QuickDraw]
         // Switching weapons and spells does not take a turn.
         // GroundedInReality "Grounded in Reality"
@@ -201,6 +201,50 @@ export class Choice {
         // 魔法可以让你头脑清醒，成功施法时可以减少干扰值。
         this._AddCheatChoice(
             "Clearheaded ArousingMagic DistractionCast",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceSex = (remove?: boolean) => {
+        // 64	束缚爱好	[15] [BondageLover]
+        // 	  试图挣脱会提高你的性奋值。
+        // 66	欲罢不能	[Needs] [Needs]
+        // 	  性奋值随时间累计。
+        // 84	催情魔法	[ArousingMagic] [ArousingMagic]
+        // 	  你的魔法由超凡脱俗的催情能量驱动，施法时会根据消耗的法力增加性奋值。
+        // 85	狂暴之怒	[BerserkerRage] [BerserkerRage]
+        // 	  近战攻击会提高你的性奋值，且性奋值达到最大时，近战 ( 包括锁链 ) 伤害可增加 30%。
+        // 86	混沌魔法	[UnstableMagic] [UnstableMagic]
+        // 	  根据性奋值或施法失败的几率，法术最多可造成 30% 的额外伤害，以最高者为准。
+        // 87	满足复仇	[Vengeance] [Vengeance]
+        // 	  击败敌人会极大地提高你的性奋值。
+        // 139	刺激电流	[Estim] [Estim]
+        // 	  用刺激效果代替大多数痛苦的电击。
+        // 167	焚心欲火	[BurningDesire] [BurningDesire]
+        // 	  当性奋值超过 70% 时，自身造成的火焰伤害提高 25%，并且你会点燃附近的物体。
+        // 168	冰清玉洁	[FrigidPersonality] [FrigidPersonality]
+        // 	  当性奋值低于 10% 时，自身造成的寒冰伤害提高 10%，并且可以在冰上无惩罚的行走。
+        // 171	坚不可摧	[ImmovableObject] [ImmovableObject]
+        // 	  当意志力超过 90% 时， 束缚抗性 +150，并且岩属性增益法术的法力消耗减半。
+        // 172	腐蚀之盾	[LeastResistance] [LeastResistance]
+        // 	  当意志力为 0 时，闪避 +35，并在被束缚时对敌人造成最大意志力 20% 的皂化伤害。
+        this._AddCheatChoice(
+            "BondageLover Needs ArousingMagic BerserkerRage UnstableMagic Vengeance Estim BurningDesire FrigidPersonality ImmovableObject LeastResistance",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceSexClean = (remove?: boolean) => {
+        // 83	冷静之术	[Clearheaded] [Clearheaded]
+        // 	  魔法可以让你头脑清醒，成功施法时可以减少性奋值。
+        // 167	焚心欲火	[BurningDesire] [BurningDesire]
+        // 	  当性奋值超过 70% 时，自身造成的火焰伤害提高 25%，并且你会点燃附近的物体。
+        // 168	冰清玉洁	[FrigidPersonality] [FrigidPersonality]
+        // 	  当性奋值低于 10% 时，自身造成的寒冰伤害提高 10%，并且可以在冰上无惩罚的行走。
+        // 171	坚不可摧	[ImmovableObject] [ImmovableObject]
+        // 	  当意志力超过 90% 时， 束缚抗性 +150，并且岩属性增益法术的法力消耗减半。
+        // 172	腐蚀之盾	[LeastResistance] [LeastResistance]
+        // 	  当意志力为 0 时，闪避 +35，并在被束缚时对敌人造成最大意志力 20% 的皂化伤害。
+        this._AddCheatChoice(
+            "Clearheaded BurningDesire FrigidPersonality ImmovableObject LeastResistance",
             remove,
         );
     };
@@ -277,14 +321,30 @@ export class Choice {
         );
     };
     ChoiceAddCheatChoiceMap = (remove?: boolean) => {
-        // 宽敞之牢	[MapLarge] [MapLarge]
-        // 将每个方向的地图大小增加 1。
-        // 广阔之牢	[MapHuge] [MapHuge]
-        // 将每个方向的地图大小增加 2。
-        // 辽阔之牢	[MapGigantic] [MapGigantic]
-        // 将每个方向的地图大小增加 3。
+        // 196	宽敞之牢	[MapLarge] [MapLarge]
+        // 	  地图尺寸增加 3 格。地图密度将降低。
+        // 197	广阔之牢	[MapHuge] [MapHuge]
+        // 	  地图尺寸增加 6 格。地图上将混有隧道和死胡同。
+        // 198	辽阔之牢	[MapGigantic] [MapGigantic]
+        // 	  地图长度增加 9 格。地图将主要由隧道组成。
+        // 199	超大的地图	[MapAbsurd] [MapAbsurd]
+        // 	  （实验性）地图生成的将会非常的大。可能会破坏游戏行为。
         this._AddCheatChoice(
             "MapLarge MapHuge MapGigantic",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceMapAbsurd = (remove?: boolean) => {
+        // 196	宽敞之牢	[MapLarge] [MapLarge]
+        // 	  地图尺寸增加 3 格。地图密度将降低。
+        // 197	广阔之牢	[MapHuge] [MapHuge]
+        // 	  地图尺寸增加 6 格。地图上将混有隧道和死胡同。
+        // 198	辽阔之牢	[MapGigantic] [MapGigantic]
+        // 	  地图长度增加 9 格。地图将主要由隧道组成。
+        // 199	超大的地图	[MapAbsurd] [MapAbsurd]
+        // 	  （实验性）地图生成的将会非常的大。可能会破坏游戏行为。
+        this._AddCheatChoice(
+            "MapLarge MapHuge MapGigantic MapAbsurd",
             remove,
         );
     };
@@ -325,6 +385,14 @@ export class Choice {
         // 你在黑暗区域的视力将会降低。
         this._AddCheatChoice(
             "Blackout TotalBlackout Nearsighted NightBlindness",
+            remove,
+        );
+    };
+    ChoiceAddCheatChoiceMoreKinkyFurniture = (remove?: boolean) => {
+        // 123	更多古怪的家具	[MoreKinkyFurniture] [MoreKinkyFurniture]
+        // 	  用不同种类的古怪场景家具 ( 例如展示架 ) 取代 60% 的笼子。
+        this._AddCheatChoice(
+            "MoreKinkyFurniture",
             remove,
         );
     };

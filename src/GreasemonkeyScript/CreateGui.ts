@@ -47,7 +47,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '1.83';
+        return '1.86';
     }
 
     // avoid same Math.random
@@ -970,6 +970,33 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'ChoiceAddCheatChoiceSex': {
+                            label: StringTable['ChoiceAddCheatChoiceSex'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSex();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ChoiceAddCheatChoiceSexRemove': {
+                            label: StringTable['ChoiceAddCheatChoiceSexRemove'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSex(true);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ChoiceAddCheatChoiceSexClean': {
+                            label: StringTable['ChoiceAddCheatChoiceSexClean'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSexClean();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         'ChoiceAddCheatChoiceBadNegative': {
                             label: StringTable['ChoiceAddCheatChoiceBadNegative'],
                             type: 'button',
@@ -1006,11 +1033,29 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'ChoiceAddCheatChoiceMoreKinkyFurniture': {
+                            label: StringTable ['ChoiceAddCheatChoiceMoreKinkyFurniture'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMoreKinkyFurniture();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         'ChoiceAddCheatChoiceMap': {
                             label: StringTable['ChoiceAddCheatChoiceMap'],
                             type: 'button',
                             click() {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMap();
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
+                        'ChoiceAddCheatChoiceMapAbsurd': {
+                            label: StringTable['ChoiceAddCheatChoiceMapAbsurd'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMapAbsurd();
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
