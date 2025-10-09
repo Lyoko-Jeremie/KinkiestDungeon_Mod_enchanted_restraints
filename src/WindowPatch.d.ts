@@ -289,6 +289,8 @@ declare global {
 
     var KDLoadPerks: () => void;
 
+    var KDPerkUpdateStats: { [key: string]: () => void };
+
     var KDCornerTiles: { [key: string]: boolean };
 
     var KDJailOutfits: Record<string, {

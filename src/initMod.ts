@@ -12,6 +12,7 @@ window.Mod_EnchantedRestraints = window.KinkyDungeonMod_EnchantedRestraints;
 import {Cheats} from './Cheats/Cheats';
 import {EnchantedRestraintsPatch, setEdgeOnly, StateEnchantedRestraintsPatch} from './RestraintsPatch/RestraintsPatch';
 import {ApplyModRestraint} from './RestraintsPatch/ApplyModRestraint';
+import {addCheatPerk} from "./Cheats/Perk";
 
 export {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch};
 
@@ -33,6 +34,7 @@ window.KinkyDungeonMod_EnchantedRestraints.EnchantedRestraintsPatch = EnchantedR
 window.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint = ApplyModRestraint;
 window.KinkyDungeonMod_EnchantedRestraints.setEdgeOnly = setEdgeOnly;
 
+addCheatPerk();
 
 console.log("disable Data Trace");
 // disable Data Trace, to avoid cheats game data send to server
