@@ -2302,6 +2302,22 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'DeleteIndexDBSave': {
+                            label: StringTable['DeleteIndexDBSave'],
+                            type: 'button',
+                            click: async () => {
+                                const timeS = thisRef.gmc!.fields['IndexDBSaveSelect'].value;
+                                await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.deleteSave(timeS as string);
+                                {
+                                    const l = await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.list();
+                                    console.log(l);
+                                    thisRef.gmc!.fields['IndexDBSaveSelect'].settings.options = ['None'].concat(l);
+                                    thisRef.gmc!.fields['IndexDBSaveSelect'].reload();
+                                };
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         // 'LoadGameSaveStringFromClipboardResult': {
                         //     label: StringTable['LoadGameSaveStringFromClipboardResult'],
                         //     type: 'textarea',

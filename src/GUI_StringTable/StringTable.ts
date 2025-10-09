@@ -211,6 +211,7 @@ const StringTableKeys = [
     'ListIndexDBSave',
     'IndexDBSaveSelect',
     'LoadIndexDBSave',
+    'DeleteIndexDBSave',
 ] as const;
 
 export type StringTableTypeStringPart = { [key in typeof StringTableKeys[number]]: string; };
@@ -236,6 +237,9 @@ export interface StringTableType extends StringTableTypeStringPart {
 }
 
 export function getStringTable(): StringTableType {
+    if (localStorage.getItem("BondageClubLanguage") === 'CN') {
+        return StringTable_CN;
+    }
     // zh, zh-CN, zh-TW
     if (navigator.language.startsWith('zh')) {
         return StringTable_CN;

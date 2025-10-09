@@ -198,6 +198,7 @@ export const StringTable_EN: StringTableType = {
     ListIndexDBSave: 'ListIndexDBSave',
     IndexDBSaveSelect: 'IndexDBSaveSelect',
     LoadIndexDBSave: 'LoadIndexDBSave',
+    DeleteIndexDBSave: 'DeleteIndexDBSave',
 
     errorMessage2I18N(s: string): string {
         return s;

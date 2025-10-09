@@ -239,6 +239,7 @@ export const StringTable_CN: StringTableType = {
     ListIndexDBSave: '列出所有IndexDB中的存档',
     IndexDBSaveSelect: '选择要加载的存档',
     LoadIndexDBSave: '加载选中的存档',
+    DeleteIndexDBSave: '删除选中的存档',
 
     errorMessage2I18N(s: string): string {
         return s;

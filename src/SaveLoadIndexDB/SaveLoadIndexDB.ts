@@ -27,6 +27,10 @@ export class SaveLoadIndexDB {
         }
     }
 
+    public async deleteSave(time: string) {
+        return this.delete(time);
+    }
+
     getTimeString() {
         return moment().format('YYYY-MM-DD_HH:mm:ss.SSS');
     }
