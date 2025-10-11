@@ -69,6 +69,8 @@ export const WearsList = {
     // Game Collect From Mod
     Bubble: "Bubble",
     SlimeBubble: "SlimeBubble",
+    Resin: "Resin",
+    IceCrystal: "IceCrystal",
     LatexCube: "LatexCube",
     Sarcophagus: "Sarcophagus",
     DisplayTrap: "DisplayTrap",
@@ -113,11 +115,11 @@ class RestraintBase {
 
     WearRestraints = (
         restraints = "",
-        lock = LockList.Gold,
+        lock = LockList.None,
         faction?: (keyof (typeof KinkyDungeonFactionColors)),
         forceWearIt: boolean = false,
     ) => {
-        let realLock: string = LockList2RealLock(lock);
+        let realLock: string | undefined = LockList2RealLock(lock);
         // lock can be Purple Red White Blue Gold
         // Red White is normal key
         // Blue is magic key
@@ -424,8 +426,8 @@ export class RestraintCustomWear extends Restraint {
         });
     }
 
-    lockAWearingRestraintItem(item: item, lock: LockList = LockList.Purple) {
-        KinkyDungeonLock(item, LockList2RealLock(lock));
+    lockAWearingRestraintItem(item: item, lock: LockList = LockList.None) {
+        KinkyDungeonLock(item, LockList2RealLock(lock) ?? '');
     }
 
     unlockAWearingRestraintItem(item: item, NoEvent = false) {
@@ -751,9 +753,6 @@ export class CurseWears {
     }
 
 
-
-
-
 }
 
 export class EnchantsPatcher {
@@ -862,9 +861,6 @@ export class CurseWearHook<ReturnValueType> {
 // function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold, Type, Data)
 
 // KinkyDungeonLock(Lockable[L], l); // Lock it!
-
-
-
 
 
 // TODO wear CurseWear selected

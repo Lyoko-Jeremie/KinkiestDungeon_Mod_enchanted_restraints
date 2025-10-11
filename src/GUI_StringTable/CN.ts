@@ -3,6 +3,8 @@ import {StringTableType, WearStringTableInterface} from "./StringTable";
 const WearStringTable_CN: WearStringTableInterface = {
     WearBanditLeg: "奴隶套装",
     WearBubble: "泡泡套装()",
+    WearResin: "树脂固化",
+    WearIceCrystal: "冰封",
     WearDisplayTrap: "展示架()",
     WearDivine: "神圣套装",
     WearDollStand: "玩偶架()",

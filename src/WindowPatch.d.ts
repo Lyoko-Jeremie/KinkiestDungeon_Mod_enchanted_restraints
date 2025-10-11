@@ -55,57 +55,88 @@ declare global {
     var KinkyDungeonAddRestraintText: (name, displayName, flavorText, functionText) => void;
 
     /**
-     * @param {restraint} restraint
-     * @param {number} Tightness
-     * @param {boolean} [Bypass]
-     * @param {string} [Lock]
-     * @param {boolean} [Keep]
-     * @param {boolean} [Link]
-     * @param {boolean} [SwitchItems]
-     * @param {KinkyDungeonEvent[]} [events]
-     * @param {boolean} [Unlink]
-     * @param {string} [faction]
-     * @param {item} [dynamicLink]
-     * @param {string} [Curse] - Curse to apply
-     * @param {boolean} [autoMessage] - Whether or not to automatically dispatch messages
-     * @param {entity} [securityEnemy] - Whether or not to automatically dispatch messages
-     * @returns
+     * @param restraint
+     * @param Tightness
+     * @param [Bypass]
+     * @param [Lock]
+     * @param [Keep]
+     * @param [Link]
+     * @param [SwitchItems]
+     * @param [events]
+     * @param [faction]
+     * @param [Unlink]
+     * @param [dynamicLink]
+     * @param [Curse] - Curse to apply
+     * @param [autoMessage] - Whether or not to automatically dispatch messages
+     * @param [securityEnemy] - Whether or not to automatically dispatch messages
+     * @param [inventoryAs] - InventoryAs for the item
+     * @param [data] - data for the item
+     * @param [powerBonus] - bonus power
+     * @param [NoEvent]
      */
     var KinkyDungeonAddRestraint: (
-        restraint: restraint,
-        Tightness: number,
-        Bypass: boolean,
-        Lock: string,
-        Keep?: boolean,
-        Link?: boolean,
-        SwitchItems?: boolean,
-        events?: KinkyDungeonEvent[],
-        faction?: string,
-        Unlink?: boolean,
-        dynamicLink?: item,
-        Curse?: boolean,
-        autoMessage = true,
-        securityEnemy: entity | undefined = undefined,
+        restraint:      restraint,
+        Tightness:      number,
+        Bypass?:        boolean,
+        Lock?:          string,
+        Keep?:          boolean,
+        Link?:          boolean,
+        SwitchItems?:   boolean,
+        events?:        KinkyDungeonEvent[],
+        faction?:       string,
+        Unlink?:        boolean,
+        dynamicLink?:   item,
+        Curse?:         string,
+        autoMessage:    boolean = true,
+        securityEnemy:  entity = undefined,
+        inventoryAs:    string = undefined,
+        data?:          Record<string, number>,
+        powerBonus:     number = 0,
+        NoEvent:        boolean = false,
+        ForceRemove:	boolean = false,
+        NoActionPrune: boolean = false,
+        flags?: Record<string, number>,
     ) => number;
 
+    /**
+     * @param restraint
+     * @param [Tightness]
+     * @param [Bypass]
+     * @param [Lock]
+     * @param [Keep]
+     * @param [Trapped] - Deprecated do not use
+     * @param [events]
+     * @param [faction]
+     * @param [Deep] - whether or not it can go deeply in the stack
+     * @param [Curse] - Curse to apply
+     * @param [securityEnemy] - Bypass is treated separately for these groups
+     * @param [useAugmentedPower] - Augment power to keep consistency
+     * @param [inventoryAs] - inventoryAs for the item
+     * @param [data] - data for the item
+     * @param [augmentedInventory]
+     * @param [variant] - variant for the item
+     * @param [powerBonus] - 0 without variant
+     */
     function KinkyDungeonAddRestraintIfWeaker(
-        restraint: restraint | string,
-        Tightness?: number,
-        Bypass?: boolean,
-        Lock?: string,
-        Keep?: boolean,
-        Trapped?: boolean,
-        events?: KinkyDungeonEvent[],
-        faction?: string,
-        Deep?: boolean,
-        Curse?: string,
-        securityEnemy?: entity,
-        useAugmentedPower?: boolean,
-        inventoryAs?: string,
-        data?: Record<string, any>,
-        augmentedInventory?: string[],
-        variant?: ApplyVariant,
-        powerBonus: number = 0
+        restraint:            restraint | string,
+        Tightness?:           number,
+        Bypass?:              boolean,
+        Lock?:                string,
+        Keep?:                boolean,
+        Trapped?:             boolean,
+        events?:              KinkyDungeonEvent[],
+        faction?:             string,
+        Deep?:                boolean,
+        Curse?:               string,
+        securityEnemy?:       entity,
+        useAugmentedPower?:   boolean,
+        inventoryAs?:         string,
+        data?:                Record<string, any>,
+        augmentedInventory?:  string[],
+        variant?:             ApplyVariant,
+        powerBonus:           number = 0,
+        NoActionPrune: boolean = false,
+        options?:            eligibleRestraintOptions
     ): number;
 
     /**

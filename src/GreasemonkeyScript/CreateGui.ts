@@ -1479,8 +1479,12 @@ export class CreateGui {
                         'LockSelect': {
                             label: StringTable['LockSelect'],
                             type: 'select',
-                            value: LockList.Purple,
-                            options: Object.values(KDLocksTypeInstance.KDLocks).map(T => LockList2HumanName(T)),
+                            value: LockList.None,
+                            options: (() => {
+                                const l = Object.values(KDLocksTypeInstance.KDLocks).map(T => LockList2HumanName(T));
+                                l.unshift(LockList2HumanName(LockList.None));
+                                return l;
+                            })(),
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
                         },
@@ -1488,7 +1492,11 @@ export class CreateGui {
                             label: StringTable['FactionSelect'],
                             type: 'select',
                             value: 'None',
-                            options: Object.keys(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.kinkyDungeonFactionColors).concat(['None']),
+                            options: (() => {
+                                const fa = Object.keys(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.kinkyDungeonFactionColors);
+                                fa.unshift('None');
+                                return fa;
+                            })(),
                             cssClassName: 'd-inline',
                             cssStyleText: 'margin-right: 0.25em;',
                         },
@@ -1501,12 +1509,11 @@ export class CreateGui {
                                 label: StringTable.Wear2I18N('Wear' + WK),
                                 type: 'button',
                                 click() {
-                                    const faction = thisRef.gmc!.fields['FactionSelect'].toValue();
+                                    let faction = thisRef.gmc!.fields['FactionSelect'].toValue();
                                     // (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats as Restraint)[('Wear' + WK) as WearMethodsInterfaceKey];
                                     (<Restraint>thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats)[<WearMethodsInterfaceKey>('Wear' + WK)](
                                         HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
-                                        faction as KinkyDungeonFactionColors_Keys,
-                                        // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                        faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
                                     // (thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats as Restraint).WearCrystal(LockList.Purple);
                                 },
@@ -1544,8 +1551,7 @@ export class CreateGui {
                                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
                                     c,
                                     HumanName2LockList(thisRef.gmc!.fields['LockSelect'].value as string),
-                                    faction as KinkyDungeonFactionColors_Keys,
-                                    // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                    faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                 );
                             },
                             cssClassName: 'd-inline',
@@ -1587,8 +1593,7 @@ export class CreateGui {
                                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
                                         cc[0],
                                         HumanName2LockList(thisRef.gmc!.fields['LockSelect'].toValue() as string),
-                                        faction as KinkyDungeonFactionColors_Keys,
-                                        // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                        faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
                                     thisRef.flushNowWearRestraintItemSelect();
                                 }
@@ -1687,8 +1692,7 @@ export class CreateGui {
                                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
                                         cc[0],
                                         HumanName2LockList(thisRef.gmc!.fields['LockSelect'].toValue() as string),
-                                        faction as KinkyDungeonFactionColors_Keys,
-                                        // faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
+                                        faction === 'None' ? undefined : faction as KinkyDungeonFactionColors_Keys,
                                     );
                                     thisRef.flushNowWearRestraintItemSelect();
                                 }
@@ -2323,7 +2327,8 @@ export class CreateGui {
                                     console.log(l);
                                     thisRef.gmc!.fields['IndexDBSaveSelect'].settings.options = ['None'].concat(l);
                                     thisRef.gmc!.fields['IndexDBSaveSelect'].reload();
-                                };
+                                }
+                                ;
                             },
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
