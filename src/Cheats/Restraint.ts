@@ -64,6 +64,8 @@ export const WearsList = {
     LiquidMetal: 'LiquidMetalBoots LiquidMetalFeet LiquidMetalLegs LiquidMetalArms LiquidMetalHands LiquidMetalMouth LiquidMetalHead',
     // Vibration
     VibrationEnchanted: "EnchantedMaidVibe EnchantedNippleClamps EnchantedSteelPlugF EnchantedSteelPlugR",
+    // 胶带（绷带）
+    DuctTape: "DuctTapeRaw DuctTapeCollar DuctTapeHands DuctTapeArms DuctTapeFeet DuctTapeBoots DuctTapeLegs DuctTapeHead DuctTapeMouth DuctTapeHeadMummy DuctTapeArmsMummy DuctTapeLegsMummy DuctTapeFeetMummy",
     // Game Collect From Mod
     Bubble: "Bubble",
     SlimeBubble: "SlimeBubble",

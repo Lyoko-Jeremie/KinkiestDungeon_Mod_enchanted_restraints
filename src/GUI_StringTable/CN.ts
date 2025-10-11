@@ -35,6 +35,7 @@ const WearStringTable_CN: WearStringTableInterface = {
     WearTrapVibeProto: "原始震动系列",
     WearVibe: "震动套装",
     WearVibrationEnchanted: "远古震动套装",
+    WearDuctTape: "绷带套装",
     WearVinePlant: "藤曼套装",
     WearWolf: "狼女套装",
     WearCyberDoll: "网络娃娃套装",
