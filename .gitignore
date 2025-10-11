@@ -10,6 +10,10 @@
 #!.yarn/cache
 #.pnp.*
 
+.idea/copilot.*
+
+test/
+
 node_modules
 dist
 
