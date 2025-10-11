@@ -76,6 +76,7 @@ export const StringTable_CN: StringTableType = {
     AddAllWeapon: '添加全部武器Weapon到背包',
     AddAllKeyTools: '添加全部常规解锁工具',
     RemoveAllKeyTools: '移除全部常规解锁工具',
+    AddRecyclerInput: '添加全部回收原料',
     'SpellPoints Section': '技能点 Section',
     AddSpellPoints: '添加技能点',
     ZeroSpellPoints: '清零技能点',

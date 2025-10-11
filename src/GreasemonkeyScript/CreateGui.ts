@@ -462,6 +462,16 @@ export class CreateGui {
                             cssClassName: 'd-inline',
                             xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
                         },
+                        'AddRecyclerInput': {
+                            label: StringTable ['AddRecyclerInput'],
+                            type: 'button',
+                            click() {
+                                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddRecyclerInput();
+                                thisRef.playDing(PlayDingType.ding);
+                            },
+                            cssClassName: 'd-inline',
+                            xgmExtendField: {bootstrap: {btnType: thisRef.btnType}},
+                        },
                         [thisRef.rId()]: {
                             section: GM_config.create(StringTable['SpellPoints Section']),
                             type: 'br',

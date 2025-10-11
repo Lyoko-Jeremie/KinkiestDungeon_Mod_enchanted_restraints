@@ -30,6 +30,7 @@ const StringTableKeys = [
     'AddAllWeapon',
     'AddAllKeyTools',
     'RemoveAllKeyTools',
+    'AddRecyclerInput',
 
     'SpellPoints Section',
     'AddSpellPoints',

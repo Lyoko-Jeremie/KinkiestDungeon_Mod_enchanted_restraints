@@ -113,6 +113,26 @@ class FullCheatsBase extends Choice {
         })
     };
 
+    AddRecyclerInput = () => {
+        const inputKey: (keyof typeof KDGameData.FacilitiesData)[] = [
+            'RecyclerInput_Rope',
+            'RecyclerInput_Latex',
+            'RecyclerInput_Metal',
+            'RecyclerInput_Leather',
+            'RecyclerInput_Rune',
+            'Recycler_Rope',
+            'Recycler_Latex',
+            'Recycler_Metal',
+            'Recycler_Leather',
+            'Recycler_Rune',
+        ];
+        for (const k of inputKey) {
+            if (typeof KDGameData.FacilitiesData[k] === 'number') {
+                (KDGameData.FacilitiesData[k] as number) += 1000;
+            }
+        }
+    };
+
     //  /**
     //  *
     //  * @param {string} name

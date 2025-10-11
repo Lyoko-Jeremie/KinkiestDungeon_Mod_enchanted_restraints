@@ -33,6 +33,7 @@ export const StringTable_EN: StringTableType = {
     AddAllWeapon: 'AddAllWeapon',
     AddAllKeyTools: 'AddAllKeyTools',
     RemoveAllKeyTools: 'RemoveAllKeyTools',
+    AddRecyclerInput: 'AddRecyclerInput',
     'SpellPoints Section': 'SpellPoints Section',
     AddSpellPoints: 'SpellPoints',
     ZeroSpellPoints: 'ZeroSpellPoints',
