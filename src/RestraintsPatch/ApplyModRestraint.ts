@@ -1,7 +1,7 @@
 import {LockList, LockList2RealLock} from "../Cheats/LockList";
 
 export function ApplyModRestraint(lock?: LockList) {
-    let realLock: string = LockList2RealLock(lock, LockList.Gold);
+    let realLock: string | undefined = LockList2RealLock(lock, LockList.Gold);
     // all the order are important , because some of those will link each other
     // the thing change from origin
     let s =
