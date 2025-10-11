@@ -47,7 +47,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '1.87';
+        return '1.88';
     }
 
     // avoid same Math.random
