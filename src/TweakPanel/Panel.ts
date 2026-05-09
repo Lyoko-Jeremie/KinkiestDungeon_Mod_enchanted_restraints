@@ -40,6 +40,14 @@ export class Panel {
         this._apiRef = sharedApiRef ?? {};
     }
 
+    get hidden(): boolean {
+        return this.rootPane.hidden;
+    }
+
+    set hidden(value: boolean) {
+        this.rootPane.hidden = value;
+    }
+
     private createChild(container: PaneContainerApi): Panel {
         return new Panel('', container, this._state, this._apiRef, this.rootPane);
     }
