@@ -124,7 +124,7 @@ export class Panel {
 
         this._state[key] = hintText;
         // 3. 将元素插入到面板内部
-        this._apiRef[key] = this.rootPane.element.appendChild(hintText);
+        this._apiRef[key] = this.pane.element.appendChild(hintText);
         return this;
     }
 
