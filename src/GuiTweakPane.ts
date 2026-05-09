@@ -16,7 +16,16 @@ import {KDLocksTypeInstance, LockList} from "./Cheats/LockList";
 import {PatchSpell} from "./Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "./GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "./Sound/Sound";
-import {ButtonApi, Panel, ProxyHtmlElement, ProxyState, ProxyTextLabel} from "./TweakPanel/Panel";
+import {
+    BindingApi,
+    ButtonApi,
+    ListBindingApi,
+    Panel,
+    ProxyHtmlElement,
+    ProxyState,
+    ProxyTextLabel
+} from "./TweakPanel/Panel";
+import {DynamicCheatsHook} from "./Cheats/DynamicCheatsHook";
 
 KDOptOut = true;
 
@@ -164,7 +173,7 @@ export class CreateGuiTweakPane {
         }).map(T => T[1]).join('\n');
         // this.gmc!.fields['PrintNowAllReputationStateList'].value = rGod + '\n------------\n' + rFaction;
         // this.gmc!.fields['PrintNowAllReputationStateList'].reload();
-        const ref = this.pane?.getState<ProxyState<string>>('PrintNowAllReputationState');
+        const ref = this.pane?.getApiRef<HTMLTextAreaElement>('PrintNowAllReputationState');
         if (ref) {
             ref.value = rGod + '\n------------\n' + rFaction;
             this.pane?.refresh();
@@ -418,8 +427,7 @@ export class CreateGuiTweakPane {
             folder.addButton('PrintNowAllReputationState', StringTable['PrintNowAllReputationState'], () => {
                 thisRef.flushPrintNowAllReputationStateList();
             });
-            folder.addTextArea('PrintNowAllReputationState', StringTable['PrintNowAllReputationState'], '', () => {
-            });
+            folder.addHtmlElementTag('PrintNowAllReputationState', 'textarea');
         }
 
         // Bootstrap
@@ -486,30 +494,253 @@ export class CreateGuiTweakPane {
         {
             const folder = pane.addFolder('mod_DynamicHookCheatsSection', StringTable['Dynamic Hook Cheats Section']);
 
-            folder.addButton('DynamicHookEnableAlwaysCanUseAnyWeapon', StringTable['DynamicHookEnableAlwaysCanUseAnyWeapon'], () => {
-                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanUseAnyWeapon');
-                thisRef.playDing(PlayDingType.ding);
+            const hookWarp = <N extends keyof DynamicCheatsHook['hookTable']>(name: N) => {
+                return (v: boolean) => {
+                    if (v) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook(name);
+                        thisRef.playDing(PlayDingType.ding);
+                    } else {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook(name);
+                        thisRef.playDing(PlayDingType.dong);
+                    }
+                };
+            };
+
+            folder.addBoolean('DynamicHookEnableAlwaysCanUseAnyWeapon', StringTable['DynamicHookEnableAlwaysCanUseAnyWeapon'], false, hookWarp('AlwaysCanUseAnyWeapon'));
+            folder.addBoolean('DynamicHookEnableAlwaysCanDrink', StringTable['DynamicHookEnableAlwaysCanDrink'], false, hookWarp('AlwaysCanDrink'));
+            folder.addBoolean('DynamicHookEnableNeverMiscastMagic', StringTable['DynamicHookEnableNeverMiscastMagic'], false, hookWarp('NeverMiscastMagic'));
+            folder.addBoolean('DynamicHookEnableNeverSlow', StringTable['DynamicHookEnableNeverSlow'], false, hookWarp('NeverSlow'));
+            folder.addBoolean('DynamicHookEnableNeverMiss', StringTable['DynamicHookEnableNeverMiss'], false, hookWarp('NeverMiss'));
+            folder.addBoolean('DynamicHookEnableAlwaysCanUseMagic', StringTable['DynamicHookEnableAlwaysCanUseMagic'], false, hookWarp('AlwaysCanUseMagic'));
+        }
+
+        // Choice
+        {
+            const folder = pane.addFolder('mod_Choice', StringTable['Choice Section']);
+
+            folder.addButton('ChoiceAddCheatChoiceGoodEscape', StringTable['ChoiceAddCheatChoiceGoodEscape'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEscape();
             });
-            folder.addButton('DynamicHookDisableAlwaysCanUseAnyWeapon', StringTable['DynamicHookDisableAlwaysCanUseAnyWeapon'], () => {
-                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanUseAnyWeapon');
-                thisRef.playDing(PlayDingType.dong);
+            folder.addButton('ChoiceAddCheatChoiceGoodEnhance', StringTable['ChoiceAddCheatChoiceGoodEnhance'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEnhance();
             });
-            folder.addButton('DynamicHookEnableAlwaysCanDrink', StringTable['DynamicHookEnableAlwaysCanDrink'], () => {
-                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanDrink');
-                thisRef.playDing(PlayDingType.ding);
+            folder.addButton('ChoiceAddCheatChoiceGoodMid', StringTable['ChoiceAddCheatChoiceGoodMid'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodMid();
             });
-            folder.addButton('DynamicHookDisableAlwaysCanDrink', StringTable['DynamicHookDisableAlwaysCanDrink'], () => {
-                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanDrink');
-                thisRef.playDing(PlayDingType.dong);
+            folder.addButton('ChoiceAddCheatChoiceBadMid', StringTable['ChoiceAddCheatChoiceBadMid'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadMid();
             });
-            folder.addButton('DynamicHookEnableAlwaysCanDrink', StringTable['DynamicHookEnableAlwaysCanDrink'], () => {
-                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanDrink');
-                thisRef.playDing(PlayDingType.ding);
+            folder.addButton('ChoiceAddCheatChoiceMid', StringTable['ChoiceAddCheatChoiceMid'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMid();
             });
-            folder.addButton('DynamicHookDisableAlwaysCanDrink', StringTable['DynamicHookDisableAlwaysCanDrink'], () => {
-                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanDrink');
-                thisRef.playDing(PlayDingType.dong);
+            folder.addButton('ChoiceAddCheatChoiceSex', StringTable['ChoiceAddCheatChoiceSex'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSex();
             });
+            folder.addButton('ChoiceAddCheatChoiceSexRemove', StringTable['ChoiceAddCheatChoiceSexRemove'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSex(true);
+            });
+            folder.addButton('ChoiceAddCheatChoiceSexClean', StringTable['ChoiceAddCheatChoiceSexClean'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSexClean();
+            });
+            folder.addButton('ChoiceAddCheatChoiceBadNegative', StringTable['ChoiceAddCheatChoiceBadNegative'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNegative();
+            });
+            folder.addButton('ChoiceAddCheatChoiceBadNoEscape', StringTable['ChoiceAddCheatChoiceBadNoEscape'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNoEscape();
+            });
+            folder.addButton('ChoiceAddCheatChoiceGoodVision', StringTable['ChoiceAddCheatChoiceGoodVision'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodVision();
+            });
+            folder.addButton('ChoiceAddCheatChoiceBadVision', StringTable['ChoiceAddCheatChoiceBadVision'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadVision();
+            });
+            folder.addButton('ChoiceAddCheatChoiceMoreKinkyFurniture', StringTable['ChoiceAddCheatChoiceMoreKinkyFurniture'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMoreKinkyFurniture();
+            });
+            folder.addButton('ChoiceAddCheatChoiceMap', StringTable['ChoiceAddCheatChoiceMap'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMap();
+            });
+            folder.addButton('ChoiceAddCheatChoiceMapAbsurd', StringTable['ChoiceAddCheatChoiceMapAbsurd'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMapAbsurd();
+            });
+            folder.addButton('ChoiceAddCheatChoiceNowhere', StringTable['ChoiceAddCheatChoiceNowhere'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceNowhere();
+            });
+            folder.addButton('ChoiceAddCheatChoiceSuperMarket', StringTable['ChoiceAddCheatChoiceSuperMarket'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSuperMarket();
+            });
+            folder.addSeparator();
+            folder.addSeparator();
+            folder.addButton('ChoicePrintNowChoice', StringTable['ChoicePrintNowChoice'], () => {
+                folder.getApiRef<HTMLTextAreaElement>('NowChoiceList')!.value =
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintNowChoice();
+                folder.refresh();
+            });
+            folder.addHtmlElementTag('NowChoiceList', 'textarea');
+        }
+
+        // ChoiceAddOne
+        {
+            const folder = pane.addFolder('mod_ChoiceAddOne', StringTable['ChoiceAddOne Section']);
+
+            folder.addDropDown(
+                'ChoiceSelect',
+                StringTable['ChoiceSelect'],
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
+                    .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`),
+                () => {
+                },
+            );
+            folder.addButton('ChoiceAddOne', StringTable['ChoiceAddOne'], () => {
+                const c = folder.getState<ProxyState>('ChoiceSelect')!.value;
+                if (c) {
+                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                    });
+                    if (N) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName);
+                    }
+                }
+            });
+            folder.addButton('ChoiceRemoveOne', StringTable['ChoiceRemoveOne'], () => {
+                const c = folder.getState<ProxyState>('ChoiceSelect')!.value;
+                if (c) {
+                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                    });
+                    if (N) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName, true);
+                    }
+                }
+            });
+            folder.addSeparator();
+            folder.addTextInput('ChoiceAddOneFilterInput', StringTable['ChoiceAddOneFilterInput'], '', (value) => {
+            });
+            folder.getApiRef<ButtonApi>('ChoiceAddOneFilterInput')!.element.addEventListener('keyup', (ev) => {
+                const searchKey = folder.getState<ProxyState>('ChoiceAddOneFilterInput')!.value;
+                console.log('searchKey', searchKey);
+                if (!isString(searchKey)) {
+                    console.warn('ChoiceAddOneFilterInput searchKey is not string', searchKey);
+                    return;
+                }
+                const ref = folder.getApiRef<ListBindingApi>('ChoiceAddOneFilterSelect')!;
+                if (searchKey.length === 0) {
+                    ref.options = [];
+                    thisRef.lastSearch.delete('ChoiceAddOneFilter');
+                    ref.refresh();
+                    return;
+                }
+                const searchKeySearch = searchKey.toLowerCase();
+                ref.options =
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
+                        .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`)
+                        .filter(T =>
+                            T.toLowerCase().includes(searchKeySearch)
+                        )/*.concat(['None'])*/.map(T => ({text: T, value: T}));
+                thisRef.lastSearch.set('ChoiceAddOneFilter', searchKeySearch);
+                ref.refresh();
+            });
+            folder.addDropDown('ChoiceAddOneFilterSelect', StringTable['ChoiceAddOneFilterSelect'],
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
+                    .map(T => `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`)
+                    .filter(T => T.toLowerCase().includes(thisRef.lastSearch.get('ChoiceAddOneFilter'))),
+                () => {
+                },
+            );
+            folder.addButton('ChoiceFilterAddOne', StringTable['ChoiceFilterAddOne'], () => {
+                const c = folder.getState<ProxyState>('ChoiceAddOneFilterSelect')!.value;
+                if (c && isString(c) && c.length > 0) {
+                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                    });
+                    if (N) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName);
+                    }
+                }
+            });
+            folder.addButton('ChoiceFilterRemoveOne', StringTable['ChoiceFilterRemoveOne'], () => {
+                const c = folder.getState<ProxyState>('ChoiceAddOneFilterSelect')!.value;
+                if (c && isString(c) && c.length > 0) {
+                    const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
+                        return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
+                    });
+                    if (N) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N.keyName, true);
+                    }
+                }
+            });
+        }
+
+        // ChoicePrint
+        {
+            const folder = pane.addFolder('mod_ChoicePrint', StringTable['ChoicePrint Section']);
+
+            folder.addButton('ChoicePrintAllValidChoice', StringTable['ChoicePrintAllValidChoice'], () => {
+                folder.getApiRef<HTMLTextAreaElement>('ChoicePrintAllValidChoiceList')!.value =
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoice();
+                folder.refresh();
+            });
+            folder.addHtmlElementTag('ChoicePrintAllValidChoiceList', 'textarea');
+        }
+
+        // Spells
+        {
+            const folder = pane.addFolder('mod_Spells', StringTable['Spells Section']);
+        }
+
+        // DebugSee
+        {
+            const folder = pane.addFolder('mod_DebugSee', StringTable['DebugSee Section']);
+        }
+
+        // WearRestraints
+        {
+            const folder = pane.addFolder('mod_WearRestraints', StringTable['WearRestraints Section']);
+        }
+
+        // AllRestraintItemSection
+        {
+            const folder = pane.addFolder('mod_AllRestraintItemSection', StringTable['AllRestraintItemSection']);
+        }
+
+        // AllRestraintItemFilterSection
+        {
+            const folder = pane.addFolder('mod_AllRestraintItemFilterSection', StringTable['AllRestraintItemFilterSection']);
+        }
+
+        // NowWearRestraintItemSection
+        {
+            const folder = pane.addFolder('mod_NowWearRestraintItemSection', StringTable['NowWearRestraintItemSection']);
+        }
+
+        // Quest
+        {
+            const folder = pane.addFolder('mod_Quest', StringTable['Quest Section']);
+        }
+
+        // OpenChest
+        {
+            const folder = pane.addFolder('mod_OpenChest', StringTable['OpenChest Section']);
+        }
+
+        // Map Cheats
+        {
+            const folder = pane.addFolder('mod_MapCheats', StringTable['Map Cheats Section']);
+        }
+
+        // HardMode
+        {
+            const folder = pane.addFolder('mod_HardMode', StringTable['HardMode Section']);
+        }
+
+        // SaveLoad
+        {
+            const folder = pane.addFolder('mod_SaveLoad', StringTable['SaveLoad Section']);
+        }
+
+        // SaveLoad IndexDB Section Demo
+        {
+            const folder = pane.addFolder('mod_SaveLoadIndexDBSectionDemo', StringTable['SaveLoad IndexDB Section Demo']);
         }
 
         return pane;
