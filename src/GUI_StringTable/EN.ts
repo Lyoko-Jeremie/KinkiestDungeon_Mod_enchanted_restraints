@@ -6,12 +6,14 @@ export const StringTable_EN: StringTableType = {
     'install EnchantedRestraints Mod Section': 'install EnchantedRestraints Mod Section',
     install_EnchantedRestraintsPatch: 'click to init Mod | install EnchantedRestraintsPatch',
     isInstalled: 'isInstalled',
+    isModInit: 'isModInit',
     isModInitMask(s: boolean): string {
         return `isModInit:${s}`
     },
     isInstalledMask(s: boolean): string {
         return `isEnchantedRestraintsPatchInstalled:${s}`
     },
+    isAutoInstallEnchantedRestraintsPatch: 'isAutoInstallEnchantedRestraints',
     isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string {
         return `isAutoInstallEnchantedRestraintsPatch:${s} (Auto Install need restart)[unselect if you don't like it ==>]`
     },

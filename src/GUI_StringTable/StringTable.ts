@@ -9,6 +9,8 @@ const StringTableKeys = [
     'install EnchantedRestraints Mod Section',
     'install_EnchantedRestraintsPatch',
     'isInstalled',
+    'isModInit',
+    'isAutoInstallEnchantedRestraintsPatch',
 
     'ApplyModRestraint Section',
     'ApplyModRestraint',

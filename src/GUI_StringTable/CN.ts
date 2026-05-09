@@ -52,12 +52,14 @@ export const StringTable_CN: StringTableType = {
     'install EnchantedRestraints Mod Section': '安装 Enchanted Restraints Mod Section',
     install_EnchantedRestraintsPatch: '点击初始化 Mod | 安装 EnchantedRestraintsPatch',
     isInstalled: '是否已安装',
+    isModInit: '是否已初始化',
     isModInitMask(s: boolean): string {
         return `是否已初始化 Mod: ${s ? '是Yes' : '否No'}`
     },
     isInstalledMask(s: boolean): string {
         return `是否已安装 EnchantedRestraintsPatch <更多远古套装补丁>: ${s ? '是Yes' : '否No'}`
     },
+    isAutoInstallEnchantedRestraintsPatch: '是否自动安装 <更多远古套装补丁>',
     isAutoInstallEnchantedRestraintsPatchMask(s: boolean): string {
         return `是否自动安装 <更多远古套装补丁>: ${s ? '是Yes' : '否No'} (自动安装重启生效) [不喜欢更多古套装请取消勾选==>]`
     },
