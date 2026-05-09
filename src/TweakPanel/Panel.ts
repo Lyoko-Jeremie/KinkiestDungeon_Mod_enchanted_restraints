@@ -1,15 +1,15 @@
 import {Pane} from 'tweakpane';
 
-type BladeApi = ReturnType<Pane['addBlade']>;
-type ButtonApi = ReturnType<Pane['addButton']>;
-type FolderApi = ReturnType<Pane['addFolder']>;
-type TabApi = ReturnType<Pane['addTab']>;
-type TabPageApi = ReturnType<Pane['addTab']>['pages'][number];
-type BindingApi = ReturnType<Pane['addBinding']>;
-type PaneUiApi = ButtonApi | FolderApi | TabApi | BindingApi | BladeApi;
-type PaneContainerApi = Pane | FolderApi | TabPageApi;
-type OptionItem = string | { name: string; id: any };
-type TabItem = string | { id?: string; title: string; build?: (panel: Panel) => void };
+export type BladeApi = ReturnType<Pane['addBlade']>;
+export type ButtonApi = ReturnType<Pane['addButton']>;
+export type FolderApi = ReturnType<Pane['addFolder']>;
+export type TabApi = ReturnType<Pane['addTab']>;
+export type TabPageApi = ReturnType<Pane['addTab']>['pages'][number];
+export type BindingApi = ReturnType<Pane['addBinding']>;
+export type PaneUiApi = ButtonApi | FolderApi | TabApi | BindingApi | BladeApi;
+export type PaneContainerApi = Pane | FolderApi | TabPageApi;
+export type OptionItem = string | { name: string; id: any };
+export type TabItem = string | { id?: string; title: string; build?: (panel: Panel) => void };
 
 export class ProxyTextLabel {
     constructor(
@@ -65,6 +65,17 @@ export class ProxyState<T> {
                 return true;
             },
         }) as ProxyState<T>;
+    }
+}
+
+export class ProxyHtmlElement<T extends HTMLElement> {
+    constructor(
+        public element: T,
+    ) {
+    }
+
+    replace(element: HTMLElement) {
+        this.element.replaceWith(element);
     }
 }
 
@@ -125,6 +136,17 @@ export class Panel {
         return this.rootPane;
     }
 
+    checkNewKey(key?: string) {
+        if (!key) {
+            // ignore
+            return;
+        }
+        if (key in this._state || key in this._apiRef) {
+            console.warn(`Key [${key}] already exists in panel state or API reference`, this._state[key], this._apiRef[key]);
+            return;
+        }
+    }
+
     // 封装下拉菜单
     addDropDown(
         key: string,
@@ -132,6 +154,7 @@ export class Panel {
         options: OptionItem[],
         callback: (value: any) => void,
     ): Panel {
+        this.checkNewKey(key);
         if (options.length === 0) {
             throw new Error(`Panel.addDropDown(${key}) options cannot be empty`);
         }
@@ -168,6 +191,7 @@ export class Panel {
         defaultValue: boolean,
         callback: (value: boolean) => void,
     ): Panel {
+        this.checkNewKey(key);
         this._state[key] = new ProxyState(key, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
@@ -186,6 +210,7 @@ export class Panel {
         label: string,
         callback: () => void,
     ): Panel {
+        this.checkNewKey(key);
         this._apiRef[key] = this.pane.addButton({title: label}).on('click', callback);
         return this;
     }
@@ -194,6 +219,7 @@ export class Panel {
         key: string,
         label: string,
     ): Panel {
+        this.checkNewKey(key);
         // 1. 创建一个原生的 div 元素
         const hintText = document.createElement('div');
         hintText.textContent = label;
@@ -214,6 +240,7 @@ export class Panel {
     addSeparator(
         key?: string,
     ): Panel {
+        this.checkNewKey(key);
         const r = this.pane.addBlade({
             view: 'separator',
         });
@@ -229,6 +256,7 @@ export class Panel {
         defaultValue: number,
         callback: (value: number) => void,
     ): Panel {
+        this.checkNewKey(key);
         this._state[key] = new ProxyState(key, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
@@ -249,6 +277,7 @@ export class Panel {
         defaultValue: number,
         callback: (value: number) => void,
     ): Panel {
+        this.checkNewKey(key);
         this._state[key] = new ProxyState(key, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
@@ -272,6 +301,7 @@ export class Panel {
         defaultValue: number,
         callback: (value: number) => void,
     ): Panel {
+        this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
@@ -292,6 +322,7 @@ export class Panel {
         title: string,
         build?: (panel: Panel) => void,
     ): Panel {
+        this.checkNewKey(key);
         const folder = this.pane.addFolder({title: title});
         this._apiRef[key] = folder;
         if (build) {
@@ -305,6 +336,7 @@ export class Panel {
         pages: TabItem[],
         onSelect?: (pageId: string, index: number) => void,
     ) {
+        this.checkNewKey(key);
         if (pages.length === 0) {
             throw new Error(`Panel.addTab(${key}) pages cannot be empty`);
         }
@@ -348,6 +380,44 @@ export class Panel {
         });
 
         return tab.pages;
+    }
+
+    addHtmlElement<T extends HTMLElement>(
+        key: string,
+        element: T,
+    ) {
+        this.checkNewKey(key);
+        // // 1. 创建一个原生的 div 元素
+        // const divElement = document.createElement('div');
+        //
+        // // 2. 添加一些简单的样式，可以利用 Tweakpane 内置的 CSS 变量保持风格统一
+        // divElement.style.padding = '8px 12px';
+        // // divElement.style.color = 'var(--tp-label-foreground-color)'; // 跟随面板主题文字颜色
+        // // divElement.style.fontSize = '12px';
+        // // divElement.style.lineHeight = '1.4';
+        // // divElement.style.borderBottom = '1px solid var(--tp-container-background-color)';
+
+        this._state[key] = new ProxyHtmlElement(element);
+        // 3. 将元素插入到面板内部
+        this._apiRef[key] = this.pane.element.appendChild(element);
+        return this;
+    }
+
+    addHtmlElementText(
+        key: string,
+        elementS: string,
+    ) {
+        const div = document.createElement('div');
+        div.innerHTML = elementS;
+        return this.addHtmlElement(key, div.childNodes.length === 1 ? div.childNodes[0] as HTMLElement : div);
+    }
+
+    addHtmlElementTag(
+        key: string,
+        tagName: Parameters<typeof document['createElement']>[0],
+    ) {
+        const el = document.createElement(tagName);
+        return this.addHtmlElement(key, el);
     }
 
 }
