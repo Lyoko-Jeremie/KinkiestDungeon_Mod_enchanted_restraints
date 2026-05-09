@@ -1,4 +1,8 @@
-import {Pane} from 'tweakpane';
+import {Pane, type InputBindingApi} from 'tweakpane';
+
+interface ListOptions<T> {
+    options: Array<{ text: string; value: T }>;
+}
 
 export type BladeApi = ReturnType<Pane['addBlade']>;
 export type ButtonApi = ReturnType<Pane['addButton']>;
@@ -6,7 +10,8 @@ export type FolderApi = ReturnType<Pane['addFolder']>;
 export type TabApi = ReturnType<Pane['addTab']>;
 export type TabPageApi = ReturnType<Pane['addTab']>['pages'][number];
 export type BindingApi = ReturnType<Pane['addBinding']>;
-export type PaneUiApi = ButtonApi | FolderApi | TabApi | BindingApi | BladeApi;
+export type ListBindingApi<T extends any = any> = BindingApi & ListOptions<T>;
+export type PaneUiApi = ButtonApi | FolderApi | TabApi | BindingApi | BladeApi | ListBindingApi;
 export type PaneContainerApi = Pane | FolderApi | TabPageApi;
 export type OptionItem = string | { name: string; id: any };
 export type TabItem = string | { id?: string; title: string; build?: (panel: Panel) => void };
@@ -443,6 +448,27 @@ export class Panel {
             label: label,
             title: label,
             multiline: true,
+        }).on('change', (ev: any) => {
+            callback?.(ev.value);
+        });
+        return this;
+    }
+
+    addTextInput(
+        key: string,
+        label: string,
+        defaultValue: string,
+        callback?: (value: string) => void,
+    ): Panel {
+        this.checkNewKey(key);
+        this._state[key] = new ProxyState(label, defaultValue);
+        // this._state[key] = {
+        //     [label]: defaultValue,
+        // };
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
+            label: label,
+            title: label,
+            multiline: false,
         }).on('change', (ev: any) => {
             callback?.(ev.value);
         });
