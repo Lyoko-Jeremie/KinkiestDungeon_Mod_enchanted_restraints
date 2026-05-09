@@ -161,7 +161,10 @@ export class TweakPanel {
             this.pane = pane;
             this.rootPane = rootPane!;
         } else {
-            this.rootPane = new Pane({title: title});
+            this.rootPane = new Pane({
+                title: title,
+                expanded: false,
+            });
             this.pane = this.rootPane;
         }
 
@@ -472,11 +475,20 @@ export class TweakPanel {
 
     addHtmlElementText(
         key: string,
-        elementS: string,
+        innerHTMLString: string,
     ) {
         const div = document.createElement('div');
-        div.innerHTML = elementS;
+        div.innerHTML = innerHTMLString;
         return this.addHtmlElement(key, div.childNodes.length === 1 ? div.childNodes[0] as HTMLElement : div);
+    }
+
+    addHtmlInner(
+        key: string,
+        innerHTML: string,
+    ) {
+        const div = document.createElement('div');
+        div.innerHTML = innerHTML;
+        return this.addHtmlElement(key, div);
     }
 
     addHtmlElementTag(
