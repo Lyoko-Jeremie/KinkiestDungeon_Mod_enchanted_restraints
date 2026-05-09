@@ -4,33 +4,63 @@ type BladeApi = ReturnType<Pane['addBlade']>;
 type ButtonApi = ReturnType<Pane['addButton']>;
 type FolderApi = ReturnType<Pane['addFolder']>;
 type TabApi = ReturnType<Pane['addTab']>;
+type TabPageApi = ReturnType<Pane['addTab']>['pages'][number];
 type BindingApi = ReturnType<Pane['addBinding']>;
 type PaneUiApi = ButtonApi | FolderApi | TabApi | BindingApi | BladeApi;
+type PaneContainerApi = Pane | FolderApi | TabPageApi;
+type OptionItem = string | { name: string; id: any };
+type TabItem = string | { id?: string; title: string; build?: (panel: Panel) => void };
 
 export class Panel {
 
-    private pane: Pane;
+    // 当前容器（Pane / Folder / Tab page），所有 add* 都作用于它
+    private pane: PaneContainerApi;
+    // 始终指向顶层 Pane，用于根级 DOM 访问
+    private rootPane: Pane;
     private _state: Record<string, any>;
     private _apiRef: Record<string, PaneUiApi | HTMLElement>;
 
-    constructor(title: string) {
-        this.pane = new Pane({title: title});
+    constructor(
+        title: string,
+        pane?: PaneContainerApi,
+        sharedState?: Record<string, any>,
+        sharedApiRef?: Record<string, PaneUiApi | HTMLElement>,
+        rootPane?: Pane,
+    ) {
+        if (pane) {
+            this.pane = pane;
+            this.rootPane = rootPane!;
+        } else {
+            this.rootPane = new Pane({title: title});
+            this.pane = this.rootPane;
+        }
 
-        // 【核心秘诀】：在内部偷偷建一个黑盒对象，外部完全不需要知道它的存在
-        this._state = {};
-        this._apiRef = {};
+        // 内部黑盒状态和 API 引用，子容器共用同一份
+        this._state = sharedState ?? {};
+        this._apiRef = sharedApiRef ?? {};
+    }
+
+    private createChild(container: PaneContainerApi): Panel {
+        return new Panel('', container, this._state, this._apiRef, this.rootPane);
+    }
+
+    getPane(): Pane {
+        return this.rootPane;
     }
 
     // 封装下拉菜单
     addDropDown(
         key: string,
         label: string,
-        options: Array<string | { name: string; id: any }>,
+        options: OptionItem[],
         callback: (value: any) => void,
     ): Panel {
+        if (options.length === 0) {
+            throw new Error(`Panel.addDropDown(${key}) options cannot be empty`);
+        }
         // Tweakpane 需要的 options 格式是 { '显示名': '值' }
         const optionsMap: Record<string, any> = {};
-        options.forEach((opt: string | { name: string; id: any }) => {
+        options.forEach((opt: OptionItem) => {
             // 支持传入字符串数组 ['剑', '盾']
             // 也支持传入对象数组 [{name: '剑', id: 'w1'}]
             const key: string = typeof opt === 'string' ? opt : opt.name;
@@ -39,7 +69,7 @@ export class Panel {
         });
 
         // 取第一个作为默认值，存入内部黑盒
-        this._state[key] = typeof options[0] === 'string' ? options[0] : options[0].id;
+        this._state[label] = typeof options[0] === 'string' ? options[0] : options[0].id;
 
         this._apiRef[key] = this.pane.addBinding(this._state, label, {
             label: label,
@@ -58,7 +88,7 @@ export class Panel {
         defaultValue: boolean,
         callback: (value: boolean) => void,
     ): Panel {
-        this._state[key] = defaultValue;
+        this._state[label] = defaultValue;
         this._apiRef[key] = this.pane.addBinding(this._state, label, {
             label: label
         }).on('change', (ev: any) => {
@@ -94,9 +124,135 @@ export class Panel {
 
         this._state[key] = hintText;
         // 3. 将元素插入到面板内部
-        this._apiRef[key] = this.pane.element.appendChild(hintText);
+        this._apiRef[key] = this.rootPane.element.appendChild(hintText);
         return this;
     }
 
+    addSeparator(
+        key?: string,
+    ): Panel {
+        const r = this.pane.addBlade({
+            view: 'separator',
+        });
+        if (key) {
+            this._apiRef[key] = r;
+        }
+        return this;
+    }
+
+    addNumber(
+        key: string,
+        label: string,
+        defaultValue: number,
+        callback: (value: number) => void,
+    ): Panel {
+        this._state[label] = defaultValue;
+        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+            label: label,
+        }).on('change', (ev: any) => {
+            callback(ev.value);
+        });
+        return this;
+    }
+
+    addRange(
+        key: string,
+        label: string,
+        min: number,
+        max: number,
+        defaultValue: number,
+        callback: (value: number) => void,
+    ): Panel {
+        this._state[label] = defaultValue;
+        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+            label: label,
+            min: min,
+            max: max,
+        }).on('change', (ev: any) => {
+            callback(ev.value);
+        });
+        return this;
+    }
+
+    addStep(
+        key: string,
+        label: string,
+        step: number,
+        min: number,
+        max: number,
+        defaultValue: number,
+        callback: (value: number) => void,
+    ): Panel {
+        this._state[label] = defaultValue;
+        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+            label: label,
+            min: min,
+            max: max,
+            step: step,
+        }).on('change', (ev: any) => {
+            callback(ev.value);
+        });
+        return this;
+    }
+
+    addFolder(
+        key: string,
+        title: string,
+        build?: (panel: Panel) => void,
+    ): Panel {
+        const folder = this.pane.addFolder({title: title});
+        this._apiRef[key] = folder;
+        if (build) {
+            build(this.createChild(folder));
+        }
+        return this;
+    }
+
+    addTab(
+        key: string,
+        pages: TabItem[],
+        onSelect?: (pageId: string, index: number) => void,
+    ): Panel {
+        if (pages.length === 0) {
+            throw new Error(`Panel.addTab(${key}) pages cannot be empty`);
+        }
+
+        const normalized = pages.map((page: TabItem, index: number) => {
+            if (typeof page === 'string') {
+                return {id: page, title: page, build: undefined as ((panel: Panel) => void) | undefined};
+            }
+            return {
+                id: page.id ?? `${key}_${index}`,
+                title: page.title,
+                build: page.build,
+            };
+        });
+
+        this._state[key] = normalized[0].id;
+        const tab = this.pane.addTab({
+            pages: normalized.map(page => ({title: page.title})),
+        });
+        this._apiRef[key] = tab;
+
+        (tab as any).on?.('select', (ev: any) => {
+            const index = Number(ev?.index ?? 0);
+            const pageId = normalized[index]?.id;
+            if (!pageId) {
+                return;
+            }
+            this._state[key] = pageId;
+            onSelect?.(pageId, index);
+        });
+
+        normalized.forEach((page, index) => {
+            if (!page.build) {
+                return;
+            }
+            const pageApi = tab.pages[index];
+            page.build(this.createChild(pageApi));
+        });
+
+        return this;
+    }
 
 }
