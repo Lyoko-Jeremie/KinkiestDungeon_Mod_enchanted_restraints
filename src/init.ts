@@ -8,11 +8,11 @@ if (!window.gEnchantedRestraintsCreateGui) {
 } else {
     console.log('gEnchantedRestraintsCreateGui already exists');
 }
-if (!window.gEnchantedRestraintsTweakPanel) {
-    window.gEnchantedRestraintsTweakPanel = new CreateGuiTweakPane(window);
-} else {
-    console.log('gEnchantedRestraintsTweakPanel already exists');
-}
+// if (!window.gEnchantedRestraintsTweakPanel) {
+//     window.gEnchantedRestraintsTweakPanel = new CreateGuiTweakPane(window);
+// } else {
+//     console.log('gEnchantedRestraintsTweakPanel already exists');
+// }
 
 
 // import {EnchantedRestraintsPatch, isInit} from './initMod';

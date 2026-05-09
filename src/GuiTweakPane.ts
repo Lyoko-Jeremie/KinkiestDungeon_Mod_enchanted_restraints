@@ -202,6 +202,15 @@ export class CreateGuiTweakPane {
         const thisRef = this;
         const pane = new TweakPanel(StringTable['title']);
 
+        pane.getPane().element.parentElement!.style.top = '33px';
+        pane.getPane().element.parentElement!.style.right = '33px';
+        pane.getPane().element.parentElement!.style.width = 'min(100% - 33px , 100rem)';
+        pane.getPane().element.parentElement!.style.height = 'calc(100% - 33px - 33px)';
+        pane.getPane().element.parentElement!.style.overflowX = 'hidden';
+        pane.getPane().element.parentElement!.style.overflowY = 'scroll';
+        pane.getPane().element.parentElement!.style.pointerEvents = 'none';
+        pane.getPane().element.style.pointerEvents = 'auto';
+
         pane.addHtmlInner('version', `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest">releases</a>]`);
 
         // install
