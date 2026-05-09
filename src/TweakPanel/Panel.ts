@@ -113,6 +113,10 @@ export class Panel {
         this.rootPane.hidden = value;
     }
 
+    refresh() {
+        this.rootPane.refresh();
+    }
+
     private createChild(container: PaneContainerApi): Panel {
         return new Panel('', container, this._state, this._apiRef, this.rootPane);
     }
