@@ -606,6 +606,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tweakpane/core@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@tweakpane/core@npm:2.0.5"
+  checksum: ca5ed838bf384e786dbbe70b76c7b732a4e82bfe19132aebf017f24ca69b6652fff1254ec2167c307a7680fbd9a15994a0f4bf0f86812899fdd9e46dd3634e93
+  languageName: node
+  linkType: hard
+
 "@types/archiver@npm:^6.0.2":
   version: 6.0.2
   resolution: "@types/archiver@npm:6.0.2"
@@ -957,6 +964,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "KinkiestDungeon_enchanted_restraints@workspace:."
   dependencies:
+    "@tweakpane/core": ^2.0.5
     "@types/archiver": ^6.0.2
     "@types/lodash": ^4.14.196
     "@types/ungap__structured-clone": ^1.2.0
@@ -975,6 +983,7 @@ __metadata:
     ts-loader: ^9.4.4
     ts-mixer: ^6.0.3
     tsconfig-paths-webpack-plugin: ^4.1.0
+    tweakpane: ^4.0.5
     typescript: ^5.1.6
     webpack: ^5.88.2
     webpack-cli: ^5.1.4
@@ -5327,6 +5336,13 @@ __metadata:
     debug: ^4.3.4
     make-fetch-happen: ^11.1.1
   checksum: 089fc0dabe1fcaeca8b955b358b34272f23237ac9e074b5f983349eb44d9688fd137f28f493bbd8dfd865d1af4e76e0cc869d307eadd054d1b404914c3124ae5
+  languageName: node
+  linkType: hard
+
+"tweakpane@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "tweakpane@npm:4.0.5"
+  checksum: 0175d754a0ef8aea16a29513b6996bd6b73ec4199be25a8764d84046edb58cd9b4463494b64a47948deb8116334cf84497f954f4e2707ef0381566f2833d1763
   languageName: node
   linkType: hard
 
