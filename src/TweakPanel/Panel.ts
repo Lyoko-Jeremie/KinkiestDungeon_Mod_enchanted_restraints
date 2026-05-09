@@ -11,6 +11,23 @@ type PaneContainerApi = Pane | FolderApi | TabPageApi;
 type OptionItem = string | { name: string; id: any };
 type TabItem = string | { id?: string; title: string; build?: (panel: Panel) => void };
 
+export class ProxyTextLabel {
+    constructor(
+        private el: HTMLDivElement,
+        private _value: string,
+    ) {
+    }
+
+    get value() {
+        return this._value;
+    }
+
+    set value(value: string) {
+        this._value = value;
+        this.el.textContent = value;
+    }
+}
+
 export class Panel {
 
     // 当前容器（Pane / Folder / Tab page），所有 add* 都作用于它
@@ -19,6 +36,14 @@ export class Panel {
     private rootPane: Pane;
     private _state: Record<string, any>;
     private _apiRef: Record<string, PaneUiApi | HTMLElement>;
+
+    getState<T>(key: string): T | undefined {
+        return this._state[key] as T | undefined;
+    }
+
+    getApiRef<T extends PaneUiApi | HTMLElement = PaneUiApi | HTMLElement>(key: string): T | undefined {
+        return this._apiRef[key] as T | undefined;
+    }
 
     constructor(
         title: string,
@@ -130,7 +155,7 @@ export class Panel {
         hintText.style.lineHeight = '1.4';
         hintText.style.borderBottom = '1px solid var(--tp-container-background-color)';
 
-        this._state[key] = hintText;
+        this._state[key] = new ProxyTextLabel(hintText, label);
         // 3. 将元素插入到面板内部
         this._apiRef[key] = this.pane.element.appendChild(hintText);
         return this;
