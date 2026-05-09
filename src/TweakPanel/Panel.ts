@@ -304,7 +304,7 @@ export class Panel {
         key: string,
         pages: TabItem[],
         onSelect?: (pageId: string, index: number) => void,
-    ): Panel {
+    ) {
         if (pages.length === 0) {
             throw new Error(`Panel.addTab(${key}) pages cannot be empty`);
         }
@@ -347,7 +347,7 @@ export class Panel {
             page.build(this.createChild(pageApi));
         });
 
-        return this;
+        return tab.pages;
     }
 
 }
