@@ -23,7 +23,8 @@ import {
     TweakPanel,
     ProxyHtmlElement,
     ProxyState,
-    ProxyTextLabel
+    ProxyTextLabel, 
+    ProxyDropdown,
 } from "./TweakPanel/TweakPanel";
 import {DynamicCheatsHook} from "./Cheats/DynamicCheatsHook";
 
@@ -403,21 +404,21 @@ export class CreateGuiTweakPane {
             folder.addDropDown('GoddessRepSelect', StringTable['GoddessRepSelect'], thisRef.calcGoddessRepKeyListSelect(), (value) => {
             });
             folder.addButton('AddSelectedGoddessRep', StringTable['AddSelectedGoddessRep'], () => {
-                let v = folder.getState<ProxyState<string>>('GoddessRepSelect')!.value;
+                let v = folder.getState<ProxyDropdown>('GoddessRepSelect')!.value;
                 v = v.split('[')[0];
                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, 50);
                 thisRef.flushPrintNowAllReputationStateList();
                 thisRef.playDing(PlayDingType.ding);
             });
             folder.addButton('ClearSelectedGoddessRep', StringTable['ClearSelectedGoddessRep'], () => {
-                let v = folder.getState<ProxyState<string>>('GoddessRepSelect')!.value;
+                let v = folder.getState<ProxyDropdown>('GoddessRepSelect')!.value;
                 v = v.split('[')[0];
                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, 0);
                 thisRef.flushPrintNowAllReputationStateList();
                 thisRef.playDing(PlayDingType.ding);
             });
             folder.addButton('NegativeSelectedGoddessRep', StringTable['NegativeSelectedGoddessRep'], () => {
-                let v = folder.getState<ProxyState<string>>('GoddessRepSelect')!.value;
+                let v = folder.getState<ProxyDropdown>('GoddessRepSelect')!.value;
                 v = v.split('[')[0];
                 thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GoddessRepChange(v, -50);
                 thisRef.flushPrintNowAllReputationStateList();
@@ -592,7 +593,7 @@ export class CreateGuiTweakPane {
                 },
             );
             folder.addButton('ChoiceAddOne', StringTable['ChoiceAddOne'], () => {
-                const c = folder.getState<ProxyState>('ChoiceSelect')!.value;
+                const c = folder.getState<ProxyDropdown>('ChoiceSelect')!.value;
                 if (c) {
                     const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
                         return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
@@ -603,7 +604,7 @@ export class CreateGuiTweakPane {
                 }
             });
             folder.addButton('ChoiceRemoveOne', StringTable['ChoiceRemoveOne'], () => {
-                const c = folder.getState<ProxyState>('ChoiceSelect')!.value;
+                const c = folder.getState<ProxyDropdown>('ChoiceSelect')!.value;
                 if (c) {
                     const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
                         return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
@@ -648,7 +649,7 @@ export class CreateGuiTweakPane {
                 },
             );
             folder.addButton('ChoiceFilterAddOne', StringTable['ChoiceFilterAddOne'], () => {
-                const c = folder.getState<ProxyState>('ChoiceAddOneFilterSelect')!.value;
+                const c = folder.getState<ProxyDropdown>('ChoiceAddOneFilterSelect')!.value;
                 if (c && isString(c) && c.length > 0) {
                     const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
                         return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
@@ -659,7 +660,7 @@ export class CreateGuiTweakPane {
                 }
             });
             folder.addButton('ChoiceFilterRemoveOne', StringTable['ChoiceFilterRemoveOne'], () => {
-                const c = folder.getState<ProxyState>('ChoiceAddOneFilterSelect')!.value;
+                const c = folder.getState<ProxyDropdown>('ChoiceAddOneFilterSelect')!.value;
                 if (c && isString(c) && c.length > 0) {
                     const N = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData().find(T => {
                         return `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}` === c;
