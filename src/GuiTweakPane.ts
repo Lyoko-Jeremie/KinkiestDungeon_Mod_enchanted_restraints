@@ -16,7 +16,7 @@ import {KDLocksTypeInstance, LockList} from "./Cheats/LockList";
 import {PatchSpell} from "./Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "./GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "./Sound/Sound";
-import {Panel, ProxyTextLabel} from "./TweakPanel/Panel";
+import {ButtonApi, Panel, ProxyHtmlElement, ProxyTextLabel} from "./TweakPanel/Panel";
 
 KDOptOut = true;
 
@@ -187,25 +187,175 @@ export class CreateGuiTweakPane {
         const thisRef = this;
         const pane = new Panel(StringTable['title']);
 
-        pane.addButton('install_EnchantedRestraintsPatch', StringTable['install_EnchantedRestraintsPatch'],
-            () => {
-                thisRef.do_install_EnchantedRestraintsPatch();
+        pane.addTextLabel('version', `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest">releases</a>]`);
 
-                pane.getState<ProxyTextLabel>('isModInit')!.value = StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled);
-                pane.getState<ProxyTextLabel>('isInstalled')!.value = StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit());
-            },
-        );
+        // install
+        {
+            const folder = pane.addFolder('mod_init', StringTable['install EnchantedRestraints Mod Section']);
 
-        pane.addTextLabel('isModInit', StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled));
-        pane.addTextLabel('isInstalled', StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()));
+            folder.addButton('install_EnchantedRestraintsPatch', StringTable['install_EnchantedRestraintsPatch'],
+                () => {
+                    thisRef.do_install_EnchantedRestraintsPatch();
 
-        pane.addBoolean('isAutoInstallEnchantedRestraintsPatch',
-            StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall),
-            StateEnchantedRestraintsPatch.AutoInstall,
-            (value) => {
-            // TODO
-            },
-        );
+                    folder.getState<ProxyTextLabel>('isModInit')!.value = StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled);
+                    folder.getState<ProxyTextLabel>('isInstalled')!.value = StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit());
+
+                    folder.refresh(); // 刷新面板以显示最新状态
+                },
+            );
+
+            folder.addTextLabel('isModInit', StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled));
+            folder.addTextLabel('isInstalled', StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()));
+
+            folder.addBoolean('isAutoInstallEnchantedRestraintsPatch', StringTable['isAutoInstallEnchantedRestraintsPatch'],
+                StateEnchantedRestraintsPatch.AutoInstall,
+                (value) => {
+                    StateEnchantedRestraintsPatch.AutoInstall = value;
+                },
+            );
+        }
+
+        // ApplyModRestraint
+        {
+            const folder = pane.addFolder('mod_Restraint', StringTable['ApplyModRestraint Section']);
+
+            folder.addButton('ApplyModRestraint', StringTable['ApplyModRestraint'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint();
+            });
+        }
+
+        // map
+        {
+            const folder = pane.addFolder('mod_Restraint', StringTable['Map Section']);
+
+            folder.addButton('MapKKSsMGet', StringTable['MapKKSsMGet'], () => {
+                const c = folder.getState<ProxyHtmlElement<HTMLCanvasElement>>('MapKKSsMGetDataCanvas')!.element;
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(c);
+
+                folder.refresh(); // 刷新面板以显示最新状态
+            });
+            // textarea MapKKSsMGetData
+            folder.addHtmlElementTag('MapKKSsMGetDataCanvas', 'canvas');
+
+            folder.addButton('MapKSsMGet', StringTable['MapKSsMGet'], () => {
+                const c = folder.getState<ProxyHtmlElement<HTMLCanvasElement>>('MapKSsMGetDataCanvas')!.element;
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(c);
+
+                folder.refresh(); // 刷新面板以显示最新状态
+            });
+            // textarea MapKSsMGetData
+            folder.addHtmlElementTag('MapKSsMGetDataCanvas', 'canvas');
+        }
+
+        // ApplyRestraint
+        {
+            const folder = pane.addFolder('mod_Restraint', StringTable['ApplyRestraint Section']);
+
+            folder.addButton('RemoveAllRestraint', StringTable['RemoveAllRestraint'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllRestraint();
+            });
+            folder.addButton('RemoveAllRestraintDynamic', StringTable['RemoveAllRestraintDynamic'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllRestraintDynamic();
+            });
+            folder.addButton('ForceClearRestraint', StringTable['ForceClearRestraint'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ForceClearRestraint();
+            });
+        }
+
+        // Keys
+        {
+            const folder = pane.addFolder('mod_Keys', StringTable['Keys Section']);
+
+            folder.addButton('AddManyKeys', StringTable['AddManyKeys'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyKeys();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddManyPotion', StringTable['AddManyPotion'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyPotion();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddManyGold', StringTable['AddManyGold'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyGold();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddDistraction', StringTable['AddDistraction'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddDistraction();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('ZeroDistraction', StringTable['ZeroDistraction'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroDistraction();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddAllRestraints', StringTable['AddAllRestraints'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllRestraints();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddAllOutfit', StringTable['AddAllOutfit'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllOutfit();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddAllConsumables', StringTable['AddAllConsumables'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllConsumables();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddAllWeapon', StringTable['AddAllWeapon'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllWeapon();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('AddAllKeyTools', StringTable['AddAllKeyTools'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllKeyTools();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('RemoveAllKeyTools', StringTable['RemoveAllKeyTools'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllKeyTools();
+                thisRef.playDing(PlayDingType.dong);
+            });
+            folder.addButton('AddRecyclerInput', StringTable['AddRecyclerInput'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddRecyclerInput();
+                thisRef.playDing(PlayDingType.ding);
+            });
+
+        }
+
+        // SpellPoints
+        {
+            const folder = pane.addFolder('mod_SpellPoints', StringTable['SpellPoints Section']);
+
+            folder.addButton('AddSpellPoints', StringTable['AddSpellPoints'] + '+10', () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(10);
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('ZeroSpellPoints', StringTable['ZeroSpellPoints'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(0);
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('NegativeSpellPoints', StringTable['NegativeSpellPoints'] + '-10', () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(-10);
+                thisRef.playDing(PlayDingType.ding);
+            });
+        }
+
+        // Relations
+        {
+            const folder = pane.addFolder('mod_Relations', StringTable['Relations Section']);
+
+            folder.addButton('FullAllRelations', StringTable['FullAllRelations'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FullAllRelations();
+                thisRef.flushPrintNowAllReputationStateList();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('ZeroAllRelations', StringTable['ZeroAllRelations'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroAllRelations();
+                thisRef.flushPrintNowAllReputationStateList();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addButton('NegativeAllRelations', StringTable['NegativeAllRelations'], () => {
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.NegativeAllRelations();
+                thisRef.flushPrintNowAllReputationStateList();
+                thisRef.playDing(PlayDingType.ding);
+            });
+            folder.addSeparator();
+        }
 
         return pane;
     };
