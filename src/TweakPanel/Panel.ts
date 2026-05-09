@@ -28,7 +28,7 @@ export class ProxyTextLabel {
     }
 }
 
-export class ProxyState<T> {
+export class ProxyState<T = string> {
     private ___$value: T;
 
     get value() {
@@ -169,13 +169,14 @@ export class Panel {
         });
 
         // 取第一个作为默认值，存入内部黑盒
-        this._state[key] = new ProxyState(key, typeof options[0] === 'string' ? options[0] : options[0].id);
+        this._state[key] = new ProxyState(label, typeof options[0] === 'string' ? options[0] : options[0].id);
         // this._state[key] = {
         //     [label]: typeof options[0] === 'string' ? options[0] : options[0].id,
         // };
 
         this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
+            title: label,
             options: optionsMap
         }).on('change', (ev: any) => {
             callback(ev.value); // 触发回调，直接把值传出去
@@ -192,12 +193,13 @@ export class Panel {
         callback: (value: boolean) => void,
     ): Panel {
         this.checkNewKey(key);
-        this._state[key] = new ProxyState(key, defaultValue);
+        this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
         // };
         this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
-            label: label
+            label: label,
+            title: label,
         }).on('change', (ev: any) => {
             callback(ev.value);
         });
@@ -211,7 +213,10 @@ export class Panel {
         callback: () => void,
     ): Panel {
         this.checkNewKey(key);
-        this._apiRef[key] = this.pane.addButton({title: label}).on('click', callback);
+        this._apiRef[key] = this.pane.addButton({
+            label: label,
+            title: label,
+        }).on('click', callback);
         return this;
     }
 
@@ -257,12 +262,13 @@ export class Panel {
         callback: (value: number) => void,
     ): Panel {
         this.checkNewKey(key);
-        this._state[key] = new ProxyState(key, defaultValue);
+        this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
         // };
         this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
+            title: label,
         }).on('change', (ev: any) => {
             callback(ev.value);
         });
@@ -278,12 +284,13 @@ export class Panel {
         callback: (value: number) => void,
     ): Panel {
         this.checkNewKey(key);
-        this._state[key] = new ProxyState(key, defaultValue);
+        this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
         //     [label]: defaultValue,
         // };
         this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
+            title: label,
             min: min,
             max: max,
         }).on('change', (ev: any) => {
@@ -308,6 +315,7 @@ export class Panel {
         // };
         this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
+            title: label,
             min: min,
             max: max,
             step: step,
@@ -418,6 +426,27 @@ export class Panel {
     ) {
         const el = document.createElement(tagName);
         return this.addHtmlElement(key, el);
+    }
+
+    addTextArea(
+        key: string,
+        label: string,
+        defaultValue: string,
+        callback?: (value: string) => void,
+    ): Panel {
+        this.checkNewKey(key);
+        this._state[key] = new ProxyState(label, defaultValue);
+        // this._state[key] = {
+        //     [label]: defaultValue,
+        // };
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
+            label: label,
+            title: label,
+            multiline: true,
+        }).on('change', (ev: any) => {
+            callback?.(ev.value);
+        });
+        return this;
     }
 
 }
