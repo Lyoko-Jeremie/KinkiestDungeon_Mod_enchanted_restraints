@@ -3,6 +3,7 @@ import {LockList} from "./Cheats/LockList";
 export {};
 import type {Cheats} from './Cheats/Cheats';
 import type {SaveLoadIndexDB} from './SaveLoadIndexDB/SaveLoadIndexDB';
+import type {CreateGuiTweakPane} from "./GuiTweakPane";
 
 declare global {
     interface Window {
@@ -21,6 +22,7 @@ declare global {
             EnchantedRestraintsPatch: () => void,
         };
         gEnchantedRestraintsCreateGui: CreateGui;
+        gEnchantedRestraintsTweakPanel: CreateGuiTweakPane;
         gEnchantedRestraintsModFilterBypass: ModFilterBypass;
 
     }
