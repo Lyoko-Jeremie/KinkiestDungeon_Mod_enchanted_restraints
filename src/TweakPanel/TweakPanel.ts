@@ -1,4 +1,4 @@
-import {Pane, type InputBindingApi} from 'tweakpane';
+import {Pane} from 'tweakpane';
 
 interface ListOptions<T> {
     options: Array<{ text: string; value: T }>;
@@ -30,6 +30,55 @@ export class ProxyTextLabel {
     set value(value: string) {
         this._value = value;
         this.el.textContent = value;
+    }
+}
+
+export class ProxyDropdown {
+    static readonly key = '__inner_value_ProxyDropdown';
+
+    private ___$value: string;
+
+    constructor(
+        private _value: string,
+    ) {
+        this.___$value = _value;
+        // return new Proxy(this, {
+        //     get(target, prop) {
+        //         if (prop === ProxyDropdown.key) {
+        //             return target.___$value;
+        //         }
+        //         return (target as any)[prop];
+        //     },
+        //     set(target, prop, val) {
+        //         if (prop === '___$value') {
+        //             // skip to avoid infinite loop
+        //             console.error('ProxyDropdown: Attempted to set ___$value directly, which is reserved for internal use.');
+        //             return true;
+        //         }
+        //         if (prop === ProxyDropdown.key) {
+        //             target.___$value = val;
+        //             return true;
+        //         }
+        //         (target as any)[prop] = val;
+        //         return true;
+        //     },
+        // }) as ProxyDropdown;
+    }
+
+    get value() {
+        return this._value;
+    }
+
+    set value(value: string) {
+        this._value = value;
+    }
+
+    get __inner_value_ProxyDropdown() {
+        return this._value;
+    }
+
+    set __inner_value_ProxyDropdown(value: string) {
+        this._value = value;
     }
 }
 
@@ -161,7 +210,8 @@ export class TweakPanel {
     ): TweakPanel {
         this.checkNewKey(key);
         if (options.length === 0) {
-            throw new Error(`Panel.addDropDown(${key}) options cannot be empty`);
+            console.warn(`Panel.addDropDown(${key}) options cannot be empty`); // 允许空选项，但给个警告
+            // throw new Error(`Panel.addDropDown(${key}) options cannot be empty`);
         }
         // Tweakpane 需要的 options 格式是 { '显示名': '值' }
         const optionsMap: Record<string, any> = {};
@@ -174,12 +224,16 @@ export class TweakPanel {
         });
 
         // 取第一个作为默认值，存入内部黑盒
-        this._state[key] = new ProxyState(label, typeof options[0] === 'string' ? options[0] : options[0].id);
+        let defaultValue = '';
+        if (options.length > 0) {
+            defaultValue = typeof options[0] === 'string' ? options[0] : options[0].id;
+        }
+        this._state[key] = new ProxyDropdown(defaultValue);
         // this._state[key] = {
         //     [label]: typeof options[0] === 'string' ? options[0] : options[0].id,
         // };
 
-        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
+        this._apiRef[key] = this.pane.addBinding(this._state[key], ProxyDropdown.key, {
             label: label,
             title: label,
             options: optionsMap
