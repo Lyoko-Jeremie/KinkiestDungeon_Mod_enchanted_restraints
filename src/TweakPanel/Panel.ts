@@ -28,13 +28,53 @@ export class ProxyTextLabel {
     }
 }
 
+export class ProxyState<T> {
+    private ___$value: T;
+
+    get value() {
+        return this.___$value;
+    }
+
+    set value(value: T) {
+        this.___$value = value;
+    }
+
+    constructor(
+        private label: string,
+        value: T,
+    ) {
+        this.___$value = value;
+        return new Proxy(this, {
+            get(target, prop) {
+                if (prop === target.label) {
+                    return target.___$value;
+                }
+                return (target as any)[prop];
+            },
+            set(target, prop, val) {
+                if (prop === '___$value') {
+                    // skip to avoid infinite loop
+                    console.error('ProxyState: Attempted to set ___$value directly, which is reserved for internal use.');
+                    return true;
+                }
+                if (prop === target.label) {
+                    target.___$value = val;
+                    return true;
+                }
+                (target as any)[prop] = val;
+                return true;
+            },
+        }) as ProxyState<T>;
+    }
+}
+
 export class Panel {
 
     // 当前容器（Pane / Folder / Tab page），所有 add* 都作用于它
     private pane: PaneContainerApi;
     // 始终指向顶层 Pane，用于根级 DOM 访问
     private rootPane: Pane;
-    private _state: Record<string, any>;
+    private _state: Record<string, any | ProxyState<any> | ProxyTextLabel>;
     private _apiRef: Record<string, PaneUiApi | HTMLElement>;
 
     getState<T>(key: string): T | undefined {
@@ -102,9 +142,12 @@ export class Panel {
         });
 
         // 取第一个作为默认值，存入内部黑盒
-        this._state[label] = typeof options[0] === 'string' ? options[0] : options[0].id;
+        this._state[key] = new ProxyState(key, typeof options[0] === 'string' ? options[0] : options[0].id);
+        // this._state[key] = {
+        //     [label]: typeof options[0] === 'string' ? options[0] : options[0].id,
+        // };
 
-        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
             options: optionsMap
         }).on('change', (ev: any) => {
@@ -121,8 +164,11 @@ export class Panel {
         defaultValue: boolean,
         callback: (value: boolean) => void,
     ): Panel {
-        this._state[label] = defaultValue;
-        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+        this._state[key] = new ProxyState(key, defaultValue);
+        // this._state[key] = {
+        //     [label]: defaultValue,
+        // };
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label
         }).on('change', (ev: any) => {
             callback(ev.value);
@@ -179,8 +225,11 @@ export class Panel {
         defaultValue: number,
         callback: (value: number) => void,
     ): Panel {
-        this._state[label] = defaultValue;
-        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+        this._state[key] = new ProxyState(key, defaultValue);
+        // this._state[key] = {
+        //     [label]: defaultValue,
+        // };
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
         }).on('change', (ev: any) => {
             callback(ev.value);
@@ -196,8 +245,11 @@ export class Panel {
         defaultValue: number,
         callback: (value: number) => void,
     ): Panel {
-        this._state[label] = defaultValue;
-        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+        this._state[key] = new ProxyState(key, defaultValue);
+        // this._state[key] = {
+        //     [label]: defaultValue,
+        // };
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
             min: min,
             max: max,
@@ -216,8 +268,11 @@ export class Panel {
         defaultValue: number,
         callback: (value: number) => void,
     ): Panel {
-        this._state[label] = defaultValue;
-        this._apiRef[key] = this.pane.addBinding(this._state, label, {
+        this._state[key] = new ProxyState(label, defaultValue);
+        // this._state[key] = {
+        //     [label]: defaultValue,
+        // };
+        this._apiRef[key] = this.pane.addBinding(this._state[key], label, {
             label: label,
             min: min,
             max: max,
@@ -261,7 +316,10 @@ export class Panel {
             };
         });
 
-        this._state[key] = normalized[0].id;
+        this._state[key] = new ProxyState(key, normalized[0].id);
+        // this._state[key] = {
+        //     [key]: normalized[0].id,
+        // };
         const tab = this.pane.addTab({
             pages: normalized.map(page => ({title: page.title})),
         });
@@ -273,7 +331,7 @@ export class Panel {
             if (!pageId) {
                 return;
             }
-            this._state[key] = pageId;
+            (this._state[key] as ProxyState<string>).value = pageId;
             onSelect?.(pageId, index);
         });
 
