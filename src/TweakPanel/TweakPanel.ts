@@ -14,7 +14,7 @@ export type ListBindingApi<T extends any = any> = BindingApi & ListOptions<T>;
 export type PaneUiApi = ButtonApi | FolderApi | TabApi | BindingApi | BladeApi | ListBindingApi;
 export type PaneContainerApi = Pane | FolderApi | TabPageApi;
 export type OptionItem = string | { name: string; id: any };
-export type TabItem = string | { id?: string; title: string; build?: (panel: Panel) => void };
+export type TabItem = string | { id?: string; title: string; build?: (panel: TweakPanel) => void };
 
 export class ProxyTextLabel {
     constructor(
@@ -84,7 +84,7 @@ export class ProxyHtmlElement<T extends HTMLElement> {
     }
 }
 
-export class Panel {
+export class TweakPanel {
 
     // 当前容器（Pane / Folder / Tab page），所有 add* 都作用于它
     private pane: PaneContainerApi;
@@ -133,8 +133,8 @@ export class Panel {
         this.rootPane.refresh();
     }
 
-    private createChild(container: PaneContainerApi): Panel {
-        return new Panel('', container, this._state, this._apiRef, this.rootPane);
+    private createChild(container: PaneContainerApi): TweakPanel {
+        return new TweakPanel('', container, this._state, this._apiRef, this.rootPane);
     }
 
     getPane(): Pane {
@@ -158,7 +158,7 @@ export class Panel {
         label: string,
         options: OptionItem[],
         callback: (value: any) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         if (options.length === 0) {
             throw new Error(`Panel.addDropDown(${key}) options cannot be empty`);
@@ -196,7 +196,7 @@ export class Panel {
         label: string,
         defaultValue: boolean,
         callback: (value: boolean) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
@@ -216,7 +216,7 @@ export class Panel {
         key: string,
         label: string,
         callback: () => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._apiRef[key] = this.pane.addButton({
             label: label,
@@ -228,7 +228,7 @@ export class Panel {
     addTextLabel(
         key: string,
         label: string,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         // 1. 创建一个原生的 div 元素
         const hintText = document.createElement('div');
@@ -249,7 +249,7 @@ export class Panel {
 
     addSeparator(
         key?: string,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         const r = this.pane.addBlade({
             view: 'separator',
@@ -265,7 +265,7 @@ export class Panel {
         label: string,
         defaultValue: number,
         callback: (value: number) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
@@ -287,7 +287,7 @@ export class Panel {
         max: number,
         defaultValue: number,
         callback: (value: number) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
@@ -312,7 +312,7 @@ export class Panel {
         max: number,
         defaultValue: number,
         callback: (value: number) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
@@ -333,8 +333,8 @@ export class Panel {
     addFolder(
         key: string,
         title: string,
-        build?: (panel: Panel) => void,
-    ): Panel {
+        build?: (panel: TweakPanel) => void,
+    ): TweakPanel {
         this.checkNewKey(key);
         const folder = this.pane.addFolder({title: title});
         this._apiRef[key] = folder;
@@ -356,7 +356,7 @@ export class Panel {
 
         const normalized = pages.map((page: TabItem, index: number) => {
             if (typeof page === 'string') {
-                return {id: page, title: page, build: undefined as ((panel: Panel) => void) | undefined};
+                return {id: page, title: page, build: undefined as ((panel: TweakPanel) => void) | undefined};
             }
             return {
                 id: page.id ?? `${key}_${index}`,
@@ -438,7 +438,7 @@ export class Panel {
         label: string,
         defaultValue: string,
         callback?: (value: string) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {
@@ -459,7 +459,7 @@ export class Panel {
         label: string,
         defaultValue: string,
         callback?: (value: string) => void,
-    ): Panel {
+    ): TweakPanel {
         this.checkNewKey(key);
         this._state[key] = new ProxyState(label, defaultValue);
         // this._state[key] = {

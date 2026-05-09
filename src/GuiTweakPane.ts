@@ -20,11 +20,11 @@ import {
     BindingApi,
     ButtonApi,
     ListBindingApi,
-    Panel,
+    TweakPanel,
     ProxyHtmlElement,
     ProxyState,
     ProxyTextLabel
-} from "./TweakPanel/Panel";
+} from "./TweakPanel/TweakPanel";
 import {DynamicCheatsHook} from "./Cheats/DynamicCheatsHook";
 
 KDOptOut = true;
@@ -89,7 +89,7 @@ export class CreateGuiTweakPane {
         }
     };
 
-    pane?: Panel;
+    pane?: TweakPanel;
 
     initMod = () => {
         const thisRef = this;
@@ -199,7 +199,7 @@ export class CreateGuiTweakPane {
     paneCreator = () => {
         KDOptOut = true;
         const thisRef = this;
-        const pane = new Panel(StringTable['title']);
+        const pane = new TweakPanel(StringTable['title']);
 
         pane.addTextLabel('version', `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest">releases</a>]`);
 
