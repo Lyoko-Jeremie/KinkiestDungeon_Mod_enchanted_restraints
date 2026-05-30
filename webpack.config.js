@@ -144,9 +144,9 @@ const config = {
     //   template: 'src/web/1.html',
     // }),
     new ForkTsCheckerWebpackPlugin({
-      // typescript: {
-      //   configFile: 'src/web/tsconfig.json',
-      // }
+      typescript: {
+        configFile: 'tsconfig.json',
+      },
     }),
 
 
@@ -224,7 +224,7 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
     plugins: [new TsconfigPathsPlugin({
-      // configFile: 'src/web/tsconfig.json'
+      configFile: 'tsconfig.json',
     })],
     // alias: {
     //   vue: 'vue/dist/vue.js'
