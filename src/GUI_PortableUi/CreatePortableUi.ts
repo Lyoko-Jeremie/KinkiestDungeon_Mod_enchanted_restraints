@@ -1,4 +1,5 @@
-import {CreatePortableUi} from '@PortableUi/adaptor/CreatePortableUi';
+import 'core-js/full';
+
 import {App} from '@PortableUi/adaptor/App';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
