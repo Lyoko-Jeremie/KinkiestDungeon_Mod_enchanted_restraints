@@ -5,3 +5,6 @@
 [submodule "src/PortableUi"]
 	path = ./PortableUi
 	url = git@github.com:Lyoko-Jeremie/PortableUi.git
+[submodule "PortableUi"]
+	path = PortableUi
+	url = git@github.com:Lyoko-Jeremie/PortableUi.git
