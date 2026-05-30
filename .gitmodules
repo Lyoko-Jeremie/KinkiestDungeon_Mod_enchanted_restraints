@@ -2,9 +2,6 @@
 	path = src/GM_config_TS
 	url = git@github.com:Lyoko-Jeremie/GM_config_TS.git
 	branch = master
-[submodule "src/PortableUi"]
-	path = ./PortableUi
-	url = git@github.com:Lyoko-Jeremie/PortableUi.git
 [submodule "PortableUi"]
 	path = PortableUi
 	url = git@github.com:Lyoko-Jeremie/PortableUi.git
