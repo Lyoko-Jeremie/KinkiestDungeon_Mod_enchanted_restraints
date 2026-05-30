@@ -1,7 +1,8 @@
 import './polyfill';
-import './GreasemonkeyScript/CreateGui';
-import {CreateGui} from './GreasemonkeyScript/CreateGui';
-import {CreateGuiTweakPane} from "./GuiTweakPane";
+// import './GreasemonkeyScript/CreateGui';
+// import {CreateGui} from './GreasemonkeyScript/CreateGui';
+import {CreateGui} from './GUI_PortableUi/CreatePortableUi';
+// import {CreateGuiTweakPane} from "./GuiTweakPane";
 
 if (!window.gEnchantedRestraintsCreateGui) {
     window.gEnchantedRestraintsCreateGui = new CreateGui(window);
