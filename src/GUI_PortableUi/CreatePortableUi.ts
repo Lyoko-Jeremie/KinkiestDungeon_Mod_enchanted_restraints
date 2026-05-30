@@ -1,5 +1,5 @@
-import {CreatePortableUi} from '../PortableUi/src/adaptor/CreatePortableUi';
-import {App} from '../PortableUi/src/adaptor/App';
+import {CreatePortableUi} from '@PortableUi/adaptor/CreatePortableUi';
+import {App} from '@PortableUi/adaptor/App';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
     CurseWears,
@@ -155,6 +155,29 @@ export class CreateGui {
             styleIsolation: {
                 mode: 'shadow',
             },
+        });
+
+        const titleFlex = this.appRef.addFlex({
+            direction: 'vertical',
+            gap: 15,
+            padding: 20,
+            backgroundColor: '#f0f0f0',
+            width: '100%',
+        });
+
+        titleFlex.addLabel({
+            text: 'KinkiestDungeon enchanted_restraints Mod',
+            style: {
+                fontSize: '1.5em',
+                fontWeight: 'bold',
+            },
+        });
+        titleFlex.addLabel({
+            text: 'isInit',
+        });
+
+        const bodyFlex = this.appRef.addFlex({
+            direction: 'horizontal',
         });
 
 
