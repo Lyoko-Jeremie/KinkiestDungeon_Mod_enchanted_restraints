@@ -3,5 +3,5 @@
 	url = git@github.com:Lyoko-Jeremie/GM_config_TS.git
 	branch = master
 [submodule "src/PortableUi"]
-	path = src/PortableUi
+	path = ./PortableUi
 	url = git@github.com:Lyoko-Jeremie/PortableUi.git
