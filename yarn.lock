@@ -1111,6 +1111,7 @@ __metadata:
     "@types/ungap__structured-clone": ^1.2.0
     "@ungap/structured-clone": ^1.2.0
     "@webpack-cli/generators": ^3.0.7
+    alien-signals: ^3.2.1
     archiver: ^6.0.1
     bootstrap: ^5.3.1
     copy-webpack-plugin: ^12.0.2
@@ -1126,10 +1127,11 @@ __metadata:
     ts-mixer: ^6.0.3
     tsconfig-paths-webpack-plugin: ^4.1.0
     tweakpane: ^4.0.5
-    typescript: ^5.1.6
+    typescript: ^6.0.3
     webpack: ^5.88.2
     webpack-cli: ^5.1.4
     zip-webpack-plugin: ^4.0.1
+    zone.js: ^0.16.2
   languageName: unknown
   linkType: soft
 
@@ -1252,6 +1254,13 @@ __metadata:
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
   checksum: 4dc13714e316e67537c8b31bc063f99a1d9d9a497eb4bbd55191ac0dcd5e4985bbb71570352ad6f1e76684fb6d790928f96ba3b2d4fd6e10024be9612fe3f001
+  languageName: node
+  linkType: hard
+
+"alien-signals@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "alien-signals@npm:3.2.1"
+  checksum: 10e81dbad259d379d430e923b14c464593578b925adf1bd21d480aabfb8f5266ca2c9764f8233e9eda0a424d5e90dd19d7ea1ee1c6e3ee6807ec06490dfe9146
   languageName: node
   linkType: hard
 
@@ -5674,23 +5683,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.1.6":
-  version: 5.1.6
-  resolution: "typescript@npm:5.1.6"
+"typescript@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "typescript@npm:6.0.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: b2f2c35096035fe1f5facd1e38922ccb8558996331405eb00a5111cc948b2e733163cc22fab5db46992aba7dd520fff637f2c1df4996ff0e134e77d3249a7350
+  checksum: c1182dfadf8a8cb22a4e32442715afef1af1b950ae635b1c52c27e0d7fb7a5e2607ed7c7c4079bba4163579250e02445fd8d46b09cbceda71ff72a5b7d69db61
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.1.6#~builtin<compat/typescript>":
-  version: 5.1.6
-  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=1f5320"
+"typescript@patch:typescript@^6.0.3#~builtin<compat/typescript>":
+  version: 6.0.3
+  resolution: "typescript@patch:typescript@npm%3A6.0.3#~builtin<compat/typescript>::version=6.0.3&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
+  checksum: 8ed159a81ab4901a620c19fda539632cee610f8ec34dde57a3acc6b6df72894ad0b50bdd1946b763313d9b73dedb019d2e81c03eff06c0f2c785cde30a537d15
   languageName: node
   linkType: hard
 
@@ -6202,5 +6211,12 @@ __metadata:
     webpack: ^4.0.0 || ^5.0.0
     webpack-sources: "*"
   checksum: b9921935b50412825ea8c6030ba07813a1a4fc3618f22c0fd0eb8c1fd32514b48e04695be6ac3ff6e449ddd92bae6de17255e73a2da68bcbc5a12e002aae322c
+  languageName: node
+  linkType: hard
+
+"zone.js@npm:^0.16.2":
+  version: 0.16.2
+  resolution: "zone.js@npm:0.16.2"
+  checksum: a9109ced4e69dcf44b2a7e2f4ded18b871a22fccaf80447c3ccdc71c4bd19f27384ec5f79e7123b6d72784509d82e2d9ed829392fffa4c94217f1a7ac4222fc4
   languageName: node
   linkType: hard

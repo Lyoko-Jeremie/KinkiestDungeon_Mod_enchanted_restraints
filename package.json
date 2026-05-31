@@ -17,6 +17,7 @@
     "@types/lodash": "^4.14.196",
     "@types/ungap__structured-clone": "^1.2.0",
     "@ungap/structured-clone": "^1.2.0",
+    "alien-signals": "^3.2.1",
     "archiver": "^6.0.1",
     "bootstrap": "^5.3.1",
     "copy-webpack-plugin": "^12.0.2",
@@ -32,9 +33,10 @@
     "ts-mixer": "^6.0.3",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "tweakpane": "^4.0.5",
-    "typescript": "^5.1.6",
+    "typescript": "^6.0.3",
     "webpack": "^5.88.2",
-    "zip-webpack-plugin": "^4.0.1"
+    "zip-webpack-plugin": "^4.0.1",
+    "zone.js": "^0.16.2"
   },
   "devDependencies": {
     "@webpack-cli/generators": "^3.0.7",
