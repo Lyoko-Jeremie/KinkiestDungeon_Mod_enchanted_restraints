@@ -208,11 +208,19 @@ export class CreateGui {
                 backgroundColor: '#f0f0f0',
                 width: '100%',
             });
-            titleFlex.add.HtmlLabel({
-                html: `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest">releases</a>]`,
+            titleFlex.add.Label({
+                text: StringTable['title'],
                 style: {
                     fontSize: '1.5em',
                     fontWeight: 'bold',
+                    textAlign: 'center',
+                },
+            });
+            titleFlex.add.HtmlLabel({
+                html: `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest">releases</a>]`,
+                style: {
+                    // fontSize: '1.5em',
+                    // fontWeight: 'bold',
                     textAlign: 'center',
                 },
             });
@@ -221,9 +229,28 @@ export class CreateGui {
             });
         }
 
-        const bodyFlex = rootFlex.add.Flex({
-            direction: 'horizontal',
-        });
+        const tabs = rootFlex.add.Tabs({});
+
+        {
+
+            const c = tabs.add({
+                id: 'install EnchantedRestraints Mod Section'.replaceAll(' ', '_'),
+                title: StringTable['install EnchantedRestraints Mod Section'],
+            }).Flex({});
+
+            c.add.Button({
+                id: 'install_EnchantedRestraintsPatch',
+                text: StringTable['install_EnchantedRestraintsPatch'],
+                onClick: (self, ev) => {
+                    thisRef.do_install_EnchantedRestraintsPatch();
+                    self
+                }
+            });
+            c.add.Label({
+                id: 'isModInit',
+                text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+            });
+        }
 
 
     };
