@@ -57,6 +57,8 @@ export class CreateGui {
     }
 
     appContainer: HTMLElement;
+    appContainerIFrame: HTMLIFrameElement;
+    appContainerRoot: HTMLElement;
 
     constructor(
         public winRef: Window
@@ -65,9 +67,32 @@ export class CreateGui {
 
         this.appContainer = document.createElement('div');
         document.body.appendChild(this.appContainer);
+        // 容器
+        // 全屏，悬浮，半透明背景，类模态框
+        this.appContainer.id = 'CreatePortableUi-appContainer';
+        this.appContainer.style.position = 'absolute';
         this.appContainer.style.zIndex = '9999';
         this.appContainer.style.width = '100%';
         this.appContainer.style.height = '100%';
+        this.appContainer.style.top = '0';
+        this.appContainer.style.left = '0';
+        this.appContainer.style.backgroundColor = 'transparent';
+        this.appContainer.style.pointerEvents = 'none';
+
+        this.appContainer.style.justifyContent = 'center';
+        this.appContainer.style.alignItems = 'center';
+
+        // 暂不显示
+        this.appContainer.style.display = 'none';
+
+        this.appContainerIFrame = document.createElement('iframe');
+        this.appContainer.appendChild(this.appContainerIFrame);
+        this.appContainerIFrame.style.width = '80%';
+        this.appContainerIFrame.style.height = '80%';
+        this.appContainerIFrame.style.border = 'none';
+        // this.appContainerIFrame.style.backgroundColor = 'transparent';
+        this.appContainerIFrame.style.pointerEvents = 'auto';
+        this.appContainerRoot = this.appContainerIFrame.contentDocument!.body;
     }
 
     lastSearch: LastSearch = new LastSearch();
@@ -122,9 +147,11 @@ export class CreateGui {
                 if (this.appRef) {
                     this.appRef.destroy();
                     this.appRef = undefined;
+                    this.appContainer.style.display = 'none';
                 } else {
                     KDOptOut = true;
                     this.portableGuiCreator();
+                    this.appContainer.style.display = 'flex';
                 }
             }
         });
@@ -139,9 +166,11 @@ export class CreateGui {
                 if (this.appRef) {
                     this.appRef.destroy();
                     this.appRef = undefined;
+                    this.appContainer.style.display = 'none';
                 } else {
                     KDOptOut = true;
                     this.portableGuiCreator();
+                    this.appContainer.style.display = 'flex';
                 }
             });
             document.body.appendChild(startBanner);
@@ -151,14 +180,24 @@ export class CreateGui {
     appRef?: App;
 
     portableGuiCreator = () => {
-        this.appRef = new App(this.appContainer, {
+        this.appRef = new App(this.appContainerRoot, {
             id: 'enchantedRestraintsApp',
             styleIsolation: {
                 mode: 'shadow',
             },
         });
+        this.appRef.root.style.width = '100%';
+        this.appRef.root.style.overflowY = 'scroll';
+        // this.appRef.root.style.pointerEvents = 'initial';
+        // this.appRef.root.style.position = 'relative';
+        // this.appRef.root.style.zIndex = '1';
 
-        const titleFlex = this.appRef.addFlex({
+        const rootFlex = this.appRef.add.Flex({
+            id: 'rootFlex',
+            backgroundColor: '#f0f0f0',
+            width: '100%',
+        })
+        const titleFlex = rootFlex.add.Flex({
             direction: 'vertical',
             gap: 15,
             padding: 20,
@@ -166,18 +205,18 @@ export class CreateGui {
             width: '100%',
         });
 
-        titleFlex.addLabel({
+        titleFlex.add.Label({
             text: 'KinkiestDungeon enchanted_restraints Mod',
             style: {
                 fontSize: '1.5em',
                 fontWeight: 'bold',
             },
         });
-        titleFlex.addLabel({
+        titleFlex.add.Label({
             text: 'isInit',
         });
 
-        const bodyFlex = this.appRef.addFlex({
+        const bodyFlex = rootFlex.add.Flex({
             direction: 'horizontal',
         });
 
