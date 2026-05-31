@@ -192,29 +192,34 @@ export class CreateGui {
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
 
+        const thisRef = this;
+
         const rootFlex = this.appRef.add.Flex({
             id: 'rootFlex',
             backgroundColor: '#f0f0f0',
             width: '100%',
-        })
-        const titleFlex = rootFlex.add.Flex({
-            direction: 'vertical',
-            gap: 15,
-            padding: 20,
-            backgroundColor: '#f0f0f0',
-            width: '100%',
         });
 
-        titleFlex.add.Label({
-            text: 'KinkiestDungeon enchanted_restraints Mod',
-            style: {
-                fontSize: '1.5em',
-                fontWeight: 'bold',
-            },
-        });
-        titleFlex.add.Label({
-            text: 'isInit',
-        });
+        {
+            const titleFlex = rootFlex.add.Flex({
+                direction: 'vertical',
+                gap: 15,
+                padding: 20,
+                backgroundColor: '#f0f0f0',
+                width: '100%',
+            });
+            titleFlex.add.HtmlLabel({
+                html: `Author: <a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints">Jeremie</a> v${thisRef.version} [${StringTable.lastVersion}:<a href="https://github.com/Lyoko-Jeremie/KinkiestDungeon_Mod_enchanted_restraints/releases/latest">releases</a>]`,
+                style: {
+                    fontSize: '1.5em',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                },
+            });
+            titleFlex.add.Label({
+                text: 'isInit',
+            });
+        }
 
         const bodyFlex = rootFlex.add.Flex({
             direction: 'horizontal',
