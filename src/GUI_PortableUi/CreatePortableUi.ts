@@ -1,6 +1,5 @@
-import 'core-js/full';
-
 import {App} from '@PortableUi/adaptor/App';
+import type {ModZone} from '@PortableUi/adaptor/ModZone';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
     CurseWears,
@@ -45,7 +44,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '1.89';
+        return '2.0';
     }
 
     // avoid same Math.random
@@ -61,9 +60,12 @@ export class CreateGui {
     appContainerRoot: HTMLElement;
 
     constructor(
-        public winRef: Window
+        public winRef: Window,
+        public modZone: ModZone,
     ) {
-        setTimeout(this.waitKDLoadingFinished, 100);
+        modZone.runIn(() => {
+            setTimeout(this.waitKDLoadingFinished, 100);
+        });
 
         this.appContainer = document.createElement('div');
         document.body.appendChild(this.appContainer);
@@ -139,20 +141,26 @@ export class CreateGui {
         console.log('[KinkiestDungeon enchanted_restraints Mod] waitKDLoadingFinished ok');
     };
 
+    triggerUi = () => {
+        this.modZone.runGuarded(() => {
+            if (this.appRef) {
+                this.appRef.destroy();
+                this.appRef = undefined;
+                this.appContainer.style.display = 'none';
+            } else {
+                KDOptOut = true;
+                this.portableGuiCreator();
+                this.appContainer.style.display = 'flex';
+            }
+        });
+    }
+
     initMod = () => {
         const thisRef = this;
         thisRef.winRef.addEventListener('keydown', (event) => {
             console.log('keydown', event);
             if (event.altKey && (event.key === 'Q' || event.key === 'q')) {
-                if (this.appRef) {
-                    this.appRef.destroy();
-                    this.appRef = undefined;
-                    this.appContainer.style.display = 'none';
-                } else {
-                    KDOptOut = true;
-                    this.portableGuiCreator();
-                    this.appContainer.style.display = 'flex';
-                }
+                this.triggerUi();
             }
         });
         if (true) {
@@ -163,15 +171,7 @@ export class CreateGui {
                 'font-size: 1em;z-index: 1001;user-select: none;' +
                 'border: gray dashed 2px;color: gray;padding: .25em;';
             startBanner.addEventListener('click', () => {
-                if (this.appRef) {
-                    this.appRef.destroy();
-                    this.appRef = undefined;
-                    this.appContainer.style.display = 'none';
-                } else {
-                    KDOptOut = true;
-                    this.portableGuiCreator();
-                    this.appContainer.style.display = 'flex';
-                }
+                this.triggerUi();
             });
             document.body.appendChild(startBanner);
         }
@@ -184,6 +184,9 @@ export class CreateGui {
             id: 'enchantedRestraintsApp',
             styleIsolation: {
                 mode: 'shadow',
+            },
+            bindingOptions: {
+                changeDetection: "hybrid",
             },
         });
         this.appRef.root.style.width = '100%';
@@ -243,7 +246,6 @@ export class CreateGui {
                 text: StringTable['install_EnchantedRestraintsPatch'],
                 onClick: (self, ev) => {
                     thisRef.do_install_EnchantedRestraintsPatch();
-                    self
                 }
             });
             c.add.Label({
