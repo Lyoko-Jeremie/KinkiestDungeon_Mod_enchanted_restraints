@@ -1,4 +1,5 @@
 import {App} from '@PortableUi/adaptor/App';
+// import '@PortableUi/css/theme1.scss';
 import type {ModZone} from '@PortableUi/adaptor/ModZone';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
@@ -250,7 +251,14 @@ export class CreateGui {
             });
             c.add.Label({
                 id: 'isModInit',
-                text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+                // text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+                bind: {
+                    text: {
+                        get: () => {
+                            return StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled);
+                        }
+                    }
+                }
             });
         }
 
