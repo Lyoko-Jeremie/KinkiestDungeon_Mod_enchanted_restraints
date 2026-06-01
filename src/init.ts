@@ -4,8 +4,14 @@ import './polyfill';
 import {CreateGui} from './GUI_PortableUi/CreatePortableUi';
 // import {CreateGuiTweakPane} from "./GuiTweakPane";
 
+import {createModZone} from '@PortableUi/adaptor/ModZone';
+
+window.gEnchantedRestraintsCreateGui_modZone = createModZone();
+
 if (!window.gEnchantedRestraintsCreateGui) {
-    window.gEnchantedRestraintsCreateGui = new CreateGui(window);
+    window.gEnchantedRestraintsCreateGui_modZone.runGuarded(() => {
+        window.gEnchantedRestraintsCreateGui = new CreateGui(window, window.gEnchantedRestraintsCreateGui_modZone);
+    });
 } else {
     console.log('gEnchantedRestraintsCreateGui already exists');
 }

@@ -22,6 +22,7 @@ declare global {
             EnchantedRestraintsPatch: () => void,
         };
         gEnchantedRestraintsCreateGui: CreateGui;
+        gEnchantedRestraintsCreateGui_modZone: ModZone;
         gEnchantedRestraintsTweakPanel: CreateGuiTweakPane;
         gEnchantedRestraintsModFilterBypass: ModFilterBypass;
 
