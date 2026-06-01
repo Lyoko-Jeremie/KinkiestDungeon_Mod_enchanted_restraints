@@ -16,6 +16,7 @@ import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "../Sound/Sound";
+import {computed} from "alien-signals";
 
 KDOptOut = true;
 
@@ -288,10 +289,81 @@ export class CreateGui {
                     c.findComponentById('isModInit')!.setText(StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled));
                 }
             });
+            c.add.Label({
+                id: 'isInstalled',
+                text: StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()),
+            });
+            const aaa = StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall);
+            // 输出： aaa 是否自动安装 <更多远古套装补丁>: 是Yes (自动安装重启生效) [不喜欢更多古套装请取消勾选==>]
+            console.log('aaa', aaa);
+            const aa = c.add.Checkbox({
+                id: 'isAutoInstallEnchantedRestraintsPatch',
+                bind: {
+                    checked: {
+                        target: StateEnchantedRestraintsPatch,
+                        key: 'AutoInstall',
+                    },
+                    label: {
+                        get: () => aaa,
+                        subscribe: () => {
+                            console.log('isAutoInstallEnchantedRestraintsPatch subscribe', aaa);
+                            return () => {
+                            };
+                        },
+                    },
+                    // label: createAccessor(aaa),
+                    // label: computed(() => aaa),
+                },
+            });
+            // 错误输出: aa textContent <empty string>
+            console.log('aa textContent', aa.getElement()!.querySelector('span')!.textContent);
+            c.add.Label({
+                id: 'aaa',
+                // text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+                bind: {
+                    text: computed(() => aaa),
+                },
+            });
+            c.add.Label({
+                id: 'aaa2',
+                text: aaa,
+            });
+            c.add.Label({
+                id: 'aaa3',
+                bind: {
+                    text: {
+                        target: {
+                            aaa: aaa,
+                        },
+                        key: 'aaa',
+                        mode: 'ro',
+                    }
+                },
+            });
         }
 
 
+        this.appRef.markDirty();
         return true;
-    };
+    }
 
+}
+
+type Unsubscribe = () => void;
+
+function createAccessor<T>(initial: T) {
+    let value = initial;
+    const listeners = new Set<() => void>();
+
+    return {
+        get: () => value,
+        set: (next: T) => {
+            value = next;
+            for (const notify of listeners) notify();
+        },
+        subscribe: (notify: () => void): Unsubscribe => {
+            listeners.add(notify);
+            return () => listeners.delete(notify);
+        },
+    };
 }
