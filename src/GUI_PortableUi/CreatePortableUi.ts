@@ -90,7 +90,7 @@ export class CreateGui {
         // 暂不显示
         this.appContainer.style.display = 'none';
 
-        console.log('theme1String', theme1String);
+        // console.log('theme1String', theme1String);
         this.appContainerIFrame = document.createElement('iframe');
         this.appContainerIFrame.onload = () => {
             console.warn('appContainerIFrame loaded');
@@ -99,12 +99,13 @@ export class CreateGui {
                 console.error('appContainerIFrame.contentDocument is null');
             }
             this.modZone.runIn(() => {
-                this.appContainerIFrame.contentDocument!.head.appendChild(document.createElement('style')).textContent = theme1String;
+                // this.appContainerIFrame.contentDocument!.head.appendChild(document.createElement('style')).textContent = theme1String;
                 this.appContainerRoot = this.appContainerIFrame.contentDocument!.body;
                 this.appContainerRoot.style.maxWidth = '100%';
                 this.appContainerRoot.style.width = '100%';
                 this.appContainerRoot.style.margin = '0';
                 this.appContainerRoot.style.padding = '0';
+                this.appContainerRoot.style.overflowX = 'hidden';
                 this.appContainerRoot.style.overflowY = 'scroll';
                 this.appContainerRoot.style.backgroundColor = 'transparent';
             });
@@ -208,12 +209,21 @@ export class CreateGui {
             id: 'enchantedRestraintsApp',
             styleIsolation: {
                 mode: 'shadow',
+                styles: theme1String,
             },
             bindingOptions: {
                 changeDetection: "hybrid",
             },
         });
+        this.appRef.root.parentElement!.style.maxWidth = '100%';
+        this.appRef.root.parentElement!.style.width = '100%';
+        this.appRef.root.parentElement!.style.margin = '0';
+        this.appRef.root.parentElement!.style.padding = '0';
+
+        this.appRef.root.style.maxWidth = '100%';
         this.appRef.root.style.width = '100%';
+        this.appRef.root.style.margin = '0';
+        this.appRef.root.style.padding = '0';
         this.appRef.root.style.overflowY = 'scroll';
         // this.appRef.root.style.pointerEvents = 'initial';
         // this.appRef.root.style.position = 'relative';
@@ -234,7 +244,6 @@ export class CreateGui {
                 gap: 15,
                 margin: 20,
                 backgroundColor: '#f0f0f0',
-                width: '100%',
             });
             titleFlex.add.Label({
                 text: StringTable['title'],
@@ -252,36 +261,31 @@ export class CreateGui {
                     textAlign: 'center',
                 },
             });
-            titleFlex.add.Label({
-                text: 'isInit',
-            });
         }
 
-        const tabs = rootFlex.add.Tabs({});
+        const tabs = rootFlex.add.Tabs({
+            margin: 20,
+        });
 
         {
 
             const c = tabs.add({
                 id: 'install EnchantedRestraints Mod Section'.replaceAll(' ', '_'),
                 title: StringTable['install EnchantedRestraints Mod Section'],
-            }).Flex({});
+            }).Flex({
+                direction: 'vertical',
+            });
 
+            c.add.Label({
+                id: 'isModInit',
+                text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+            });
             c.add.Button({
                 id: 'install_EnchantedRestraintsPatch',
                 text: StringTable['install_EnchantedRestraintsPatch'],
                 onClick: (self, ev) => {
                     thisRef.do_install_EnchantedRestraintsPatch();
-                }
-            });
-            c.add.Label({
-                id: 'isModInit',
-                // text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
-                bind: {
-                    text: {
-                        get: () => {
-                            return StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled);
-                        }
-                    }
+                    c.findComponentById('isModInit')!.setText(StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled));
                 }
             });
         }
