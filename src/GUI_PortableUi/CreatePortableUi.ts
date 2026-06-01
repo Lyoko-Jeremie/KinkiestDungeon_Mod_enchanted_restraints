@@ -1,5 +1,7 @@
 import {App} from '@PortableUi/adaptor/App';
 // import '@PortableUi/css/theme1.scss';
+// import theme1String from '@PortableUi/css/theme1.scss?inlineScss';
+import theme1String from '@PortableUi/css/theme1.css?inlineText';
 import type {ModZone} from '@PortableUi/adaptor/ModZone';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
@@ -58,7 +60,7 @@ export class CreateGui {
 
     appContainer: HTMLElement;
     appContainerIFrame: HTMLIFrameElement;
-    appContainerRoot: HTMLElement;
+    appContainerRoot?: HTMLElement;
 
     constructor(
         public winRef: Window,
@@ -88,14 +90,31 @@ export class CreateGui {
         // 暂不显示
         this.appContainer.style.display = 'none';
 
+        console.log('theme1String', theme1String);
         this.appContainerIFrame = document.createElement('iframe');
+        this.appContainerIFrame.onload = () => {
+            console.warn('appContainerIFrame loaded');
+            // let (!this.appContainerIFrame.contentDocument) error throw out
+            if (!this.appContainerIFrame.contentDocument) {
+                console.error('appContainerIFrame.contentDocument is null');
+            }
+            this.modZone.runIn(() => {
+                this.appContainerIFrame.contentDocument!.head.appendChild(document.createElement('style')).textContent = theme1String;
+                this.appContainerRoot = this.appContainerIFrame.contentDocument!.body;
+                this.appContainerRoot.style.maxWidth = '100%';
+                this.appContainerRoot.style.width = '100%';
+                this.appContainerRoot.style.margin = '0';
+                this.appContainerRoot.style.padding = '0';
+                this.appContainerRoot.style.overflowY = 'scroll';
+                this.appContainerRoot.style.backgroundColor = 'transparent';
+            });
+        };
         this.appContainer.appendChild(this.appContainerIFrame);
         this.appContainerIFrame.style.width = '80%';
         this.appContainerIFrame.style.height = '80%';
         this.appContainerIFrame.style.border = 'none';
         // this.appContainerIFrame.style.backgroundColor = 'transparent';
         this.appContainerIFrame.style.pointerEvents = 'auto';
-        this.appContainerRoot = this.appContainerIFrame.contentDocument!.body;
     }
 
     lastSearch: LastSearch = new LastSearch();
@@ -150,8 +169,9 @@ export class CreateGui {
                 this.appContainer.style.display = 'none';
             } else {
                 KDOptOut = true;
-                this.portableGuiCreator();
-                this.appContainer.style.display = 'flex';
+                if (this.portableGuiCreator()) {
+                    this.appContainer.style.display = 'flex';
+                }
             }
         });
     }
@@ -181,6 +201,9 @@ export class CreateGui {
     appRef?: App;
 
     portableGuiCreator = () => {
+        if (!this.appContainerRoot) {
+            return false;
+        }
         this.appRef = new App(this.appContainerRoot, {
             id: 'enchantedRestraintsApp',
             styleIsolation: {
@@ -199,6 +222,7 @@ export class CreateGui {
         const thisRef = this;
 
         const rootFlex = this.appRef.add.Flex({
+            direction: 'vertical',
             id: 'rootFlex',
             backgroundColor: '#f0f0f0',
             width: '100%',
@@ -208,7 +232,7 @@ export class CreateGui {
             const titleFlex = rootFlex.add.Flex({
                 direction: 'vertical',
                 gap: 15,
-                padding: 20,
+                margin: 20,
                 backgroundColor: '#f0f0f0',
                 width: '100%',
             });
@@ -263,6 +287,7 @@ export class CreateGui {
         }
 
 
+        return true;
     };
 
 }

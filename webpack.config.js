@@ -198,10 +198,12 @@ const config = {
       },
       {
         test: /\.css$/,
+        resourceQuery: { not: [/inlineText/] },
         use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
+        resourceQuery: { not: [/inlineText/] },
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
@@ -214,6 +216,14 @@ const config = {
         resourceQuery: /inlineText/,
         type: 'asset/source',
       },
+
+      {
+        resourceQuery: /inlineScss/,
+        type: 'asset/source',
+        use: [
+          'sass-loader'
+        ]
+      }
 
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
