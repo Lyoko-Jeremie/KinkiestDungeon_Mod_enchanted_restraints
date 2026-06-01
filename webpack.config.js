@@ -6,8 +6,6 @@ const path = require('path');
 const isProduction = process.env.NODE_ENV == 'production';
 
 
-// const stylesHandler = 'style-loader';
-
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
@@ -198,14 +196,14 @@ const config = {
         loader: 'ts-loader',
         exclude: ['/node_modules/'],
       },
-      // {
-      //   test: /\.css$/i,
-      //   use: [stylesHandler, 'css-loader'],
-      // },
-      // {
-      //   test: /\.s[ac]ss$/i,
-      //   use: [stylesHandler, 'css-loader', 'sass-loader'],
-      // },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
