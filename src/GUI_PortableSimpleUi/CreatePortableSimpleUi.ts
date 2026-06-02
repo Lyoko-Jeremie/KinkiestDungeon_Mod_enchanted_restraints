@@ -63,6 +63,7 @@ export class CreateGui {
         public winRef: Window,
         public zoneWrapper: IZoneWrapper,
     ) {
+        console.log('[KinkiestDungeon enchanted_restraints Mod] CreateGui constructor');
 
         this.appContainer = document.createElement('div');
         document.body.appendChild(this.appContainer);
@@ -84,7 +85,7 @@ export class CreateGui {
         // 暂不显示
         this.appContainer.style.display = 'none';
 
-        // console.log('theme1String', theme1String);
+        console.log('themeString', themeString);
         this.appContainerIFrame = document.createElement('iframe');
         this.appContainerIFrame.onload = () => {
             console.warn('appContainerIFrame loaded');
@@ -128,6 +129,8 @@ export class CreateGui {
         this.appContainerIFrame.style.border = 'none';
         // this.appContainerIFrame.style.backgroundColor = 'transparent';
         this.appContainerIFrame.style.pointerEvents = 'auto';
+
+        this.waitKDLoadingFinished();
     }
 
     lastSearch: LastSearch = new LastSearch();
@@ -225,10 +228,11 @@ export class CreateGui {
                 styles: themeString,
             },
         });
-        this.appRef.root.parentElement!.style.maxWidth = '100%';
-        this.appRef.root.parentElement!.style.width = '100%';
-        this.appRef.root.parentElement!.style.margin = '0';
-        this.appRef.root.parentElement!.style.padding = '0';
+        this.appRef.rootElement.style.maxWidth = '100%';
+        this.appRef.rootElement.style.width = '100%';
+        this.appRef.rootElement.style.margin = '0';
+        this.appRef.rootElement.style.padding = '0';
+        this.appRef.rootElement.style.overflowY = 'scroll';
 
         this.appRef.host.style.maxWidth = '100%';
         this.appRef.host.style.width = '100%';
@@ -286,7 +290,14 @@ export class CreateGui {
 
         {
 
-            const c = tabs.add.Flex({
+            const c = tabs.addTab({
+                id: 'install EnchantedRestraints Mod Section'.replaceAll(' ', '_'),
+                title: StringTable['install EnchantedRestraints Mod Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'row',
+                    gap: '20px',
+                },
             })
 
             c.add.Label({

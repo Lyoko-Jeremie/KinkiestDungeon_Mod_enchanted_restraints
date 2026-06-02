@@ -12,6 +12,7 @@ window.gEnchantedRestraintsCreateGui_modZone = createZoneWrapper('EnchantedRestr
 
 if (!window.gEnchantedRestraintsCreateGui) {
     window.gEnchantedRestraintsCreateGui_modZone.runGuarded(() => {
+        console.log('[KinkiestDungeon enchanted_restraints Mod] gEnchantedRestraintsCreateGui_modZone runGuarded');
         window.gEnchantedRestraintsCreateGui = new CreateGui(window, window.gEnchantedRestraintsCreateGui_modZone);
     });
 } else {
