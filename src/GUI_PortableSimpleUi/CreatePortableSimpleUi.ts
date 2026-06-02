@@ -304,6 +304,8 @@ export class CreateGui {
                 const g = c.add.Group({
                     id: 'install EnchantedRestraints Mod Section'.replaceAll(' ', '_'),
                     title: StringTable['install EnchantedRestraints Mod Section'],
+                }).add.Flex({
+                    direction: 'column',
                 });
                 g.add.Label({
                     id: 'isModInit',
@@ -323,26 +325,23 @@ export class CreateGui {
                 const g = c.add.Group({
                     id: 'isInstalled',
                     title: StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()),
-                }).add.Flex({});
+                }).add.Flex({
+                    direction: 'column',
+                });
                 g.add.Checkbox({
                     id: 'isAutoInstallEnchantedRestraintsPatch',
                     label: () => StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall),
-                    // checked: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall'),
-                    // onChange: (checked, self) => {
-                    //     console.log(checked);
-                    //     StateEnchantedRestraintsPatch.AutoInstall = checked;
-                    // },
                     checked: makeDataAccessor(StateEnchantedRestraintsPatch, 'AutoInstall'),
                 });
-                g.add.Label({
-                    text: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall', v => '' + v),
-                });
-                g.add.Label({
-                    text: '' + StateEnchantedRestraintsPatch.AutoInstall,
-                });
-                g.add.Label({
-                    text: () => '' + StateEnchantedRestraintsPatch.AutoInstall,
-                });
+                // g.add.Label({
+                //     text: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall', v => '' + v),
+                // });
+                // g.add.Label({
+                //     text: '' + StateEnchantedRestraintsPatch.AutoInstall,
+                // });
+                // g.add.Label({
+                //     text: () => '' + StateEnchantedRestraintsPatch.AutoInstall,
+                // });
             }
 
 
