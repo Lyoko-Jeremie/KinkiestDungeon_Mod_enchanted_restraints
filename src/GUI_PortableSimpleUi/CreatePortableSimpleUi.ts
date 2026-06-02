@@ -121,6 +121,8 @@ export class CreateGui {
                 this.appContainerRoot.style.overflowX = 'hidden';
                 this.appContainerRoot.style.overflowY = 'scroll';
                 this.appContainerRoot.style.backgroundColor = 'transparent';
+                // this.appContainerIFrame.contentDocument!.head.appendChild(document.createElement('style')).textContent =
+                //     `html { overflow-y: hidden; }`;
             });
         };
         this.appContainer.appendChild(this.appContainerIFrame);
@@ -228,17 +230,18 @@ export class CreateGui {
                 styles: themeString,
             },
         });
-        this.appRef.rootElement.style.maxWidth = '100%';
+        // this.appRef.rootElement.style.maxWidth = '100%';
         this.appRef.rootElement.style.width = '100%';
+        this.appRef.rootElement.style.height = '100%';
         this.appRef.rootElement.style.margin = '0';
         this.appRef.rootElement.style.padding = '0';
-        this.appRef.rootElement.style.overflowY = 'scroll';
+        this.appRef.rootElement.style.overflowY = 'hidden';
 
-        this.appRef.host.style.maxWidth = '100%';
+        // this.appRef.host.style.maxWidth = '100%';
         this.appRef.host.style.width = '100%';
         this.appRef.host.style.margin = '0';
         this.appRef.host.style.padding = '0';
-        this.appRef.host.style.overflowY = 'scroll';
+        this.appRef.host.style.overflowY = 'auto';
         // this.appRef.root.style.pointerEvents = 'initial';
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
@@ -261,7 +264,7 @@ export class CreateGui {
                     flexDirection: 'column',
                     width: '100%',
                     gap: '15px',
-                    margin: '20px',
+                    marginY: '20px',
                 },
             });
             titleFlex.add.Label({
@@ -284,7 +287,7 @@ export class CreateGui {
 
         const tabs = rootFlex.add.Tabs({
             style: {
-                margin: '20px',
+                marginY: '20px',
             },
         });
 
@@ -311,6 +314,7 @@ export class CreateGui {
                     id: 'isModInit',
                     text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
                 });
+                g.add.Divider({margin: '20px 0'});
                 g.add.Button({
                     id: 'install_EnchantedRestraintsPatch',
                     text: StringTable['install_EnchantedRestraintsPatch'],
