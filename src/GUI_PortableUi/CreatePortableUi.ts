@@ -2,7 +2,7 @@ import {App} from '@PortableUi/adaptor/App';
 // import '@PortableUi/css/theme1.scss';
 // import theme1String from '@PortableUi/css/theme1.scss?inlineScss';
 import theme1String from '@PortableUi/css/theme1.css?inlineText';
-import type {ModZone} from '@PortableUi/adaptor/ModZone';
+import {getCurrentZone, ModZone} from '@PortableUi/adaptor/ModZone';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
     CurseWears,
@@ -16,7 +16,7 @@ import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "../Sound/Sound";
-import {computed} from "alien-signals";
+import {computed, signal} from "alien-signals";
 
 KDOptOut = true;
 
@@ -99,6 +99,24 @@ export class CreateGui {
             if (!this.appContainerIFrame.contentDocument) {
                 console.error('appContainerIFrame.contentDocument is null');
             }
+
+            const iframeWindow = this.appContainerIFrame.contentWindow as any;
+            if (iframeWindow && (window as any).Zone) {
+                // 将父窗口的 Zone 引用注入到 iframe
+                iframeWindow.Zone = (window as any).Zone;
+                
+                // 触发 Zone.js 的自动补丁检查
+                // Zone.js 默认会拦截 iframe 的创建和加载。如果 iframe 是同源的，
+                // 访问 assertZonePatched() 会确保当前环境（包括关联的 iframe）被正确补丁。
+                try {
+                    (window as any).Zone.assertZonePatched();
+                } catch (e) {
+                    console.error('Zone patch check failed', e);
+                }
+                
+                console.log('Zone injected to iframe');
+            }
+
             this.modZone.runIn(() => {
                 // this.appContainerIFrame.contentDocument!.head.appendChild(document.createElement('style')).textContent = theme1String;
                 this.appContainerRoot = this.appContainerIFrame.contentDocument!.body;
@@ -203,6 +221,7 @@ export class CreateGui {
     appRef?: App;
 
     portableGuiCreator = () => {
+        console.log('getCurrentZone', getCurrentZone());
         if (!this.appContainerRoot) {
             return false;
         }
@@ -214,6 +233,7 @@ export class CreateGui {
             },
             bindingOptions: {
                 changeDetection: "hybrid",
+                flush: 'sync',
             },
         });
         this.appRef.root.parentElement!.style.maxWidth = '100%';
@@ -298,6 +318,7 @@ export class CreateGui {
             console.log('aaa', aaa);
             const aa = c.add.Checkbox({
                 id: 'isAutoInstallEnchantedRestraintsPatch',
+                label: aaa,
                 bind: {
                     checked: {
                         target: StateEnchantedRestraintsPatch,
@@ -311,35 +332,36 @@ export class CreateGui {
                             };
                         },
                     },
+                    // onClick: (self, ev) => {
+                    //     console.log('isAutoInstallEnchantedRestraintsPatch onClick', ev);
+                    // }
                     // label: createAccessor(aaa),
                     // label: computed(() => aaa),
                 },
             });
-            // 错误输出: aa textContent <empty string>
-            console.log('aa textContent', aa.getElement()!.querySelector('span')!.textContent);
-            c.add.Label({
-                id: 'aaa',
-                // text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
-                bind: {
-                    text: computed(() => aaa),
-                },
-            });
-            c.add.Label({
-                id: 'aaa2',
-                text: aaa,
-            });
-            c.add.Label({
-                id: 'aaa3',
-                bind: {
-                    text: {
-                        target: {
-                            aaa: aaa,
-                        },
-                        key: 'aaa',
-                        mode: 'ro',
-                    }
-                },
-            });
+            // c.add.Label({
+            //     id: 'aaa',
+            //     // text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+            //     bind: {
+            //         text: computed(() => aaa),
+            //     },
+            // });
+            // c.add.Label({
+            //     id: 'aaa2',
+            //     text: aaa,
+            // });
+            // c.add.Label({
+            //     id: 'aaa3',
+            //     bind: {
+            //         text: {
+            //             target: {
+            //                 aaa: aaa,
+            //             },
+            //             key: 'aaa',
+            //             mode: 'ro',
+            //         }
+            //     },
+            // });
         }
 
 
