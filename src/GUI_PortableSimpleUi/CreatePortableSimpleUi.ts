@@ -295,86 +295,40 @@ export class CreateGui {
                 title: StringTable['install EnchantedRestraints Mod Section'],
             }).Flex({
                 style: {
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     gap: '20px',
                 },
-            })
-
-            c.add.Label({
-                id: 'install EnchantedRestraints Mod Section'.replaceAll(' ', '_'),
-                text: StringTable['install EnchantedRestraints Mod Section'],
             });
 
-            c.add.Label({
-                id: 'isModInit',
-                text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
-            });
-            c.add.Button({
-                id: 'install_EnchantedRestraintsPatch',
-                text: StringTable['install_EnchantedRestraintsPatch'],
-                onClick: () => {
-                    thisRef.do_install_EnchantedRestraintsPatch();
-                    // c.findComponentById('isModInit')!.setText(StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled));
-                }
-            });
-            c.add.Label({
+            {
+                const g = c.add.Group({
+                    id: 'install EnchantedRestraints Mod Section'.replaceAll(' ', '_'),
+                    title: StringTable['install EnchantedRestraints Mod Section'],
+                });
+                g.add.Label({
+                    id: 'isModInit',
+                    text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
+                });
+                g.add.Button({
+                    id: 'install_EnchantedRestraintsPatch',
+                    text: StringTable['install_EnchantedRestraintsPatch'],
+                    onClick: () => {
+                        thisRef.do_install_EnchantedRestraintsPatch();
+                        // c.findComponentById('isModInit')!.setText(StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled));
+                    }
+                });
+            }
+
+            c.add.Group({
                 id: 'isInstalled',
-                text: StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()),
-            });
-            c.add.Checkbox({
+                title: StringTable.isInstalledMask(StateEnchantedRestraintsPatch.isInit()),
+            }).add.Checkbox({
                 id: 'isAutoInstallEnchantedRestraintsPatch',
                 label: () => StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall),
                 checked: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall'),
             });
-            // const aaa = StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall);
-            // // 输出： aaa 是否自动安装 <更多远古套装补丁>: 是Yes (自动安装重启生效) [不喜欢更多古套装请取消勾选==>]
-            // console.log('aaa', aaa);
-            // const aa = c.add.Checkbox({
-            //     id: 'isAutoInstallEnchantedRestraintsPatch',
-            //     label: aaa,
-            //     bind: {
-            //         checked: {
-            //             target: StateEnchantedRestraintsPatch,
-            //             key: 'AutoInstall',
-            //         },
-            //         label: {
-            //             get: () => aaa,
-            //             subscribe: () => {
-            //                 console.log('isAutoInstallEnchantedRestraintsPatch subscribe', aaa);
-            //                 return () => {
-            //                 };
-            //             },
-            //         },
-            //         // onClick: (self, ev) => {
-            //         //     console.log('isAutoInstallEnchantedRestraintsPatch onClick', ev);
-            //         // }
-            //         // label: createAccessor(aaa),
-            //         // label: computed(() => aaa),
-            //     },
-            // });
-            // c.add.Label({
-            //     id: 'aaa',
-            //     // text: StringTable.isModInitMask(thisRef.do_install_EnchantedRestraintsPatch_isCalled),
-            //     bind: {
-            //         text: computed(() => aaa),
-            //     },
-            // });
-            // c.add.Label({
-            //     id: 'aaa2',
-            //     text: aaa,
-            // });
-            // c.add.Label({
-            //     id: 'aaa3',
-            //     bind: {
-            //         text: {
-            //             target: {
-            //                 aaa: aaa,
-            //             },
-            //             key: 'aaa',
-            //             mode: 'ro',
-            //         }
-            //     },
-            // });
+
+
         }
 
 
