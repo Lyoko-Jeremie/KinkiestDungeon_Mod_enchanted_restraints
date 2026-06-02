@@ -41,7 +41,8 @@
      "types": [
        "src/KK.d.ts",
        "src/WindowPatch.d.ts",
-       "src/GUI_PortableUi/inlineScss-asset-source.d.ts"
+       "src/GUI_PortableUi/inlineScss-asset-source.d.ts",
+       "src/GUI_PortableSimpleUi/inlineScss-asset-source.d.ts"
      ],                                      /* Specify type package names to be included without being referenced in a source file. */
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
@@ -118,9 +119,16 @@
 
     "paths": {
       "@PortableUi": ["./PortableUi/src"],
-      "@PortableUi/*": ["./PortableUi/src/*"]
+      "@PortableUi/*": ["./PortableUi/src/*"],
+      "@PortableSimpleUi": ["./PortableSimpleUi/src"],
+      "@PortableSimpleUi/*": ["./PortableSimpleUi/src/*"]
     },
   },
 //  "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "PortableUi/examples/**/*", "PortableUi/test/**/*"]
+  "exclude": ["dist", "node_modules",
+    "PortableUi/examples/**/*",
+    "PortableUi/test/**/*",
+    "PortableSimpleUi/examples/**/*",
+    "PortableSimpleUi/test/**/*"
+  ]
 }
