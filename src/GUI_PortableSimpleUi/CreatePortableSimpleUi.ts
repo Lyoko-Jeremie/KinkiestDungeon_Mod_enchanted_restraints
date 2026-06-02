@@ -246,7 +246,7 @@ export class CreateGui {
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
 
-        const thisRef = this;
+        const thisRef: typeof this = this;
 
         const rootFlex = this.appRef.add.Flex({
             id: 'rootFlex',
@@ -257,6 +257,7 @@ export class CreateGui {
             },
         });
 
+        // mod title
         {
             const titleFlex = rootFlex.add.Flex({
                 style: {
@@ -264,7 +265,7 @@ export class CreateGui {
                     flexDirection: 'column',
                     width: '100%',
                     gap: '15px',
-                    marginY: '20px',
+                    margin: '20px 0',
                 },
             });
             titleFlex.add.Label({
@@ -285,12 +286,14 @@ export class CreateGui {
             });
         }
 
+        // tabs
         const tabs = rootFlex.add.Tabs({
             style: {
-                marginY: '20px',
+                margin: '20px 0',
             },
         });
 
+        // tab install mod
         {
 
             const c = tabs.addTab({
@@ -351,6 +354,50 @@ export class CreateGui {
 
         }
 
+        // ApplyModRestraint
+        {
+
+            const c = tabs.addTab({
+                id: 'ApplyModRestraint Section'.replaceAll(' ', '_'),
+                title: StringTable['ApplyModRestraint Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+
+            c.add.Button({
+                id: 'ApplyModRestraint',
+                text: StringTable['ApplyModRestraint'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.ApplyModRestraint();
+                }
+            });
+        }
+
+        // Map
+        {
+            const c = tabs.addTab({
+                id: 'Map Section'.replaceAll(' ', '_'),
+                title: StringTable['Map Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+
+            c.add.Button({
+                id: 'MapKKSsMGet',
+                text: StringTable['MapKKSsMGet'],
+                onClick: () => {
+                    // TODO
+                    // const r = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(c);
+                }
+            });
+
+        }
 
         this.appRef.markDirty();
         return true;
