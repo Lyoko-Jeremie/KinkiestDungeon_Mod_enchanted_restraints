@@ -1,4 +1,4 @@
-import {AppRoot, createZoneWrapper, type IZoneWrapper, makeRef} from '@PortableSimpleUi';
+import {AppRoot, createZoneWrapper, type IZoneWrapper, makeDataAccessor, makeRef} from '@PortableSimpleUi';
 import themeString from '@PortableSimpleUi/theme/css/theme.css?inlineText';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
@@ -327,11 +327,12 @@ export class CreateGui {
                 g.add.Checkbox({
                     id: 'isAutoInstallEnchantedRestraintsPatch',
                     label: () => StringTable.isAutoInstallEnchantedRestraintsPatchMask(StateEnchantedRestraintsPatch.AutoInstall),
-                    checked: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall'),
-                    onChange: (checked, self) => {
-                        console.log(checked);
-                        StateEnchantedRestraintsPatch.AutoInstall = checked;
-                    },
+                    // checked: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall'),
+                    // onChange: (checked, self) => {
+                    //     console.log(checked);
+                    //     StateEnchantedRestraintsPatch.AutoInstall = checked;
+                    // },
+                    checked: makeDataAccessor(StateEnchantedRestraintsPatch, 'AutoInstall'),
                 });
                 g.add.Label({
                     text: makeRef(StateEnchantedRestraintsPatch, 'AutoInstall', v => '' + v),
