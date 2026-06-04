@@ -875,7 +875,7 @@ export class CreateGui {
                 id: 'PrintNowAllReputationStateList',
                 value: this.signalTable.PrintNowAllReputationStateListString,
                 readOnly: true,
-                style:{
+                style: {
                     minHeight: '8em',
                 },
             });
@@ -1299,14 +1299,14 @@ export class CreateGui {
             {
                 const g = c.add.Group({
                     title: StringTable['ChoicePrintNowChoice'],
-                    styleContainer: {display: 'flex', flexDirection:'column'},
+                    styleContainer: {display: 'flex', flexDirection: 'column'},
                 });
 
                 g.add.TextArea({
                     id: 'NowChoiceList',
                     value: this.signalTable.NowChoiceList,
                     readOnly: true,
-                    style:{
+                    style: {
                         minHeight: '8em',
                     },
                 });
@@ -1332,66 +1332,73 @@ export class CreateGui {
                 },
             });
 
-            const ChoiceAddOneSelect = c.add.Select({
-                id: 'ChoiceAddOneSelect',
-                options: this.signalTable.ChoiceAddOneSelect,
-            });
-            this.calcChoiceAddOneSelect();
-            c.add.Button({
-                id: 'ChoiceAddCheatChoiceGoodEscape',
-                text: StringTable['ChoiceAddCheatChoiceGoodEscape'],
-                onClick: () => {
-                    const N = ChoiceAddOneSelect.state.value;
-                    if (N) {
-                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N);
-                        this.calcChoiceAddOneSelect();
-                    }
-                },
-            });
-            c.add.Button({
-                id: 'ChoiceRemoveOne',
-                text: StringTable['ChoiceRemoveOne'],
-                onClick: () => {
-                    const N = ChoiceAddOneSelect.state.value;
-                    if (N) {
-                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N, true);
-                        this.calcChoiceAddOneSelect();
-                    }
-                },
-            });
+            {
+                const g = c.add.Group({
+                    title: StringTable['ChoiceSelect'],
+                    styleContainer: {display: 'flex', flexDirection: 'column'},
+                })
+                const ChoiceAddOneSelect = g.add.Autocomplete({
+                    id: 'ChoiceAddOneSelect',
+                    options: this.signalTable.ChoiceAddOneSelect,
+                });
+                this.calcChoiceAddOneSelect();
+                g.add.Button({
+                    id: 'ChoiceAddCheatChoiceGoodEscape',
+                    text: StringTable['ChoiceAddCheatChoiceGoodEscape'],
+                    onClick: () => {
+                        const N = ChoiceAddOneSelect.state.selectedKey;
+                        if (N) {
+                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N);
+                            this.calcChoiceAddOneSelect();
+                        }
+                    },
+                });
+                g.add.Button({
+                    id: 'ChoiceRemoveOne',
+                    text: StringTable['ChoiceRemoveOne'],
+                    onClick: () => {
+                        const N = ChoiceAddOneSelect.state.selectedKey;
+                        if (N) {
+                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N, true);
+                            this.calcChoiceAddOneSelect();
+                        }
+                    },
+                });
+            }
 
-            c.add.Spacer({height: '10px'});
-
-            c.add.Label({
-                text: StringTable['ChoiceAddOneFilterSelect'],
-            })
-            const ChoiceAddOneFilterSelect = c.add.Autocomplete({
-                id: 'ChoiceAddOneFilterSelect',
-                options: this.signalTable.ChoiceAddOneFilterSelect,
-            });
-            this.calcChoiceAddOneFilterSelect();
-            c.add.Button({
-                id: 'ChoiceFilterAddOne',
-                text: StringTable['ChoiceFilterAddOne'],
-                onClick: () => {
-                    const N = ChoiceAddOneFilterSelect.state.selectedKey;
-                    if (N) {
-                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N, true);
-                        this.calcChoiceAddOneFilterSelect();
-                    }
-                },
-            });
-            c.add.Button({
-                id: 'ChoiceFilterRemoveOne',
-                text: StringTable['ChoiceFilterRemoveOne'],
-                onClick: () => {
-                    const N = ChoiceAddOneFilterSelect.state.selectedKey;
-                    if (N) {
-                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N, false);
-                        this.calcChoiceAddOneFilterSelect();
-                    }
-                },
-            });
+            {
+                const g = c.add.Group({
+                    title: StringTable['ChoiceAddOneFilterSelect'],
+                    styleContainer: {display: 'flex', flexDirection: 'column'},
+                })
+                const ChoiceAddOneFilterSelect = g.add.Autocomplete({
+                    id: 'ChoiceAddOneFilterSelect',
+                    options: this.signalTable.ChoiceAddOneFilterSelect,
+                });
+                this.calcChoiceAddOneFilterSelect();
+                g.add.Button({
+                    id: 'ChoiceFilterAddOne',
+                    text: StringTable['ChoiceFilterAddOne'],
+                    onClick: () => {
+                        const N = ChoiceAddOneFilterSelect.state.selectedKey;
+                        if (N) {
+                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N, true);
+                            this.calcChoiceAddOneFilterSelect();
+                        }
+                    },
+                });
+                g.add.Button({
+                    id: 'ChoiceFilterRemoveOne',
+                    text: StringTable['ChoiceFilterRemoveOne'],
+                    onClick: () => {
+                        const N = ChoiceAddOneFilterSelect.state.selectedKey;
+                        if (N) {
+                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats._AddCheatChoice(N, false);
+                            this.calcChoiceAddOneFilterSelect();
+                        }
+                    },
+                });
+            }
         }
 
         // ChoicePrint
@@ -1416,7 +1423,7 @@ export class CreateGui {
                 id: 'ChoicePrintAllValidChoiceList',
                 value: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoice(),
                 readOnly: true,
-                style:{
+                style: {
                     minHeight: '8em',
                 },
             });
