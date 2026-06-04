@@ -875,6 +875,9 @@ export class CreateGui {
                 id: 'PrintNowAllReputationStateList',
                 value: this.signalTable.PrintNowAllReputationStateListString,
                 readOnly: true,
+                style:{
+                    minHeight: '8em',
+                },
             });
 
         }
@@ -1009,12 +1012,17 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Dynamic Hook Cheats Section'.replaceAll(' ', '_'),
                 title: StringTable['Dynamic Hook Cheats Section'],
-            }).Flex({
+            }).Group({
+                title: StringTable['Dynamic Hook Cheats Section'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
+
+            const style = {
+                margin: '0 0.25em',
+            };
 
             c.add.Button({
                 id: 'DynamicHookEnableAlwaysCanUseAnyWeapon',
@@ -1023,6 +1031,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanUseAnyWeapon');
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookDisableAlwaysCanUseAnyWeapon',
@@ -1031,6 +1040,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanUseAnyWeapon');
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookEnableAlwaysCanDrink',
@@ -1039,6 +1049,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanDrink');
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookDisableAlwaysCanDrink',
@@ -1047,6 +1058,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanDrink');
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookEnableNeverMiscastMagic',
@@ -1055,6 +1067,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('NeverMiscastMagic');
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookDisableNeverMiscastMagic',
@@ -1063,6 +1076,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('NeverMiscastMagic');
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookEnableNeverSlow',
@@ -1071,6 +1085,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('NeverSlow');
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookDisableNeverSlow',
@@ -1079,6 +1094,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('NeverSlow');
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookEnableNeverMiss',
@@ -1087,6 +1103,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('NeverMiss');
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookDisableNeverMiss',
@@ -1095,6 +1112,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('NeverMiss');
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookEnableAlwaysCanUseMagic',
@@ -1103,6 +1121,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.enableHook('AlwaysCanUseMagic');
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DynamicHookDisableAlwaysCanUseMagic',
@@ -1111,6 +1130,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.dynamicCheatsHook.disableHook('AlwaysCanUseMagic');
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
         }
 
@@ -1119,12 +1139,17 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Choice Section'.replaceAll(' ', '_'),
                 title: StringTable['Choice Section'],
-            }).Flex({
+            }).Group({
+                title: StringTable['Choice Section'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
 
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodEscape',
@@ -1132,6 +1157,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEscape();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodEnhance',
@@ -1139,6 +1165,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodEnhance();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodMid',
@@ -1146,6 +1173,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodMid();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceBadMid',
@@ -1153,6 +1181,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadMid();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceBadMid',
@@ -1160,6 +1189,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadMid();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceMid',
@@ -1167,6 +1197,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMid();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceSex',
@@ -1174,6 +1205,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSex();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceSexRemove',
@@ -1181,6 +1213,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSex(true);
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceSexClean',
@@ -1188,6 +1221,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSexClean();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceBadNegative',
@@ -1195,6 +1229,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNegative();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceBadNoEscape',
@@ -1202,6 +1237,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadNoEscape();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodVision',
@@ -1209,6 +1245,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceGoodVision();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceBadVision',
@@ -1216,6 +1253,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceBadVision();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceMoreKinkyFurniture',
@@ -1223,6 +1261,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMoreKinkyFurniture();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceMap',
@@ -1230,6 +1269,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMap();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceMapAbsurd',
@@ -1237,6 +1277,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceMapAbsurd();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceNowhere',
@@ -1244,6 +1285,7 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceNowhere();
                 },
+                style,
             });
             c.add.Button({
                 id: 'ChoiceAddCheatChoiceSuperMarket',
@@ -1251,22 +1293,31 @@ export class CreateGui {
                 onClick: () => {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceAddCheatChoiceSuperMarket();
                 },
+                style,
             });
 
-            c.add.Spacer({height: '10px'});
+            {
+                const g = c.add.Group({
+                    title: StringTable['ChoicePrintNowChoice'],
+                    styleContainer: {display: 'flex', flexDirection:'column'},
+                });
 
-            c.add.Button({
-                id: 'ChoicePrintNowChoice',
-                text: StringTable['ChoicePrintNowChoice'],
-                onClick: () => {
-                    this.signalTable.NowChoiceList.set(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintNowChoice());
-                },
-            });
-            c.add.TextArea({
-                id: 'NowChoiceList',
-                value: this.signalTable.NowChoiceList,
-                readOnly: true,
-            });
+                g.add.TextArea({
+                    id: 'NowChoiceList',
+                    value: this.signalTable.NowChoiceList,
+                    readOnly: true,
+                    style:{
+                        minHeight: '8em',
+                    },
+                });
+                g.add.Button({
+                    id: 'ChoicePrintNowChoice',
+                    text: StringTable['ChoicePrintNowChoice'],
+                    onClick: () => {
+                        this.signalTable.NowChoiceList.set(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintNowChoice());
+                    },
+                });
+            }
         }
 
         // ChoiceAddOne
@@ -1365,6 +1416,9 @@ export class CreateGui {
                 id: 'ChoicePrintAllValidChoiceList',
                 value: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoice(),
                 readOnly: true,
+                style:{
+                    minHeight: '8em',
+                },
             });
         }
 
