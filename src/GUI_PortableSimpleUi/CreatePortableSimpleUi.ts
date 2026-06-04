@@ -334,13 +334,13 @@ export class CreateGui {
         this.appRef.rootElement.style.height = '100%';
         this.appRef.rootElement.style.margin = '0';
         this.appRef.rootElement.style.padding = '0';
-        this.appRef.rootElement.style.overflowY = 'scroll';
+        this.appRef.rootElement.style.overflowY = 'hidden';
 
         // this.appRef.host.style.maxWidth = '100%';
         this.appRef.host.style.width = '100%';
         this.appRef.host.style.margin = '0';
         this.appRef.host.style.padding = '0';
-        this.appRef.host.style.overflowY = 'auto';
+        this.appRef.host.style.overflowY = 'hidden';
         // this.appRef.root.style.pointerEvents = 'initial';
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
@@ -353,6 +353,8 @@ export class CreateGui {
                 backgroundColor: '#f0f0f0',
                 flexDirection: 'column',
                 width: '100%',
+                height: '100%',
+                overflowY: 'scroll',
             },
         });
 
@@ -1332,6 +1334,10 @@ export class CreateGui {
                 },
             });
 
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
             {
                 const g = c.add.Group({
                     title: StringTable['ChoiceSelect'],
@@ -1340,6 +1346,7 @@ export class CreateGui {
                 const ChoiceAddOneSelect = g.add.Autocomplete({
                     id: 'ChoiceAddOneSelect',
                     options: this.signalTable.ChoiceAddOneSelect,
+                    style,
                 });
                 this.calcChoiceAddOneSelect();
                 g.add.Button({
@@ -1352,6 +1359,7 @@ export class CreateGui {
                             this.calcChoiceAddOneSelect();
                         }
                     },
+                    style,
                 });
                 g.add.Button({
                     id: 'ChoiceRemoveOne',
@@ -1363,6 +1371,7 @@ export class CreateGui {
                             this.calcChoiceAddOneSelect();
                         }
                     },
+                    style,
                 });
             }
 
@@ -1374,6 +1383,7 @@ export class CreateGui {
                 const ChoiceAddOneFilterSelect = g.add.Autocomplete({
                     id: 'ChoiceAddOneFilterSelect',
                     options: this.signalTable.ChoiceAddOneFilterSelect,
+                    style,
                 });
                 this.calcChoiceAddOneFilterSelect();
                 g.add.Button({
@@ -1386,6 +1396,7 @@ export class CreateGui {
                             this.calcChoiceAddOneFilterSelect();
                         }
                     },
+                    style,
                 });
                 g.add.Button({
                     id: 'ChoiceFilterRemoveOne',
@@ -1397,6 +1408,7 @@ export class CreateGui {
                             this.calcChoiceAddOneFilterSelect();
                         }
                     },
+                    style,
                 });
             }
         }
