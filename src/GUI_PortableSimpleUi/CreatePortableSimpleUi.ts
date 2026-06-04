@@ -7,7 +7,8 @@ import {
     makeRef,
     signal
 } from '@PortableSimpleUi';
-import themeString from '@PortableSimpleUi/theme/css/theme.css?inlineText';
+// import themeString from '@PortableSimpleUi/theme/css/theme.css?inlineText';
+import {DEFAULT_THEME_CSS as themeString} from '@PortableSimpleUi/theme/index';
 import {EnchantedRestraintsPatch, StateEnchantedRestraintsPatch} from '../initMod';
 import {
     CurseWears,
@@ -333,7 +334,7 @@ export class CreateGui {
         this.appRef.rootElement.style.height = '100%';
         this.appRef.rootElement.style.margin = '0';
         this.appRef.rootElement.style.padding = '0';
-        this.appRef.rootElement.style.overflowY = 'hidden';
+        this.appRef.rootElement.style.overflowY = 'scroll';
 
         // this.appRef.host.style.maxWidth = '100%';
         this.appRef.host.style.width = '100%';
@@ -387,7 +388,7 @@ export class CreateGui {
         // tabs
         const tabs = rootFlex.add.Tabs({
             style: {
-                margin: '20px 0',
+                margin: '20px',
             },
         });
 
@@ -711,8 +712,8 @@ export class CreateGui {
         // Relations
         {
             const c = tabs.addTab({
-                id: 'SpellPoints Section'.replaceAll(' ', '_'),
-                title: StringTable['SpellPoints Section'],
+                id: 'Relations Section'.replaceAll(' ', '_'),
+                title: StringTable['Relations Section'],
             }).Flex({
                 style: {
                     flexDirection: 'column',
@@ -944,8 +945,8 @@ export class CreateGui {
         // Enable
         {
             const c = tabs.addTab({
-                id: 'Bootstrap Section'.replaceAll(' ', '_'),
-                title: StringTable['Bootstrap Section'],
+                id: 'Enable Section'.replaceAll(' ', '_'),
+                title: StringTable['Enable Section'],
             }).Flex({
                 style: {
                     flexDirection: 'column',
