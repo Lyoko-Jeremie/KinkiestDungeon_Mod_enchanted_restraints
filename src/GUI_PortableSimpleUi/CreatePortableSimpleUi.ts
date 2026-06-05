@@ -941,7 +941,7 @@ export class CreateGui {
                 style: {
                     ...style,
                     display: 'block',
-                    minHeight: '8em',
+                    minHeight: '30em',
                     width: '100%',
                 },
             });
@@ -1393,7 +1393,7 @@ export class CreateGui {
                     value: this.signalTable.NowChoiceList,
                     readOnly: true,
                     style: {
-                        minHeight: '8em',
+                        minHeight: '25em',
                     },
                 });
                 g.add.Button({
@@ -1520,7 +1520,7 @@ export class CreateGui {
                 value: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoice(),
                 readOnly: true,
                 style: {
-                    minHeight: '8em',
+                    minHeight: '35em',
                 },
             });
         }
