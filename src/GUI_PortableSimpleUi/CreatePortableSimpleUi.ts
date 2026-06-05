@@ -1,5 +1,5 @@
 import {
-    AppRoot,
+    AppRoot, computed,
     ContainerComponent,
     ISelectOption,
     type IZoneWrapper,
@@ -190,14 +190,15 @@ export class CreateGui {
     // =========================================================================
 
     signalTable = {
-        'PrintNowAllReputationStateList': signal<{ god: ISelectOption[], faction: ISelectOption[] }>({
+        PrintNowAllReputationStateList: signal<{ god: ISelectOption[], faction: ISelectOption[] }>({
             god: [],
             faction: [],
         }),
-        'PrintNowAllReputationStateListString': signal<string>(''),
-        'NowChoiceList': signal<string>(''),
-        'ChoiceAddOneSelect': signal<ISelectOption[]>([]),
-        'ChoiceAddOneFilterSelect': signal<ISelectOption[]>([]),
+        PrintNowAllReputationStateListString: signal<string>(''),
+        NowChoiceList: signal<string>(''),
+        ChoiceAddOneSelect: signal<ISelectOption[]>([]),
+        ChoiceAddOneFilterSelect: signal<ISelectOption[]>([]),
+        NowWearRestraintItemDifficulty: signal<number>(0),
     } as const;
 
     calcGoddessRepKeyListSelect = () => {
@@ -273,6 +274,18 @@ export class CreateGui {
             this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoiceGetAllValidChoiceData()
                 .map(T => ({value: T.keyName, label: `${T.count}. ${T.name}[${T.keyName}]:${T.selected ? '██' : '_'}`}))
         );
+    }
+    calcNowWearRestraintItemSelect = () => {
+        return this.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem().map(T => {
+            const l1 = LockList2HumanName(T.item?.lock as LockList);
+            const l2 = LockList2HumanName(T.parentItem?.lock as LockList);
+            const label = `${T.restraint?.name}|[${T.restraint ? TextGet(`Restraint${T.restraint.name}`) : ''}][${T.restraint?.Group}][${l1}]--` +
+                (T.parentRestraint ? (`[${T.parentRestraint?.name || ''}][${T.parentRestraint ? TextGet(`Restraint${T.parentRestraint.name}`) : ''}][${T.parentRestraint?.Group || ''}][${l2}]`) : '');
+            return {
+                label: label,
+                value: T.restraint?.name,
+            };
+        });
     }
 
     // =========================================================================
@@ -1794,7 +1807,7 @@ export class CreateGui {
             const FactionSelect = g.add.Select({
                 options: (() => {
                     const fa = Object.keys(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.kinkyDungeonFactionColors);
-                    // fa.unshift('None');
+                    fa.unshift('None');
                     return fa.map(T => {
                         return {
                             label: T,
@@ -1960,7 +1973,158 @@ export class CreateGui {
             const AllRestraintItemSelect = makeAllRestraintItemSelect(c, style, LockSelect, FactionSelect);
         }
 
-        this.appRef.markDirty();
+        // NowWearRestraintItemSection
+        {
+            const c = tabs.addTab({
+                id: 'NowWearRestraintItemSection Section'.replaceAll(' ', '_'),
+                title: StringTable['NowWearRestraintItemSection'],
+            }).Group({
+                title: StringTable['NowWearRestraintItemSection'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            let g;
+            g = c.add.Container({
+                id: 'LockSelect',
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                text: StringTable['LockSelect'],
+                style,
+            })
+            const LockSelect = g.add.Select({
+                options: (() => {
+                    const l = Object.values(KDLocksTypeInstance.KDLocks).map(T => {
+                        return {
+                            label: LockList2HumanName(T),
+                            value: T,
+                        };
+                    });
+                    // l.unshift(LockList2HumanName(LockList.None));
+                    return l;
+                })(),
+                style,
+            });
+
+            const calcNK = () => {
+                const v = NowWearRestraintItemSelect.state.selectedKey;
+                const k = LockSelect.state.value as LockList | undefined;
+                const l = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem();
+                if (!!k) {
+                    const n = l.find(T => T.restraint?.name === v);
+                    if (n) {
+                        return {v, k, n};
+                    }
+                    console.warn('calcNK not found', v);
+                }
+                return undefined;
+            }
+            let cc = c.add.Group({
+                title: StringTable['NowWearRestraintItemSelect'],
+            });
+            const NowWearRestraintItemSelect = cc.add.Autocomplete({
+                options: () => this.calcNowWearRestraintItemSelect(),
+                value: 'None',
+                onSelect: () => {
+                    const result = calcNK();
+                    if (result) {
+                        const {v, k, n} = result;
+                        const d = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetNowRestraintDifficultyNumber(n.item);
+                        this.signalTable.NowWearRestraintItemDifficulty.set(d);
+                    }
+                },
+                style,
+            });
+
+            g = cc.add.Container({
+                id: 'LockNowWearRestraint',
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Button({
+                id: 'LockNowWearRestraintItem',
+                text: StringTable['LockNowWearRestraintItem'],
+                onClick: () => {
+                    const result = calcNK();
+                    if (result) {
+                        const {v, k, n} = result;
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.lockAWearingRestraintItem(n.item, k);
+                    }
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'UnlockNowWearRestraintItem',
+                text: StringTable['UnlockNowWearRestraintItem'],
+                onClick: () => {
+                    const result = calcNK();
+                    if (result) {
+                        const {v, k, n} = result;
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.unlockAWearingRestraintItem(n.item);
+                    }
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'RemoveNowWearRestraintItem',
+                text: StringTable['RemoveNowWearRestraintItem'],
+                onClick: () => {
+                    const result = calcNK();
+                    if (result) {
+                        const {v, k, n} = result;
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveRestraintSpecific(n.item, true);
+                    }
+                },
+                style,
+            });
+
+            g = cc.add.Container({
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                text: StringTable['NowWearRestraintItemDifficulty'],
+                style,
+            });
+            g.add.Input({
+                id: 'NowWearRestraintItemDifficulty',
+                value: {
+                    get: () => '' + this.signalTable.NowWearRestraintItemDifficulty.get(),
+                    set: (value) => this.signalTable.NowWearRestraintItemDifficulty.set(Number(value)),
+                },
+                readOnly: true,
+                style,
+            });
+            g.add.Button({
+                id: 'SetNowWearRestraintItemDifficulty',
+                text: StringTable['SetNowWearRestraintItemDifficulty'],
+                onClick: () => {
+                    const result = calcNK();
+                    if (result) {
+                        const {v, k, n} = result;
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetNowRestraintDifficulty(
+                            n.item,
+                            this.signalTable.NowWearRestraintItemDifficulty.get(),
+                        );
+                    }
+                },
+                style,
+            });
+
+
+        }
+
+        // this.appRef.markDirty();
         return true;
     }
 
