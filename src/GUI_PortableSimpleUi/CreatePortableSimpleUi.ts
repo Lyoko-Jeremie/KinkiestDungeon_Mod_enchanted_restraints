@@ -1647,9 +1647,48 @@ export class CreateGui {
                 },
                 style,
             });
+
+            g = c.add.Group({
+                title: StringTable['SpellsRemoveOneSelect'],
+            });
+
+            const SpellsRemoveOneSelect = g.add.Autocomplete({
+                id: 'SpellsRemoveOneSelect',
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells()
+                    .map(T => T.name)
+                    .map(T => {
+                        return {
+                            label: `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`,
+                            value: T,
+                        }
+                    }),
+                style,
+            });
+            g.add.Button({
+                id: 'SpellsRemoveOne',
+                text: StringTable['SpellsRemoveOne'],
+                onClick: () => {
+                    const N = SpellsRemoveOneSelect.state.selectedKey;
+                    if (N) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveOneSpell(N);
+                    }
+                },
+                style,
+            });
         }
 
-        
+        // DebugSee
+        {
+            const c = tabs.addTab({
+                id: 'DebugSee Section'.replaceAll(' ', '_'),
+                title: StringTable['DebugSee Section'],
+            }).Group({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+        }
 
         this.appRef.markDirty();
         return true;
