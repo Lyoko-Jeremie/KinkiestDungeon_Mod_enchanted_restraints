@@ -568,12 +568,16 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Keys Section'.replaceAll(' ', '_'),
                 title: StringTable['Keys Section'],
-            }).Flex({
+            }).Group({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
 
             c.add.Button({
                 id: 'AddManyKeys',
@@ -582,6 +586,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyKeys();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddManyPotion',
@@ -590,6 +595,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyPotion();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddManyGold',
@@ -598,6 +604,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddManyGold();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddDistraction',
@@ -606,6 +613,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddDistraction();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'ZeroDistraction',
@@ -614,6 +622,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ZeroDistraction();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddAllRestraints',
@@ -622,6 +631,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllRestraints();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddAllOutfit',
@@ -630,6 +640,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllOutfit();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddAllConsumables',
@@ -638,6 +649,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllConsumables();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddAllWeapon',
@@ -646,6 +658,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllWeapon();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddAllKeyTools',
@@ -654,6 +667,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddAllKeyTools();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'RemoveAllKeyTools',
@@ -662,6 +676,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllKeyTools();
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'AddRecyclerInput',
@@ -670,6 +685,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddRecyclerInput();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
         }
 
@@ -678,12 +694,16 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'SpellPoints Section'.replaceAll(' ', '_'),
                 title: StringTable['SpellPoints Section'],
-            }).Flex({
+            }).Group({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
 
             c.add.Button({
                 id: 'AddSpellPoints',
@@ -692,6 +712,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(10);
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'ZeroSpellPoints',
@@ -700,6 +721,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(0);
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'NegativeSpellPoints',
@@ -708,6 +730,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChangeSpellPoints(-10);
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
         }
 
@@ -716,14 +739,25 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Relations Section'.replaceAll(' ', '_'),
                 title: StringTable['Relations Section'],
-            }).Flex({
+            }).Group({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
 
-            c.add.Button({
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            let g;
+            g = c.add.Group({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+            g.add.Button({
                 id: 'FullAllRelations',
                 text: StringTable['FullAllRelations'],
                 onClick: () => {
@@ -731,8 +765,9 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ZeroAllRelations',
                 text: StringTable['ZeroAllRelations'],
                 onClick: () => {
@@ -740,8 +775,9 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'NegativeAllRelations',
                 text: StringTable['NegativeAllRelations'],
                 onClick: () => {
@@ -749,11 +785,16 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
 
-            c.add.Spacer({height: '10px'});
-
-            c.add.Button({
+            g = c.add.Group({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+            g.add.Button({
                 id: 'FullAllGoddess',
                 text: StringTable['FullAllGoddess'] + ' +50',
                 onClick: () => {
@@ -761,8 +802,9 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ZeroAllGoddess',
                 text: StringTable['ZeroAllGoddess'],
                 onClick: () => {
@@ -770,8 +812,9 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'NegativeAllGoddess',
                 text: StringTable['NegativeAllGoddess'] + ' +50',
                 onClick: () => {
@@ -779,11 +822,16 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
 
-            c.add.Spacer({});
-
-            c.add.Button({
+            g = c.add.Group({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+            g.add.Button({
                 id: 'FullAllReputationState',
                 text: StringTable['FullAllReputationState'] + ' +50',
                 onClick: () => {
@@ -791,8 +839,9 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ClearAllReputationState',
                 text: StringTable['ClearAllReputationState'],
                 onClick: () => {
@@ -800,8 +849,9 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'NegativeAllReputationState',
                 text: StringTable['NegativeAllReputationState'] + ' -50',
                 onClick: () => {
@@ -809,9 +859,8 @@ export class CreateGui {
                     thisRef.flushPrintNowAllReputationStateList();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
-
-            c.add.Spacer({height: '10px'});
 
             {
                 const g = c.add.Group({
@@ -822,8 +871,12 @@ export class CreateGui {
                 const GoddessRepSelect = g.add.Select({
                     id: 'GoddessRepSelect',
                     options: () => this.calcGoddessRepKeyListSelect(),
+                    style: {
+                        ...style,
+                        display: 'block',
+                    },
                 });
-                c.add.Button({
+                g.add.Button({
                     id: 'AddSelectedGoddessRep',
                     text: StringTable['AddSelectedGoddessRep'] + ' +50',
                     onClick: () => {
@@ -835,8 +888,9 @@ export class CreateGui {
                         thisRef.flushPrintNowAllReputationStateList();
                         thisRef.playDing(PlayDingType.ding);
                     },
+                    style,
                 });
-                c.add.Button({
+                g.add.Button({
                     id: 'ClearSelectedGoddessRep',
                     text: StringTable['ClearSelectedGoddessRep'],
                     onClick: () => {
@@ -848,8 +902,9 @@ export class CreateGui {
                         thisRef.flushPrintNowAllReputationStateList();
                         thisRef.playDing(PlayDingType.ding);
                     },
+                    style,
                 });
-                c.add.Button({
+                g.add.Button({
                     id: 'NegativeSelectedGoddessRep',
                     text: StringTable['NegativeSelectedGoddessRep'] + ' -50',
                     onClick: () => {
@@ -861,24 +916,33 @@ export class CreateGui {
                         thisRef.flushPrintNowAllReputationStateList();
                         thisRef.playDing(PlayDingType.ding);
                     },
+                    style,
                 });
             }
 
-            c.add.Spacer({height: '10px'});
-
-            c.add.Button({
+            g = c.add.Group({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+            g.add.Button({
                 id: 'PrintNowAllReputationState',
                 text: StringTable['PrintNowAllReputationState'],
                 onClick: () => {
                     thisRef.flushPrintNowAllReputationStateList();
                 },
+                ...style,
             });
-            c.add.TextArea({
+            g.add.TextArea({
                 id: 'PrintNowAllReputationStateList',
                 value: this.signalTable.PrintNowAllReputationStateListString,
                 readOnly: true,
                 style: {
+                    ...style,
+                    display: 'block',
                     minHeight: '8em',
+                    width: '100%',
                 },
             });
 
@@ -889,12 +953,16 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Bootstrap Section'.replaceAll(' ', '_'),
                 title: StringTable['Bootstrap Section'],
-            }).Flex({
+            }).Group({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
 
             c.add.Button({
                 id: 'BootstrapAllGood',
@@ -903,6 +971,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapAllGood();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'BootstrapSpellChoicesTable',
@@ -911,6 +980,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapSpellChoicesTable();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'BootstrapFullAllSpells',
@@ -919,6 +989,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllSpells();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'BootstrapSimpleGood',
@@ -927,6 +998,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapSimpleGood();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'BootstrapAllNegative',
@@ -935,6 +1007,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.BootstrapAllNegative();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'Add1000MaxState',
@@ -943,6 +1016,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.Add1000MaxState();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
 
         }
@@ -952,12 +1026,16 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Enable Section'.replaceAll(' ', '_'),
                 title: StringTable['Enable Section'],
-            }).Flex({
+            }).Group({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
             });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
 
             c.add.Button({
                 id: 'EnableAllCheats',
@@ -966,6 +1044,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableAllCheats();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DisableAllCheats',
@@ -974,6 +1053,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableAllCheats();
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'EnableFullState',
@@ -982,6 +1062,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableFullState();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DisableFullState',
@@ -990,6 +1071,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableFullState();
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
             c.add.Button({
                 id: 'EnableQuickness5',
@@ -998,6 +1080,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.EnableQuickness5();
                     thisRef.playDing(PlayDingType.ding);
                 },
+                style,
             });
             c.add.Button({
                 id: 'DisableQuickness5',
@@ -1006,6 +1089,7 @@ export class CreateGui {
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DisableQuickness5();
                     thisRef.playDing(PlayDingType.dong);
                 },
+                style,
             });
         }
 
@@ -1023,7 +1107,7 @@ export class CreateGui {
             });
 
             const style = {
-                margin: '0 0.25em',
+                margin: '0.15em 0.25em',
             };
 
             c.add.Button({
