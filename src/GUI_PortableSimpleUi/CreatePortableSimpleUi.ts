@@ -1525,12 +1525,13 @@ export class CreateGui {
             });
         }
 
-        // Spells
+        // AllSpellsList
         {
             const c = tabs.addTab({
-                id: 'Spells Section'.replaceAll(' ', '_'),
-                title: StringTable['Spells Section'],
-            }).Flex({
+                id: 'AllSpellsList Section'.replaceAll(' ', '_'),
+                title: StringTable['AllSpellsList'],
+            }).Group({
+                title: StringTable['AllSpellsList'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
@@ -1545,6 +1546,39 @@ export class CreateGui {
                     {title: 'Description', key: 'd'},
                 ],
                 dataSource: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                    .map(T => T.name)
+                    .map(T => {
+                        return {
+                            n: T,
+                            s: TextGet('KinkyDungeonSpell' + T),
+                            d: TextGet('KinkyDungeonSpellDescription' + T),
+                        };
+                    }),
+            });
+
+        }
+
+        // NowSpellsList
+        {
+            const c = tabs.addTab({
+                id: 'NowSpellsList Section'.replaceAll(' ', '_'),
+                title: StringTable['NowSpellsList'],
+            }).Group({
+                title: StringTable['NowSpellsList'],
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+
+            c.add.Table({
+                id: 'NowSpellsList',
+                columns: [
+                    {title: 'Name', key: 'n'},
+                    {title: 'Spell', key: 's'},
+                    {title: 'Description', key: 'd'},
+                ],
+                dataSource: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells()
                     .map(T => T.name)
                     .map(T => {
                         return {
