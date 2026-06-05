@@ -1843,7 +1843,10 @@ export class CreateGui {
             // }
             const WearsListSelect = g.add.Autocomplete({
                 options: w.map(T => ({label: T.label, value: T.key})),
-                style,
+                style: {
+                    ...style,
+                    width: '100%',
+                },
             });
             g.add.Button({
                 // text: StringTable['WearJailOutfit'],
@@ -1863,19 +1866,25 @@ export class CreateGui {
             g = c.add.Group({
                 title: StringTable['WearJailOutfit'],
             });
-            const JailOutfitSelect = g.add.Select({
+            const JailOutfitSelect = g.add.Autocomplete({
                 options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllKDJailOutfits().map(T => ({
                     label: T,
                     value: T
                 })),
                 value: 'None',
-                style,
+                style: {
+                    ...style,
+                    width: '100%',
+                },
             });
             g.add.Button({
                 text: StringTable['WearJailOutfit'],
                 onClick: () => {
+                    if (!JailOutfitSelect.state.selectedKey) {
+                        return;
+                    }
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
-                        JailOutfitSelect.state.value!,
+                        JailOutfitSelect.state.selectedKey,
                         LockSelect.state.value as LockList | undefined,
                         FactionSelect.state.value === 'None' ? undefined : FactionSelect.state.value as KinkyDungeonFactionColors_Keys,
                     );
@@ -1950,7 +1959,35 @@ export class CreateGui {
                 style,
             });
 
-
+            g = c.add.Group({
+                title: StringTable['AllRestraintItemSelect'],
+            });
+            const AllRestraintItemSelect = g.add.Autocomplete({
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllRestraintItem().map(T => {
+                    return {
+                        label: `${T.name}|[${TextGet(`Restraint${T.name}`)}]`,
+                        value: T.name,
+                    };
+                }),
+                style: {
+                    ...style,
+                    width: '100%',
+                },
+            });
+            g.add.Button({
+                text: StringTable['WearJailOutfit'],
+                onClick: () => {
+                    if (!AllRestraintItemSelect.state.selectedKey) {
+                        return;
+                    }
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
+                        AllRestraintItemSelect.state.selectedKey,
+                        LockSelect.state.value as LockList | undefined,
+                        FactionSelect.state.value === 'None' ? undefined : FactionSelect.state.value as KinkyDungeonFactionColors_Keys,
+                    );
+                },
+                style,
+            });
         }
 
         this.appRef.markDirty();
