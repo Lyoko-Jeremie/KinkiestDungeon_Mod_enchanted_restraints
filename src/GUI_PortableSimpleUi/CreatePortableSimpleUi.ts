@@ -1,11 +1,12 @@
 import {
-    AppRoot, computed,
-    createZoneWrapper,
+    AppRoot,
+    ContainerComponent,
     ISelectOption,
     type IZoneWrapper,
     makeDataAccessor,
     makeRef,
-    signal
+    Select,
+    signal,
 } from '@PortableSimpleUi';
 // import themeString from '@PortableSimpleUi/theme/css/theme.css?inlineText';
 import {DEFAULT_THEME_CSS as themeString} from '@PortableSimpleUi/theme/index';
@@ -1751,18 +1752,7 @@ export class CreateGui {
             // });
         }
 
-        // WearRestraints
-        {
-            const c = tabs.addTab({
-                id: 'WearRestraints Section'.replaceAll(' ', '_'),
-                title: StringTable['WearRestraints Section'],
-            }).Group({
-                title: StringTable['WearRestraints Section'],
-            });
-
-            const style = {
-                margin: '0.15em 0.25em',
-            };
+        const makeLockFactionSelect = (c: ContainerComponent, style: Record<string, any>) => {
 
             let g;
             g = c.add.Container({
@@ -1815,6 +1805,29 @@ export class CreateGui {
                 style,
             });
 
+            return {
+                LockSelect,
+                FactionSelect,
+            };
+        }
+
+        // WearRestraints
+        {
+            const c = tabs.addTab({
+                id: 'WearRestraints Section'.replaceAll(' ', '_'),
+                title: StringTable['WearRestraints Section'],
+            }).Group({
+                title: StringTable['WearRestraints Section'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            const {LockSelect, FactionSelect} = makeLockFactionSelect(c, style);
+
+            let g;
+
             const w = Object.keys(WearsList).map((WK) => {
                 return {
                     key: 'Wear' + WK,
@@ -1829,8 +1842,7 @@ export class CreateGui {
                     }
                 };
             });
-            g = c.add.Group({
-            });
+            g = c.add.Group({});
             // for (const N of w) {
             //     g.add.Button({
             //         id: N.key,
@@ -1894,70 +1906,8 @@ export class CreateGui {
 
         }
 
-        // AllRestraintItemSection
-        {
-            const c = tabs.addTab({
-                id: 'AllRestraintItemSection Section'.replaceAll(' ', '_'),
-                title: StringTable['AllRestraintItemSection'],
-            }).Group({
-                title: StringTable['AllRestraintItemSection'],
-            });
-
-            const style = {
-                margin: '0.15em 0.25em',
-            };
-
-
+        const makeAllRestraintItemSelect = (c: ContainerComponent, style: Record<string, any>, LockSelect: Select, FactionSelect: Select) => {
             let g;
-            g = c.add.Container({
-                id: 'LockSelect',
-                style: {
-                    display: 'flex',
-                    flexDirection: 'row',
-                },
-            });
-            g.add.Label({
-                text: StringTable['LockSelect'],
-                style,
-            })
-            const LockSelect = g.add.Select({
-                options: (() => {
-                    const l = Object.values(KDLocksTypeInstance.KDLocks).map(T => {
-                        return {
-                            label: LockList2HumanName(T),
-                            value: T,
-                        };
-                    });
-                    // l.unshift(LockList2HumanName(LockList.None));
-                    return l;
-                })(),
-                style,
-            });
-
-            g = c.add.Container({
-                id: 'FactionSelect',
-                style: {
-                    display: 'flex',
-                    flexDirection: 'row',
-                },
-            });
-            g.add.Label({
-                text: StringTable['FactionSelect'],
-                style,
-            })
-            const FactionSelect = g.add.Select({
-                options: (() => {
-                    const fa = Object.keys(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.kinkyDungeonFactionColors);
-                    // fa.unshift('None');
-                    return fa.map(T => {
-                        return {
-                            label: T,
-                            value: T,
-                        };
-                    });
-                })(),
-                style,
-            });
 
             g = c.add.Group({
                 title: StringTable['AllRestraintItemSelect'],
@@ -1989,6 +1939,25 @@ export class CreateGui {
                 },
                 style,
             });
+
+            return AllRestraintItemSelect;
+        }
+
+        // AllRestraintItemSection
+        {
+            const c = tabs.addTab({
+                id: 'AllRestraintItemSection Section'.replaceAll(' ', '_'),
+                title: StringTable['AllRestraintItemSection'],
+            }).Group({
+                title: StringTable['AllRestraintItemSection'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            const {LockSelect, FactionSelect} = makeLockFactionSelect(c, style);
+            const AllRestraintItemSelect = makeAllRestraintItemSelect(c, style, LockSelect, FactionSelect);
         }
 
         this.appRef.markDirty();
