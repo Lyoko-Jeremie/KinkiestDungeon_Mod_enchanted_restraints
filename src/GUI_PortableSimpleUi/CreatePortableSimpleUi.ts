@@ -2296,11 +2296,6 @@ export class CreateGui {
                 }
             });
 
-            const style = {
-                margin: '0.15em 0.25em',
-                alignSelf: 'center',
-            };
-
             c.add.Group({
                 title: StringTable['ListAllQuestHasAccept']
             }).add.Table({
@@ -2354,7 +2349,132 @@ export class CreateGui {
                     })
                 }
             });
+        }
 
+        // QuestAddOneSelect
+        {
+            const c = tabs.addTab({
+                id: 'QuestAddOneSelect Section'.replaceAll(' ', '_'),
+                title: StringTable['QuestAddOneSelect'],
+            }).Group({});
+
+            const style = {
+                margin: '0.15em 0.25em',
+                alignSelf: 'center',
+            };
+
+            const QuestAddOneSelect = c.add.Autocomplete({
+                id: 'QuestAddOneSelect',
+                options: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestWithInfo().map(T => {
+                    return {
+                        label: `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}] ${T.accepted ? '【Accepted】' : ''} `,
+                        value: T.key,
+                    }
+                }),
+                style,
+            });
+            let g;
+            g = c.add.Container({
+                style,
+            });
+            g.add.Button({
+                text: StringTable['QuestAddOne'],
+                onClick: () => {
+                    const q = QuestAddOneSelect.state.selectedKey;
+                    q && thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AcceptQuest(q);
+                },
+                style,
+            });
+            g.add.Button({
+                text: StringTable['QuestRemoveOne'],
+                onClick: () => {
+                    const q = QuestAddOneSelect.state.selectedKey;
+                    q && thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveQuest(q);
+                },
+                style,
+            });
+            g = c.add.Group({});
+            g.add.Button({
+                text: StringTable['QuestRemoveAll'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveAllQuest();
+                },
+                style,
+            });
+            g.add.Button({
+                text: StringTable['UnlockAllQuestLock'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.UnlockAllQuestLock();
+                },
+                style,
+            });
+        }
+
+        // OpenChest
+        {
+            const c = tabs.addTab({
+                id: 'OpenChest Section'.replaceAll(' ', '_'),
+                title: StringTable['OpenChest Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                },
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            let g;
+            g = c.add.Group({
+                title: StringTable['OpenChest'],
+                styleContainer: {
+                    display: 'flex',
+                    flexDirection: 'column',
+                },
+            });
+            g.add.Button({
+                text: StringTable['OpenChest'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.OpenChest();
+                },
+                style,
+            });
+            g.add.Button({
+                text: StringTable['OpenShadowChest'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.OpenShadowChest();
+                },
+                style,
+            });
+
+            g = c.add.Group({
+                title: StringTable['ReSetAllChests'],
+            });
+            g.add.Button({
+                text: StringTable['ReSetAllChests'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ReSetAllChests();
+                },
+                style,
+            });
+
+            g = c.add.Group({
+                title: StringTable['SetAllChestsToSpecialChestsSelect'],
+            });
+            const SetAllChestsToSpecialChestsSelect = g.add.Select({
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetAllSpecialChestsType().map(T => {
+                    return {label: T, value: T};
+                }),
+            });
+            g.add.Button({
+                text: StringTable['SetAllChestsToSpecialChests'],
+                onClick: () => {
+                    const v = SetAllChestsToSpecialChestsSelect.state.value;
+                    v && thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAllChestsToSpecialChests(v as any);
+                },
+                style,
+            });
         }
 
         // this.appRef.markDirty();
