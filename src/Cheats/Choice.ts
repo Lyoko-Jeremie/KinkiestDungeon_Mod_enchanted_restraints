@@ -427,9 +427,9 @@ export class Choice {
                     sss.push("" + count + "\t"
                         + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
                         + "\n\t  " + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
-                    console.log("" + count + "\t"
-                        + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
-                        + "\n\t  " + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+                    // console.log("" + count + "\t"
+                    //     + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                    //     + "\n\t  " + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
                 }
                 ++count;
             }
