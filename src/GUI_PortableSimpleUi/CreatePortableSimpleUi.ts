@@ -2290,12 +2290,70 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Quest Section'.replaceAll(' ', '_'),
                 title: StringTable['Quest Section'],
-            }).Group({});
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                }
+            });
 
             const style = {
                 margin: '0.15em 0.25em',
                 alignSelf: 'center',
             };
+
+            c.add.Group({
+                title: StringTable['ListAllQuestHasAccept']
+            }).add.Table({
+                id: 'ListAllQuestHasAccept',
+                columns: [
+                    {title: 'Key', key: 'key'},
+                    {title: 'Name', key: 'name'},
+                    {title: 'HasAccept', key: 'hasAccept'},
+                    {title: 'Succeed', key: 'Succeed'},
+                    {title: 'SucceedSub', key: 'SucceedSub'},
+                    {title: 'Fail', key: 'Fail'},
+                ],
+                dataSource: () => {
+                    // `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}][${T.Succeed}][${T.Succeed}][${T.SucceedSub}][${T.Fail}]`
+                    return thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestHasAcceptWithInfo().map(T => {
+                        return {
+                            key: T.key,
+                            name: T.name,
+                            hasAccept: T.hasAccept ? 'hasAccept' : 'NoAccept',
+                            Succeed: T.Succeed,
+                            SucceedSub: T.SucceedSub,
+                            Fail: T.Fail,
+                        }
+                    })
+                }
+            });
+
+            c.add.Group({
+                title: StringTable['ListAllQuest']
+            }).add.Table({
+                id: 'ListAllQuest',
+                columns: [
+                    {title: 'Key', key: 'key'},
+                    {title: 'Name', key: 'name'},
+                    {title: 'HasAccept', key: 'hasAccept'},
+                    {title: 'Succeed', key: 'Succeed'},
+                    {title: 'SucceedSub', key: 'SucceedSub'},
+                    {title: 'Fail', key: 'Fail'},
+                ],
+                dataSource: () => {
+                    // `${T.key}|[${T.name}][${T.hasAccept ? 'hasAccept' : 'NoAccept'}][${T.Succeed}][${T.Succeed}][${T.SucceedSub}][${T.Fail}]`
+                    return thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllQuestWithInfo().map(T => {
+                        return {
+                            key: T.key,
+                            name: T.name,
+                            hasAccept: T.hasAccept ? 'hasAccept' : 'NoAccept',
+                            Succeed: T.Succeed,
+                            SucceedSub: T.SucceedSub,
+                            Fail: T.Fail,
+                        }
+                    })
+                }
+            });
 
         }
 
