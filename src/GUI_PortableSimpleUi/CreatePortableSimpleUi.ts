@@ -1829,7 +1829,7 @@ export class CreateGui {
                 };
             });
             g = c.add.Group({
-                style: {
+                styleContainer: {
                     display: 'flex',
                 },
             });
