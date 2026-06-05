@@ -568,7 +568,7 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Keys Section'.replaceAll(' ', '_'),
                 title: StringTable['Keys Section'],
-            }).Group({
+            }).Flex({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
@@ -745,7 +745,7 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Relations Section'.replaceAll(' ', '_'),
                 title: StringTable['Relations Section'],
-            }).Group({
+            }).Flex({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
@@ -1032,7 +1032,7 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Enable Section'.replaceAll(' ', '_'),
                 title: StringTable['Enable Section'],
-            }).Group({
+            }).Flex({
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
@@ -1108,8 +1108,8 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Dynamic Hook Cheats Section'.replaceAll(' ', '_'),
                 title: StringTable['Dynamic Hook Cheats Section'],
-            }).Group({
-                title: StringTable['Dynamic Hook Cheats Section'],
+            }).Flex({
+                // title: StringTable['Dynamic Hook Cheats Section'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
@@ -1242,8 +1242,8 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'Choice Section'.replaceAll(' ', '_'),
                 title: StringTable['Choice Section'],
-            }).Group({
-                title: StringTable['Choice Section'],
+            }).Flex({
+                // title: StringTable['Choice Section'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
@@ -1528,7 +1528,8 @@ export class CreateGui {
             const c = tabs.addTab({
                 id: 'ChoicePrint Section'.replaceAll(' ', '_'),
                 title: StringTable['ChoicePrint Section'],
-            }).Flex({
+            }).Group({
+                title: StringTable['ChoicePrintAllValidChoice'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
