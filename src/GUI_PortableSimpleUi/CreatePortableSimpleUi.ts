@@ -199,6 +199,7 @@ export class CreateGui {
         ChoiceAddOneSelect: signal<ISelectOption[]>([]),
         ChoiceAddOneFilterSelect: signal<ISelectOption[]>([]),
         NowWearRestraintItemDifficulty: signal<number>(0),
+        IndexDBSaveSelect: signal<ISelectOption[]>([]),
     } as const;
 
     calcGoddessRepKeyListSelect = () => {
@@ -2475,6 +2476,254 @@ export class CreateGui {
                 },
                 style,
             });
+        }
+
+        // Map Cheats
+        {
+            const c = tabs.addTab({
+                id: 'Map Cheats Section'.replaceAll(' ', '_'),
+                title: StringTable['Map Cheats Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                },
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+                alignSelf: 'center',
+            };
+
+            let g;
+            g = c.add.Group({
+                title: StringTable['MapOpenFull'],
+            });
+            g.add.Button({
+                id: 'MapOpenFull',
+                text: StringTable['MapOpenFull'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenFull();
+                    thisRef.playDing(PlayDingType.ding);
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'MapOpenNone',
+                text: StringTable['MapOpenNone'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapOpenNone();
+                    thisRef.playDing(PlayDingType.ding);
+                },
+                style,
+            });
+
+            g = c.add.Group({
+                title: StringTable['SetAllBedAreTrap'],
+            });
+            g.add.Button({
+                id: 'SetAllBedAreTrap',
+                text: StringTable['SetAllBedAreTrap'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAllBedAreTrap();
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'SetAllBarrelAreTrap',
+                text: StringTable['SetAllBarrelAreTrap'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAllBarrelAreTrap();
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'SetAll_L_AreDisplayStand',
+                text: StringTable['SetAll_L_AreDisplayStand'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAll_L_AreDisplayStand();
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'SetAll_L_AreCage',
+                text: StringTable['SetAll_L_AreCage'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetAll_L_AreCage();
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'ResetAllLibChest',
+                text: StringTable['ResetAllLibChest'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllLibChestReset();
+                },
+                style,
+            });
+        }
+
+        // HardMode
+        {
+            const c = tabs.addTab({
+                id: 'HardMode Section'.replaceAll(' ', '_'),
+                title: StringTable['HardMode Section'],
+            }).Group({
+                title: StringTable['HardModeEnable'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+                alignSelf: 'center',
+            };
+
+            c.add.Button({
+                id: 'HardModeEnable',
+                text: StringTable['HardModeEnable'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeEnable();
+                },
+                style,
+            });
+            c.add.Button({
+                id: 'HardModeDisable',
+                text: StringTable['HardModeDisable'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeDisable();
+                },
+                style,
+            });
+        }
+
+        // SaveLoad
+        {
+            const c = tabs.addTab({
+                id: 'SaveLoad Section'.replaceAll(' ', '_'),
+                title: StringTable['SaveLoad Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                },
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            let g;
+            g = c.add.Group({
+                title: StringTable['GetSaveCodeData'],
+                styleContainer: {
+                    display: 'flex',
+                    flexDirection: 'column',
+                }
+            });
+            g.add.Button({
+                id: 'GetSaveCode',
+                text: StringTable['GetSaveCode'],
+                onClick: () => {
+                    const v = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.GameSaveDataString();
+                    GetSaveCodeData.state.value = v;
+                },
+                style,
+            });
+            const GetSaveCodeData = g.add.TextArea({
+                id: 'GetSaveCodeData',
+                readOnly: true,
+                style,
+            });
+
+            g = c.add.Group({});
+            g.add.Button({
+                id: 'CopyGameSaveDataStringToClipboard',
+                text: StringTable['CopyGameSaveDataStringToClipboard'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.CopyGameSaveDataStringToClipboard()
+                        .then(T => {
+                        }).catch(E => {
+                    });
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'LoadGameSaveStringFromClipboard',
+                text: StringTable['LoadGameSaveStringFromClipboard'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SaveLoad.LoadGameSaveStringFromClipboard()
+                        .then(T => {
+                        }).catch(E => {
+                    });
+                },
+                style,
+            });
+        }
+
+        // SaveLoad IndexDB Section Demo
+        {
+            const c = tabs.addTab({
+                id: 'SaveLoad IndexDB Section Demo'.replaceAll(' ', '_'),
+                title: StringTable['SaveLoad IndexDB Section Demo'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                },
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+                alignSelf: 'center',
+            };
+
+            let g;
+            g = c.add.Group({
+                title: StringTable['CreateAIndexDBSave'],
+            });
+            g.add.Button({
+                id: 'CreateAIndexDBSave',
+                text: StringTable['CreateAIndexDBSave'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.addSave().catch(E => console.error(E));
+                },
+                style,
+            });
+
+            g = c.add.Group({
+                title: StringTable['IndexDBSaveSelect'],
+            });
+            g.add.Button({
+                id: 'ListIndexDBSave',
+                text: StringTable['ListIndexDBSave'],
+                onClick: async () => {
+                    const l = await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.list();
+                    this.signalTable.IndexDBSaveSelect.set(l.map(T => {
+                        return {label: T, value: T};
+                    }).concat({label: 'None', value: ''}));
+                },
+                style,
+            });
+            const IndexDBSaveSelect = g.add.Select({
+                id: 'IndexDBSaveSelect',
+                options: this.signalTable.IndexDBSaveSelect,
+            });
+            g.add.Button({
+                id: 'LoadIndexDBSave',
+                text: StringTable['LoadIndexDBSave'],
+                onClick: async () => {
+                    const v = IndexDBSaveSelect.state.value;
+                    v && await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.loadGame(v);
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'DeleteIndexDBSave',
+                text: StringTable['DeleteIndexDBSave'],
+                onClick: async () => {
+                    const v = IndexDBSaveSelect.state.value;
+                    v && await thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.SaveLoadIndexDB.deleteSave(v);
+                },
+                style,
+            });
+
+
         }
 
         // this.appRef.markDirty();
