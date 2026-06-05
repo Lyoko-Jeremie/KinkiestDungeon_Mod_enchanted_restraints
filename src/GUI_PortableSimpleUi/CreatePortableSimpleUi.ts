@@ -1835,6 +1835,7 @@ export class CreateGui {
 
             const style = {
                 margin: '0.15em 0.25em',
+                alignSelf: 'center',
             };
 
             const {LockSelect, FactionSelect} = makeLockFactionSelect(c, style);
@@ -1967,6 +1968,7 @@ export class CreateGui {
 
             const style = {
                 margin: '0.15em 0.25em',
+                alignSelf: 'center',
             };
 
             const {LockSelect, FactionSelect} = makeLockFactionSelect(c, style);
@@ -1979,11 +1981,12 @@ export class CreateGui {
                 id: 'NowWearRestraintItemSection Section'.replaceAll(' ', '_'),
                 title: StringTable['NowWearRestraintItemSection'],
             }).Group({
-                title: StringTable['NowWearRestraintItemSection'],
+                title: StringTable['NowWearRestraintItemSelect'],
             });
 
             const style = {
                 margin: '0.15em 0.25em',
+                alignSelf: 'center',
             };
 
             let g;
@@ -2025,10 +2028,7 @@ export class CreateGui {
                 }
                 return undefined;
             }
-            let cc = c.add.Group({
-                title: StringTable['NowWearRestraintItemSelect'],
-            });
-            const NowWearRestraintItemSelect = cc.add.Autocomplete({
+            const NowWearRestraintItemSelect = c.add.Autocomplete({
                 options: () => this.calcNowWearRestraintItemSelect(),
                 value: 'None',
                 onSelect: () => {
@@ -2042,7 +2042,7 @@ export class CreateGui {
                 style,
             });
 
-            g = cc.add.Container({
+            g = c.add.Container({
                 id: 'LockNowWearRestraint',
                 style: {
                     display: 'flex',
@@ -2086,7 +2086,7 @@ export class CreateGui {
                 style,
             });
 
-            g = cc.add.Container({
+            g = c.add.Container({
                 style: {
                     display: 'flex',
                     flexDirection: 'row',
