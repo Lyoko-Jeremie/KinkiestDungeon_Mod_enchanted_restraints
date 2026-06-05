@@ -1458,6 +1458,7 @@ export class CreateGui {
                     id: 'ChoiceAddOneSelect',
                     options: this.signalTable.ChoiceAddOneSelect,
                     style,
+                    dropdownMaxHeight: '15em',
                 });
                 this.calcChoiceAddOneSelect();
                 g.add.Button({
@@ -1495,6 +1496,7 @@ export class CreateGui {
                     id: 'ChoiceAddOneFilterSelect',
                     options: this.signalTable.ChoiceAddOneFilterSelect,
                     style,
+                    dropdownMaxHeight: '15em',
                 });
                 this.calcChoiceAddOneFilterSelect();
                 g.add.Button({
@@ -1666,6 +1668,7 @@ export class CreateGui {
                         }
                     }),
                 style,
+                dropdownMaxHeight: '15em',
             });
             g.add.Button({
                 id: 'SpellsAddOne',
@@ -1694,6 +1697,7 @@ export class CreateGui {
                         }
                     }),
                 style,
+                dropdownMaxHeight: '15em',
             });
             g.add.Button({
                 id: 'SpellsRemoveOne',
@@ -1847,6 +1851,7 @@ export class CreateGui {
                     ...style,
                     width: '100%',
                 },
+                dropdownMaxHeight: '15em',
             });
             g.add.Button({
                 // text: StringTable['WearJailOutfit'],
@@ -1876,6 +1881,7 @@ export class CreateGui {
                     ...style,
                     width: '100%',
                 },
+                dropdownMaxHeight: '15em',
             });
             g.add.Button({
                 text: StringTable['WearJailOutfit'],
@@ -1973,6 +1979,7 @@ export class CreateGui {
                     ...style,
                     width: '100%',
                 },
+                dropdownMaxHeight: '15em',
             });
             g.add.Button({
                 text: StringTable['WearJailOutfit'],
