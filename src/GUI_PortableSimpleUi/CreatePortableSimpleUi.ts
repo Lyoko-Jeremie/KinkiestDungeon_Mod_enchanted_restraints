@@ -2592,6 +2592,12 @@ export class CreateGui {
                 },
                 style,
             });
+            c.add.Checkbox({
+                id: 'HardModeIsEnable',
+                label: 'HardModeIsEnable',
+                checked: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.HardModeIsEnable(),
+                readOnly: true,
+            });
         }
 
         // SaveLoad

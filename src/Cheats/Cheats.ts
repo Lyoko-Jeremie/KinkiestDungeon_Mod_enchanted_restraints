@@ -100,6 +100,9 @@ class HardMode {
     HardModeDisable = () => {
         KinkyDungeonStatsChoice.delete("hardMode");
     };
+    HardModeIsEnable = () => {
+        return KinkyDungeonStatsChoice.has("hardMode");
+    };
 }
 
 // https://github.com/tannerntannern/ts-mixer
