@@ -357,6 +357,8 @@ export class CreateGui {
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
 
+        this.appRef.pauseRendering();
+
         const thisRef: typeof this = this;
 
         const rootFlex = this.appRef.add.Flex({
@@ -2298,6 +2300,7 @@ export class CreateGui {
         }
 
         // this.appRef.markDirty();
+        this.appRef.resumeRendering(true);
         return true;
     }
 
