@@ -1920,7 +1920,7 @@ export class CreateGui {
 
         }
 
-        const makeAllRestraintItemSelect = (c: ContainerComponent, style: Record<string, any>, LockSelect: Select, FactionSelect: Select) => {
+        const makeAllRestraintItemSelect = (c: ContainerComponent, style: Record<string, any>) => {
             let g;
 
             g = c.add.Group({
@@ -1939,22 +1939,8 @@ export class CreateGui {
                 },
                 dropdownMaxHeight: this.dropdownMaxHeight,
             });
-            g.add.Button({
-                text: StringTable['WearJailOutfit'],
-                onClick: () => {
-                    if (!AllRestraintItemSelect.state.selectedKey) {
-                        return;
-                    }
-                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
-                        AllRestraintItemSelect.state.selectedKey,
-                        LockSelect.state.value as LockList | undefined,
-                        FactionSelect.state.value === 'None' ? undefined : FactionSelect.state.value as KinkyDungeonFactionColors_Keys,
-                    );
-                },
-                style,
-            });
 
-            return AllRestraintItemSelect;
+            return {AllRestraintItemSelect, g};
         }
 
         // AllRestraintItemSection
@@ -1972,7 +1958,120 @@ export class CreateGui {
             };
 
             const {LockSelect, FactionSelect} = makeLockFactionSelect(c, style);
-            const AllRestraintItemSelect = makeAllRestraintItemSelect(c, style, LockSelect, FactionSelect);
+            const {AllRestraintItemSelect, g} = makeAllRestraintItemSelect(c, style);
+            g.add.Button({
+                text: StringTable['WearJailOutfit'],
+                onClick: () => {
+                    if (!AllRestraintItemSelect.state.selectedKey) {
+                        return;
+                    }
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearRestraints(
+                        AllRestraintItemSelect.state.selectedKey,
+                        LockSelect.state.value as LockList | undefined,
+                        FactionSelect.state.value === 'None' ? undefined : FactionSelect.state.value as KinkyDungeonFactionColors_Keys,
+                    );
+                },
+                style,
+            });
+        }
+
+        // ShadowCurseSelect
+        {
+            const c = tabs.addTab({
+                id: 'ShadowCurseSelect Section'.replaceAll(' ', '_'),
+                title: StringTable['ShadowCurseSelect'],
+            }).Group({
+                title: StringTable['ShadowCurseSelect'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+                alignSelf: 'center',
+            };
+
+            const {AllRestraintItemSelect, g: gAllRestraintItemSelect} = makeAllRestraintItemSelect(c, style);
+
+            let g;
+            g = c.add.Container({
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                id: 'ShadowCurseSelect',
+                text: StringTable['ShadowCurseSelect'],
+                style,
+            });
+            const ShadowCurseSelect = g.add.Select({
+                id: 'ShadowCurseSelect',
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseNameList.map(T => {
+                    return {
+                        label: T,
+                        value: T,
+                    };
+                }),
+                style,
+            });
+
+            g = c.add.Container({
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                id: 'ShadowVariantSelect',
+                text: StringTable['ShadowVariantSelect'],
+                style,
+            });
+            const ShadowVariantSelect = g.add.Select({
+                id: 'ShadowVariantSelect',
+                options: [{
+                    label: 'None',
+                    value: 'None',
+                }, ...[
+                    // ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseVariantNameList,
+                    // ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseBuffSpecialNameList,
+                    ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseBuffNameList,
+                ].map(T => {
+                    return {
+                        label: TextGet(`curseInfo${T}`),
+                        value: T,
+                    };
+                })],
+                style,
+            });
+
+            g = c.add.Container({
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                id: 'ShadowEnchantmentBuffSelect',
+                text: StringTable['ShadowEnchantmentBuffSelect'],
+                style,
+            });
+            const ShadowEnchantmentBuffSelect = g.add.Multiselect({
+                id: 'ShadowEnchantmentBuffSelect',
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.getCurseWearEnchantmentBuffList().all.map(T => {
+                    return {
+                        value: T[0],
+                        label: T[1],
+                    };
+                }),
+                style,
+            });
+
+            c.add.Button({
+                id: 'CurseWearIt',
+                text: StringTable['CurseWearIt'],
+                onClick: () => {
+                },
+                style,
+            })
         }
 
         // NowWearRestraintItemSection
@@ -2121,6 +2220,20 @@ export class CreateGui {
                 style,
             });
 
+
+        }
+
+        // Quest
+        {
+            const c = tabs.addTab({
+                id: 'Quest Section'.replaceAll(' ', '_'),
+                title: StringTable['Quest Section'],
+            }).Group({});
+
+            const style = {
+                margin: '0.15em 0.25em',
+                alignSelf: 'center',
+            };
 
         }
 
