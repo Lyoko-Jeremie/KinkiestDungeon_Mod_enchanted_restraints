@@ -579,7 +579,9 @@ export class CreateGui {
                 margin: '0.15em 0.25em',
             };
 
-            c.add.Button({
+            let g;
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'AddManyKeys',
                 text: StringTable['AddManyKeys'],
                 onClick: () => {
@@ -588,7 +590,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'AddManyPotion',
                 text: StringTable['AddManyPotion'],
                 onClick: () => {
@@ -597,7 +599,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'AddManyGold',
                 text: StringTable['AddManyGold'],
                 onClick: () => {
@@ -606,7 +608,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'AddDistraction',
                 text: StringTable['AddDistraction'],
                 onClick: () => {
@@ -615,7 +618,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ZeroDistraction',
                 text: StringTable['ZeroDistraction'],
                 onClick: () => {
@@ -624,7 +627,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'AddAllRestraints',
                 text: StringTable['AddAllRestraints'],
                 onClick: () => {
@@ -633,7 +637,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'AddAllOutfit',
                 text: StringTable['AddAllOutfit'],
                 onClick: () => {
@@ -642,7 +646,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'AddAllConsumables',
                 text: StringTable['AddAllConsumables'],
                 onClick: () => {
@@ -651,7 +655,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'AddAllWeapon',
                 text: StringTable['AddAllWeapon'],
                 onClick: () => {
@@ -660,7 +664,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'AddAllKeyTools',
                 text: StringTable['AddAllKeyTools'],
                 onClick: () => {
@@ -669,7 +674,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'RemoveAllKeyTools',
                 text: StringTable['RemoveAllKeyTools'],
                 onClick: () => {
@@ -678,7 +683,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'AddRecyclerInput',
                 text: StringTable['AddRecyclerInput'],
                 onClick: () => {
@@ -1037,7 +1043,9 @@ export class CreateGui {
                 margin: '0.15em 0.25em',
             };
 
-            c.add.Button({
+            let g;
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'EnableAllCheats',
                 text: StringTable['EnableAllCheats'],
                 onClick: () => {
@@ -1046,7 +1054,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DisableAllCheats',
                 text: StringTable['DisableAllCheats'],
                 onClick: () => {
@@ -1055,7 +1063,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'EnableFullState',
                 text: StringTable['EnableFullState'],
                 onClick: () => {
@@ -1064,7 +1073,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DisableFullState',
                 text: StringTable['DisableFullState'],
                 onClick: () => {
@@ -1073,7 +1082,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'EnableQuickness5',
                 text: StringTable['EnableQuickness5'],
                 onClick: () => {
@@ -1082,7 +1092,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DisableQuickness5',
                 text: StringTable['DisableQuickness5'],
                 onClick: () => {
@@ -1110,7 +1120,9 @@ export class CreateGui {
                 margin: '0.15em 0.25em',
             };
 
-            c.add.Button({
+            let g;
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'DynamicHookEnableAlwaysCanUseAnyWeapon',
                 text: StringTable['DynamicHookEnableAlwaysCanUseAnyWeapon'],
                 onClick: () => {
@@ -1119,7 +1131,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DynamicHookDisableAlwaysCanUseAnyWeapon',
                 text: StringTable['DynamicHookDisableAlwaysCanUseAnyWeapon'],
                 onClick: () => {
@@ -1128,7 +1140,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'DynamicHookEnableAlwaysCanDrink',
                 text: StringTable['DynamicHookEnableAlwaysCanDrink'],
                 onClick: () => {
@@ -1137,7 +1150,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DynamicHookDisableAlwaysCanDrink',
                 text: StringTable['DynamicHookDisableAlwaysCanDrink'],
                 onClick: () => {
@@ -1146,7 +1159,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'DynamicHookEnableNeverMiscastMagic',
                 text: StringTable['DynamicHookEnableNeverMiscastMagic'],
                 onClick: () => {
@@ -1155,7 +1169,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DynamicHookDisableNeverMiscastMagic',
                 text: StringTable['DynamicHookDisableNeverMiscastMagic'],
                 onClick: () => {
@@ -1164,7 +1178,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'DynamicHookEnableNeverSlow',
                 text: StringTable['DynamicHookEnableNeverSlow'],
                 onClick: () => {
@@ -1173,7 +1188,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DynamicHookDisableNeverSlow',
                 text: StringTable['DynamicHookDisableNeverSlow'],
                 onClick: () => {
@@ -1182,7 +1197,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'DynamicHookEnableNeverMiss',
                 text: StringTable['DynamicHookEnableNeverMiss'],
                 onClick: () => {
@@ -1191,7 +1207,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DynamicHookDisableNeverMiss',
                 text: StringTable['DynamicHookDisableNeverMiss'],
                 onClick: () => {
@@ -1200,7 +1216,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'DynamicHookEnableAlwaysCanUseMagic',
                 text: StringTable['DynamicHookEnableAlwaysCanUseMagic'],
                 onClick: () => {
@@ -1209,7 +1226,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'DynamicHookDisableAlwaysCanUseMagic',
                 text: StringTable['DynamicHookDisableAlwaysCanUseMagic'],
                 onClick: () => {
@@ -1237,7 +1254,9 @@ export class CreateGui {
                 margin: '0.15em 0.25em',
             };
 
-            c.add.Button({
+            let g;
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodEscape',
                 text: StringTable['ChoiceAddCheatChoiceGoodEscape'],
                 onClick: () => {
@@ -1245,7 +1264,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodEnhance',
                 text: StringTable['ChoiceAddCheatChoiceGoodEnhance'],
                 onClick: () => {
@@ -1253,7 +1272,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodMid',
                 text: StringTable['ChoiceAddCheatChoiceGoodMid'],
                 onClick: () => {
@@ -1261,7 +1280,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceBadMid',
                 text: StringTable['ChoiceAddCheatChoiceBadMid'],
                 onClick: () => {
@@ -1269,7 +1289,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceBadMid',
                 text: StringTable['ChoiceAddCheatChoiceBadMid'],
                 onClick: () => {
@@ -1277,7 +1297,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceMid',
                 text: StringTable['ChoiceAddCheatChoiceMid'],
                 onClick: () => {
@@ -1285,7 +1306,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceSex',
                 text: StringTable['ChoiceAddCheatChoiceSex'],
                 onClick: () => {
@@ -1293,7 +1315,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceSexRemove',
                 text: StringTable['ChoiceAddCheatChoiceSexRemove'],
                 onClick: () => {
@@ -1301,7 +1323,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceSexClean',
                 text: StringTable['ChoiceAddCheatChoiceSexClean'],
                 onClick: () => {
@@ -1309,7 +1331,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceBadNegative',
                 text: StringTable['ChoiceAddCheatChoiceBadNegative'],
                 onClick: () => {
@@ -1317,7 +1340,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceBadNoEscape',
                 text: StringTable['ChoiceAddCheatChoiceBadNoEscape'],
                 onClick: () => {
@@ -1325,7 +1348,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceGoodVision',
                 text: StringTable['ChoiceAddCheatChoiceGoodVision'],
                 onClick: () => {
@@ -1333,7 +1357,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceBadVision',
                 text: StringTable['ChoiceAddCheatChoiceBadVision'],
                 onClick: () => {
@@ -1341,7 +1365,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceMoreKinkyFurniture',
                 text: StringTable['ChoiceAddCheatChoiceMoreKinkyFurniture'],
                 onClick: () => {
@@ -1349,7 +1374,8 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g = c.add.Group({});
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceMap',
                 text: StringTable['ChoiceAddCheatChoiceMap'],
                 onClick: () => {
@@ -1357,7 +1383,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceMapAbsurd',
                 text: StringTable['ChoiceAddCheatChoiceMapAbsurd'],
                 onClick: () => {
@@ -1365,7 +1391,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceNowhere',
                 text: StringTable['ChoiceAddCheatChoiceNowhere'],
                 onClick: () => {
@@ -1373,7 +1399,7 @@ export class CreateGui {
                 },
                 style,
             });
-            c.add.Button({
+            g.add.Button({
                 id: 'ChoiceAddCheatChoiceSuperMarket',
                 text: StringTable['ChoiceAddCheatChoiceSuperMarket'],
                 onClick: () => {
