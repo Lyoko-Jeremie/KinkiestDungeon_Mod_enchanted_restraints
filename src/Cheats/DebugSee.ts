@@ -28,6 +28,30 @@ export class DebugSee {
         });
     }
 
+    ShowAllRestraintDynamicNameTable() {
+        const l: {
+            name: string,
+            nameKD: string,
+            lockName: string,
+            lockType: string,
+        }[] = KinkyDungeonAllRestraintDynamic().map((r) => {
+            const d: {
+                name: string,
+                nameKD: string,
+                lockName: string,
+                lockType: string,
+            } = {} as any;
+            const T = KDRestraint(r.item);
+            d.name = T.name;
+            d.nameKD = TextGetKD(`Restraint${T.name}`);
+            const lockKey = r.item.lock;
+            d.lockName = TextGet(`Kinky${lockKey}Lock`) ?? '';
+            d.lockType = TextGet(`Kinky${lockKey}LockType`) ?? '';
+            return d;
+        });
+        return l;
+    }
+
     ShowAllChoice() {
         return Array.from(KinkyDungeonStatsChoice.entries()).filter(T => T[1]);
     }

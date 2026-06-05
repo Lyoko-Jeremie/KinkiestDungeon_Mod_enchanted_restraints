@@ -1709,15 +1709,44 @@ export class CreateGui {
 
         // DebugSee
         {
-            const c = tabs.addTab({
-                id: 'DebugSee Section'.replaceAll(' ', '_'),
-                title: StringTable['DebugSee Section'],
+            tabs.addTab({
+                id: 'ShowAllRestraintDynamicName Section'.replaceAll(' ', '_'),
+                title: StringTable['ShowAllRestraintDynamicName'],
             }).Group({
+                title: StringTable['ShowAllRestraintDynamicNameList'],
                 style: {
                     flexDirection: 'column',
                     gap: '20px',
                 },
+            }).add.Table({
+                id: 'ShowAllRestraintDynamicNameList',
+                columns: [
+                    {title: 'Name', key: 'name'},
+                    {title: 'NameKD', key: 'nameKD'},
+                    {title: 'LockName', key: 'lockName'},
+                    {title: 'LockType', key: 'lockType'},
+                ],
+                dataSource: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DebugSee.ShowAllRestraintDynamicNameTable(),
             });
+            // tabs.addTab({
+            //     id: 'ShowAllRestraint Section'.replaceAll(' ', '_'),
+            //     title: StringTable['ShowAllRestraint'],
+            // }).Group({
+            //     title: StringTable['ShowAllRestraintList'],
+            //     style: {
+            //         flexDirection: 'column',
+            //         gap: '20px',
+            //     },
+            // }).add.Table({
+            //     id: 'ShowAllRestraintList',
+            //     columns: [
+            //         {title: 'Name', key: 'name'},
+            //         {title: 'NameKD', key: 'nameKD'},
+            //         {title: 'LockName', key: 'lockName'},
+            //         {title: 'LockType', key: 'lockType'},
+            //     ],
+            //     dataSource: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.DebugSee.ShowAllRestraint(),
+            // });
         }
 
         this.appRef.markDirty();
