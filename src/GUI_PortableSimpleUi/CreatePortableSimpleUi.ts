@@ -1655,7 +1655,7 @@ export class CreateGui {
 
             const SpellsAddOneSelect = g.add.Autocomplete({
                 id: 'SpellsAddOneSelect',
-                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                options: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
                     .filter(T => !thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().find(T2 => T2.name === T.name))
                     .map(T => T.name)
                     .map(T => {
@@ -1684,7 +1684,7 @@ export class CreateGui {
 
             const SpellsRemoveOneSelect = g.add.Autocomplete({
                 id: 'SpellsRemoveOneSelect',
-                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells()
+                options: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells()
                     .map(T => T.name)
                     .map(T => {
                         return {
