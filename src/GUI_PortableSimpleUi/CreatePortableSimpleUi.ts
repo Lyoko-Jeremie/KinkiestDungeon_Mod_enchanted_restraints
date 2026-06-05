@@ -1833,14 +1833,32 @@ export class CreateGui {
                     display: 'flex',
                 },
             });
-            for (const N of w) {
-                g.add.Button({
-                    id: N.key,
-                    text: N.label,
-                    onClick: N.click,
-                    style,
-                });
-            }
+            // for (const N of w) {
+            //     g.add.Button({
+            //         id: N.key,
+            //         text: N.label,
+            //         onClick: N.click,
+            //         style,
+            //     });
+            // }
+            const WearsListSelect = g.add.Autocomplete({
+                options: w.map(T => ({label: T.label, value: T.key})),
+                style,
+            });
+            g.add.Button({
+                // text: StringTable['WearJailOutfit'],
+                text: 'Wear It',
+                onClick: () => {
+                    const v = WearsListSelect.state.selectedKey;
+                    if (v) {
+                        const N = w.find(T => T.key === v);
+                        if (N) {
+                            N.click();
+                        }
+                    }
+                },
+                style,
+            });
 
             g = c.add.Group({
                 title: StringTable['WearJailOutfit'],
@@ -1931,7 +1949,6 @@ export class CreateGui {
                 })(),
                 style,
             });
-
 
 
         }
