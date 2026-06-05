@@ -1759,6 +1759,10 @@ export class CreateGui {
                 title: StringTable['WearRestraints Section'],
             });
 
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
             let g;
             g = c.add.Container({
                 id: 'LockSelect',
@@ -1769,6 +1773,7 @@ export class CreateGui {
             });
             g.add.Label({
                 text: StringTable['LockSelect'],
+                style,
             })
             const LockSelect = g.add.Select({
                 options: (() => {
@@ -1781,17 +1786,19 @@ export class CreateGui {
                     // l.unshift(LockList2HumanName(LockList.None));
                     return l;
                 })(),
+                style,
             });
 
             g = c.add.Container({
                 id: 'FactionSelect',
                 style: {
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: 'row',
                 },
             });
             g.add.Label({
                 text: StringTable['FactionSelect'],
+                style,
             })
             const FactionSelect = g.add.Select({
                 options: (() => {
@@ -1804,6 +1811,7 @@ export class CreateGui {
                         };
                     });
                 })(),
+                style,
             });
 
             const w = Object.keys(WearsList).map((WK) => {
@@ -1830,8 +1838,101 @@ export class CreateGui {
                     id: N.key,
                     text: N.label,
                     onClick: N.click,
+                    style,
                 });
             }
+
+            g = c.add.Group({
+                title: StringTable['WearJailOutfit'],
+            });
+            const JailOutfitSelect = g.add.Select({
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.listAllKDJailOutfits().map(T => ({
+                    label: T,
+                    value: T
+                })),
+                value: 'None',
+                style,
+            });
+            g.add.Button({
+                text: StringTable['WearJailOutfit'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.WearKDJailOutfit(
+                        JailOutfitSelect.state.value!,
+                        LockSelect.state.value as LockList | undefined,
+                        FactionSelect.state.value === 'None' ? undefined : FactionSelect.state.value as KinkyDungeonFactionColors_Keys,
+                    );
+                },
+                style,
+            });
+
+        }
+
+        // AllRestraintItemSection
+        {
+            const c = tabs.addTab({
+                id: 'AllRestraintItemSection Section'.replaceAll(' ', '_'),
+                title: StringTable['AllRestraintItemSection'],
+            }).Group({
+                title: StringTable['AllRestraintItemSection'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+
+            let g;
+            g = c.add.Container({
+                id: 'LockSelect',
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                text: StringTable['LockSelect'],
+                style,
+            })
+            const LockSelect = g.add.Select({
+                options: (() => {
+                    const l = Object.values(KDLocksTypeInstance.KDLocks).map(T => {
+                        return {
+                            label: LockList2HumanName(T),
+                            value: T,
+                        };
+                    });
+                    // l.unshift(LockList2HumanName(LockList.None));
+                    return l;
+                })(),
+                style,
+            });
+
+            g = c.add.Container({
+                id: 'FactionSelect',
+                style: {
+                    display: 'flex',
+                    flexDirection: 'row',
+                },
+            });
+            g.add.Label({
+                text: StringTable['FactionSelect'],
+                style,
+            })
+            const FactionSelect = g.add.Select({
+                options: (() => {
+                    const fa = Object.keys(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.kinkyDungeonFactionColors);
+                    // fa.unshift('None');
+                    return fa.map(T => {
+                        return {
+                            label: T,
+                            value: T,
+                        };
+                    });
+                })(),
+                style,
+            });
+
+
 
         }
 
