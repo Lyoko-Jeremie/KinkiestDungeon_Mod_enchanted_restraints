@@ -1590,6 +1590,67 @@ export class CreateGui {
             });
         }
 
+        // FullAllSpells
+        {
+            const c = tabs.addTab({
+                id: 'FullAllSpells Section'.replaceAll(' ', '_'),
+                title: StringTable['FullAllSpells'],
+            }).Group({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+
+            c.add.Button({
+                id: 'FullAllSpells',
+                text: StringTable['FullAllSpells'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AllSpells();
+                    thisRef.playDing(PlayDingType.ding);
+                },
+                style: {
+                    margin: '0.15em 0.25em',
+                },
+            });
+
+            let g;
+            g = c.add.Group({
+                title: StringTable['SpellsAddOneSelect'],
+            });
+
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
+            const SpellsAddOneSelect = g.add.Autocomplete({
+                id: 'SpellsAddOneSelect',
+                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListAllSpells()
+                    .filter(T => !thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ListNowSpells().find(T2 => T2.name === T.name))
+                    .map(T => T.name)
+                    .map(T => {
+                        return {
+                            label: `${T}|[${TextGet('KinkyDungeonSpell' + T)}]`,
+                            value: T,
+                        }
+                    }),
+                style,
+            });
+            g.add.Button({
+                id: 'SpellsAddOne',
+                text: StringTable['SpellsAddOne'],
+                onClick: () => {
+                    const N = SpellsAddOneSelect.state.selectedKey;
+                    if (N) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.AddOneSpell(N);
+                    }
+                },
+                style,
+            });
+        }
+
+        
+
         this.appRef.markDirty();
         return true;
     }
