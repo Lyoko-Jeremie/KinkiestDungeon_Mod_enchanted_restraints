@@ -60,10 +60,7 @@ export class CreateGui {
     // avoid same Math.random
     rIdP = 0;
 
-    // get a unique string as id
-    rId() {
-        return '' + (++this.rIdP) + Math.random();
-    }
+    dropdownMaxHeight = '20em';
 
     appContainer: HTMLElement;
     appContainerIFrame: HTMLIFrameElement;
@@ -1458,7 +1455,7 @@ export class CreateGui {
                     id: 'ChoiceAddOneSelect',
                     options: this.signalTable.ChoiceAddOneSelect,
                     style,
-                    dropdownMaxHeight: '15em',
+                    dropdownMaxHeight: this.dropdownMaxHeight,
                 });
                 this.calcChoiceAddOneSelect();
                 g.add.Button({
@@ -1496,7 +1493,7 @@ export class CreateGui {
                     id: 'ChoiceAddOneFilterSelect',
                     options: this.signalTable.ChoiceAddOneFilterSelect,
                     style,
-                    dropdownMaxHeight: '15em',
+                    dropdownMaxHeight: this.dropdownMaxHeight,
                 });
                 this.calcChoiceAddOneFilterSelect();
                 g.add.Button({
@@ -1668,7 +1665,7 @@ export class CreateGui {
                         }
                     }),
                 style,
-                dropdownMaxHeight: '15em',
+                dropdownMaxHeight: this.dropdownMaxHeight,
             });
             g.add.Button({
                 id: 'SpellsAddOne',
@@ -1697,7 +1694,7 @@ export class CreateGui {
                         }
                     }),
                 style,
-                dropdownMaxHeight: '15em',
+                dropdownMaxHeight: this.dropdownMaxHeight,
             });
             g.add.Button({
                 id: 'SpellsRemoveOne',
@@ -1833,9 +1830,6 @@ export class CreateGui {
                 };
             });
             g = c.add.Group({
-                styleContainer: {
-                    display: 'flex',
-                },
             });
             // for (const N of w) {
             //     g.add.Button({
@@ -1851,7 +1845,7 @@ export class CreateGui {
                     ...style,
                     width: '100%',
                 },
-                dropdownMaxHeight: '15em',
+                dropdownMaxHeight: this.dropdownMaxHeight,
             });
             g.add.Button({
                 // text: StringTable['WearJailOutfit'],
@@ -1881,7 +1875,7 @@ export class CreateGui {
                     ...style,
                     width: '100%',
                 },
-                dropdownMaxHeight: '15em',
+                dropdownMaxHeight: this.dropdownMaxHeight,
             });
             g.add.Button({
                 text: StringTable['WearJailOutfit'],
@@ -1979,7 +1973,7 @@ export class CreateGui {
                     ...style,
                     width: '100%',
                 },
-                dropdownMaxHeight: '15em',
+                dropdownMaxHeight: this.dropdownMaxHeight,
             });
             g.add.Button({
                 text: StringTable['WearJailOutfit'],
