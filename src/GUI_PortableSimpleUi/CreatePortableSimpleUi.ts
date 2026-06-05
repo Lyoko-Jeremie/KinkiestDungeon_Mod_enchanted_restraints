@@ -1542,13 +1542,16 @@ export class CreateGui {
             //     onClick: () => {
             //     },
             // });
-            c.add.TextArea({
+            c.add.Table({
                 id: 'ChoicePrintAllValidChoiceList',
-                value: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoice(),
-                readOnly: true,
-                style: {
-                    minHeight: '35em',
-                },
+                columns: [
+                    {title: 'Index', key: 'count'},
+                    {title: 'Name', key: 'name'},
+                    {title: 'Key', key: 'id'},
+                    {title: 'KeyName', key: 'idName'},
+                    {title: 'Description', key: 'description'},
+                ],
+                dataSource: () => thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.ChoicePrintAllValidChoiceTable(),
             });
         }
 

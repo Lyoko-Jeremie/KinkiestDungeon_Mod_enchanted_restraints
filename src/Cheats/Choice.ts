@@ -436,6 +436,39 @@ export class Choice {
         }
         return sss.join('\n');
     };
+    ChoicePrintAllValidChoiceTable = () => {
+        const l = Object.getOwnPropertyNames(KinkyDungeonStatsPresets);
+        let count = 0;
+        let sss: {
+            count: number,
+            name: string,
+            id: string | number,
+            idName: string,
+            description: string,
+        }[] = [];
+        for (const s of l) {
+            if (KinkyDungeonStatsPresets[s]) {
+                const t = TextGet("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id);
+                if (t !== ("KinkyDungeonStat" + KinkyDungeonStatsPresets[s].id)) {
+                    // sss.push("" + count + "\t"
+                    //     + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                    //     + "\n\t  " + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+                    // console.log("" + count + "\t"
+                    //     + t + "\t[" + KinkyDungeonStatsPresets[s].id + "] [" + s + "]"
+                    //     + "\n\t  " + TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id));
+                    sss.push({
+                        count: count,
+                        name: t,
+                        id: KinkyDungeonStatsPresets[s].id,
+                        idName: s,
+                        description: TextGet("KinkyDungeonStatDesc" + KinkyDungeonStatsPresets[s].id),
+                    });
+                }
+                ++count;
+            }
+        }
+        return sss;
+    };
     ChoiceGetAllValidChoiceData = (): ChoiceGetAllValidChoiceDataReturnType => {
         const cs = new Set(Array.from(KinkyDungeonStatsChoice.keys()));
         const l = Object.getOwnPropertyNames(KinkyDungeonStatsPresets);
