@@ -2005,12 +2005,18 @@ export class CreateGui {
             });
             const ShadowCurseSelect = g.add.Select({
                 id: 'ShadowCurseSelect',
-                options: thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseNameList.map(T => {
-                    return {
-                        label: T,
-                        value: T,
-                    };
-                }),
+                options: [
+                    {
+                        label: 'None',
+                        value: 'None',
+                    },
+                    ...thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.ShadowCurseNameList.map(T => {
+                        return {
+                            label: T,
+                            value: T,
+                        };
+                    }),
+                ],
                 style,
             });
 
@@ -2069,6 +2075,60 @@ export class CreateGui {
                 id: 'CurseWearIt',
                 text: StringTable['CurseWearIt'],
                 onClick: () => {
+                    const ww = AllRestraintItemSelect.state.selectedKey;
+                    const cc = ShadowCurseSelect.state.value;
+                    const vv = ShadowVariantSelect.state.value;
+                    const bb = ShadowEnchantmentBuffSelect.state.selectedKeys;
+
+                    const hasC = !!cc && cc !== 'None';
+                    const hasV = !!vv && vv !== 'None';
+                    const hasB = bb.length > 0;
+
+                    if (hasC && hasV && hasB) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariantWithEnchantmentBuff(
+                            cc,
+                            ww,
+                            vv,
+                            bb,
+                        );
+                        return;
+                    }
+                    if (hasC && hasB) {
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariantWithEnchantmentBuff(
+                            cc,
+                            ww,
+                            undefined,
+                            bb,
+                        );
+                        return;
+                    }
+                    if (hasC && hasV) {
+                        // TODO
+                        //      addRandomShadowCurseWear
+                        //      addShadowCurseWear
+                        //      addShadowCurseWearWithVariant
+                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWearWithVariant(
+                            cc,
+                            ww,
+                            vv,
+                        );
+                        return;
+                    }
+                    if (hasC) {
+                        if (ww) {
+                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addShadowCurseWear(
+                                cc,
+                                ww,
+                            );
+                            return;
+                        } else {
+                            thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.CurseWears.addRandomShadowCurseWear(
+                                cc,
+                            );
+                            return;
+                        }
+                        return;
+                    }
                 },
                 style,
             })
