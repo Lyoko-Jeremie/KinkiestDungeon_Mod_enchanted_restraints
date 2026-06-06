@@ -1,4 +1,4 @@
-import {uniq} from 'lodash';
+import {uniq, filter} from 'lodash';
 import fabric from 'fabric';
 
 export class MapGet {
@@ -241,7 +241,7 @@ export class MapGet {
                     // floor
                     ctx.fillStyle = "rgba(0,146,255,0.68)";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-                } else if (KDCornerTiles[c]) {
+                } else if (KDCornerTiles[c as keyof typeof KDCornerTiles]) {
                     // is CornerTiles
                     ctx.fillStyle = "rgba(0,255,248,0.63)";
                     ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
@@ -453,7 +453,7 @@ export class MapGet {
                 else if (c === 'T') bgColor = "#ff9fff";
                 else if (c === 'Y') bgColor = "#ff2bff";
                 else if (c === '0' || c === '2') bgColor = "rgba(0,146,255,0.68)";
-                else if (KDCornerTiles[c]) bgColor = "rgba(0,255,248,0.63)";
+                else if (KDCornerTiles[c as keyof typeof KDCornerTiles]) bgColor = "rgba(0,255,248,0.63)";
                 else if (c === 'D' || c === 'b') bgColor = "rgba(206,206,206,0.25)";
 
                 fabricObjects.push(createRect(left, top, bgColor));
@@ -675,6 +675,125 @@ export class MapGet {
     // "c" : (delta) => { // Unopened chest
     // "L" : (delta) => { // Barrel
     // let KDFurniture = {
+
+    // KDMapData.Tiles[]
+    // Record<string, {}>
+    // "14,39": {
+    //   "Type": "Trap",
+    //   "Spell": "TrapLatexBubble",
+    //   "Power": 3
+    // }
+    // "14,39": {
+    //   "Type": "Trap",
+    //   "Trap": "SpecificSpell",
+    //   "Spell": "TrapLatexBubble",
+    //   "Power": 3
+    // }
+    //
+    // KinkyDungeonMapParams[(KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint)] as floorParams
+    // .traps
+    //
+    // function KinkyDungeonPlaceTraps(traps: any[], traptypes: any[],
+    //
+    //      let t = KinkyDungeonGetTrap(traptypes, Floor, []);
+    //		=	return {
+    // 				StepOffTrap: trapWeights[L].trap.StepOffTrap,
+    // 				Name: trapWeights[L].trap.Name,
+    // 				Restraint: trapWeights[L].trap.Restraint,
+    // 				Enemy: trapWeights[L].trap.Enemy,
+    // 				FilterTag: trapWeights[L].trap.filterTag,
+    // 				FilterBackup: trapWeights[L].trap.filterBackup,
+    // 				Spell: trapWeights[L].trap.Spell,
+    // 				Power: trapWeights[L].trap.Power,
+    // 				extraTag: trapWeights[L].trap.extraTag,
+    // 				Hostile: undefined,
+    // 				Faction: undefined,
+    // 			};
+    //      KinkyDungeonMapSet(trap.x, trap.y, 'T');
+    //      KinkyDungeonTilesSet(trap.x + "," + trap.y, {
+    //      	Type: "Trap",
+    //      	Trap: t.Name,
+    //      	Restraint: t.Restraint,
+    //      	Enemy: t.Enemy,
+    //      	Hostile: t.Hostile,
+    //      	Faction: t.Faction,
+    //      	FilterTag: t.FilterTag,
+    //      	FilterBackup: t.FilterBackup,
+    //      	Spell: t.Spell,
+    //      	extraTag: t.extraTag,
+    //      	Power: t.Power,
+    //      	OL: tile?.OL,
+    //      });
+    // function KDCreateEffectTile(x: number, y: number, tile: effectTileRef, durationMod: number): effectTile
+    // KDEffectTiles: Record<string, effectTile>
+    //   tile: effectTileRef
+    //      let duration = (tile.duration ? tile.duration : KDEffectTiles[tile.name].duration) + KDRandom() * (durationMod ? durationMod : 0);
+    // 		let tt = Object.assign({x: x, y: y}, KDEffectTiles[tile.name]);
+    // 		Object.assign(tt, tile);
+    // 		tt.duration = duration;
+    // 		if (!KinkyDungeonEffectTilesGet(x + "," + y)) {
+    // 			KinkyDungeonEffectTilesSet(x + "," + y, {});
+    // 		}
+    // 		KDGetEffectTiles(x, y)[tt.name] = tt;
+    // 		createdTile = tt;
+    // 		KDInteractNewTile(createdTile);
+    // 		return createdTile;
+
+    SetTrapAt(position?: { x: number, y: number },) {
+        let altType = KDGetAltType(MiniGameKinkyDungeonLevel);
+        let drawFloor = altType?.skin ? altType.skin : (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint);
+        // floorParams
+        const traps = KinkyDungeonMapParams[drawFloor].traps;
+        // 		"traps": [
+        // 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},
+        // 			{Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 30},
+        // 			{Name: "SpecificSpell", Spell: "TrapRopeStrong", Level: 0, Power: 3, Weight: 30},
+        // 			{Name: "SpecificSpell", Spell: "TrapLeatherWeak", Level: 0, Power: 3, Weight: 30},
+        // 			{Name: "SpecificSpell", Spell: "TrapMagicChainsWeak", Level: 0, Power: 3, Weight: 30},
+        // 			{Name: "SpecificSpell", Spell: "TrapLatexBubble", Level: 0, Power: 3, Weight: 30, BlockedByPerks: ["BubbleOptout"]},
+        // 			{Name: "SpecificSpell", Spell: "TrapLatexBall", Level: 0, Power: 3, Weight: 7, BlockedByPerks: ["SlimeOptout"]},
+        // 			{Name: "SpawnEnemies", Enemy: "Dressmaker", strict: true, Level: 0, Power: 2, Weight: 10},
+        // 			{Name: "SpawnEnemies", Enemy: "Librarian", strict: true, Level: 4, Power: 1, Weight: 5},
+        // 			{Name: "SpecificSpell", Spell: "TrapLinks", Level: 4, Power: 1, Weight: 40},
+        //
+        // 			{Name: "SpawnEnemies", Enemy: "Gag", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemMouthFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "Cuffs", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemArmsFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "AnimBlindfold", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemHeadFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "AnimYoke", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemArmsFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "AnimArmbinder", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemArmsFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "AnimHarness", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemTorsoFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "AnimChastity", strict: true, Level: 0, Power: 2, Weight: 10, arousalMode: true, filterTag: "ItemPelvisFull", filterBackup: "BookBondage"},
+        // 			{Name: "SpawnEnemies", Enemy: "AnimStraitjacket", strict: true, Level: 0, Power: 2, Weight: 10, filterTag: "ItemArmsFull", filterBackup: "BookBondage"},
+        // 		],
+        const trapList = traps.filter(T => T.Name === 'SpecificSpell' && !!T.Spell?.startsWith('Trap'));
+
+        console.log('traps', traps);
+        console.log('trapList', trapList);
+
+        const pos = position ?? this.PlayerPosition();
+        const trap = trapList.find((trap) => trap.Spell === 'TrapLatexBubble');
+        if (!trap) {
+            console.warn('未找到指定陷阱，无法设置', 'TrapLatexBubble');
+            return;
+        }
+        KinkyDungeonMapSet(pos.x, pos.y, 'T') ? console.log('SetMap Ok') : console.warn('SetMap Failed');
+        const TilesData=  KinkyDungeonTilesSet(pos.x + "," + pos.y, {
+            Type: "Trap",
+            Trap: trap?.Name,
+            Restraint: (<any>trap)?.Restraint,
+            Enemy: trap?.Enemy,
+            // Hostile: (<any>trap)?.Hostile,
+            // Faction: trap?.Faction,
+            FilterTag: trap?.filterTag,
+            FilterBackup: trap?.filterBackup,
+            Spell: trap?.Spell,
+            extraTag: trap?.extraTag,
+            Power: trap?.Power,
+            // OL: tile?.OL,
+        });
+        console.log('TilesData', TilesData);
+
+    }
 
     SetAllBedAreTrap() {
         this.SetMapTrap((x, y, c) => {
@@ -912,6 +1031,16 @@ export class MapGet {
 
     PlayerPosition() {
         return {x: KinkyDungeonPlayerEntity.x, y: KinkyDungeonPlayerEntity.y};
+    }
+
+    CanEscape() {
+        let escapeMethod = KDGetEscapeMethod(MiniGameKinkyDungeonLevel);
+        let escape = KDCanEscape(escapeMethod);
+        let escapeText = KDGetEscapeMinimapText(escapeMethod);
+        return {
+            escape,
+            escapeText,
+        };
     }
 
 }
