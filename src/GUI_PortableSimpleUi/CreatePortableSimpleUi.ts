@@ -362,9 +362,16 @@ export class CreateGui {
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
 
+        this.appRef.rootElement.addEventListener('keydown', (event) => {
+            if (event.altKey && (event.key === 'Q' || event.key === 'q')) {
+                this.triggerUi();
+                event.stopPropagation();
+            }
+        });
         this.appRef.host.addEventListener('keydown', (event) => {
             if (event.altKey && (event.key === 'Q' || event.key === 'q')) {
                 this.triggerUi();
+                event.stopPropagation();
             }
         });
 
