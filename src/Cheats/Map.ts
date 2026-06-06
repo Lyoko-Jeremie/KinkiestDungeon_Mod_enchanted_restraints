@@ -381,8 +381,8 @@ export class MapGet {
         // 辅助函数：快速生成 Fabric 矩形
         const createRect = (left: number, top: number, fill: string) => {
             return new fabric.Rect({
-                left: left,
-                top: top,
+                left: left + blockSize / 2,
+                top: top + blockSize / 2,
                 width: blockSize,
                 height: blockSize,
                 fill: fill,
