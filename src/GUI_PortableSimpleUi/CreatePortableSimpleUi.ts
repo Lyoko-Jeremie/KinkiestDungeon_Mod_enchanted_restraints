@@ -24,6 +24,7 @@ import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "../Sound/Sound";
 import {InitOptionsNoCustom} from "../GM_config_TS/gm_config";
+import fabric from "fabric";
 
 KDOptOut = true;
 
@@ -200,6 +201,9 @@ export class CreateGui {
         ChoiceAddOneFilterSelect: signal<ISelectOption[]>([]),
         NowWearRestraintItemDifficulty: signal<number>(0),
         IndexDBSaveSelect: signal<ISelectOption[]>([]),
+        MapBlockSize: signal<number>(0),
+        SelectJumpPos: signal({x: 0, y: 0}),
+        CanvasFabric: signal<fabric.Canvas | null>(null),
     } as const;
 
     calcGoddessRepKeyListSelect = () => {
@@ -510,7 +514,7 @@ export class CreateGui {
                 text: StringTable['MapKKSsMGet'],
                 onClick: () => {
                     const el = MapKKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!;
-                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs_(el);
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(el);
                     // overflow: auto; -webkit-overflow-scrolling: touch;
                     el.style.overflow = 'auto';
                     el.style.setProperty('-webkit-overflow-scrolling', 'touch');
@@ -552,6 +556,82 @@ export class CreateGui {
                 readOnly: true,
             });
 
+        }
+
+        // Map Jump
+        {
+            const c = tabs.addTab({
+                id: 'Map Jump Section'.replaceAll(' ', '_'),
+                title: StringTable['Map Section'],
+            }).Flex({
+                style: {
+                    flexDirection: 'column',
+                    gap: '20px',
+                },
+            });
+
+            c.add.Button({
+                id: 'MapCanvas_KKSs_',
+                text: StringTable['MapKKSsMGet'],
+                onClick: () => {
+                    const el = MapCanvas_KKSs_.getElementToContain<HTMLCanvasElement>()!;
+                    const ref = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs_(
+                        el,
+                        (realX, realY) => {
+                            this.signalTable.SelectJumpPos.set({x: realX, y: realY});
+                        },
+                    );
+                    this.signalTable.CanvasFabric.set(ref.canvasFabric);
+                    // overflow: auto; -webkit-overflow-scrolling: touch;
+                    el.style.overflow = 'auto';
+                    el.style.setProperty('-webkit-overflow-scrolling', 'touch');
+                },
+            });
+
+            let g;
+
+            g = c.add.Group({
+                title: 'Map Size'
+            });
+            g.add.Label({
+                text: computed(() => `Map Block Size: ${this.signalTable.MapBlockSize.get()}`),
+            });
+            g.add.Button({
+                id: 'MapBlockSizePlus',
+                text: '+',
+                onClick: () => {
+                    const o = this.signalTable.MapBlockSize.get() + 1;
+                    this.signalTable.MapBlockSize.set(o);
+                },
+            });
+            g.add.Button({
+                id: 'MapBlockSizeMinus',
+                text: '-',
+                onClick: () => {
+                    const o = this.signalTable.MapBlockSize.get() - 1;
+                    this.signalTable.MapBlockSize.set(Math.max(1, o));
+                },
+            });
+
+            g = c.add.Group({
+                title: 'Jump To'
+            });
+            g.add.Label({
+                text: `Now Selected: ${this.signalTable.SelectJumpPos.get().x}, ${this.signalTable.SelectJumpPos.get().y}`,
+            });
+            g.add.Button({
+                id: 'MapJumpToSelect',
+                text: 'Jump !!!',
+                onClick: () => {
+                    const pos = this.signalTable.SelectJumpPos.get();
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapJump(pos.x, pos.y);
+                },
+            });
+
+            const MapCanvas_KKSs_ = c.add.HTMLContainer({
+                id: 'MapCanvas_KKSs_Canvas',
+                element: document.createElement('canvas'),
+            });
         }
 
         // ApplyRestraint
