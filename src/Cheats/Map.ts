@@ -354,7 +354,7 @@ export class MapGet {
         };
     }
 
-    drawMapCanvas_KKSs_(node: HTMLCanvasElement, blockSize = 16) {
+    drawMapCanvas_KKSs_(node: HTMLCanvasElement, clickCallback: (x: number, y: number) => any, blockSize = 16,) {
         let m = this.MapKKSsMGet();
         let mm = m.split("\n");
 
@@ -532,6 +532,8 @@ export class MapGet {
                 // KDMapData.Player.y = realY;
                 // 重新渲染游戏主画布 / 关闭当前地图 UI 等
                 // ==========================================
+
+                clickCallback(realX, realY);
             }
         });
 
@@ -539,7 +541,7 @@ export class MapGet {
             x: x,
             y: y,
             blockSize: blockSize,
-            canvas: canvas, // 注意：返回的是 Fabric 的 Canvas 实例，不再是 ctx
+            canvasFabric: canvas, // 注意：返回的是 Fabric 的 Canvas 实例，不再是 ctx
         };
     }
 
