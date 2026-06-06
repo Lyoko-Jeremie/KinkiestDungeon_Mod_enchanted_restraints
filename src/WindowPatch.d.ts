@@ -807,5 +807,107 @@ declare global {
 
     function KDMovePlayer(moveX: number, moveY: number, willing: boolean, sprint?: boolean, forceHitBullets?: boolean, suppressNoise?: boolean, noEvent?: boolean): boolean;
 
+    function KDGetEscapeMethod(_level: number): string;
+    function KDCanEscape(method: string): boolean;
+    function KDGetEscapeMinimapText(method: string): string;
+
+    /**
+     * @param X
+     * @param Y
+     * @param SetTo
+     * @param [VisitedRooms]
+     */
+    function KinkyDungeonMapSet(X: number, Y: number, SetTo: string, VisitedRooms?: any[]): boolean;
+    // {
+    //     let height = KDMapData.GridHeight;
+    //     let width = KDMapData.GridWidth;
+    //
+    //     if (X > 0 && X < width-1 && Y > 0 && Y < height-1) {
+    //         KDMapData.Grid = KDMapData.Grid.replaceAt(X + Y*(width+1), SetTo);
+    //         if (VisitedRooms)
+    //             VisitedRooms.push({x: X, y: Y});
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    function KinkyDungeonMapSetForce(X: number, Y: number, SetTo: string, VisitedRooms?: any[]): boolean;
+    // {
+    //     let width = KDMapData.GridWidth;
+    //
+    //     KDMapData.Grid = KDMapData.Grid.replaceAt(X + Y*(width+1), SetTo);
+    //     if (VisitedRooms)
+    //         VisitedRooms.push({x: X, y: Y});
+    //     return true;
+    //
+    // }
+
+    /**
+     * @param location
+     * @param value
+     */
+    function KinkyDungeonEffectTilesSet(location: string, value: Record<string, effectTile>): void;
+    // {
+    //     KDMapData.EffectTiles[location] = value;
+    // }
+    /**
+     * @param location
+     */
+    function KinkyDungeonEffectTilesGet(location: string, mapData?: KDMapDataType): Record<string, effectTile>;
+    // {
+    //     if (!mapData) mapData = KDMapData;
+    //     return mapData.EffectTiles[location];
+    // }
+
+
+
+    /**
+     * @param value
+     */
+    function KDSetPlayerTile(value: any): any;
+    // {
+    //     KDMapData.Tiles[KinkyDungeonPlayerEntity.x + ',' + KinkyDungeonPlayerEntity.y] = value;
+    //     return value;
+    // }
+
+    function KDGetPlayerTile(): any;
+    // {
+    //     return KDMapData.Tiles[KinkyDungeonPlayerEntity.x + ',' + KinkyDungeonPlayerEntity.y];
+    // }
+
+
+    /**
+     * @param location
+     * @param value
+     */
+    function KinkyDungeonTilesSet(location: string, value: any): any;
+    // {
+    //     KDMapData.Tiles[location] = value;
+    //     return value;
+    // }
+    /**
+     * @param location
+     */
+    function KinkyDungeonTilesGet(location: string): any;
+    // {
+    //     return KDMapData.Tiles[location];
+    // }
+
+    /**
+     * @param location
+     */
+    function KinkyDungeonTilesDelete(location: string): void;
+    // {
+    //     delete KDMapData.Tiles[location];
+    // }
+    /**
+     * Clearsa the tile w/o deleting it
+     * @param location
+     */
+    function KDClearTile(location: string): void;
+    // {
+    //     let tile = KDMapData.Tiles[location];
+    //     if (tile.Type) delete tile.Type;
+    // }
+
 }
 
