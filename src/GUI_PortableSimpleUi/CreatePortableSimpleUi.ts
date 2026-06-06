@@ -536,7 +536,7 @@ export class CreateGui {
                     // const r =
                     //     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(MapKSsMGetDataCanvas.getCanvas());
                     // MapKSsMGetDataCanvas.syncSizeFromCanvasSize();
-                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!);
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(MapKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!);
                     MapKSsMGetData.set(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKSsMGet());
                 },
             });
