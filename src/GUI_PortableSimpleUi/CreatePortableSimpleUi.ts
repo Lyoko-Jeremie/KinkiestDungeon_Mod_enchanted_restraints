@@ -591,6 +591,7 @@ export class CreateGui {
                 id: 'MapCanvas_KKSs_',
                 text: StringTable['MapKKSsMGet'],
                 onClick: () => {
+                    this.signalTable.CanvasFabric.get()?.destroy();
                     const el = MapCanvas_KKSs_.getElementToContain<HTMLCanvasElement>()!;
                     const ref = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs_(
                         el,
