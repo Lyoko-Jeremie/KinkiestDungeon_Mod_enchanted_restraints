@@ -509,13 +509,19 @@ export class CreateGui {
                 id: 'MapKKSsMGet',
                 text: StringTable['MapKKSsMGet'],
                 onClick: () => {
-                    const r = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getCanvas());
+                    // thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getCanvas());
+                    // MapKSsMGetDataCanvas.syncSizeFromCanvasSize();
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!);
                     MapKKSsMGetData.set(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKKSsMGet());
                 },
             });
-            const MapKKSsMGetDataCanvas = c.add.Canvas({
+            // const MapKKSsMGetDataCanvas = c.add.Canvas({
+            //     id: 'MapKKSsMGetDataCanvas',
+            // });
+            const MapKKSsMGetDataCanvas = c.add.HTMLContainer({
                 id: 'MapKKSsMGetDataCanvas',
-            })
+                element: document.createElement('canvas'),
+            });
             c.add.TextArea({
                 id: 'MapKKSsMGetData',
                 value: MapKKSsMGetData,
@@ -527,14 +533,20 @@ export class CreateGui {
                 id: 'MapKSsMGet',
                 text: StringTable['MapKSsMGet'],
                 onClick: () => {
-                    const r =
-                        thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(MapKSsMGetDataCanvas.getCanvas());
+                    // const r =
+                    //     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KSs(MapKSsMGetDataCanvas.getCanvas());
+                    // MapKSsMGetDataCanvas.syncSizeFromCanvasSize();
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!);
                     MapKSsMGetData.set(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKSsMGet());
                 },
             });
-            const MapKSsMGetDataCanvas = c.add.Canvas({
+            // const MapKSsMGetDataCanvas = c.add.Canvas({
+            //     id: 'MapKSsMGetDataCanvas',
+            // })
+            const MapKSsMGetDataCanvas = c.add.HTMLContainer({
                 id: 'MapKSsMGetDataCanvas',
-            })
+                element: document.createElement('canvas'),
+            });
             c.add.TextArea({
                 id: 'MapKSsMGetData',
                 value: MapKSsMGetData,
