@@ -28,22 +28,6 @@ import fabric from "fabric";
 
 KDOptOut = true;
 
-class LastSearch {
-    lastSearch: Map<string, string> = new Map<string, string>();
-
-    get(key: string, defaultValue: string = ''): string {
-        return this.lastSearch.get(key) || defaultValue;
-    }
-
-    set(key: string, value: string) {
-        this.lastSearch.set(key, value);
-    }
-
-    delete(key: string) {
-        this.lastSearch.delete(key);
-    }
-}
-
 export class CreateGui {
 
     noPlayDing = false;
@@ -58,9 +42,6 @@ export class CreateGui {
     get version() {
         return '2.3';
     }
-
-    // avoid same Math.random
-    rIdP = 0;
 
     dropdownMaxHeight = '20em';
 
@@ -143,8 +124,6 @@ export class CreateGui {
 
         this.waitKDLoadingFinished();
     }
-
-    lastSearch: LastSearch = new LastSearch();
 
     _patchSpell = new PatchSpell();
 
