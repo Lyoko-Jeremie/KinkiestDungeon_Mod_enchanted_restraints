@@ -196,6 +196,9 @@ const StringTableKeys = [
     'SetAll_L_AreDisplayStand',
     'SetAll_L_AreCage',
     'ResetAllLibChest',
+    'FillMapAsTrap',
+    'FillMap0AsTrap',
+    'FillMap2AsTrap',
 
     'HardMode Section',
     'HardModeEnable',

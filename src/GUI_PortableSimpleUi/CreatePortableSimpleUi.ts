@@ -2710,6 +2710,26 @@ export class CreateGui {
                 },
                 style,
             });
+
+            g = c.add.Group({
+                title: StringTable['FillMapAsTrap'],
+            });
+            g.add.Button({
+                id: 'FillMap0AsTrap',
+                text: StringTable['FillMap0AsTrap'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FillAll0ToTap();
+                },
+                style,
+            });
+            g.add.Button({
+                id: 'FillMap2AsTrap',
+                text: StringTable['FillMap2AsTrap'],
+                onClick: () => {
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.FillAll2ToTap();
+                },
+                style,
+            });
         }
 
         // HardMode
