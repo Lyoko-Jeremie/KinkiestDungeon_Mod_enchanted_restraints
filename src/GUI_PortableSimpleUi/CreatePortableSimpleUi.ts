@@ -55,7 +55,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '2.0';
+        return '2.1';
     }
 
     // avoid same Math.random
@@ -509,15 +509,14 @@ export class CreateGui {
                 id: 'MapKKSsMGet',
                 text: StringTable['MapKKSsMGet'],
                 onClick: () => {
-                    // thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getCanvas());
-                    // MapKSsMGetDataCanvas.syncSizeFromCanvasSize();
-                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs(MapKKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!);
+                    const el = MapKKSsMGetDataCanvas.getElementToContain<HTMLCanvasElement>()!;
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs_(el);
+                    // overflow: auto; -webkit-overflow-scrolling: touch;
+                    el.style.overflow = 'auto';
+                    el.style.setProperty('-webkit-overflow-scrolling', 'touch');
                     MapKKSsMGetData.set(thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapKKSsMGet());
                 },
             });
-            // const MapKKSsMGetDataCanvas = c.add.Canvas({
-            //     id: 'MapKKSsMGetDataCanvas',
-            // });
             const MapKKSsMGetDataCanvas = c.add.HTMLContainer({
                 id: 'MapKKSsMGetDataCanvas',
                 element: document.createElement('canvas'),

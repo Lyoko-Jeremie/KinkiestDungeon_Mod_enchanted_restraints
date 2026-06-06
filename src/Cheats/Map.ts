@@ -1,4 +1,5 @@
 import {uniq} from 'lodash';
+import fabric from 'fabric';
 
 export class MapGet {
 
@@ -350,6 +351,195 @@ export class MapGet {
             y: y,
             blockSize: blockSize,
             ctx: ctx,
+        };
+    }
+
+    drawMapCanvas_KKSs_(node: HTMLCanvasElement, blockSize = 16) {
+        let m = this.MapKKSsMGet();
+        let mm = m.split("\n");
+
+        const dataW = mm[0].split('').length;
+        const dataH = mm.length;
+
+        // 设置原生节点尺寸
+        node.width = (dataW + 2) * blockSize;
+        node.height = (dataH + 2) * blockSize;
+
+        // 1. 初始化 Fabric Canvas
+        // 注意：如果这个函数会被反复调用，建议在外部持有 fabricCanvas 实例，
+        // 这里使用 new fabric.Canvas 会重新包装原节点。
+        const canvas = new fabric.Canvas(node, {
+            selection: false,          // 禁用拖拽框选，提升手感
+            renderOnAddRemove: false   // 【性能关键】等所有格子全加完再统一渲染
+        });
+
+        // 如果是重复利用同一个 canvas，需要清空之前的对象
+        canvas.clear();
+
+        const fabricObjects: fabric.Object[] = []; // 收集所有对象
+
+        // 辅助函数：快速生成 Fabric 矩形
+        const createRect = (left: number, top: number, fill: string) => {
+            return new fabric.Rect({
+                left: left,
+                top: top,
+                width: blockSize,
+                height: blockSize,
+                fill: fill,
+                selectable: false, // 禁用单体拖拽
+                evented: false     // 禁用单体事件，交由底层画布统一处理点击
+            });
+        };
+
+        // 辅助函数：快速生成 Fabric 文字
+        const createText = (text: string, left: number, top: number, fill: string, fontSize: number, isBold = false) => {
+            return new fabric.Text(text, {
+                // 文字定位点设为中心
+                left: left + blockSize / 2,
+                top: top + blockSize / 2,
+                originX: 'center',
+                originY: 'center',
+                fill: fill,
+                fontSize: fontSize,
+                fontFamily: 'Arial',
+                fontWeight: isBold ? 'bold' : 'normal',
+                selectable: false,
+                evented: false // 防止文字遮挡底下的点击事件
+            });
+        };
+
+        let y = 0;
+        let x = 0;
+
+        // --- 上边框 (additional row) ---
+        for (let xx = 0; xx < dataW; xx++) {
+            const isYellow = (xx % 10 === 0);
+            const fill = isYellow ? "rgb(255,232,80)" : "rgb(22,53,82)";
+            fabricObjects.push(createRect((xx + 1) * blockSize, y * blockSize, fill));
+            fabricObjects.push(createText(`${xx % 10}`, (xx + 1) * blockSize, y * blockSize, 'rgb(31,155,154)', blockSize));
+        }
+        ++y;
+
+        // --- 地图主体内容 ---
+        for (const l of mm) {
+            if (l.length > 0) {
+                x = 0;
+            } else {
+                continue;
+            }
+
+            // 左侧边框 (additional col)
+            if (y > 0) {
+                const isYellow = ((y - 1) % 10 === 0);
+                const fill = isYellow ? "rgb(255,232,80)" : "rgb(22,53,82)";
+                fabricObjects.push(createRect(x * blockSize, y * blockSize, fill));
+                fabricObjects.push(createText(`${(y - 1) % 10}`, x * blockSize, y * blockSize, 'rgb(31,155,154)', blockSize));
+            }
+            ++x;
+
+            for (const c of l.split('')) {
+                const realY = (y - 1);
+                const realX = (x - 1);
+                const left = x * blockSize;
+                const top = y * blockSize;
+
+                // 绘制底色 Rect
+                let bgColor = "rgba(255,255,255,0)"; // 默认透明
+                if (c === '█') bgColor = "black";
+                else if (c === '░') bgColor = "rgba(255,255,255,0.5)";
+                else if (c === '▓') bgColor = "yellow";
+                else if (c === '◘') bgColor = "#00ffff";
+                else if (c === 'G') bgColor = "#00dfff";
+                else if (c === 'T') bgColor = "#ff9fff";
+                else if (c === 'Y') bgColor = "#ff2bff";
+                else if (c === '0' || c === '2') bgColor = "rgba(0,146,255,0.68)";
+                else if (KDCornerTiles[c]) bgColor = "rgba(0,255,248,0.63)";
+                else if (c === 'D' || c === 'b') bgColor = "rgba(206,206,206,0.25)";
+
+                fabricObjects.push(createRect(left, top, bgColor));
+
+                // 绘制附加 Tile 图层
+                const tile = KDMapData.Tiles[realX + "," + realY];
+                if (tile) {
+                    if (tile.Type === "Trap") {
+                        fabricObjects.push(createRect(left, top, "rgba(255,0,0,0.5)"));
+                    }
+                    if (tile.Type === "Shrine" && tile.Quest) {
+                        fabricObjects.push(createRect(left, top, "rgb(173,106,255)"));
+                    }
+                }
+
+                // 绘制底层字符文字
+                if (c !== '░') {
+                    const textColor = c === '◘' ? "#ff00ff" : 'rgba(0,255,248,0.75)';
+                    fabricObjects.push(createText(c, left, top, textColor, blockSize - 2));
+                }
+
+                // 绘制 Entity (实体覆盖层文字)
+                const ent = KDMapData.Entities.find((T: { x: number, y: number }) => T.x === realX && T.y === realY);
+                if (ent) {
+                    const hasKeyring = (ent.items as string[])?.find(T => T === 'Keyring');
+                    const entChar = hasKeyring ? '◯' : '▢';
+                    const entColor = hasKeyring ? 'rgba(255,255,0,1)' : 'rgb(255,202,204,1)';
+                    fabricObjects.push(createText(entChar, left, top, entColor, blockSize + 3, true));
+                }
+
+                ++x;
+            }
+
+            // 右侧边框 (additional col)
+            if (y > 0) {
+                const isYellow = ((y - 1) % 10 === 0);
+                const fill = isYellow ? "rgb(255,232,80)" : "rgb(22,53,82)";
+                fabricObjects.push(createRect(x * blockSize, y * blockSize, fill));
+                fabricObjects.push(createText(`${(y - 1) % 10}`, x * blockSize, y * blockSize, 'rgb(31,155,154)', blockSize));
+            }
+            ++y;
+        }
+
+        // --- 下边框 (additional row) ---
+        for (let xx = 0; xx < dataW; xx++) {
+            const isYellow = (xx % 10 === 0);
+            const fill = isYellow ? "rgb(255,232,80)" : "rgb(22,53,82)";
+            fabricObjects.push(createRect((xx + 1) * blockSize, y * blockSize, fill));
+            fabricObjects.push(createText(`${xx % 10}`, (xx + 1) * blockSize, y * blockSize, 'rgb(31,155,154)', blockSize));
+        }
+
+        // 2. 批量添加到画布并触发单次渲染 (性能最佳)
+        fabricObjects.forEach(obj => canvas.add(obj));
+        canvas.renderAll();
+
+        // 3. 核心功能：绑定鼠标点击事件 (全局监听，数学解算坐标)
+        canvas.on('mouse:down', (options) => {
+            // 获取点击在 Canvas 里的相对坐标
+            const pointer = canvas.getPointer(options.e);
+
+            // 数学反推：将像素坐标转换为网格坐标
+            const gridX = Math.floor(pointer.x / blockSize);
+            const gridY = Math.floor(pointer.y / blockSize);
+
+            // 减去 1，因为最外圈有一层坐标轴
+            const realX = gridX - 1;
+            const realY = gridY - 1;
+
+            // 判断是否点在了合法地图区域内
+            if (realX >= 0 && realX < dataW && realY >= 0 && realY < dataH) {
+                console.log(`[Mod] 请求瞬移坐标: X:${realX}, Y:${realY}`);
+
+                // ==========================================
+                // 在这里接入你的游戏瞬移逻辑，例如：
+                // KDMapData.Player.x = realX;
+                // KDMapData.Player.y = realY;
+                // 重新渲染游戏主画布 / 关闭当前地图 UI 等
+                // ==========================================
+            }
+        });
+
+        return {
+            x: x,
+            y: y,
+            blockSize: blockSize,
+            canvas: canvas, // 注意：返回的是 Fabric 的 Canvas 实例，不再是 ctx
         };
     }
 
