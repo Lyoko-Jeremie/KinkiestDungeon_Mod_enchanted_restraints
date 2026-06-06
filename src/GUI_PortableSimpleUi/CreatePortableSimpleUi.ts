@@ -201,7 +201,7 @@ export class CreateGui {
         ChoiceAddOneFilterSelect: signal<ISelectOption[]>([]),
         NowWearRestraintItemDifficulty: signal<number>(0),
         IndexDBSaveSelect: signal<ISelectOption[]>([]),
-        MapBlockSize: signal<number>(0),
+        MapBlockSize: signal<number>(15),
         SelectJumpPos: signal({x: 0, y: 0}),
         CanvasFabric: signal<fabric.Canvas | null>(null),
         LastSelectedTab: signal<string>(''),
@@ -594,22 +594,27 @@ export class CreateGui {
                 margin: '0.15em 0.25em',
             };
 
+            const drawMap = async () => {
+                await this.signalTable.CanvasFabric.get()?.dispose();
+                const el = MapCanvas_KKSs_.getElementToContain<HTMLCanvasElement>()!;
+                const ref = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs_fabric(
+                    el,
+                    (realX, realY) => {
+                        console.log(realX, realY);
+                        this.appRef?.zoneWrapper.runInZone(() => {
+                            this.signalTable.SelectJumpPos.set({x: realX, y: realY});
+                        });
+                    },
+                    this.signalTable.MapBlockSize.get(),
+                );
+                this.signalTable.CanvasFabric.set(ref.canvasFabric);
+            }
+
             c.add.Button({
                 id: 'MapCanvas_KKSs_',
                 text: StringTable['MapKKSsMGet'],
                 onClick: async () => {
-                    await this.signalTable.CanvasFabric.get()?.dispose();
-                    const el = MapCanvas_KKSs_.getElementToContain<HTMLCanvasElement>()!;
-                    const ref = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.drawMapCanvas_KKSs_(
-                        el,
-                        (realX, realY) => {
-                            this.signalTable.SelectJumpPos.set({x: realX, y: realY});
-                        },
-                    );
-                    this.signalTable.CanvasFabric.set(ref.canvasFabric);
-                    // overflow: auto; -webkit-overflow-scrolling: touch;
-                    el.style.overflow = 'auto';
-                    el.style.setProperty('-webkit-overflow-scrolling', 'touch');
+                    await drawMap();
                 },
                 style,
             });
@@ -629,6 +634,7 @@ export class CreateGui {
                 onClick: () => {
                     const o = this.signalTable.MapBlockSize.get() + 1;
                     this.signalTable.MapBlockSize.set(o);
+                    drawMap().catch(console.error);
                 },
                 style,
             });
@@ -638,6 +644,7 @@ export class CreateGui {
                 onClick: () => {
                     const o = this.signalTable.MapBlockSize.get() - 1;
                     this.signalTable.MapBlockSize.set(Math.max(1, o));
+                    drawMap().catch(console.error);
                 },
                 style,
             });
@@ -645,8 +652,9 @@ export class CreateGui {
             g = c.add.Group({
                 title: 'Jump To'
             });
-            g.add.Label({
-                text: `Now Selected: ${this.signalTable.SelectJumpPos.get().x}, ${this.signalTable.SelectJumpPos.get().y}`,
+            const MapJumpNowSelectPosLabel = g.add.Label({
+                id: 'MapJumpNowSelectPosLabel',
+                text: () => `Now Selected: ${this.signalTable.SelectJumpPos.get().x}, ${this.signalTable.SelectJumpPos.get().y}`,
                 style,
             });
             g.add.Button({
@@ -655,6 +663,7 @@ export class CreateGui {
                 onClick: () => {
                     const pos = this.signalTable.SelectJumpPos.get();
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.PlayerJump(pos.x, pos.y);
+                    drawMap().catch(console.error);
                 },
                 style,
             });
@@ -664,6 +673,7 @@ export class CreateGui {
                 onClick: () => {
                     const pos = this.signalTable.SelectJumpPos.get();
                     thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.PlayerMove(pos.x, pos.y);
+                    drawMap().catch(console.error);
                 },
                 style,
             });
@@ -672,6 +682,15 @@ export class CreateGui {
                 id: 'MapCanvas_KKSs_Canvas',
                 element: document.createElement('canvas'),
             });
+            {
+                const el = MapCanvas_KKSs_.getElementToContain<HTMLCanvasElement>()!;
+                // overflow: auto; -webkit-overflow-scrolling: touch;
+                el.style.overflow = 'auto';
+                el.style.setProperty('-webkit-overflow-scrolling', 'touch');
+            }
+            this.signalTable.SelectJumpPos.set(
+                thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.PlayerPosition(),
+            );
         }
 
         // ApplyRestraint

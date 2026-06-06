@@ -354,7 +354,7 @@ export class MapGet {
         };
     }
 
-    drawMapCanvas_KKSs_(node: HTMLCanvasElement, clickCallback: (x: number, y: number) => any, blockSize = 16,) {
+    drawMapCanvas_KKSs_fabric(node: HTMLCanvasElement, clickCallback: (x: number, y: number) => any, blockSize = 16,) {
         let m = this.MapKKSsMGet();
         let mm = m.split("\n");
 
@@ -908,6 +908,10 @@ export class MapGet {
 
     PlayerJump(x: number, y: number) {
         return KDMovePlayer(x, y, true, false, false, false, true);
+    }
+
+    PlayerPosition() {
+        return {x: KinkyDungeonPlayerEntity.x, y: KinkyDungeonPlayerEntity.y};
     }
 
 }
