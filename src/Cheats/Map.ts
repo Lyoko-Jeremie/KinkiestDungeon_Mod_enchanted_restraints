@@ -1,5 +1,9 @@
-import {uniq, filter} from 'lodash';
+import {uniq} from 'lodash';
 import fabric from 'fabric';
+
+function getRandomIndex(max: number, min: number = 0) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export class MapGet {
 
@@ -739,11 +743,15 @@ export class MapGet {
     // 		KDInteractNewTile(createdTile);
     // 		return createdTile;
 
-    SetTrapAt(position?: { x: number, y: number },) {
+    SetTrapAt(position?: { x: number, y: number }, trapSpell?: string/* = 'TrapLatexBubble'*/) {
         let altType = KDGetAltType(MiniGameKinkyDungeonLevel);
         let drawFloor = altType?.skin ? altType.skin : (KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] || MiniGameKinkyDungeonCheckpoint);
         // floorParams
         const traps = KinkyDungeonMapParams[drawFloor].traps;
+        if (!traps) {
+            console.warn('No traps found for floor', drawFloor);
+            return;
+        }
         // 		"traps": [
         // 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},
         // 			{Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 30},
@@ -770,14 +778,24 @@ export class MapGet {
         console.log('traps', traps);
         console.log('trapList', trapList);
 
+        if (trapList.length === 0) {
+            console.warn('No traps found for spell');
+            return;
+        }
+
         const pos = position ?? this.PlayerPosition();
-        const trap = trapList.find((trap) => trap.Spell === 'TrapLatexBubble');
+        let trap;
+        if (trapSpell) {
+            trap = trapList.find((trap) => trap.Spell === trapSpell);
+        } else {
+            trap = trapList[getRandomIndex(trapList.length)];
+        }
         if (!trap) {
-            console.warn('未找到指定陷阱，无法设置', 'TrapLatexBubble');
+            console.warn('No trap found for spell', trapSpell);
             return;
         }
         KinkyDungeonMapSet(pos.x, pos.y, 'T') ? console.log('SetMap Ok') : console.warn('SetMap Failed');
-        const TilesData=  KinkyDungeonTilesSet(pos.x + "," + pos.y, {
+        const TilesData = KinkyDungeonTilesSet(pos.x + "," + pos.y, {
             Type: "Trap",
             Trap: trap?.Name,
             Restraint: (<any>trap)?.Restraint,
