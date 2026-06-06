@@ -813,6 +813,24 @@ export class MapGet {
 
     }
 
+    FillAll0ToTap() {
+        this.SetMapTrap((x, y, c) => {
+            if (c === '0') {
+                this.SetTrapAt({x, y});
+            }
+            return c;
+        });
+    }
+
+    FillAll2ToTap() {
+        this.SetMapTrap((x, y, c) => {
+            if (c === '2') {
+                this.SetTrapAt({x, y});
+            }
+            return c;
+        });
+    }
+
     SetAllBedAreTrap() {
         this.SetMapTrap((x, y, c) => {
             if (c === 'B') {
