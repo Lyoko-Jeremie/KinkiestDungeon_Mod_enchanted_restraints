@@ -313,7 +313,7 @@ export class CreateGui {
     initMod = () => {
         const thisRef = this;
         thisRef.winRef.addEventListener('keydown', (event) => {
-            console.log('keydown', event);
+            // console.log('keydown', event);
             if (event.altKey && (event.key === 'Q' || event.key === 'q')) {
                 this.triggerUi();
             }
@@ -361,6 +361,12 @@ export class CreateGui {
         // this.appRef.root.style.pointerEvents = 'initial';
         // this.appRef.root.style.position = 'relative';
         // this.appRef.root.style.zIndex = '1';
+
+        this.appRef.host.addEventListener('keydown', (event) => {
+            if (event.altKey && (event.key === 'Q' || event.key === 'q')) {
+                this.triggerUi();
+            }
+        });
 
         this.appRef.pauseRendering();
 
@@ -570,6 +576,10 @@ export class CreateGui {
                 },
             });
 
+            const style = {
+                margin: '0.15em 0.25em',
+            };
+
             c.add.Button({
                 id: 'MapCanvas_KKSs_',
                 text: StringTable['MapKKSsMGet'],
@@ -586,6 +596,7 @@ export class CreateGui {
                     el.style.overflow = 'auto';
                     el.style.setProperty('-webkit-overflow-scrolling', 'touch');
                 },
+                style,
             });
 
             let g;
@@ -595,6 +606,7 @@ export class CreateGui {
             });
             g.add.Label({
                 text: computed(() => `Map Block Size: ${this.signalTable.MapBlockSize.get()}`),
+                style,
             });
             g.add.Button({
                 id: 'MapBlockSizePlus',
@@ -603,6 +615,7 @@ export class CreateGui {
                     const o = this.signalTable.MapBlockSize.get() + 1;
                     this.signalTable.MapBlockSize.set(o);
                 },
+                style,
             });
             g.add.Button({
                 id: 'MapBlockSizeMinus',
@@ -611,6 +624,7 @@ export class CreateGui {
                     const o = this.signalTable.MapBlockSize.get() - 1;
                     this.signalTable.MapBlockSize.set(Math.max(1, o));
                 },
+                style,
             });
 
             g = c.add.Group({
@@ -618,14 +632,25 @@ export class CreateGui {
             });
             g.add.Label({
                 text: `Now Selected: ${this.signalTable.SelectJumpPos.get().x}, ${this.signalTable.SelectJumpPos.get().y}`,
+                style,
             });
             g.add.Button({
                 id: 'MapJumpToSelect',
                 text: 'Jump !!!',
                 onClick: () => {
                     const pos = this.signalTable.SelectJumpPos.get();
-                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.MapJump(pos.x, pos.y);
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.PlayerJump(pos.x, pos.y);
                 },
+                style,
+            });
+            g.add.Button({
+                id: 'MapMoveToSelect',
+                text: 'Move !!!',
+                onClick: () => {
+                    const pos = this.signalTable.SelectJumpPos.get();
+                    thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.PlayerMove(pos.x, pos.y);
+                },
+                style,
             });
 
             const MapCanvas_KKSs_ = c.add.HTMLContainer({

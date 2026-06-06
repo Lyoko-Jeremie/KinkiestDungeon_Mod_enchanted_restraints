@@ -900,6 +900,16 @@ export class MapGet {
         console.log('ListAllCheats', cheatsList);
         return cheatsList;
     }
+
+    PlayerMove(x: number, y: number) {
+        // function KDMovePlayer(moveX: number, moveY: number, willing: boolean, sprint?: boolean, forceHitBullets?: boolean, suppressNoise?: boolean, noEvent?: boolean): boolean
+        return KDMovePlayer(x, y, true, false, false, false, false);
+    }
+
+    PlayerJump(x: number, y: number) {
+        return KDMovePlayer(x, y, true, false, false, false, true);
+    }
+
 }
 
 const SpecialChestsList = {

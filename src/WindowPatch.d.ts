@@ -805,5 +805,7 @@ declare global {
     let KinkyDungeonTorsoGrabChanceBonus = 0.2;
     let KinkyDungeonWeaponGrabChance = 1.0;
 
+    function KDMovePlayer(moveX: number, moveY: number, willing: boolean, sprint?: boolean, forceHitBullets?: boolean, suppressNoise?: boolean, noEvent?: boolean): boolean;
+
 }
 
