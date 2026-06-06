@@ -512,7 +512,7 @@ export class MapGet {
         // 3. 核心功能：绑定鼠标点击事件 (全局监听，数学解算坐标)
         canvas.on('mouse:down', (options) => {
             // 获取点击在 Canvas 里的相对坐标
-            const pointer = canvas.getPointer(options.e);
+            const pointer = canvas.getScenePoint(options.e);
 
             // 数学反推：将像素坐标转换为网格坐标
             const gridX = Math.floor(pointer.x / blockSize);
