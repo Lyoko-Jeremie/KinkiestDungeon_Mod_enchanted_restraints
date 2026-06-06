@@ -775,8 +775,8 @@ export class MapGet {
         // 		],
         const trapList = traps.filter(T => T.Name === 'SpecificSpell' && !!T.Spell?.startsWith('Trap'));
 
-        console.log('traps', traps);
-        console.log('trapList', trapList);
+        // console.log('traps', traps);
+        // console.log('trapList', trapList);
 
         if (trapList.length === 0) {
             console.warn('No traps found for spell');
@@ -794,7 +794,7 @@ export class MapGet {
             console.warn('No trap found for spell', trapSpell);
             return;
         }
-        KinkyDungeonMapSet(pos.x, pos.y, 'T') ? console.log('SetMap Ok') : console.warn('SetMap Failed');
+        KinkyDungeonMapSet(pos.x, pos.y, 'T')/* ? console.log('SetMap Ok') : console.warn('SetMap Failed')*/;
         const TilesData = KinkyDungeonTilesSet(pos.x + "," + pos.y, {
             Type: "Trap",
             Trap: trap?.Name,
@@ -809,7 +809,7 @@ export class MapGet {
             Power: trap?.Power,
             // OL: tile?.OL,
         });
-        console.log('TilesData', TilesData);
+        // console.log('TilesData', TilesData);
 
     }
 
