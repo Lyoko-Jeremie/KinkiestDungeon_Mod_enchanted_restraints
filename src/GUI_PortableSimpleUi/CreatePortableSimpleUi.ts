@@ -1,6 +1,6 @@
 import {
     AppRoot, computed,
-    ContainerComponent,
+    ContainerComponent, effect,
     ISelectOption,
     type IZoneWrapper,
     makeDataAccessor,
@@ -204,6 +204,7 @@ export class CreateGui {
         MapBlockSize: signal<number>(0),
         SelectJumpPos: signal({x: 0, y: 0}),
         CanvasFabric: signal<fabric.Canvas | null>(null),
+        LastSelectedTab: signal<string>(''),
     } as const;
 
     calcGoddessRepKeyListSelect = () => {
@@ -424,6 +425,12 @@ export class CreateGui {
             style: {
                 margin: '20px',
             },
+            activeTabId: this.signalTable.LastSelectedTab.get(),
+        });
+
+        effect(() => {
+            const t = tabs.activeTabSignal.get();
+            this.signalTable.LastSelectedTab.set(t);
         });
 
         // tab install mod
