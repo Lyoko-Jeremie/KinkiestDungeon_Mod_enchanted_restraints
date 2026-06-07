@@ -2306,24 +2306,25 @@ export class CreateGui {
                 style,
             });
 
-            const calcNK = () => {
+            const calcNK = (skipLock?: boolean | undefined) => {
                 const v = NowWearRestraintItemSelect.state.selectedKey;
                 const k = LockSelect.state.value as LockList | undefined;
                 const l = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.getNowWearRestraintItem();
-                if (!!k) {
+                if (!!k || skipLock) {
                     const n = l.find(T => T.restraint?.name === v);
                     if (n) {
                         return {v, k, n};
                     }
                     console.warn('calcNK not found', v);
                 }
+                console.warn('calcNK no lock selected');
                 return undefined;
             }
             const NowWearRestraintItemSelect = c.add.Autocomplete({
                 options: () => this.calcNowWearRestraintItemSelect(),
                 value: 'None',
                 onSelect: () => {
-                    const result = calcNK();
+                    const result = calcNK(true);
                     if (result) {
                         const {v, k, n} = result;
                         const d = thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.GetNowRestraintDifficultyNumber(n.item);
@@ -2368,7 +2369,7 @@ export class CreateGui {
                 id: 'RemoveNowWearRestraintItem',
                 text: StringTable['RemoveNowWearRestraintItem'],
                 onClick: () => {
-                    const result = calcNK();
+                    const result = calcNK(true);
                     if (result) {
                         const {v, k, n} = result;
                         thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.RemoveRestraintSpecific(n.item, true);
@@ -2400,7 +2401,7 @@ export class CreateGui {
                 id: 'SetNowWearRestraintItemDifficulty',
                 text: StringTable['SetNowWearRestraintItemDifficulty'],
                 onClick: () => {
-                    const result = calcNK();
+                    const result = calcNK(true);
                     if (result) {
                         const {v, k, n} = result;
                         thisRef.winRef.KinkyDungeonMod_EnchantedRestraints.Cheats.SetNowRestraintDifficulty(
