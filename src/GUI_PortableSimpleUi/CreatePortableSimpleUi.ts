@@ -40,7 +40,7 @@ export class CreateGui {
     };
 
     get version() {
-        return '2.3';
+        return '2.4';
     }
 
     dropdownMaxHeight = '20em';
