@@ -38,6 +38,7 @@ addCheatPerk();
 
 console.log("disable Data Trace");
 // disable Data Trace, to avoid cheats game data send to server
+// @ts-ignore
 window.KDOptOut = true;
 
 console.timeEnd("enchanted_restraints init load time");
