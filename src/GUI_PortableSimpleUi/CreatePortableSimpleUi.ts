@@ -1,6 +1,8 @@
 import {
-    AppRoot, computed,
-    ContainerComponent, effect,
+    AppRoot,
+    computed,
+    ContainerComponent,
+    effect,
     ISelectOption,
     type IZoneWrapper,
     makeDataAccessor,
@@ -23,7 +25,6 @@ import {KDLocksTypeInstance, LockList} from "../Cheats/LockList";
 import {PatchSpell} from "../Cheats/PatchSpell";
 import {HumanName2LockList, LockList2HumanName, StringTable} from "../GUI_StringTable/StringTable";
 import {playDing, PlayDingType} from "../Sound/Sound";
-import {InitOptionsNoCustom} from "../GM_config_TS/gm_config";
 import fabric from "fabric";
 
 KDOptOut = true;
