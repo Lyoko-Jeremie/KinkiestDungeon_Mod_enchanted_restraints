@@ -22,8 +22,10 @@ export function addCheatPerk() {
     addTextKey(textKeyPrefix + 'CheatPerk2', '作弊 Perk 2');
     addTextKey(textKeyDescPrefix + 'CheatPerk2', '真的不康康这个吗？！');
 
+    // @ts-ignore
     KDPerkUpdateStats['CheatPerk1'] = () => {
     };
+    // @ts-ignore
     KDPerkUpdateStats['CheatPerk2'] = () => {
     };
 
