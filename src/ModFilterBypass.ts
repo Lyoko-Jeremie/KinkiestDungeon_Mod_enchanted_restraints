@@ -36,6 +36,7 @@ export class ModFilterBypass {
     installHook() {
         this.old_KDLoadPerks = KDLoadPerks;
         const self = this;
+        // @ts-ignore
         KDLoadPerks = () => {
             self.hook_KDLoadPerks();
             self.old_KDLoadPerks!.apply(this, arguments);

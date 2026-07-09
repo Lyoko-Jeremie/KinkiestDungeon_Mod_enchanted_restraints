@@ -6075,7 +6075,7 @@ declare let KDDebugGold: boolean;
 declare let KDDebugLink: boolean;
 declare let KDDebugforceadds: boolean;
 declare let KDAllModFiles: any[];
-declare let KDModFiles: {};
+declare let KDModFiles: Record<string, any>;
 declare let VersionMajor: number;
 declare let VersionMinor: number;
 declare let VersionPatch: number;
